@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.8-SNAPSHOT'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
+    gradlePluginPortal()
+}
+
+dependencies {
+
+    //spring
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
+
+    //other
+    implementation("org.json:json:$jsonVersion")
+
+    implementation("com.google.code.gson:gson:${gsonVersion}")
+    implementation("com.squareup.okhttp3:okhttp:3.4.1")
+    implementation("commons-beanutils:commons-beanutils:$beanutilsVersion")
+    implementation("commons-configuration:commons-configuration:$commonsConfigurationVersion")
+    implementation("commons-lang:commons-lang:$commonsLang2Version")
+    implementation("io.swagger.core.v3:swagger-annotations:${swaggerAnnotationsVersion}")
+    implementation("jakarta.annotation:jakarta.annotation-api:${jakartaAnnotationVersion}")
+    implementation("javax.activation:activation:$activationVersion")
+    implementation("javax.mail:mail:$javaMailVersion")
+    implementation("org.apache.commons:commons-dbcp2:$commonsDbcp2Version")
+    implementation("org.apache.commons:commons-digester3:$commonsDigester3Version")
+    implementation("org.apache.commons:commons-pool2:$commonsPool2Version")
+    implementation("org.apache.httpcomponents.client5:httpclient5:${httpclientVersion}")
+    implementation("org.modelmapper:modelmapper:$modelMakerVersion")
+    implementation("org.postgresql:postgresql:$postgresVerson")
+    implementation("org.threeten:threetenbp:${threetenbpVersion}")
+
+    //lombok
+    implementation ("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor ("org.projectlombok:lombok:$lombokVersion")
+
+    //test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+test {
+    useJUnitPlatform()
+}
