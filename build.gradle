@@ -18,6 +18,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'mysql:mysql-connector-java:8.0.33'
+
     implementation platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
 
     //other
@@ -37,7 +39,6 @@ dependencies {
     implementation("org.apache.commons:commons-pool2:$commonsPool2Version")
     implementation("org.apache.httpcomponents.client5:httpclient5:${httpclientVersion}")
     implementation("org.modelmapper:modelmapper:$modelMakerVersion")
-    implementation("org.postgresql:postgresql:$postgresVerson")
     implementation("org.threeten:threetenbp:${threetenbpVersion}")
 
     //lombok

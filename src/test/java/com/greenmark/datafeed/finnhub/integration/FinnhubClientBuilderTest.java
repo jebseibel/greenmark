@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.greenmark.database.finnhub.integration;
+package com.greenmark.datafeed.finnhub.integration;
 
 import com.greenmark.datafeed.finnhub.models.Quote;
 import com.greenmark.datafeed.finnhub.models.StockSymbol;

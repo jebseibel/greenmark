@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.greenmark.database.finnhub;
+package com.greenmark.datafeed.finnhub;
 
 import com.greenmark.datafeed.finnhub.client.FinnhubClient;
 import com.greenmark.datafeed.finnhub.models.Quote;
