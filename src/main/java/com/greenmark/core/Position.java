@@ -1,7 +1,6 @@
 package com.greenmark.core;
 
 import com.greenmark.common.core.Labels;
-import com.greenmark.utils.UTCalendarTime;
 import com.greenmark.utils.UTDisplayFormatter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
 import java.util.Hashtable;
+
+import static com.greenmark.core.enums.PositionStatus.*;
 
 /**
  * <p>Title: </p>
@@ -71,12 +72,7 @@ public class Position {
 
 	//  Used when we pain on a position and try to recover.
 	protected int positionStatus = POSITION_STATUS_NORMAL;
-	public static final int POSITION_STATUS_NORMAL = 0;
-	public static final int POSITION_STATUS_PAIN_SLOW = 1;
-	public static final int POSITION_STATUS_PAIN_DROPCAT = 2;
-	public static final int POSITION_STATUS_PAIN_DROPCAT_PAINFORGOOD = 3;
-	public static final int POSITION_STATUS_PAIN_SPIKEFILTER = 4;
-	public static final int POSITION_STATUS_PAIN_SPIKEFILTER_PAINFORGOOD = 5;
+
 
 
 	public Position( )

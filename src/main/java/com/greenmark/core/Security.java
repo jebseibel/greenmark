@@ -94,10 +94,4 @@ public class Security
       this.exchanges = exchanges;
    }
 
-   public void addExchange(Exchange exchange)
-   {
-      if (this.exchanges == null) this.exchanges = new Vector();
-      this.exchanges.add( exchange );
-   }
-
 }

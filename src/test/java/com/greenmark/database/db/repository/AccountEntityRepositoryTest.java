@@ -1,6 +1,6 @@
 package com.greenmark.database.db.repository;
 
-import com.greenmark.database.db.entity.Account;
+import com.greenmark.database.db.entity.AccountEntity;
 import com.greenmark.database.db.DomainBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class AccountRepositoryTest {
+class AccountEntityRepositoryTest {
 
     @Autowired
     private AccountRepository repository;
@@ -34,9 +34,9 @@ class AccountRepositoryTest {
 
         @Test
         void create() {
-            Account item = DomainBuilder.getAccount();
+            AccountEntity item = DomainBuilder.getAccount();
             assertNull(item.getId());
-            Account result = repository.save(item);
+            AccountEntity result = repository.save(item);
 
             //test
             assertNotNull(result);
@@ -47,8 +47,8 @@ class AccountRepositoryTest {
         @Test
         void createUniqueName() {
             String name = "notUnique_"+DomainBuilder.randomPositiveString();
-            Account item1 = DomainBuilder.getAccount(name);
-            Account item2 = DomainBuilder.getAccount(name);
+            AccountEntity item1 = DomainBuilder.getAccount(name);
+            AccountEntity item2 = DomainBuilder.getAccount(name);
             
             try {
                 repository.save(item1);
@@ -63,16 +63,16 @@ class AccountRepositoryTest {
 
         @Test
         void update() {
-            Account item = DomainBuilder.getAccount();
+            AccountEntity item = DomainBuilder.getAccount();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
-            Account record = repository.save(item);
+            AccountEntity record = repository.save(item);
 
             //now update
             String changedDescription = "description_update";
             record.setDescription(changedDescription);
             record.setModifiedAt(LocalDateTime.now());
-            Account resultUpdate = repository.save(record);
+            AccountEntity resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -82,14 +82,14 @@ class AccountRepositoryTest {
 
         @Test
         void delete() {
-            Account item = DomainBuilder.getAccount();
+            AccountEntity item = DomainBuilder.getAccount();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
-            Account record = repository.save(item);
+            AccountEntity record = repository.save(item);
 
             //now update
             record.setDeletedAt(LocalDateTime.now());
-            Account resultUpdate = repository.save(record);
+            AccountEntity resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -103,9 +103,9 @@ class AccountRepositoryTest {
         @Test
         void findById() {
             String name = "name"+DomainBuilder.randomPositiveString();
-            Account record = DomainBuilder.getAccount(name);
-            Account item = repository.save(record);
-            Account result = repository.findById(item.getId()).get();
+            AccountEntity record = DomainBuilder.getAccount(name);
+            AccountEntity item = repository.save(record);
+            AccountEntity result = repository.findById(item.getId()).get();
 
             //test
             assertNotNull(result);
@@ -115,11 +115,11 @@ class AccountRepositoryTest {
         @Test
         void findByExtid() {
             String extid = UUID.randomUUID().toString();
-            Account record = DomainBuilder.getAccount();
+            AccountEntity record = DomainBuilder.getAccount();
             record.setExtid(extid);
 
             repository.save(record);
-            Account result = repository.findByExtid(extid);
+            AccountEntity result = repository.findByExtid(extid);
 
             //test
             assertNotNull(result);
@@ -129,10 +129,10 @@ class AccountRepositoryTest {
         @Test
         void findByName() {
             String name = "name"+DomainBuilder.randomPositiveString();
-            Account record = DomainBuilder.getAccount(name);
+            AccountEntity record = DomainBuilder.getAccount(name);
 
             repository.save(record);
-            Account result = repository.findByName(name);
+            AccountEntity result = repository.findByName(name);
 
             //test
             assertNotNull(result);

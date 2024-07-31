@@ -14,7 +14,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class AccountDbServiceTest {
+class AccountEntityDbServiceTest {
     @Autowired
     private AccountDbService service;
 

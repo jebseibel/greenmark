@@ -16,22 +16,22 @@ public class DomainBuilder
 
     // ///////////////////////////////////////////////////////////////////
     public static AccountDb getAccountDb() {
-        Account item = getAccount(null, null);
+        AccountEntity item = getAccount(null, null);
         return AccountMapper.toDb(item);
     }
-    public static Account getAccount() {
+    public static AccountEntity getAccount() {
         return getAccount(null, null);
     }
-    public static Account getAccount(String name) {
+    public static AccountEntity getAccount(String name) {
         return getAccount(name, null);
     }
-    public static Account getAccount(
+    public static AccountEntity getAccount(
             String thisName,
             String thisDescription
     ) {
 
         String random = getNameRandom();
-        Account item = new Account();
+        AccountEntity item = new AccountEntity();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom(random));
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom(random));
