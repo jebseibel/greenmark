@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.28.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1720710223789-28" author="jeb">
+        <createTable tableName="account">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY"/>
+            </column>
+            <column name="name" type="VARCHAR(64)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(128)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime"/>
+            <column name="modified_at" type="datetime"/>
+            <column name="deleted_at" type="datetime"/>
+            <column name="active" type="SMALLINT"/>
+        </createTable>
+        <createTable tableName="account_type">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY"/>
+            </column>
+            <column name="name" type="VARCHAR(64)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(128)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime"/>
+            <column name="modified_at" type="datetime"/>
+            <column name="deleted_at" type="datetime"/>
+            <column name="active" type="SMALLINT"/>
+        </createTable>
+        <createTable tableName="bucket">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY"/>
+            </column>
+            <column name="name" type="VARCHAR(64)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(128)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="account_type" type="datetime"/>
+            <column name="created_at" type="datetime"/>
+            <column name="modified_at" type="datetime"/>
+            <column name="deleted_at" type="datetime"/>
+            <column name="active" type="SMALLINT"/>
+        </createTable>
+        <createTable tableName="follow">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY"/>
+            </column>
+            <column name="name" type="VARCHAR(64)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(128)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime"/>
+            <column name="modified_at" type="datetime"/>
+            <column name="deleted_at" type="datetime"/>
+            <column name="active" type="SMALLINT"/>
+        </createTable>
+        <createTable tableName="scenario">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY"/>
+            </column>
+            <column name="name" type="VARCHAR(64)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(128)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime"/>
+            <column name="modified_at" type="datetime"/>
+            <column name="deleted_at" type="datetime"/>
+            <column name="active" type="SMALLINT"/>
+        </createTable>
+        <createTable tableName="stock">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRIMARY"/>
+            </column>
+            <column name="symbol" type="VARCHAR(8)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(64)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(128)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="ignore" type="INT"/>
+            <column name="created_at" type="datetime"/>
+            <column name="modified_at" type="datetime"/>
+            <column name="deleted_at" type="datetime"/>
+            <column name="active" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
