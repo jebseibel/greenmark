@@ -2,7 +2,7 @@ package com.greenmark.database.service;
 
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.FollowDb;
-import com.greenmark.database.db.entity.Follow;
+import com.greenmark.database.db.entity.FollowEntity;
 import com.greenmark.database.db.mapper.FollowMapper;
 import com.greenmark.database.db.repository.FollowRepository;
 import com.greenmark.database.exceptions.*;
@@ -39,7 +39,7 @@ public class FollowDbService extends BasicDbService {
         checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
 
         try {
-            Follow record = new Follow();
+            FollowEntity record = new FollowEntity();
             record.setExtid(extid);
             record.setName(name);
             record.setDescription(description);
@@ -47,7 +47,7 @@ public class FollowDbService extends BasicDbService {
             record.setActive(ActiveEnum.ACTIVE.value);
             System.out.println(record);
 
-            Follow saved = repository.save(record);
+            FollowEntity saved = repository.save(record);
             log.debug(getCreatedMessage(extid));
             return FollowMapper.toDb(saved);
         } catch (Exception e) {
@@ -74,13 +74,13 @@ public class FollowDbService extends BasicDbService {
      * @return
      */
     public FollowDb update(@NonNull String extid, String name, String description) throws FollowRetrievalFailureException, FollowUpdateFailureException {
-        Follow record = repository.findByExtid(extid);
+        FollowEntity record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         record.setName(name);
         record.setDescription(description);
         record.setModifiedAt(LocalDateTime.now());
-        Follow saved = repository.save(record);
+        FollowEntity saved = repository.save(record);
 
         if (saved == null) {
             throw new FollowUpdateFailureException("Follow with extid " + extid + " not saved");
@@ -99,7 +99,7 @@ public class FollowDbService extends BasicDbService {
      * @throws FollowRetrievalFailureException
      */
     public boolean delete(@NonNull String extid) throws FollowDeleteFailureException, FollowRetrievalFailureException {
-        Follow record = repository.findByExtid(extid);
+        FollowEntity record = repository.findByExtid(extid);
 
         // error if the record isn't there
         checkNullRecord(record, getFoundFailureMessage(extid));
@@ -107,7 +107,7 @@ public class FollowDbService extends BasicDbService {
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        Follow saved = repository.save(record);
+        FollowEntity saved = repository.save(record);
 
         // error delete failed
         checkDeletedFailure(saved, getDeletedFailureMessage(extid));
@@ -124,7 +124,7 @@ public class FollowDbService extends BasicDbService {
      * @return boolean
      */
     public FollowDb findByExtid(@NonNull String extid) throws FollowRetrievalFailureException {
-        Follow record = repository.findByExtid(extid);
+        FollowEntity record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         log.info(getFoundMessage(extid));
@@ -140,7 +140,7 @@ public class FollowDbService extends BasicDbService {
      * @param message
      * @throws FollowRetrievalFailureException
      */
-    private void checkNullRecord(Follow record, String message) throws FollowRetrievalFailureException {
+    private void checkNullRecord(FollowEntity record, String message) throws FollowRetrievalFailureException {
         if (record == null) {
             throw new FollowRetrievalFailureException(message);
         }
@@ -152,7 +152,7 @@ public class FollowDbService extends BasicDbService {
      * @param message
      * @throws FollowUpdateFailureException
      */
-    private void checkUpdatedFailure(Follow record, String message) throws FollowUpdateFailureException {
+    private void checkUpdatedFailure(FollowEntity record, String message) throws FollowUpdateFailureException {
         if (record == null) {
             throw new FollowUpdateFailureException(message);
         }
@@ -164,7 +164,7 @@ public class FollowDbService extends BasicDbService {
      * @param message
      * @throws FollowDeleteFailureException
      */
-    private void checkDeletedFailure(Follow record, String message) throws FollowDeleteFailureException {
+    private void checkDeletedFailure(FollowEntity record, String message) throws FollowDeleteFailureException {
         if (record == null) {
             throw new FollowDeleteFailureException(message);
         }
@@ -177,7 +177,7 @@ public class FollowDbService extends BasicDbService {
      * @throws FollowCreateFailureException
      */
     private void checkCreatedAlready(String extid, String message) throws FollowCreateFailureException {
-        Follow record = repository.findByExtid(extid);
+        FollowEntity record = repository.findByExtid(extid);
         if (record != null) {
             throw new FollowCreateFailureException(message);
         }

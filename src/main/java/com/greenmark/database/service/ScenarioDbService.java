@@ -2,7 +2,7 @@ package com.greenmark.database.service;
 
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.ScenarioDb;
-import com.greenmark.database.db.entity.Scenario;
+import com.greenmark.database.db.entity.ScenarioEntity;
 import com.greenmark.database.db.mapper.ScenarioMapper;
 import com.greenmark.database.db.repository.ScenarioRepository;
 import com.greenmark.database.exceptions.*;
@@ -39,7 +39,7 @@ public class ScenarioDbService extends BasicDbService {
         checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
 
         try {
-            Scenario record = new Scenario();
+            ScenarioEntity record = new ScenarioEntity();
             record.setExtid(extid);
             record.setName(name);
             record.setDescription(description);
@@ -47,7 +47,7 @@ public class ScenarioDbService extends BasicDbService {
             record.setActive(ActiveEnum.ACTIVE.value);
             System.out.println(record);
 
-            Scenario saved = repository.save(record);
+            ScenarioEntity saved = repository.save(record);
             log.debug(getCreatedMessage(extid));
             return ScenarioMapper.toDb(saved);
         } catch (Exception e) {
@@ -74,13 +74,13 @@ public class ScenarioDbService extends BasicDbService {
      * @return
      */
     public ScenarioDb update(@NonNull String extid, String name, String description) throws ScenarioRetrievalFailureException, ScenarioUpdateFailureException {
-        Scenario record = repository.findByExtid(extid);
+        ScenarioEntity record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         record.setName(name);
         record.setDescription(description);
         record.setModifiedAt(LocalDateTime.now());
-        Scenario saved = repository.save(record);
+        ScenarioEntity saved = repository.save(record);
 
         if (saved == null) {
             throw new ScenarioUpdateFailureException("Scenario with extid " + extid + " not saved");
@@ -99,7 +99,7 @@ public class ScenarioDbService extends BasicDbService {
      * @throws ScenarioRetrievalFailureException
      */
     public boolean delete(@NonNull String extid) throws ScenarioDeleteFailureException, ScenarioRetrievalFailureException {
-        Scenario record = repository.findByExtid(extid);
+        ScenarioEntity record = repository.findByExtid(extid);
 
         // error if the record isn't there
         checkNullRecord(record, getFoundFailureMessage(extid));
@@ -107,7 +107,7 @@ public class ScenarioDbService extends BasicDbService {
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        Scenario saved = repository.save(record);
+        ScenarioEntity saved = repository.save(record);
 
         // error delete failed
         checkDeletedFailure(saved, getDeletedFailureMessage(extid));
@@ -124,7 +124,7 @@ public class ScenarioDbService extends BasicDbService {
      * @return boolean
      */
     public ScenarioDb findByExtid(@NonNull String extid) throws ScenarioRetrievalFailureException {
-        Scenario record = repository.findByExtid(extid);
+        ScenarioEntity record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         log.info(getFoundMessage(extid));
@@ -140,7 +140,7 @@ public class ScenarioDbService extends BasicDbService {
      * @param message
      * @throws ScenarioRetrievalFailureException
      */
-    private void checkNullRecord(Scenario record, String message) throws ScenarioRetrievalFailureException {
+    private void checkNullRecord(ScenarioEntity record, String message) throws ScenarioRetrievalFailureException {
         if (record == null) {
             throw new ScenarioRetrievalFailureException(message);
         }
@@ -152,7 +152,7 @@ public class ScenarioDbService extends BasicDbService {
      * @param message
      * @throws ScenarioUpdateFailureException
      */
-    private void checkUpdatedFailure(Scenario record, String message) throws ScenarioUpdateFailureException {
+    private void checkUpdatedFailure(ScenarioEntity record, String message) throws ScenarioUpdateFailureException {
         if (record == null) {
             throw new ScenarioUpdateFailureException(message);
         }
@@ -164,7 +164,7 @@ public class ScenarioDbService extends BasicDbService {
      * @param message
      * @throws ScenarioDeleteFailureException
      */
-    private void checkDeletedFailure(Scenario record, String message) throws ScenarioDeleteFailureException {
+    private void checkDeletedFailure(ScenarioEntity record, String message) throws ScenarioDeleteFailureException {
         if (record == null) {
             throw new ScenarioDeleteFailureException(message);
         }
@@ -177,7 +177,7 @@ public class ScenarioDbService extends BasicDbService {
      * @throws ScenarioCreateFailureException
      */
     private void checkCreatedAlready(String extid, String message) throws ScenarioCreateFailureException {
-        Scenario record = repository.findByExtid(extid);
+        ScenarioEntity record = repository.findByExtid(extid);
         if (record != null) {
             throw new ScenarioCreateFailureException(message);
         }

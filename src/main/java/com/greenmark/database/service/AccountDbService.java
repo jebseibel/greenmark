@@ -2,7 +2,7 @@ package com.greenmark.database.service;
 
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.AccountDb;
-import com.greenmark.database.db.entity.Account;
+import com.greenmark.database.db.entity.AccountEntity;
 import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
 import com.greenmark.database.exceptions.*;
@@ -39,7 +39,7 @@ public class AccountDbService extends BasicDbService {
         checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
 
         try {
-            Account record = new Account();
+            AccountEntity record = new AccountEntity();
             record.setExtid(extid);
             record.setName(name);
             record.setDescription(description);
@@ -47,7 +47,7 @@ public class AccountDbService extends BasicDbService {
             record.setActive(ActiveEnum.ACTIVE.value);
             System.out.println(record);
 
-            Account saved = repository.save(record);
+            AccountEntity saved = repository.save(record);
             log.debug(getCreatedMessage(extid));
             return AccountMapper.toDb(saved);
         } catch (Exception e) {
@@ -74,13 +74,13 @@ public class AccountDbService extends BasicDbService {
      * @return
      */
     public AccountDb update(@NonNull String extid, String name, String description) throws AccountRetrievalFailureException, AccountUpdateFailureException {
-        Account record = repository.findByExtid(extid);
+        AccountEntity record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         record.setName(name);
         record.setDescription(description);
         record.setModifiedAt(LocalDateTime.now());
-        Account saved = repository.save(record);
+        AccountEntity saved = repository.save(record);
 
         if (saved == null) {
             throw new AccountUpdateFailureException("Account with extid " + extid + " not saved");
@@ -99,7 +99,7 @@ public class AccountDbService extends BasicDbService {
      * @throws AccountRetrievalFailureException
      */
     public boolean delete(@NonNull String extid) throws AccountDeleteFailureException, AccountRetrievalFailureException {
-        Account record = repository.findByExtid(extid);
+        AccountEntity record = repository.findByExtid(extid);
 
         // error if the record isn't there
         checkNullRecord(record, getFoundFailureMessage(extid));
@@ -107,7 +107,7 @@ public class AccountDbService extends BasicDbService {
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        Account saved = repository.save(record);
+        AccountEntity saved = repository.save(record);
 
         // error delete failed
         checkDeletedFailure(saved, getDeletedFailureMessage(extid));
@@ -124,7 +124,7 @@ public class AccountDbService extends BasicDbService {
      * @return boolean
      */
     public AccountDb findByExtid(@NonNull String extid) throws AccountRetrievalFailureException {
-        Account record = repository.findByExtid(extid);
+        AccountEntity record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         log.info(getFoundMessage(extid));
@@ -140,7 +140,7 @@ public class AccountDbService extends BasicDbService {
      * @param message
      * @throws AccountRetrievalFailureException
      */
-    private void checkNullRecord(Account record, String message) throws AccountRetrievalFailureException {
+    private void checkNullRecord(AccountEntity record, String message) throws AccountRetrievalFailureException {
         if (record == null) {
             throw new AccountRetrievalFailureException(message);
         }
@@ -152,7 +152,7 @@ public class AccountDbService extends BasicDbService {
      * @param message
      * @throws AccountUpdateFailureException
      */
-    private void checkUpdatedFailure(Account record, String message) throws AccountUpdateFailureException {
+    private void checkUpdatedFailure(AccountEntity record, String message) throws AccountUpdateFailureException {
         if (record == null) {
             throw new AccountUpdateFailureException(message);
         }
@@ -164,7 +164,7 @@ public class AccountDbService extends BasicDbService {
      * @param message
      * @throws AccountDeleteFailureException
      */
-    private void checkDeletedFailure(Account record, String message) throws AccountDeleteFailureException {
+    private void checkDeletedFailure(AccountEntity record, String message) throws AccountDeleteFailureException {
         if (record == null) {
             throw new AccountDeleteFailureException(message);
         }
@@ -177,7 +177,7 @@ public class AccountDbService extends BasicDbService {
      * @throws AccountCreateFailureException
      */
     private void checkCreatedAlready(String extid, String message) throws AccountCreateFailureException {
-        Account record = repository.findByExtid(extid);
+        AccountEntity record = repository.findByExtid(extid);
         if (record != null) {
             throw new AccountCreateFailureException(message);
         }

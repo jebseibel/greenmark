@@ -2,7 +2,7 @@ package com.greenmark.database.db.mapper;
 
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.BucketDb;
-import com.greenmark.database.db.entity.Bucket;
+import com.greenmark.database.db.entity.BucketEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +11,7 @@ class BucketMapperTest {
 
     @Test
     void testToDb() {
-        Bucket item = DomainBuilder.getBucket();
+        BucketEntity item = DomainBuilder.getBucket();
         BucketDb itemDb = BucketMapper.toDb(item);
 
         //test

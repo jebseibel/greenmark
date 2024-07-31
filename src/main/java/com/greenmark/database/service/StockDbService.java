@@ -2,7 +2,7 @@ package com.greenmark.database.service;
 
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.StockDb;
-import com.greenmark.database.db.entity.Stock;
+import com.greenmark.database.db.entity.StockEntity;
 import com.greenmark.database.db.mapper.StockMapper;
 import com.greenmark.database.db.repository.StockRepository;
 import com.greenmark.database.exceptions.*;
@@ -39,7 +39,7 @@ public class StockDbService extends BasicDbService {
         checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
 
         try {
-            Stock record = new Stock();
+            StockEntity record = new StockEntity();
             record.setExtid(extid);
             record.setName(name);
             record.setDescription(description);
@@ -47,7 +47,7 @@ public class StockDbService extends BasicDbService {
             record.setActive(ActiveEnum.ACTIVE.value);
             System.out.println(record);
 
-            Stock saved = repository.save(record);
+            StockEntity saved = repository.save(record);
             log.debug(getCreatedMessage(extid));
             return StockMapper.toDb(saved);
         } catch (Exception e) {
@@ -74,13 +74,13 @@ public class StockDbService extends BasicDbService {
      * @return
      */
     public StockDb update(@NonNull String extid, String name, String description) throws StockRetrievalFailureException, StockUpdateFailureException {
-        Stock record = repository.findByExtid(extid);
+        StockEntity record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         record.setName(name);
         record.setDescription(description);
         record.setModifiedAt(LocalDateTime.now());
-        Stock saved = repository.save(record);
+        StockEntity saved = repository.save(record);
 
         if (saved == null) {
             throw new StockUpdateFailureException("Stock with extid " + extid + " not saved");
@@ -99,7 +99,7 @@ public class StockDbService extends BasicDbService {
      * @throws StockRetrievalFailureException
      */
     public boolean delete(@NonNull String extid) throws StockDeleteFailureException, StockRetrievalFailureException {
-        Stock record = repository.findByExtid(extid);
+        StockEntity record = repository.findByExtid(extid);
 
         // error if the record isn't there
         checkNullRecord(record, getFoundFailureMessage(extid));
@@ -107,7 +107,7 @@ public class StockDbService extends BasicDbService {
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        Stock saved = repository.save(record);
+        StockEntity saved = repository.save(record);
 
         // error delete failed
         checkDeletedFailure(saved, getDeletedFailureMessage(extid));
@@ -124,7 +124,7 @@ public class StockDbService extends BasicDbService {
      * @return boolean
      */
     public StockDb findByExtid(@NonNull String extid) throws StockRetrievalFailureException {
-        Stock record = repository.findByExtid(extid);
+        StockEntity record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         log.info(getFoundMessage(extid));
@@ -140,7 +140,7 @@ public class StockDbService extends BasicDbService {
      * @param message
      * @throws StockRetrievalFailureException
      */
-    private void checkNullRecord(Stock record, String message) throws StockRetrievalFailureException {
+    private void checkNullRecord(StockEntity record, String message) throws StockRetrievalFailureException {
         if (record == null) {
             throw new StockRetrievalFailureException(message);
         }
@@ -152,7 +152,7 @@ public class StockDbService extends BasicDbService {
      * @param message
      * @throws StockUpdateFailureException
      */
-    private void checkUpdatedFailure(Stock record, String message) throws StockUpdateFailureException {
+    private void checkUpdatedFailure(StockEntity record, String message) throws StockUpdateFailureException {
         if (record == null) {
             throw new StockUpdateFailureException(message);
         }
@@ -164,7 +164,7 @@ public class StockDbService extends BasicDbService {
      * @param message
      * @throws StockDeleteFailureException
      */
-    private void checkDeletedFailure(Stock record, String message) throws StockDeleteFailureException {
+    private void checkDeletedFailure(StockEntity record, String message) throws StockDeleteFailureException {
         if (record == null) {
             throw new StockDeleteFailureException(message);
         }
@@ -177,7 +177,7 @@ public class StockDbService extends BasicDbService {
      * @throws StockCreateFailureException
      */
     private void checkCreatedAlready(String extid, String message) throws StockCreateFailureException {
-        Stock record = repository.findByExtid(extid);
+        StockEntity record = repository.findByExtid(extid);
         if (record != null) {
             throw new StockCreateFailureException(message);
         }

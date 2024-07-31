@@ -1,7 +1,7 @@
 package com.greenmark.database.db.repository;
 
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.entity.Follow;
+import com.greenmark.database.db.entity.FollowEntity;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ class FollowRepositoryTest {
 
         @Test
         void create() {
-            Follow item = DomainBuilder.getFollow();
+            FollowEntity item = DomainBuilder.getFollow();
             assertNull(item.getId());
-            Follow result = repository.save(item);
+            FollowEntity result = repository.save(item);
 
             //test
             assertNotNull(result);
@@ -37,8 +37,8 @@ class FollowRepositoryTest {
         @Test
         void createUniqueName() {
             String name = "notUnique_"+DomainBuilder.randomPositiveString();
-            Follow item1 = DomainBuilder.getFollow(name);
-            Follow item2 = DomainBuilder.getFollow(name);
+            FollowEntity item1 = DomainBuilder.getFollow(name);
+            FollowEntity item2 = DomainBuilder.getFollow(name);
 
             try {
                 repository.save(item1);
@@ -53,16 +53,16 @@ class FollowRepositoryTest {
 
         @Test
         void update() {
-            Follow item = DomainBuilder.getFollow();
+            FollowEntity item = DomainBuilder.getFollow();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
-            Follow record = repository.save(item);
+            FollowEntity record = repository.save(item);
 
             //now update
             String changedDescription = "description_update";
             record.setDescription(changedDescription);
             record.setModifiedAt(LocalDateTime.now());
-            Follow resultUpdate = repository.save(record);
+            FollowEntity resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -72,14 +72,14 @@ class FollowRepositoryTest {
 
         @Test
         void delete() {
-            Follow item = DomainBuilder.getFollow();
+            FollowEntity item = DomainBuilder.getFollow();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
-            Follow record = repository.save(item);
+            FollowEntity record = repository.save(item);
 
             //now update
             record.setDeletedAt(LocalDateTime.now());
-            Follow resultUpdate = repository.save(record);
+            FollowEntity resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -93,9 +93,9 @@ class FollowRepositoryTest {
         @Test
         void findById() {
             String name = "name"+DomainBuilder.randomPositiveString();
-            Follow record = DomainBuilder.getFollow(name);
-            Follow item = repository.save(record);
-            Follow result = repository.findById(item.getId()).get();
+            FollowEntity record = DomainBuilder.getFollow(name);
+            FollowEntity item = repository.save(record);
+            FollowEntity result = repository.findById(item.getId()).get();
 
             //test
             assertNotNull(result);
@@ -105,11 +105,11 @@ class FollowRepositoryTest {
         @Test
         void findByExtid() {
             String extid = UUID.randomUUID().toString();
-            Follow record = DomainBuilder.getFollow();
+            FollowEntity record = DomainBuilder.getFollow();
             record.setExtid(extid);
 
             repository.save(record);
-            Follow result = repository.findByExtid(extid);
+            FollowEntity result = repository.findByExtid(extid);
 
             //test
             assertNotNull(result);
@@ -119,10 +119,10 @@ class FollowRepositoryTest {
         @Test
         void findByName() {
             String name = "name"+DomainBuilder.randomPositiveString();
-            Follow record = DomainBuilder.getFollow(name);
+            FollowEntity record = DomainBuilder.getFollow(name);
 
             repository.save(record);
-            Follow result = repository.findByName(name);
+            FollowEntity result = repository.findByName(name);
 
             //test
             assertNotNull(result);

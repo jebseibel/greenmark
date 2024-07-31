@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "follow")
-public class Follow {
+public class FollowEntity {
 
     @Id
     @Column(name = "id", nullable = false)

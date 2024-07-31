@@ -1,7 +1,7 @@
 package com.greenmark.database.db.repository;
 
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.entity.Scenario;
+import com.greenmark.database.db.entity.ScenarioEntity;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ class ScenarioRepositoryTest {
 
         @Test
         void create() {
-            Scenario item = DomainBuilder.getScenario();
+            ScenarioEntity item = DomainBuilder.getScenario();
             assertNull(item.getId());
-            Scenario result = repository.save(item);
+            ScenarioEntity result = repository.save(item);
 
             //test
             assertNotNull(result);
@@ -37,8 +37,8 @@ class ScenarioRepositoryTest {
         @Test
         void createUniqueName() {
             String name = "notUnique_"+DomainBuilder.randomPositiveString();
-            Scenario item1 = DomainBuilder.getScenario(name);
-            Scenario item2 = DomainBuilder.getScenario(name);
+            ScenarioEntity item1 = DomainBuilder.getScenario(name);
+            ScenarioEntity item2 = DomainBuilder.getScenario(name);
 
             try {
                 repository.save(item1);
@@ -53,16 +53,16 @@ class ScenarioRepositoryTest {
 
         @Test
         void update() {
-            Scenario item = DomainBuilder.getScenario();
+            ScenarioEntity item = DomainBuilder.getScenario();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
-            Scenario record = repository.save(item);
+            ScenarioEntity record = repository.save(item);
 
             //now update
             String changedDescription = "description_update";
             record.setDescription(changedDescription);
             record.setModifiedAt(LocalDateTime.now());
-            Scenario resultUpdate = repository.save(record);
+            ScenarioEntity resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -72,14 +72,14 @@ class ScenarioRepositoryTest {
 
         @Test
         void delete() {
-            Scenario item = DomainBuilder.getScenario();
+            ScenarioEntity item = DomainBuilder.getScenario();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
-            Scenario record = repository.save(item);
+            ScenarioEntity record = repository.save(item);
 
             //now update
             record.setDeletedAt(LocalDateTime.now());
-            Scenario resultUpdate = repository.save(record);
+            ScenarioEntity resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -93,9 +93,9 @@ class ScenarioRepositoryTest {
         @Test
         void findById() {
             String name = "name"+DomainBuilder.randomPositiveString();
-            Scenario record = DomainBuilder.getScenario(name);
-            Scenario item = repository.save(record);
-            Scenario result = repository.findById(item.getId()).get();
+            ScenarioEntity record = DomainBuilder.getScenario(name);
+            ScenarioEntity item = repository.save(record);
+            ScenarioEntity result = repository.findById(item.getId()).get();
 
             //test
             assertNotNull(result);
@@ -105,11 +105,11 @@ class ScenarioRepositoryTest {
         @Test
         void findByExtid() {
             String extid = UUID.randomUUID().toString();
-            Scenario record = DomainBuilder.getScenario();
+            ScenarioEntity record = DomainBuilder.getScenario();
             record.setExtid(extid);
 
             repository.save(record);
-            Scenario result = repository.findByExtid(extid);
+            ScenarioEntity result = repository.findByExtid(extid);
 
             //test
             assertNotNull(result);
@@ -119,10 +119,10 @@ class ScenarioRepositoryTest {
         @Test
         void findByName() {
             String name = "name"+DomainBuilder.randomPositiveString();
-            Scenario record = DomainBuilder.getScenario(name);
+            ScenarioEntity record = DomainBuilder.getScenario(name);
 
             repository.save(record);
-            Scenario result = repository.findByName(name);
+            ScenarioEntity result = repository.findByName(name);
 
             //test
             assertNotNull(result);

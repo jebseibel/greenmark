@@ -16,22 +16,22 @@ public class DomainBuilder
 
     // ///////////////////////////////////////////////////////////////////
     public static AccountDb getAccountDb() {
-        Account item = getAccount(null, null);
+        AccountEntity item = getAccount(null, null);
         return AccountMapper.toDb(item);
     }
-    public static Account getAccount() {
+    public static AccountEntity getAccount() {
         return getAccount(null, null);
     }
-    public static Account getAccount(String name) {
+    public static AccountEntity getAccount(String name) {
         return getAccount(name, null);
     }
-    public static Account getAccount(
+    public static AccountEntity getAccount(
             String thisName,
             String thisDescription
     ) {
 
         String random = getNameRandom();
-        Account item = new Account();
+        AccountEntity item = new AccountEntity();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom(random));
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom(random));
@@ -54,20 +54,20 @@ public class DomainBuilder
 
     // //////////////////////////////////////////////////////////////////
     public static BucketDb getBucketDb() {
-        Bucket item = getBucket(null, null);
+        BucketEntity item = getBucket(null, null);
         return BucketMapper.toDb(item);
     }    
-    public static Bucket getBucket() {
+    public static BucketEntity getBucket() {
         return getBucket(null, null);
     }
-    public static Bucket getBucket(String name) {
+    public static BucketEntity getBucket(String name) {
         return getBucket(name, null);
     }
-    public static Bucket getBucket(
+    public static BucketEntity getBucket(
             String thisName,
             String thisDescription
     ) {
-        Bucket item = new Bucket();
+        BucketEntity item = new BucketEntity();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom());
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom());
@@ -80,16 +80,16 @@ public class DomainBuilder
 
     // //////////////////////////////////////////////////////////////////
     public static FollowDb getFollowDb() {
-        Follow item = getFollow(null, null);
+        FollowEntity item = getFollow(null, null);
         return FollowMapper.toDb(item);
     }
-    public static Follow getFollow() { return getFollow(null, null); }
-    public static Follow getFollow(String name) { return getFollow(name, null);  }
-    public static Follow getFollow(
+    public static FollowEntity getFollow() { return getFollow(null, null); }
+    public static FollowEntity getFollow(String name) { return getFollow(name, null);  }
+    public static FollowEntity getFollow(
             String thisName,
             String thisDescription
     ) {
-        Follow item = new Follow();
+        FollowEntity item = new FollowEntity();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom());
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom());
@@ -102,16 +102,16 @@ public class DomainBuilder
 
     // //////////////////////////////////////////////////////////////////
     public static ScenarioDb getScenarioDb() {
-        Scenario item = getScenario(null, null);
+        ScenarioEntity item = getScenario(null, null);
         return ScenarioMapper.toDb(item);
     }
-    public static Scenario getScenario() { return getScenario(null, null); }
-    public static Scenario getScenario(String name) { return getScenario(name, null);  }
-    public static Scenario getScenario(
+    public static ScenarioEntity getScenario() { return getScenario(null, null); }
+    public static ScenarioEntity getScenario(String name) { return getScenario(name, null);  }
+    public static ScenarioEntity getScenario(
             String thisName,
             String thisDescription
     ) {
-        Scenario item = new Scenario();
+        ScenarioEntity item = new ScenarioEntity();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom());
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom());
@@ -124,20 +124,20 @@ public class DomainBuilder
 
     // //////////////////////////////////////////////////////////////////
     public static StockDb getStockDb() {
-        Stock item = getStock(null, null);
+        StockEntity item = getStock(null, null);
         return StockMapper.toDb(item);
     }
-    public static Stock getStock() {
+    public static StockEntity getStock() {
         return getStock(null, null);
     }
-    public static Stock getStock(String name) {
+    public static StockEntity getStock(String name) {
         return getStock(name, null);
     }
-    public static Stock getStock(
+    public static StockEntity getStock(
             String thisName,
             String thisDescription
     ) {
-        Stock item = new Stock();
+        StockEntity item = new StockEntity();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom());
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom());

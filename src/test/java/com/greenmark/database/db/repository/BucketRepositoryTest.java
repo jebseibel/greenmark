@@ -1,7 +1,7 @@
 package com.greenmark.database.db.repository;
 
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.entity.Bucket;
+import com.greenmark.database.db.entity.BucketEntity;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +27,9 @@ class BucketRepositoryTest {
 
         @Test
         void create() {
-            Bucket item = DomainBuilder.getBucket();
+            BucketEntity item = DomainBuilder.getBucket();
             assertNull(item.getId());
-            Bucket result = repository.save(item);
+            BucketEntity result = repository.save(item);
 
             //test
             assertNotNull(result);
@@ -40,8 +40,8 @@ class BucketRepositoryTest {
         @Test
         void createUniqueName() {
             String name = "notUnique_"+DomainBuilder.randomPositiveString();
-            Bucket item1 = DomainBuilder.getBucket(name);
-            Bucket item2 = DomainBuilder.getBucket(name);
+            BucketEntity item1 = DomainBuilder.getBucket(name);
+            BucketEntity item2 = DomainBuilder.getBucket(name);
 
             try {
                 repository.save(item1);
@@ -56,16 +56,16 @@ class BucketRepositoryTest {
 
         @Test
         void update() {
-            Bucket item = DomainBuilder.getBucket();
+            BucketEntity item = DomainBuilder.getBucket();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
-            Bucket record = repository.save(item);
+            BucketEntity record = repository.save(item);
 
             //now update
             String changedDescription = "description_update";
             record.setDescription(changedDescription);
             record.setModifiedAt(LocalDateTime.now());
-            Bucket resultUpdate = repository.save(record);
+            BucketEntity resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -75,14 +75,14 @@ class BucketRepositoryTest {
 
         @Test
         void delete() {
-            Bucket item = DomainBuilder.getBucket();
+            BucketEntity item = DomainBuilder.getBucket();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
-            Bucket record = repository.save(item);
+            BucketEntity record = repository.save(item);
 
             //now update
             record.setDeletedAt(LocalDateTime.now());
-            Bucket resultUpdate = repository.save(record);
+            BucketEntity resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -96,9 +96,9 @@ class BucketRepositoryTest {
         @Test
         void findById() {
             String name = "name"+DomainBuilder.randomPositiveString();
-            Bucket record = DomainBuilder.getBucket(name);
-            Bucket item = repository.save(record);
-            Bucket result = repository.findById(item.getId()).get();
+            BucketEntity record = DomainBuilder.getBucket(name);
+            BucketEntity item = repository.save(record);
+            BucketEntity result = repository.findById(item.getId()).get();
 
             //test
             assertNotNull(result);
@@ -108,11 +108,11 @@ class BucketRepositoryTest {
         @Test
         void findByExtid() {
             String extid = UUID.randomUUID().toString();
-            Bucket record = DomainBuilder.getBucket();
+            BucketEntity record = DomainBuilder.getBucket();
             record.setExtid(extid);
 
             repository.save(record);
-            Bucket result = repository.findByExtid(extid);
+            BucketEntity result = repository.findByExtid(extid);
 
             //test
             assertNotNull(result);
@@ -122,10 +122,10 @@ class BucketRepositoryTest {
         @Test
         void findByName() {
             String name = "name"+DomainBuilder.randomPositiveString();
-            Bucket record = DomainBuilder.getBucket(name);
+            BucketEntity record = DomainBuilder.getBucket(name);
 
             repository.save(record);
-            Bucket result = repository.findByName(name);
+            BucketEntity result = repository.findByName(name);
 
             //test
             assertNotNull(result);

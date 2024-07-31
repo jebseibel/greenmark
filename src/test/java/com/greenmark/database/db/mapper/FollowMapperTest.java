@@ -2,7 +2,7 @@ package com.greenmark.database.db.mapper;
 
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.FollowDb;
-import com.greenmark.database.db.entity.Follow;
+import com.greenmark.database.db.entity.FollowEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +11,7 @@ class FollowMapperTest {
 
     @Test
     void testToDb() {
-        Follow item = DomainBuilder.getFollow();
+        FollowEntity item = DomainBuilder.getFollow();
         FollowDb itemDb = FollowMapper.toDb(item);
 
         //test

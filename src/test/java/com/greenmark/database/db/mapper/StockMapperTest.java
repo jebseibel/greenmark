@@ -2,7 +2,7 @@ package com.greenmark.database.db.mapper;
 
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.StockDb;
-import com.greenmark.database.db.entity.Stock;
+import com.greenmark.database.db.entity.StockEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +11,7 @@ class StockMapperTest {
 
     @Test
     void testToDb() {
-        Stock item = DomainBuilder.getStock();
+        StockEntity item = DomainBuilder.getStock();
         StockDb itemDb = StockMapper.toDb(item);
 
         //test

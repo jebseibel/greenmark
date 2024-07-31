@@ -7,8 +7,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "scenario")
-public class Scenario {
+@Table(name = "bucket")
+public class BucketEntity {
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,9 @@ public class Scenario {
 
     @Column(name = "description", length = 128, nullable = false)
     private String description;
+//
+//    @Column(name = "buy_sell", length = 4, nullable = false)
+//    private String buySell;
 
     /**
      * BASE FIELDS
