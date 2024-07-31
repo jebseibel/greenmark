@@ -15,7 +15,6 @@ public class BrokerService {
     }
 
     public void checkReplaceSellOrders() {
-        return;
     }
 
     public void checkOpenSellOrders() {

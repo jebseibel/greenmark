@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FollowRepository extends CrudRepository<FollowEntity, Integer> {
     FollowEntity findByName(String name);
+
     FollowEntity findByExtid(String extid);
 }

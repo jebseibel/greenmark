@@ -1,8 +1,8 @@
 package com.greenmark.common.exception.datafeed;
 
-import java.util.Date;
-
 import com.greenmark.common.GmConstants;
+
+import java.util.Date;
 
 /**
  * @formatter:off
@@ -18,75 +18,75 @@ import com.greenmark.common.GmConstants;
  */
 
 public class PdbUpdateException {
-	public static final String CLASSNAME = "PdbUpdateException";
+    public static final String CLASSNAME = "PdbUpdateException";
+    /**************************/
 
-	/** Used by the database **/
-	private long id; // leave as null for hibernate
-	private int active = GmConstants.OBJECT_ACTIVE;
-	/**************************/
+    public Date exceptionTime;
+    public int timeframe = -1;
+    public long securityId = -1;
+    /**
+     * Used by the database
+     **/
+    private long id; // leave as null for hibernate
+    private int active = GmConstants.OBJECT_ACTIVE;
+    private String description;
 
-	public Date exceptionTime;
-	public int timeframe = -1;
-	public long securityId = -1;
+    public PdbUpdateException() {
+    }
 
-	private String description;
+    public int getActive() {
+        return active;
+    }
 
-	public PdbUpdateException() {
-	}
+    public void setActive(int active) {
+        this.active = active;
+    }
 
-	public int getActive() {
-		return active;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public long getSecurityId() {
-		return securityId;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public int getTimeframe() {
-		return timeframe;
-	}
+    public long getSecurityId() {
+        return securityId;
+    }
 
-	public void setTimeframe(int timeframe) {
-		this.timeframe = timeframe;
-	}
+    public void setSecurityId(long securityId) {
+        this.securityId = securityId;
+    }
 
-	public void setSecurityId(long securityId) {
-		this.securityId = securityId;
-	}
+    public int getTimeframe() {
+        return timeframe;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setTimeframe(int timeframe) {
+        this.timeframe = timeframe;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public void setActive(int active) {
-		this.active = active;
-	}
-
-	public String dbSummary() {
+    public String dbSummary() {
         String stb = " > > " + CLASSNAME + " :: " +
                 "id [" + id + "] " +
                 "active [" + active + "] ";
-		return stb;
-	}
+        return stb;
+    }
 
-	public Date getExceptionTime() {
-		return exceptionTime;
-	}
+    public Date getExceptionTime() {
+        return exceptionTime;
+    }
 
-	public void setExceptionTime(Date exceptionTime) {
-		this.exceptionTime = exceptionTime;
-	}
+    public void setExceptionTime(Date exceptionTime) {
+        this.exceptionTime = exceptionTime;
+    }
 
 }

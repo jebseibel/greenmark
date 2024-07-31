@@ -16,21 +16,21 @@ import com.greenmark.common.GmConstants;
  */
 
 public class UTTimezone {
-	private static final String CLASSNAME = "UTTimezone";
+    private static final String CLASSNAME = "UTTimezone";
 
-	public static final int timezoneHoursFromUTC(String configTimezone) {
-		String methodname = "timezoneHoursFromUTC";
+    public static final int timezoneHoursFromUTC(String configTimezone) {
+        String methodname = "timezoneHoursFromUTC";
 
-		if (configTimezone.equals(GmConstants.TIMEZONE_PST))
-			return 8;
-		if (configTimezone.equals(GmConstants.TIMEZONE_MST))
-			return 7;
-		if (configTimezone.equals(GmConstants.TIMEZONE_CST))
-			return 6;
-		if (configTimezone.equals(GmConstants.TIMEZONE_EST))
-			return 5;
+        if (configTimezone.equals(GmConstants.TIMEZONE_PST))
+            return 8;
+        if (configTimezone.equals(GmConstants.TIMEZONE_MST))
+            return 7;
+        if (configTimezone.equals(GmConstants.TIMEZONE_CST))
+            return 6;
+        if (configTimezone.equals(GmConstants.TIMEZONE_EST))
+            return 5;
 
-		return 0;
-	}
+        return 0;
+    }
 
 }

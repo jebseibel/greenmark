@@ -4,8 +4,7 @@ import com.greenmark.common.database.domain.FollowDb;
 import com.greenmark.database.db.entity.FollowEntity;
 import org.modelmapper.ModelMapper;
 
-public class FollowMapper
-{
+public class FollowMapper {
     public static FollowDb toDb(FollowEntity follow) {
         return new ModelMapper().map(follow, FollowDb.class);
     }

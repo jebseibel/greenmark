@@ -25,171 +25,167 @@ import com.greenmark.utils.UTXmlUtils;
  */
 
 public class HarvesterConfigDto extends HarvesterIndicatorsDto implements Serializable {
-	public static final String CLASSNAME = "HarvesterConfigDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "HarvesterConfigDto";
+    private static final long serialVersionUID = 1L;
 
-	protected String serviceTime = "";
-	protected String emailRecipients = "";
+    protected String serviceTime = "";
+    protected String emailRecipients = "";
 
-	protected Boolean longHarvesterOn = false;
-	protected Float longMinSecurityPrice = 0F;
-	protected Float longMaxSecurityPrice = 0F;
-	protected Float longMinSecurityVolume = 0F;
-	protected Integer longMomentumThreshold = 0;
+    protected Boolean longHarvesterOn = false;
+    protected Float longMinSecurityPrice = 0F;
+    protected Float longMaxSecurityPrice = 0F;
+    protected Float longMinSecurityVolume = 0F;
+    protected Integer longMomentumThreshold = 0;
 
-	protected Boolean shortHarvesterOn = false;
-	protected Float shortMinSecurityPrice = 0F;
-	protected Float shortMaxSecurityPrice = 0F;
-	protected Float shortMinSecurityVolume = 0F;
-	protected Integer shortMomentumThreshold = 0;
+    protected Boolean shortHarvesterOn = false;
+    protected Float shortMinSecurityPrice = 0F;
+    protected Float shortMaxSecurityPrice = 0F;
+    protected Float shortMinSecurityVolume = 0F;
+    protected Integer shortMomentumThreshold = 0;
 
-	public HarvesterConfigDto() {
-	}
+    public HarvesterConfigDto() {
+    }
 
-	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
-	public HarvesterConfigDto(String xmldata) {
-		super(xmldata);
+    // ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
+    public HarvesterConfigDto(String xmldata) {
+        super(xmldata);
 
-		this.serviceTime = UTXmlUtils.getXmlData(xmldata, "SERVICE_TIME");
-		this.emailRecipients = UTXmlUtils.getXmlData(xmldata, "EMAIL_RECIPIENTS");
+        this.serviceTime = UTXmlUtils.getXmlData(xmldata, "SERVICE_TIME");
+        this.emailRecipients = UTXmlUtils.getXmlData(xmldata, "EMAIL_RECIPIENTS");
 
-		this.longHarvesterOn = UTXmlUtils.getXmlDataAsBoolean(xmldata, "LONG_HARVESTER_ON");
-		this.longMinSecurityPrice = UTXmlUtils.getXmlDataAsFloat(xmldata, "LONG_MIN_SECURITY_PRICE");
-		this.longMaxSecurityPrice = UTXmlUtils.getXmlDataAsFloat(xmldata, "LONG_MAX_SECURITY_PRICE");
-		this.longMinSecurityVolume = UTXmlUtils.getXmlDataAsFloat(xmldata, "LONG_MIN_SECURITY_VOLUME");
-		this.longMomentumThreshold = UTXmlUtils.getXmlDataAsInt(xmldata, "LONG_MOMENTUM_THRESHOLD");
+        this.longHarvesterOn = UTXmlUtils.getXmlDataAsBoolean(xmldata, "LONG_HARVESTER_ON");
+        this.longMinSecurityPrice = UTXmlUtils.getXmlDataAsFloat(xmldata, "LONG_MIN_SECURITY_PRICE");
+        this.longMaxSecurityPrice = UTXmlUtils.getXmlDataAsFloat(xmldata, "LONG_MAX_SECURITY_PRICE");
+        this.longMinSecurityVolume = UTXmlUtils.getXmlDataAsFloat(xmldata, "LONG_MIN_SECURITY_VOLUME");
+        this.longMomentumThreshold = UTXmlUtils.getXmlDataAsInt(xmldata, "LONG_MOMENTUM_THRESHOLD");
 
-		this.shortHarvesterOn = UTXmlUtils.getXmlDataAsBoolean(xmldata, "SHORT_HARVESTER_ON");
-		this.shortMinSecurityPrice = UTXmlUtils.getXmlDataAsFloat(xmldata, "SHORT_MIN_SECURITY_PRICE");
-		this.shortMaxSecurityPrice = UTXmlUtils.getXmlDataAsFloat(xmldata, "SHORT_MAX_SECURITY_PRICE");
-		this.shortMinSecurityVolume = UTXmlUtils.getXmlDataAsFloat(xmldata, "SHORT_MIN_SECURITY_VOLUME");
-		this.shortMomentumThreshold = UTXmlUtils.getXmlDataAsInt(xmldata, "SHORT_MOMENTUM_THRESHOLD");
-	}
+        this.shortHarvesterOn = UTXmlUtils.getXmlDataAsBoolean(xmldata, "SHORT_HARVESTER_ON");
+        this.shortMinSecurityPrice = UTXmlUtils.getXmlDataAsFloat(xmldata, "SHORT_MIN_SECURITY_PRICE");
+        this.shortMaxSecurityPrice = UTXmlUtils.getXmlDataAsFloat(xmldata, "SHORT_MAX_SECURITY_PRICE");
+        this.shortMinSecurityVolume = UTXmlUtils.getXmlDataAsFloat(xmldata, "SHORT_MIN_SECURITY_VOLUME");
+        this.shortMomentumThreshold = UTXmlUtils.getXmlDataAsInt(xmldata, "SHORT_MOMENTUM_THRESHOLD");
+    }
 
-	public String toXmlWrapper(String prefix, String endline) {
-		StringBuffer stb = new StringBuffer();
-		stb.append(prefix + "<HARVESTER_CONFIG>" + endline);
-		stb.append(toXml(prefix, endline));
-		stb.append(prefix + "</HARVESTER_CONFIG>" + endline);
-		return stb.toString();
-	}
+    public String toXmlWrapper(String prefix, String endline) {
+        String stb = prefix + "<HARVESTER_CONFIG>" + endline +
+                toXml(prefix, endline) +
+                prefix + "</HARVESTER_CONFIG>" + endline;
+        return stb;
+    }
 
-	public String toXml(String prefix, String endline) {
-		StringBuffer stb = new StringBuffer();
-		stb.append(super.toXml(prefix, endline));
+    public String toXml(String prefix, String endline) {
 
-		stb.append(prefix + UTDisplayFormatter.TAB + "<SERVICE_TIME>" + this.serviceTime + "</SERVICE_TIME>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<EMAIL_RECIPIENTS>" + this.emailRecipients + "</EMAIL_RECIPIENTS>" + endline);
+        String stb = super.toXml(prefix, endline) +
+                prefix + UTDisplayFormatter.TAB + "<SERVICE_TIME>" + this.serviceTime + "</SERVICE_TIME>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<EMAIL_RECIPIENTS>" + this.emailRecipients + "</EMAIL_RECIPIENTS>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<LONG_HARVESTER_ON>" + this.longHarvesterOn + "</LONG_HARVESTER_ON>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<LONG_MIN_SECURITY_PRICE>" + this.longMinSecurityPrice + "</LONG_MIN_SECURITY_PRICE>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<LONG_MAX_SECURITY_PRICE>" + this.longMaxSecurityPrice + "</LONG_MAX_SECURITY_PRICE>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<LONG_MIN_SECURITY_VOLUME>" + this.longMinSecurityVolume + "</LONG_MIN_SECURITY_VOLUME>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<LONG_MOMENTUM_THRESHOLD>" + this.longMomentumThreshold + "</LONG_MOMENTUM_THRESHOLD>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<SHORT_HARVESTER_ON>" + this.shortHarvesterOn + "</SHORT_HARVESTER_ON>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<SHORT_MIN_SECURITY_PRICE>" + this.shortMinSecurityPrice + "</SHORT_MIN_SECURITY_PRICE>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<SHORT_MAX_SECURITY_PRICE>" + this.shortMaxSecurityPrice + "</SHORT_MAX_SECURITY_PRICE>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<SHORT_MIN_SECURITY_VOLUME>" + this.shortMinSecurityVolume + "</SHORT_MIN_SECURITY_VOLUME>" + endline +
+                prefix + UTDisplayFormatter.TAB + "<SHORT_MOMENTUM_THRESHOLD>" + this.shortMomentumThreshold + "</SHORT_MOMENTUM_THRESHOLD>" + endline;
 
-		stb.append(prefix + UTDisplayFormatter.TAB + "<LONG_HARVESTER_ON>" + this.longHarvesterOn + "</LONG_HARVESTER_ON>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<LONG_MIN_SECURITY_PRICE>" + this.longMinSecurityPrice + "</LONG_MIN_SECURITY_PRICE>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<LONG_MAX_SECURITY_PRICE>" + this.longMaxSecurityPrice + "</LONG_MAX_SECURITY_PRICE>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<LONG_MIN_SECURITY_VOLUME>" + this.longMinSecurityVolume + "</LONG_MIN_SECURITY_VOLUME>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<LONG_MOMENTUM_THRESHOLD>" + this.longMomentumThreshold + "</LONG_MOMENTUM_THRESHOLD>" + endline);
+        return stb;
+    }
 
-		stb.append(prefix + UTDisplayFormatter.TAB + "<SHORT_HARVESTER_ON>" + this.shortHarvesterOn + "</SHORT_HARVESTER_ON>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<SHORT_MIN_SECURITY_PRICE>" + this.shortMinSecurityPrice + "</SHORT_MIN_SECURITY_PRICE>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<SHORT_MAX_SECURITY_PRICE>" + this.shortMaxSecurityPrice + "</SHORT_MAX_SECURITY_PRICE>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<SHORT_MIN_SECURITY_VOLUME>" + this.shortMinSecurityVolume + "</SHORT_MIN_SECURITY_VOLUME>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<SHORT_MOMENTUM_THRESHOLD>" + this.shortMomentumThreshold + "</SHORT_MOMENTUM_THRESHOLD>" + endline);
+    /////////////////////////////////// SETTERS-GETTERS ///////////////////////////////////////
+    public String getServiceTime() {
+        return serviceTime;
+    }
 
-		return stb.toString();
-	}
+    public void setServiceTime(String serviceTime) {
+        this.serviceTime = serviceTime;
+    }
 
-	/////////////////////////////////// SETTERS-GETTERS ///////////////////////////////////////
-	public String getServiceTime() {
-		return serviceTime;
-	}
+    public String getEmailRecipients() {
+        return emailRecipients;
+    }
 
-	public void setServiceTime(String serviceTime) {
-		this.serviceTime = serviceTime;
-	}
+    public void setEmailRecipients(String emailRecipients) {
+        this.emailRecipients = emailRecipients;
+    }
 
-	public String getEmailRecipients() {
-		return emailRecipients;
-	}
+    public Boolean getLongHarvesterOn() {
+        return longHarvesterOn;
+    }
 
-	public void setEmailRecipients(String emailRecipients) {
-		this.emailRecipients = emailRecipients;
-	}
+    public void setLongHarvesterOn(Boolean longHarvesterOn) {
+        this.longHarvesterOn = longHarvesterOn;
+    }
 
-	public Boolean getLongHarvesterOn() {
-		return longHarvesterOn;
-	}
+    public Float getLongMinSecurityPrice() {
+        return longMinSecurityPrice;
+    }
 
-	public void setLongHarvesterOn(Boolean longHarvesterOn) {
-		this.longHarvesterOn = longHarvesterOn;
-	}
+    public void setLongMinSecurityPrice(Float longMinSecurityPrice) {
+        this.longMinSecurityPrice = longMinSecurityPrice;
+    }
 
-	public Float getLongMinSecurityPrice() {
-		return longMinSecurityPrice;
-	}
+    public Float getLongMaxSecurityPrice() {
+        return longMaxSecurityPrice;
+    }
 
-	public void setLongMinSecurityPrice(Float longMinSecurityPrice) {
-		this.longMinSecurityPrice = longMinSecurityPrice;
-	}
+    public void setLongMaxSecurityPrice(Float longMaxSecurityPrice) {
+        this.longMaxSecurityPrice = longMaxSecurityPrice;
+    }
 
-	public Float getLongMaxSecurityPrice() {
-		return longMaxSecurityPrice;
-	}
+    public Float getLongMinSecurityVolume() {
+        return longMinSecurityVolume;
+    }
 
-	public void setLongMaxSecurityPrice(Float longMaxSecurityPrice) {
-		this.longMaxSecurityPrice = longMaxSecurityPrice;
-	}
+    public void setLongMinSecurityVolume(Float longMinSecurityVolume) {
+        this.longMinSecurityVolume = longMinSecurityVolume;
+    }
 
-	public Float getLongMinSecurityVolume() {
-		return longMinSecurityVolume;
-	}
+    public Integer getLongMomentumThreshold() {
+        return longMomentumThreshold;
+    }
 
-	public void setLongMinSecurityVolume(Float longMinSecurityVolume) {
-		this.longMinSecurityVolume = longMinSecurityVolume;
-	}
+    public void setLongMomentumThreshold(Integer longMomentumThreshold) {
+        this.longMomentumThreshold = longMomentumThreshold;
+    }
 
-	public Integer getLongMomentumThreshold() {
-		return longMomentumThreshold;
-	}
+    public Boolean getShortHarvesterOn() {
+        return shortHarvesterOn;
+    }
 
-	public void setLongMomentumThreshold(Integer longMomentumThreshold) {
-		this.longMomentumThreshold = longMomentumThreshold;
-	}
+    public void setShortHarvesterOn(Boolean shortHarvesterOn) {
+        this.shortHarvesterOn = shortHarvesterOn;
+    }
 
-	public Boolean getShortHarvesterOn() {
-		return shortHarvesterOn;
-	}
+    public Float getShortMinSecurityPrice() {
+        return shortMinSecurityPrice;
+    }
 
-	public void setShortHarvesterOn(Boolean shortHarvesterOn) {
-		this.shortHarvesterOn = shortHarvesterOn;
-	}
+    public void setShortMinSecurityPrice(Float shortMinSecurityPrice) {
+        this.shortMinSecurityPrice = shortMinSecurityPrice;
+    }
 
-	public Float getShortMinSecurityPrice() {
-		return shortMinSecurityPrice;
-	}
+    public Float getShortMaxSecurityPrice() {
+        return shortMaxSecurityPrice;
+    }
 
-	public void setShortMinSecurityPrice(Float shortMinSecurityPrice) {
-		this.shortMinSecurityPrice = shortMinSecurityPrice;
-	}
+    public void setShortMaxSecurityPrice(Float shortMaxSecurityPrice) {
+        this.shortMaxSecurityPrice = shortMaxSecurityPrice;
+    }
 
-	public Float getShortMaxSecurityPrice() {
-		return shortMaxSecurityPrice;
-	}
+    public Float getShortMinSecurityVolume() {
+        return shortMinSecurityVolume;
+    }
 
-	public void setShortMaxSecurityPrice(Float shortMaxSecurityPrice) {
-		this.shortMaxSecurityPrice = shortMaxSecurityPrice;
-	}
+    public void setShortMinSecurityVolume(Float shortMinSecurityVolume) {
+        this.shortMinSecurityVolume = shortMinSecurityVolume;
+    }
 
-	public Float getShortMinSecurityVolume() {
-		return shortMinSecurityVolume;
-	}
+    public Integer getShortMomentumThreshold() {
+        return shortMomentumThreshold;
+    }
 
-	public void setShortMinSecurityVolume(Float shortMinSecurityVolume) {
-		this.shortMinSecurityVolume = shortMinSecurityVolume;
-	}
-
-	public Integer getShortMomentumThreshold() {
-		return shortMomentumThreshold;
-	}
-
-	public void setShortMomentumThreshold(Integer shortMomentumThreshold) {
-		this.shortMomentumThreshold = shortMomentumThreshold;
-	}
+    public void setShortMomentumThreshold(Integer shortMomentumThreshold) {
+        this.shortMomentumThreshold = shortMomentumThreshold;
+    }
 }

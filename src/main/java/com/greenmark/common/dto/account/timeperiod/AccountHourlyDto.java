@@ -20,28 +20,28 @@ import java.io.Serializable;
  */
 
 public class AccountHourlyDto extends AccountTimePeriodBaseDto implements Serializable {
-	public static final String CLASSNAME = "AccountHourlyDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "AccountHourlyDto";
+    private static final long serialVersionUID = 1L;
 
-	protected long accountDailyId = 0; // set to zero to find insert errors
+    protected long accountDailyId = 0; // set to zero to find insert errors
 
-	public AccountHourlyDto() {
-	}
+    public AccountHourlyDto() {
+    }
 
-	public String dbSummary() {
+    public String dbSummary() {
         String stb = " > > " + CLASSNAME + ":" +
                 "AccountHourlyId [" + id + "] " +
                 "accountDailyId [" + accountDailyId + "] " +
                 "active [" + active + "] ";
-		return stb;
-	}
+        return stb;
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public long getAccountDailyId() {
-		return accountDailyId;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public long getAccountDailyId() {
+        return accountDailyId;
+    }
 
-	public void setAccountDailyId(long accountDailyId) {
-		this.accountDailyId = accountDailyId;
-	}
+    public void setAccountDailyId(long accountDailyId) {
+        this.accountDailyId = accountDailyId;
+    }
 }

@@ -12,46 +12,46 @@ package com.greenmark.account;
  * @author not attributable
  * @version 1.0
  */
-public class CashMgmtIndicators
-{
-	/** This is the class name. */
-   public static final String CLASSNAME = "CashMgmtIndicators";
+public class CashMgmtIndicators {
+    /**
+     * This is the class name.
+     */
+    public static final String CLASSNAME = "CashMgmtIndicators";
 
-	private float   harvestHighLowPrice = 0;
-	private float   harvestHighLowPriceThreshold = 0;
-	private float   harvestCurrentPrice = 0;
-	private float   harvestCurrentVolume = 0;
-	private float   harvestStochk = 0;
-	private float   harvestStochkThreshold = 0;
-	private float   harvestDailySma5 = 0;
-	private float   harvestDailySma20 = 0;
-	private float   harvestDailySma50 = 0;
+    private float harvestHighLowPrice = 0;
+    private float harvestHighLowPriceThreshold = 0;
+    private float harvestCurrentPrice = 0;
+    private float harvestCurrentVolume = 0;
+    private float harvestStochk = 0;
+    private float harvestStochkThreshold = 0;
+    private float harvestDailySma5 = 0;
+    private float harvestDailySma20 = 0;
+    private float harvestDailySma50 = 0;
 
-	private float   exitDailyStochk = 0;
-	private float   exitDailyStochkThreshold = 0;
-	private float   exitDailyLowestHighestStochk = 0;
-	private float   exitDailyModifiedStochKThreshold = 0;
+    private float exitDailyStochk = 0;
+    private float exitDailyStochkThreshold = 0;
+    private float exitDailyLowestHighestStochk = 0;
+    private float exitDailyModifiedStochKThreshold = 0;
 
-	private float   exitMin60Stochk = 0;
-	private float   exitMin60StochkThreshold = 0;
-	private float   exitMin60LowestHighestStochk = 0;
-	private float   exitMin60ModifiedStochKThreshold = 0;
+    private float exitMin60Stochk = 0;
+    private float exitMin60StochkThreshold = 0;
+    private float exitMin60LowestHighestStochk = 0;
+    private float exitMin60ModifiedStochKThreshold = 0;
 
-	private float   exitMin15Stochk = 0;
-	private float   exitMin15StochkThreshold = 0;
+    private float exitMin15Stochk = 0;
+    private float exitMin15StochkThreshold = 0;
 
-	private float   buyPlacedMin5Stochk = 0;
-	private float   buyPlacedMin5StochkThreshold = 0;
-	private float   buyPlacedDailySma5 = 0;
-	private float   buyPlacedDailySma20 = 0;
-	private float   buyPlacedDailySma50 = 0;
-	private float   buyPlacedDailyStochk = 0;
-	private float   buyPlacedDailyModifiedStochkThreshold = 0;
-	private float   buyPlacedCurrentPrice = 0;
+    private float buyPlacedMin5Stochk = 0;
+    private float buyPlacedMin5StochkThreshold = 0;
+    private float buyPlacedDailySma5 = 0;
+    private float buyPlacedDailySma20 = 0;
+    private float buyPlacedDailySma50 = 0;
+    private float buyPlacedDailyStochk = 0;
+    private float buyPlacedDailyModifiedStochkThreshold = 0;
+    private float buyPlacedCurrentPrice = 0;
 
-	public CashMgmtIndicators()
-	{
-	}
+    public CashMgmtIndicators() {
+    }
 
 //	public CashMgmtIndicators ( String xmldata )
 //	{
@@ -145,275 +145,220 @@ public class CashMgmtIndicators
 //
 
 
+    public float getHarvestHighLowPrice() {
+        return harvestHighLowPrice;
+    }
 
-	public float getHarvestHighLowPrice()
-	{
-		return harvestHighLowPrice;
-	}
+    public void setHarvestHighLowPrice(float harvestHighLowPrice) {
+        this.harvestHighLowPrice = harvestHighLowPrice;
+    }
 
-	public float getHarvestHighLowPriceThreshold()
-	{
-		return harvestHighLowPriceThreshold;
-	}
+    public float getHarvestHighLowPriceThreshold() {
+        return harvestHighLowPriceThreshold;
+    }
 
-	public float getHarvestCurrentPrice()
-	{
-		return harvestCurrentPrice;
-	}
+    public void setHarvestHighLowPriceThreshold(float harvestHighLowPriceThreshold) {
+        this.harvestHighLowPriceThreshold = harvestHighLowPriceThreshold;
+    }
 
-	public float getHarvestCurrentVolume()
-	{
-		return harvestCurrentVolume;
-	}
+    public float getHarvestCurrentPrice() {
+        return harvestCurrentPrice;
+    }
 
-	public float getHarvestDailySma5()
-	{
-		return harvestDailySma5;
-	}
+    public void setHarvestCurrentPrice(float harvestCurrentPrice) {
+        this.harvestCurrentPrice = harvestCurrentPrice;
+    }
 
-	public float getHarvestDailySma20()
-	{
-		return harvestDailySma20;
-	}
+    public float getHarvestCurrentVolume() {
+        return harvestCurrentVolume;
+    }
 
-	public float getHarvestDailySma50()
-	{
-		return harvestDailySma50;
-	}
+    public void setHarvestCurrentVolume(float harvestCurrentVolume) {
+        this.harvestCurrentVolume = harvestCurrentVolume;
+    }
 
-	public float getExitDailyStochk()
-	{
-		return exitDailyStochk;
-	}
+    public float getHarvestDailySma5() {
+        return harvestDailySma5;
+    }
 
-	public float getExitDailyStochkThreshold()
-	{
-		return exitDailyStochkThreshold;
-	}
+    public void setHarvestDailySma5(float harvestDailySma5) {
+        this.harvestDailySma5 = harvestDailySma5;
+    }
 
-	public float getExitDailyLowestHighestStochk()
-	{
-		return exitDailyLowestHighestStochk;
-	}
+    public float getHarvestDailySma20() {
+        return harvestDailySma20;
+    }
 
-	public float getExitDailyModifiedStochKThreshold()
-	{
-		return exitDailyModifiedStochKThreshold;
-	}
+    public void setHarvestDailySma20(float harvestDailySma20) {
+        this.harvestDailySma20 = harvestDailySma20;
+    }
 
-	public float getExitMin60Stochk()
-	{
-		return exitMin60Stochk;
-	}
+    public float getHarvestDailySma50() {
+        return harvestDailySma50;
+    }
 
-	public float getExitMin60StochkThreshold()
-	{
-		return exitMin60StochkThreshold;
-	}
+    public void setHarvestDailySma50(float harvestDailySma50) {
+        this.harvestDailySma50 = harvestDailySma50;
+    }
 
-	public float getExitMin60LowestHighestStochk()
-	{
-		return exitMin60LowestHighestStochk;
-	}
+    public float getExitDailyStochk() {
+        return exitDailyStochk;
+    }
 
-	public float getExitMin60ModifiedStochKThreshold()
-	{
-		return exitMin60ModifiedStochKThreshold;
-	}
+    public void setExitDailyStochk(float exitDailyStochk) {
+        this.exitDailyStochk = exitDailyStochk;
+    }
 
-	public float getExitMin15Stochk()
-	{
-		return exitMin15Stochk;
-	}
+    public float getExitDailyStochkThreshold() {
+        return exitDailyStochkThreshold;
+    }
 
-	public float getExitMin15StochkThreshold()
-	{
-		return exitMin15StochkThreshold;
-	}
+    public void setExitDailyStochkThreshold(float exitDailyStochkThreshold) {
+        this.exitDailyStochkThreshold = exitDailyStochkThreshold;
+    }
 
-	public float getBuyPlacedMin5Stochk()
-	{
-		return buyPlacedMin5Stochk;
-	}
+    public float getExitDailyLowestHighestStochk() {
+        return exitDailyLowestHighestStochk;
+    }
 
-	public float getBuyPlacedMin5StochkThreshold()
-	{
-		return buyPlacedMin5StochkThreshold;
-	}
+    public void setExitDailyLowestHighestStochk(float exitDailyLowestHighestStochk) {
+        this.exitDailyLowestHighestStochk = exitDailyLowestHighestStochk;
+    }
 
-	public float getBuyPlacedDailySma5()
-	{
-		return buyPlacedDailySma5;
-	}
+    public float getExitDailyModifiedStochKThreshold() {
+        return exitDailyModifiedStochKThreshold;
+    }
 
-	public float getBuyPlacedDailySma20()
-	{
-		return buyPlacedDailySma20;
-	}
+    public void setExitDailyModifiedStochKThreshold(float exitDailyModifiedStochKThreshold) {
+        this.exitDailyModifiedStochKThreshold = exitDailyModifiedStochKThreshold;
+    }
 
-	public float getBuyPlacedDailySma50()
-	{
-		return buyPlacedDailySma50;
-	}
+    public float getExitMin60Stochk() {
+        return exitMin60Stochk;
+    }
 
-	public float getBuyPlacedDailyStochk()
-	{
-		return buyPlacedDailyStochk;
-	}
+    public void setExitMin60Stochk(float exitMin60Stochk) {
+        this.exitMin60Stochk = exitMin60Stochk;
+    }
 
-	public float getBuyPlacedDailyModifiedStochkThreshold()
-	{
-		return buyPlacedDailyModifiedStochkThreshold;
-	}
+    public float getExitMin60StochkThreshold() {
+        return exitMin60StochkThreshold;
+    }
 
-	public float getBuyPlacedCurrentPrice()
-	{
-		return buyPlacedCurrentPrice;
-	}
+    public void setExitMin60StochkThreshold(float exitMin60StochkThreshold) {
+        this.exitMin60StochkThreshold = exitMin60StochkThreshold;
+    }
 
-	public float getHarvestStochk()
-	{
-		return harvestStochk;
-	}
+    public float getExitMin60LowestHighestStochk() {
+        return exitMin60LowestHighestStochk;
+    }
 
-	public float getHarvestStochkThreshold()
-	{
-		return harvestStochkThreshold;
-	}
+    public void setExitMin60LowestHighestStochk(float exitMin60LowestHighestStochk) {
+        this.exitMin60LowestHighestStochk = exitMin60LowestHighestStochk;
+    }
 
-	public void setHarvestHighLowPrice(float harvestHighLowPrice)
-	{
-		this.harvestHighLowPrice = harvestHighLowPrice;
-	}
+    public float getExitMin60ModifiedStochKThreshold() {
+        return exitMin60ModifiedStochKThreshold;
+    }
 
-	public void setHarvestHighLowPriceThreshold(float harvestHighLowPriceThreshold)
-	{
-		this.harvestHighLowPriceThreshold = harvestHighLowPriceThreshold;
-	}
+    public void setExitMin60ModifiedStochKThreshold(float exitMin60ModifiedStochKThreshold) {
+        this.exitMin60ModifiedStochKThreshold = exitMin60ModifiedStochKThreshold;
+    }
 
-	public void setHarvestCurrentPrice(float harvestCurrentPrice)
-	{
-		this.harvestCurrentPrice = harvestCurrentPrice;
-	}
+    public float getExitMin15Stochk() {
+        return exitMin15Stochk;
+    }
 
-	public void setHarvestCurrentVolume(float harvestCurrentVolume)
-	{
-		this.harvestCurrentVolume = harvestCurrentVolume;
-	}
+    public void setExitMin15Stochk(float exitMin15Stochk) {
+        this.exitMin15Stochk = exitMin15Stochk;
+    }
 
-	public void setHarvestDailySma5(float harvestDailySma5)
-	{
-		this.harvestDailySma5 = harvestDailySma5;
-	}
+    public float getExitMin15StochkThreshold() {
+        return exitMin15StochkThreshold;
+    }
 
-	public void setHarvestDailySma20(float harvestDailySma20)
-	{
-		this.harvestDailySma20 = harvestDailySma20;
-	}
+    public void setExitMin15StochkThreshold(float exitMin15StochkThreshold) {
+        this.exitMin15StochkThreshold = exitMin15StochkThreshold;
+    }
 
-	public void setHarvestDailySma50(float harvestDailySma50)
-	{
-		this.harvestDailySma50 = harvestDailySma50;
-	}
+    public float getBuyPlacedMin5Stochk() {
+        return buyPlacedMin5Stochk;
+    }
 
-	public void setExitDailyStochk(float exitDailyStochk)
-	{
-		this.exitDailyStochk = exitDailyStochk;
-	}
+    public void setBuyPlacedMin5Stochk(float buyPlacedMin5Stochk) {
+        this.buyPlacedMin5Stochk = buyPlacedMin5Stochk;
+    }
 
-	public void setExitDailyStochkThreshold(float exitDailyStochkThreshold)
-	{
-		this.exitDailyStochkThreshold = exitDailyStochkThreshold;
-	}
+    public float getBuyPlacedMin5StochkThreshold() {
+        return buyPlacedMin5StochkThreshold;
+    }
 
-	public void setExitDailyLowestHighestStochk(float exitDailyLowestHighestStochk)
-	{
-		this.exitDailyLowestHighestStochk = exitDailyLowestHighestStochk;
-	}
+    public void setBuyPlacedMin5StochkThreshold(float buyPlacedMin5StochkThreshold) {
+        this.buyPlacedMin5StochkThreshold = buyPlacedMin5StochkThreshold;
+    }
 
-	public void setExitDailyModifiedStochKThreshold(float exitDailyModifiedStochKThreshold)
-	{
-		this.exitDailyModifiedStochKThreshold = exitDailyModifiedStochKThreshold;
-	}
+    public float getBuyPlacedDailySma5() {
+        return buyPlacedDailySma5;
+    }
 
-	public void setExitMin60Stochk(float exitMin60Stochk)
-	{
-		this.exitMin60Stochk = exitMin60Stochk;
-	}
+    public void setBuyPlacedDailySma5(float buyPlacedDailySma5) {
+        this.buyPlacedDailySma5 = buyPlacedDailySma5;
+    }
 
-	public void setExitMin60StochkThreshold(float exitMin60StochkThreshold)
-	{
-		this.exitMin60StochkThreshold = exitMin60StochkThreshold;
-	}
+    public float getBuyPlacedDailySma20() {
+        return buyPlacedDailySma20;
+    }
 
-	public void setExitMin60LowestHighestStochk(float exitMin60LowestHighestStochk)
-	{
-		this.exitMin60LowestHighestStochk = exitMin60LowestHighestStochk;
-	}
+    public void setBuyPlacedDailySma20(float buyPlacedDailySma20) {
+        this.buyPlacedDailySma20 = buyPlacedDailySma20;
+    }
 
-	public void setExitMin60ModifiedStochKThreshold(float exitMin60ModifiedStochKThreshold)
-	{
-		this.exitMin60ModifiedStochKThreshold = exitMin60ModifiedStochKThreshold;
-	}
+    public float getBuyPlacedDailySma50() {
+        return buyPlacedDailySma50;
+    }
 
-	public void setExitMin15Stochk(float exitMin15Stochk)
-	{
-		this.exitMin15Stochk = exitMin15Stochk;
-	}
+    public void setBuyPlacedDailySma50(float buyPlacedDailySma50) {
+        this.buyPlacedDailySma50 = buyPlacedDailySma50;
+    }
 
-	public void setExitMin15StochkThreshold(float exitMin15StochkThreshold)
-	{
-		this.exitMin15StochkThreshold = exitMin15StochkThreshold;
-	}
+    public float getBuyPlacedDailyStochk() {
+        return buyPlacedDailyStochk;
+    }
 
-	public void setBuyPlacedMin5Stochk(float buyPlacedMin5Stochk)
-	{
-		this.buyPlacedMin5Stochk = buyPlacedMin5Stochk;
-	}
+    public void setBuyPlacedDailyStochk(float buyPlacedDailyStochk) {
+        this.buyPlacedDailyStochk = buyPlacedDailyStochk;
+    }
 
-	public void setBuyPlacedMin5StochkThreshold(float buyPlacedMin5StochkThreshold)
-	{
-		this.buyPlacedMin5StochkThreshold = buyPlacedMin5StochkThreshold;
-	}
+    public float getBuyPlacedDailyModifiedStochkThreshold() {
+        return buyPlacedDailyModifiedStochkThreshold;
+    }
 
-	public void setBuyPlacedDailySma5(float buyPlacedDailySma5)
-	{
-		this.buyPlacedDailySma5 = buyPlacedDailySma5;
-	}
+    public void setBuyPlacedDailyModifiedStochkThreshold(float buyPlacedDailyModifiedStochkThreshold) {
+        this.buyPlacedDailyModifiedStochkThreshold = buyPlacedDailyModifiedStochkThreshold;
+    }
 
-	public void setBuyPlacedDailySma20(float buyPlacedDailySma20)
-	{
-		this.buyPlacedDailySma20 = buyPlacedDailySma20;
-	}
+    public float getBuyPlacedCurrentPrice() {
+        return buyPlacedCurrentPrice;
+    }
 
-	public void setBuyPlacedDailySma50(float buyPlacedDailySma50)
-	{
-		this.buyPlacedDailySma50 = buyPlacedDailySma50;
-	}
+    public void setBuyPlacedCurrentPrice(float buyPlacedCurrentPrice) {
+        this.buyPlacedCurrentPrice = buyPlacedCurrentPrice;
+    }
 
-	public void setBuyPlacedDailyStochk(float buyPlacedDailyStochk)
-	{
-		this.buyPlacedDailyStochk = buyPlacedDailyStochk;
-	}
+    public float getHarvestStochk() {
+        return harvestStochk;
+    }
 
-	public void setBuyPlacedDailyModifiedStochkThreshold(float buyPlacedDailyModifiedStochkThreshold)
-	{
-		this.buyPlacedDailyModifiedStochkThreshold = buyPlacedDailyModifiedStochkThreshold;
-	}
+    public void setHarvestStochk(float harvestStochk) {
+        this.harvestStochk = harvestStochk;
+    }
 
-	public void setBuyPlacedCurrentPrice(float buyPlacedCurrentPrice)
-	{
-		this.buyPlacedCurrentPrice = buyPlacedCurrentPrice;
-	}
+    public float getHarvestStochkThreshold() {
+        return harvestStochkThreshold;
+    }
 
-	public void setHarvestStochk(float harvestStochk)
-	{
-		this.harvestStochk = harvestStochk;
-	}
-
-	public void setHarvestStochkThreshold(float harvestStochkThreshold)
-	{
-		this.harvestStochkThreshold = harvestStochkThreshold;
-	}
+    public void setHarvestStochkThreshold(float harvestStochkThreshold) {
+        this.harvestStochkThreshold = harvestStochkThreshold;
+    }
 
 }

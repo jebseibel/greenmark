@@ -23,57 +23,56 @@ import java.util.BitSet;
  */
 
 public class UTHtmlEncoder {
-	public static final String CLASSNAME = "UTHtmlEncoder";
+    public static final String CLASSNAME = "UTHtmlEncoder";
 
-	static BitSet needEncoding;
+    static BitSet needEncoding;
 
-	static {
-		needEncoding = new BitSet(256);
+    static {
+        needEncoding = new BitSet(256);
 
-		needEncoding.set('<');
-		needEncoding.set('>');
-		needEncoding.set('&');
-		needEncoding.set('"');
-	}
+        needEncoding.set('<');
+        needEncoding.set('>');
+        needEncoding.set('&');
+        needEncoding.set('"');
+    }
 
-	/**
-	 * You can't call the constructor.
-	 */
-	private UTHtmlEncoder() {
-	}
+    /**
+     * You can't call the constructor.
+     */
+    private UTHtmlEncoder() {
+    }
 
-	/**
-	 * Translates a string into HTML entities.
-	 *
-	 * @param s
-	 *            <code>String</code> to be translated.
-	 * @return the translated <code>String</code>.
-	 */
-	public static String encode(String s) {
-		StringBuffer out = new StringBuffer(s.length());
+    /**
+     * Translates a string into HTML entities.
+     *
+     * @param s <code>String</code> to be translated.
+     * @return the translated <code>String</code>.
+     */
+    public static String encode(String s) {
+        StringBuffer out = new StringBuffer(s.length());
 
-		for (int i = 0; i < s.length(); i++) {
-			int c = s.charAt(i);
+        for (int i = 0; i < s.length(); i++) {
+            int c = s.charAt(i);
 
-			switch (c) {
-			case '<':
-				out.append("&lt;");
-				break;
-			case '>':
-				out.append("&gt;");
-				break;
-			case '&':
-				out.append("&amp;");
-				break;
-			case '"':
-				out.append("&quot;");
-				break;
-			default:
-				out.append((char) c);
-			}
-		}
+            switch (c) {
+                case '<':
+                    out.append("&lt;");
+                    break;
+                case '>':
+                    out.append("&gt;");
+                    break;
+                case '&':
+                    out.append("&amp;");
+                    break;
+                case '"':
+                    out.append("&quot;");
+                    break;
+                default:
+                    out.append((char) c);
+            }
+        }
 
-		return out.toString();
-	}
+        return out.toString();
+    }
 
 }

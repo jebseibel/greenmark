@@ -4,1452 +4,1191 @@ package com.greenmark.utils;
 import com.greenmark.common.core.Labels;
 import lombok.extern.slf4j.Slf4j;
 
-import java.text.*;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-/** The UTCalendarTime class is used by all date functions of the software that  also care about the exact time.
- *  It is a subclass of the UTCalendar class and provides many convenience functions to initialize,
- *  format and display date AND time values used by the software system.
+/**
+ * The UTCalendarTime class is used by all date functions of the software that  also care about the exact time.
+ * It is a subclass of the UTCalendar class and provides many convenience functions to initialize,
+ * format and display date AND time values used by the software system.
  */
 @Slf4j
 public class UTCalendarTime
-	extends UTCalendar
-{
+        extends UTCalendar {
 
-	private int  hour_i;
-	private int  minute_i;
-	private int  second_i;
+    private int hour_i;
+    private int minute_i;
+    private int second_i;
 
-	/**
-	 * The default constructor creates an UTCalendarTime object.
-	 */
-	public UTCalendarTime()
-	{
-	}
+    /**
+     * The default constructor creates an UTCalendarTime object.
+     */
+    public UTCalendarTime() {
+    }
 
 
-	private void parseJavaDate ()
-	{
-		// Init Default values if exception formatting date
-		year_i = 1970;
-		month_i = 1;
-		day_i = 1;
-		hour_i = 1;
-		minute_i = 1;
-		second_i = 1;
+    /**
+     * This constructor creates an UTCalendarTime object and sets its date and time to be the date
+     * and time contained in the sqlDateString input parameter.
+     * If this sqlDateString is null, will construct a default date of 1/1/9999.  This is used for empty date objects,
+     * which will display nothing if their date is in the year 9999.
+     *
+     * @param sqlDateString A string for the input date that is in SQL format:  'YYYY-MM-DD HH:MM:SS'.
+     * @return Constructor method returns this object.
+     */
 
-		// Format the internal javaDate to parse into int values, which will be applied to the calendar later.
+    //  USED FOR DTN DATA DATES
+    public UTCalendarTime(String sqlDateString) {
+        String thismethod = "UTCalendarTime Constructor sqlDateString";
+        boolean dateOnly = false;
+        boolean noSeconds = false;
 
-	/**
-	 * @todo  SimpleDateFormat doesn't work for DST 3/9/07 thru 3/30/07
-	 */
-	SimpleDateFormat formatter = new SimpleDateFormat( "yyyyMMdd kkmmss" );
-		String formattedDate = formatter.format( javaDate );
+        try {
+            if ((sqlDateString == null) || (sqlDateString.equals("null"))
+                    || (sqlDateString.equals("")) || (sqlDateString.equals(" "))) {
+                setCalendar("January", "01", "9999");
+            } else {
+                createCalendar();
+                int second = 1;
+                int minute = 1;
+                int hour = 12;
 
-		try
-		{
-			year_i = Integer.parseInt( formattedDate.substring(0, 4));
-			month_i = Integer.parseInt( formattedDate.substring(4, 6));
-			day_i = Integer.parseInt( formattedDate.substring(6, 8 ));
-			hour_i = Integer.parseInt( formattedDate.substring(9, 11 ));
-			minute_i = Integer.parseInt( formattedDate.substring(11, 13 ));
-			second_i = Integer.parseInt( formattedDate.substring(13, formattedDate.length() ));
-		}
-		catch ( NumberFormatException nfe )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime parseJavaDate()!     Exception Message:  [" + nfe.getMessage() + "]" );
-		}
-	}
+                int year = Integer.parseInt(sqlDateString.substring(0, 4));
 
-	/**
-	 * This constructor creates an UTCalendarTime object and sets its date and time to be the date
-	 * and time contained in the sqlDateString input parameter.
-	 * If this sqlDateString is null, will construct a default date of 1/1/9999.  This is used for empty date objects,
-	 * which will display nothing if their date is in the year 9999.
-	 *
-	 * @param sqlDateString A string for the input date that is in SQL format:  'YYYY-MM-DD HH:MM:SS'.
-	 * @return Constructor method returns this object.
-	 */
+                //  PARSE THE MONTH
+                int lastDelimPos = 4;
+                int nextDelimPos = sqlDateString.indexOf("-", lastDelimPos + 1);
+                int month = Integer.parseInt(sqlDateString.substring(lastDelimPos + 1, nextDelimPos));
 
-	//  USED FOR DTN DATA DATES
-	public UTCalendarTime( String sqlDateString )
-	{
-		String thismethod = "UTCalendarTime Constructor sqlDateString";
-		boolean dateOnly = false;
-		boolean noSeconds = false;
+                //  PARSE THE DAY
+                lastDelimPos = nextDelimPos;
+                nextDelimPos = sqlDateString.indexOf(" ", lastDelimPos + 1);
+                if (nextDelimPos == -1) {
+                    nextDelimPos = sqlDateString.length();
+                    dateOnly = true;
+                }
 
-		try
-		{
-			if ( (sqlDateString == null) || (sqlDateString.equals("null"))
-			  || (sqlDateString.equals("")) || (sqlDateString.equals(" "))  )
-			{
-				setCalendar("January", "01", "9999");
-			}
-			else
-			{
-				createCalendar();
-				int second = 1;
-				int minute = 1;
-				int hour = 12;
+                int day = Integer.parseInt(sqlDateString.substring(lastDelimPos + 1, nextDelimPos));
 
-				int year = Integer.parseInt(sqlDateString.substring(0, 4));
+                if (!dateOnly) {
+                    //  PARSE THE HOUR
+                    lastDelimPos = nextDelimPos;
+                    nextDelimPos = sqlDateString.indexOf(":", lastDelimPos + 1);
+                    hour = Integer.parseInt(sqlDateString.substring(lastDelimPos + 1, nextDelimPos));
 
-	         //  PARSE THE MONTH
-	         int lastDelimPos = 4;
-				int nextDelimPos = sqlDateString.indexOf( "-", lastDelimPos + 1 );
-				int month = Integer.parseInt(sqlDateString.substring(lastDelimPos+1, nextDelimPos));
+                    //  PARSE THE MINUTE
+                    lastDelimPos = nextDelimPos;
+                    nextDelimPos = sqlDateString.indexOf(":", lastDelimPos + 1);
+                    if (nextDelimPos == -1) {
+                        nextDelimPos = sqlDateString.length();
+                        noSeconds = true;
+                    }
+                    minute = Integer.parseInt(sqlDateString.substring(lastDelimPos + 1, nextDelimPos));
 
-				//  PARSE THE DAY
-	         lastDelimPos = nextDelimPos;
-				nextDelimPos = sqlDateString.indexOf( " ", lastDelimPos + 1 );
-				if ( nextDelimPos == -1 )
-				{
-					nextDelimPos = sqlDateString.length();
-					dateOnly = true;
-				}
+                    //  PARSE THE SECOND
+                    if (!noSeconds) {
+                        lastDelimPos = nextDelimPos;
+                        nextDelimPos = sqlDateString.indexOf(",", lastDelimPos + 1);
+                        if (nextDelimPos == -1) {
+                            nextDelimPos = sqlDateString.indexOf(".", lastDelimPos + 1);
+                        }
+                        if (nextDelimPos == -1)
+                            nextDelimPos = sqlDateString.length();
 
-				int day = Integer.parseInt(sqlDateString.substring(lastDelimPos+1, nextDelimPos));
+                        second = Integer.parseInt(sqlDateString.substring(lastDelimPos + 1, nextDelimPos));
+                    } else
+                        second = 1;
+                }
+                calendar.set(year, month - 1, day, hour, minute, second);
+                javaDate = calendar.getTime();
 
-				if ( dateOnly == false )
-				{
-					//  PARSE THE HOUR
-					lastDelimPos = nextDelimPos;
-					nextDelimPos = sqlDateString.indexOf(":", lastDelimPos + 1);
-					hour = Integer.parseInt(sqlDateString.substring(lastDelimPos + 1, nextDelimPos));
-
-					//  PARSE THE MINUTE
-					lastDelimPos = nextDelimPos;
-					nextDelimPos = sqlDateString.indexOf(":", lastDelimPos + 1);
-					if (nextDelimPos == -1)
-					{
-						nextDelimPos = sqlDateString.length();
-						noSeconds = true;
-					}
-					minute = Integer.parseInt(sqlDateString.substring(lastDelimPos + 1, nextDelimPos));
-
-					//  PARSE THE SECOND
-					if ( noSeconds == false )
-					{
-						lastDelimPos = nextDelimPos;
-						nextDelimPos = sqlDateString.indexOf(",", lastDelimPos + 1);
-						if (nextDelimPos == -1)
-						{
-							nextDelimPos = sqlDateString.indexOf(".", lastDelimPos + 1);
-						}
-						if (nextDelimPos == -1)
-							nextDelimPos = sqlDateString.length();
-
-						second = Integer.parseInt(sqlDateString.substring(lastDelimPos + 1, nextDelimPos));
-					}
-					else
-						second = 1;
-				}
-				calendar.set(year, month - 1, day, hour, minute, second);
-				javaDate = calendar.getTime();
-
-				if (UTCalendar.DEBUG_CALENDARS == 1)
-				{
+                if (UTCalendar.DEBUG_CALENDARS == 1) {
 //					System.out.println("*************  In UTCalendarTime Constructor sqlDateString trace  *************");
-					displayDateInfo();
-				}
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime Constructor (sqlDateString)!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
+                    displayDateInfo();
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime Constructor (sqlDateString)!     Exception Message:  [" + ex.getMessage() + "]");
+        }
 
-//		
-	}
+//
+    }
 
-	/**
-	 * This constructor wraps the UTCalendar constructor by calling this superclass constructor with
-	 * the same input arguments passed here.
-	 *
-	 * @param inDate A java Date object that is used for the input date.
-	 * @return Constructor method returns this object.
+    /**
+     * This constructor wraps the UTCalendar constructor by calling this superclass constructor with
+     * the same input arguments passed here.
+     *
+     * @param inDate A java Date object that is used for the input date.
+     * @return Constructor method returns this object.
+     */
+    public UTCalendarTime(java.util.Date inDate) {
+        super(inDate);
 
-	 */
-	public UTCalendarTime( java.util.Date inDate )
-	{
-		super( inDate );
+        try {
+            createCalendar();
 
-		try
-		{
-			createCalendar();
+            /**
+             * @todo SimpleDateFormat doesn't work for DST 3/9/07 thru 3/30/07
+             */
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+            String strDate = formatter.format(inDate) + ".0";
 
-			/**
-			 * @todo  SimpleDateFormat doesn't work for DST 3/9/07 thru 3/30/07
-	       */
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
-			String strDate = formatter.format(inDate) + ".0";
+            int year = Integer.parseInt(strDate.substring(0, 4));
+            int month = Integer.parseInt(strDate.substring(5, 7));
+            int day = Integer.parseInt(strDate.substring(8, 10));
+            int hour = Integer.parseInt(strDate.substring(11, 13));
+            int minute = Integer.parseInt(strDate.substring(14, 16));
+            int second = Integer.parseInt(strDate.substring(17, 18));
 
-			int year = Integer.parseInt(strDate.substring(0, 4));
-			int month = Integer.parseInt(strDate.substring(5, 7));
-			int day = Integer.parseInt(strDate.substring(8, 10));
-			int hour = Integer.parseInt(strDate.substring(11, 13));
-			int minute = Integer.parseInt(strDate.substring(14, 16));
-			int second = Integer.parseInt(strDate.substring(17, 18));
+            // Is it between 3/9/07 and 3/31/07
+            if ((year == 2007) && (month == 3) &&
+                    (day >= 9) && (day <= 31)) { // If yes, decrement the hour by 1....?? DST PROBLEM ??
+                hour--;
+            }
 
-			// Is it between 3/9/07 and 3/31/07
-			if ( (year == 2007) && (month == 3) &&
-				 (day >= 9) && (day <= 31))
-			{ // If yes, decrement the hour by 1....?? DST PROBLEM ??
-				hour--;
-			}
+            calendar.set(year, month - 1, day, hour, minute, second);
+            javaDate = calendar.getTime();
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime Constructor (java.util.Date)!     Exception Message:  [" + ex.getMessage() + "]");
+        }
+    }
 
-			calendar.set(year, month - 1, day, hour, minute, second);
-			javaDate = calendar.getTime();
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime Constructor (java.util.Date)!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
-	}
+    /**
+     * This constructor wraps the UTCalendar constructor by calling this superclass constructor with
+     * the same input arguments passed here.
+     *
+     * @param oldCal The UTCalendar object that contains the date we will use to construct this object.
+     * @return Constructor method returns this object.
+     */
+    public UTCalendarTime(UTCalendar oldCal) {
+        super(oldCal);
+    }
 
 
-	/**
-	 * This constructor wraps the UTCalendar constructor by calling this superclass constructor with
-	 * the same input arguments passed here.
-	 *
-	 * @param oldCal The UTCalendar object that contains the date we will use to construct this object.
-	 * @return Constructor method returns this object.
-	 */
-	public UTCalendarTime( UTCalendar oldCal )
-	{
-		super( oldCal );
-	}
-
-	/**
-	 * This constructor wraps the UTCalendar constructor by calling this superclass constructor with
-	 * the same input arguments passed here.
-	 *
-	 * @param oldCal The UTCalendar object that contains the date we will use to construct this object.
-	 * @return Constructor method returns this object.
-	 */
-	public UTCalendarTime( UTCalendarTime oldCal ) throws Exception
-	{
-		try
-		{
-			createCalendar();
+    /**
+     * This constructor wraps the UTCalendar constructor by calling this superclass constructor with
+     * the same input arguments passed here.
+     *
+     * @param oldCal The UTCalendar object that contains the date we will use to construct this object.
+     * @return Constructor method returns this object.
+     */
+    public UTCalendarTime(UTCalendarTime oldCal) throws Exception {
+        try {
+            createCalendar();
 /**  THIS DOESN'T SEEM TO WORK
-			java.util.Date inDate = oldCal.getJavaDate();
-			String inDateStr = inDate.toString();
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
-			String strDate = formatter.format(inDate) + ".0";
+ java.util.Date inDate = oldCal.getJavaDate();
+ String inDateStr = inDate.toString();
+ SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+ String strDate = formatter.format(inDate) + ".0";
 
-			int year = Integer.parseInt(strDate.substring(0, 4));
-			int month = Integer.parseInt(strDate.substring(5, 7));
-			int day = Integer.parseInt(strDate.substring(8, 10));
-			int hour = Integer.parseInt(strDate.substring(11, 13));
-			int minute = Integer.parseInt(strDate.substring(14, 16));
-			int second = Integer.parseInt(strDate.substring(17, 18));
-**/
+ int year = Integer.parseInt(strDate.substring(0, 4));
+ int month = Integer.parseInt(strDate.substring(5, 7));
+ int day = Integer.parseInt(strDate.substring(8, 10));
+ int hour = Integer.parseInt(strDate.substring(11, 13));
+ int minute = Integer.parseInt(strDate.substring(14, 16));
+ int second = Integer.parseInt(strDate.substring(17, 18));
+ **/
 
-		int year = oldCal.getYear();
-		int month = oldCal.getMonth();
-		int day = oldCal.getDay();
-		int hour = oldCal.getHour();
-		int minute = oldCal.getMinute();
-		int second = oldCal.getSecond();
-			calendar.set(year, month - 1, day, hour, minute, second);
+            int year = oldCal.getYear();
+            int month = oldCal.getMonth();
+            int day = oldCal.getDay();
+            int hour = oldCal.getHour();
+            int minute = oldCal.getMinute();
+            int second = oldCal.getSecond();
+            calendar.set(year, month - 1, day, hour, minute, second);
 
-	  // Using parseJavaDate() has a problem on DST from 3/9/07 to 3/30/07..
+            // Using parseJavaDate() has a problem on DST from 3/9/07 to 3/30/07..
 //	      javaDate = oldCal.getJavaDate();
 //			parseJavaDate();
 
 //			calendar.set(year_i, month_i - 1, day_i, hour_i, minute_i, second_i);
-			javaDate = calendar.getTime();
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime Constructor (UTCalendarTime)!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
+            javaDate = calendar.getTime();
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime Constructor (UTCalendarTime)!     Exception Message:  [" + ex.getMessage() + "]");
+        }
 
-	}
+    }
 
-	public final void setCalendar( String monthName, String dayStr, String yearStr,
-											 String hourStr, String minStr, String secStr)
-	{
-		String thismethod = "UTCalendarTime_setCalendar monthName day yearStr";
+    public static void main(String[] args) {
+        try {
+            boolean startCharts = false;
+            boolean restartOnLaunch = false;
+            boolean harvestOnRestart = false;
 
-		try
-		{
-			//  Check for null values and set defaults if found.  Setup null date if all in values blank.
-			if ( (monthName == null) || (monthName.equals("null")) || (monthName.equals("")))
-			{
-				monthName = "January";
-				if ( (dayStr == null) || (dayStr.equals("null")) || (dayStr.equals("")))
-				{
-					dayStr = "01";
-					if ( (yearStr == null) || (yearStr.equals("null")) || (yearStr.equals("")))
-					{
-						yearStr = "9999";
-					}
-				}
-			}
+            for (int i = 0; i < args.length; i++) {
+                System.out.println("args [" + i + "]:  [" + args[i] + "]");
+                if (args[i].equals("-charts"))
+                    startCharts = true;
+                if (args[i].equals("-restart"))
+                    restartOnLaunch = true;
+                if (args[i].equals("-restartAndHarvest")) {
+                    restartOnLaunch = true;
+                    harvestOnRestart = true;
+                }
+            }
 
-			//  First, transform the month name into the digit from 1-12 that represents the month.
-			String monthInt = "";
-			int index;
-			for (index = 0; index < 12; index++)
-			{
-				if (monthName.equals(monthNames[index]) == true)
-				{
-					monthInt = monthInts[index];
-					break;
-				}
-			}
-			if (index == 12)
-			{ // Could not find month name, must've passed in the month digit.
-				monthInt = monthName;
-			}
+            java.util.Date today = new Date();
+            UTCalendarTime thisCal = new UTCalendarTime(today);
+            thisCal.parseJavaDate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-			createCalendar();
-			int year = Integer.parseInt(yearStr);
-			int month = Integer.parseInt(monthInt) - 1;
-			int day = Integer.parseInt(dayStr);
-			int hour = Integer.parseInt(hourStr);
-			int minute = Integer.parseInt(minStr);
-			int second = Integer.parseInt(secStr);
-			calendar.set(year, month, day, hour, minute, second);
-			javaDate = calendar.getTime();
-		}
-		catch( Exception ex )
-		{
+    private void parseJavaDate() {
+        // Init Default values if exception formatting date
+        year_i = 1970;
+        month_i = 1;
+        day_i = 1;
+        hour_i = 1;
+        minute_i = 1;
+        second_i = 1;
+
+        // Format the internal javaDate to parse into int values, which will be applied to the calendar later.
+
+        /**
+         * @todo SimpleDateFormat doesn't work for DST 3/9/07 thru 3/30/07
+         */
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd kkmmss");
+        String formattedDate = formatter.format(javaDate);
+
+        try {
+            year_i = Integer.parseInt(formattedDate.substring(0, 4));
+            month_i = Integer.parseInt(formattedDate.substring(4, 6));
+            day_i = Integer.parseInt(formattedDate.substring(6, 8));
+            hour_i = Integer.parseInt(formattedDate.substring(9, 11));
+            minute_i = Integer.parseInt(formattedDate.substring(11, 13));
+            second_i = Integer.parseInt(formattedDate.substring(13));
+        } catch (NumberFormatException nfe) {
+            System.out.println("============= ERROR IN UTCalendarTime parseJavaDate()!     Exception Message:  [" + nfe.getMessage() + "]");
+        }
+    }
+
+    public final void setCalendar(String monthName, String dayStr, String yearStr,
+                                  String hourStr, String minStr, String secStr) {
+        String thismethod = "UTCalendarTime_setCalendar monthName day yearStr";
+
+        try {
+            //  Check for null values and set defaults if found.  Setup null date if all in values blank.
+            if ((monthName == null) || (monthName.equals("null")) || (monthName.equals(""))) {
+                monthName = "January";
+                if ((dayStr == null) || (dayStr.equals("null")) || (dayStr.equals(""))) {
+                    dayStr = "01";
+                    if ((yearStr == null) || (yearStr.equals("null")) || (yearStr.equals(""))) {
+                        yearStr = "9999";
+                    }
+                }
+            }
+
+            //  First, transform the month name into the digit from 1-12 that represents the month.
+            String monthInt = "";
+            int index;
+            for (index = 0; index < 12; index++) {
+                if (monthName.equals(monthNames[index])) {
+                    monthInt = monthInts[index];
+                    break;
+                }
+            }
+            if (index == 12) { // Could not find month name, must've passed in the month digit.
+                monthInt = monthName;
+            }
+
+            createCalendar();
+            int year = Integer.parseInt(yearStr);
+            int month = Integer.parseInt(monthInt) - 1;
+            int day = Integer.parseInt(dayStr);
+            int hour = Integer.parseInt(hourStr);
+            int minute = Integer.parseInt(minStr);
+            int second = Integer.parseInt(secStr);
+            calendar.set(year, month, day, hour, minute, second);
+            javaDate = calendar.getTime();
+        } catch (Exception ex) {
 //			log.info( "============= ERROR IN UTCalendarTime!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
-
-	}
-
-
-	public final void resetCalendarTime( String hourStr, String minStr, String secStr )
-	{
-		String thismethod = "UTCalendarTime_resetCalendarTime";
-		 log.debug( "INPUT:  hour: " + hourStr );
-		 log.debug( "INPUT:  minute: " + minStr );
-		 log.debug( "INPUT:  second: " + secStr );
-
-		try
-		{
-			int year = getYear();
-			int month = getMonth() - 1;  // We set them as origin 0, but are returned values as origin 1.
-			int day = getDay();
-			createCalendar();
-			int hour = Integer.parseInt(hourStr);
-			int minute = Integer.parseInt(minStr);
-			int second = Integer.parseInt(secStr);
-			calendar.set(year, month, day, hour, minute, second);
-			javaDate = calendar.getTime();
-		}
-		catch( Exception ex )
-		{
-			log.info( "============= ERROR IN UTCalendarTime.resetCalendarTime(hour,min,sec,trace)!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
-
-		
-	}
-
-
-	public final void resetCalendarTime( String minStr, String secStr )
-	{
-		String thismethod = "UTCalendarTime_resetCalendarTime";
-		
-		 log.debug( "INPUT:  minute: " + minStr );
-		 log.debug( "INPUT:  second: " + secStr );
-
-		try
-		{
-			int year = getYear();
-			int month = getMonth() - 1;  // We set them as origin 0, but are returned values as origin 1.
-			int day = getDay();
-
-			int hour = getHour();
-			createCalendar();
-			int minute = Integer.parseInt(minStr);
-			int second = Integer.parseInt(secStr);
-			calendar.set(year, month, day, hour, minute, second);
-			javaDate = calendar.getTime();
-		}
-		catch( Exception ex )
-		{
-			log.info( "============= ERROR IN UTCalendarTime.resetCalendarTime(min,sec,trace)!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
-
-		
-	}
-
-	public final void resetCalendarTime( String secStr )
-	{
-
-		 log.debug( "INPUT:  second: " + secStr );
-
-		try
-		{
-			int year = getYear();
-			int month = getMonth() - 1;  // We set them as origin 0, but are returned values as origin 1.
-			int day = getDay();
-
-			int hour = getHour();
-			int minute = getMinute();
-
-	      createCalendar();
-			int second = Integer.parseInt(secStr);
-			calendar.set(year, month, day, hour, minute, second);
-			javaDate = calendar.getTime();
-		}
-		catch( Exception ex )
-		{
-			log.info( "============= ERROR IN UTCalendarTime.resetCalendarTime(sec,trace)!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
-
-		
-	}
-
-
-
-	/** Formats an UTCalendar Timeobject date for display by a webpage - If this object's year is set to 9999
-	 *  This method will return the string "N/A".    */
-	public String formatDateTimeDisplay()
-	{
-		String hourString, minuteString, secondString;
-
-		try
-		{
-			int hour = getHour();
-			int minute = getMinute();
-			int second = getSecond();
-
-			if (hour < 10)
-			{
-				hourString = "0" + Integer.toString(getHour());
-			}
-			else
-			{
-				hourString = Integer.toString(getHour());
-
-			}
-			if (minute < 10)
-			{
-				minuteString = "0" + Integer.toString(getMinute());
-			}
-			else
-			{
-				minuteString = Integer.toString(getMinute());
-
-			}
-			if (second < 10)
-			{
-				secondString = "0" + Integer.toString(getSecond());
-			}
-			else
-			{
-				secondString = Integer.toString(getSecond());
-
-			}
-
-			if ( (calendar == null) || (getYear() == 9999) || (getYear() == 9998))
-			{
-				return "N/A";
-			}
-			else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
-			{
-				return Integer.toString(getMonth()) + "/" + Integer.toString(getDay()) + "/" + Integer.toString(getYear()) +
-					" - " + hourString + ":" + minuteString + ":" + secondString;
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "N/A";
-		}
-	}
-
-	public String formatDateTimeDisplay_NoSecs()
-	{
-		String hourString, minuteString;
-
-		try
-		{
-			int hour = getHour();
-			int minute = getMinute();
-
-			if (hour < 10)
-			{
-				hourString = "0" + Integer.toString(getHour());
-			}
-			else
-			{
-				hourString = Integer.toString(getHour());
-			}
-			if (minute < 10)
-			{
-				minuteString = "0" + Integer.toString(getMinute());
-			}
-			else
-			{
-				minuteString = Integer.toString(getMinute());
-			}
-
-			if ( (calendar == null) || (getYear() == 9999) || (getYear() == 9998))
-			{
-				return "N/A";
-			}
-			else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
-			{
-				return Integer.toString(getMonth()) + "/" + Integer.toString(getDay()) + "/" + Integer.toString(getYear()) +
-					" - " + hourString + ":" + minuteString;
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "N/A";
-		}
-	}
-
-
-	public int formatIQChartDateDisplay()
-	{
-		String yearString, monthString, dayString;
-
-		try
-		{
-			int year = getYear();
-			int month = getMonth();
-			int day = getDay();
-
-			if ( year > 2000 )
-			{
-				int twoDigitYear = year % 2000;
-				if ( twoDigitYear < 10 )
-					yearString = "0" + Integer.toString(twoDigitYear);
-				else
-				   yearString = Integer.toString(twoDigitYear);
-			}
-			else
-			{
-				int twoDigitYear = year % 1900;
-				if ( twoDigitYear < 10 )
-					yearString = "0" + Integer.toString(twoDigitYear);
-				else
-					yearString = Integer.toString(twoDigitYear);
-			}
-
-			if (month < 10)
-			{
-				monthString = "0" + Integer.toString(getMonth());
-			}
-			else
-			{
-				monthString = Integer.toString(getMonth());
-			}
-
-			if (day < 10)
-			{
-				dayString = "0" + Integer.toString(getDay());
-			}
-			else
-			{
-				dayString = Integer.toString(getDay());
-			}
-
-
-			String finalString = "1" + yearString + monthString + dayString;
-			int returnVal = Integer.parseInt(finalString);
-
-			if ( (calendar == null) || (getYear() == 9999) || (getYear() == 9998))
-			{
-				return 1060101;
-			}
-			else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
-			{
-				return returnVal;
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.formatIQChartDateDisplay()!     Exception Message:  [" + ex.getMessage() + "]" );
-			return 1060101;
-		}
-	}
-
-
-	public int formatIQChartDateTimeDisplay()
-	{
-		String monthString, dayString, hourString, minuteString;
-
-		try
-		{
-			int month = getMonth();
-			int day = getDay();
-			int hour = getHour();
-			int minute = getMinute();
-
-			if (month < 10)
-			{
-				monthString = "0" + Integer.toString(getMonth());
-			}
-			else
-			{
-				monthString = Integer.toString(getMonth());
-			}
-
-			if (day < 10)
-			{
-				dayString = "0" + Integer.toString(getDay());
-			}
-			else
-			{
-				dayString = Integer.toString(getDay());
-			}
-
-			if (hour < 10)
-			{
-				hourString = "0" + Integer.toString(getHour());
-			}
-			else
-			{
-				hourString = Integer.toString(getHour());
-
-			}
-
-			if (minute < 10)
-			{
-				minuteString = "0" + Integer.toString(getMinute());
-			}
-			else
-			{
-				minuteString = Integer.toString(getMinute());
-
-			}
-
-			String finalString = "9" + monthString + dayString + hourString + minuteString ;
-			int returnVal = Integer.parseInt(finalString);
-
-			if ( (calendar == null) || (getYear() == 9999) || (getYear() == 9998))
-			{
-				return 901010101;
-			}
-			else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
-			{
-				return returnVal;
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.formatIQChartDateTimeDisplay()!     Exception Message:  [" + ex.getMessage() + "]" );
-			return 901010101;
-		}
-	}
-
-	public String getDateTimeDisplay()
-	{
-		return formatDateTimeDisplay();
-	}
-
-	public String formatTimeDisplay()
-	{
-		String hourString, minuteString, secondString;
-
-		try
-		{
-			int hour = getHour();
-			int minute = getMinute();
-			int second = getSecond();
-
-			if (hour < 10)
-				hourString = "0" + Integer.toString(hour);
-			else
-				hourString = Integer.toString(hour);
-
-			if (minute < 10)
-				minuteString = "0" + Integer.toString(getMinute());
-			else
-				minuteString = Integer.toString(getMinute());
-
-			if (second < 10)
-				secondString = "0" + Integer.toString(getSecond());
-			else
-				secondString = Integer.toString(getSecond());
-
-			if ( (calendar == null) || (getYear() == 9999) || (getYear() == 9998))
-			{
-				return "N/A";
-			}
-			else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
-			{
-				return hourString + ":" + minuteString + ":" + secondString;
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.formatTimeDisplay()!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "N/A";
-		}
-	}
-
-	public String formatTimeAsInt(String delim)
-	{
-		String hourString, minuteString, secondString;
-
-		try
-		{
-			int hour = getHour();
-			int minute = getMinute();
-			int second = getSecond();
-
-			if (hour < 10)
-			{
-				hourString = "0" + Integer.toString(getHour());
-			}
-			else
-			{
-				hourString = Integer.toString(getHour());
-
-			}
-			if (minute < 10)
-			{
-				minuteString = "0" + Integer.toString(getMinute());
-			}
-			else
-			{
-				minuteString = Integer.toString(getMinute());
-
-			}
-			if (second < 10)
-			{
-				secondString = "0" + Integer.toString(getSecond());
-			}
-			else
-			{
-				secondString = Integer.toString(getSecond());
-
-			}
-
-			if ( (calendar == null) || (getYear() == 9999) || (getYear() == 9998))
-			{
-				return "N/A";
-			}
-			else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
-			{
-				return hourString + delim + minuteString + delim + secondString;
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.formatTimeAsInt()!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "N/A";
-		}
-	}
-
-
-	/** Formats an UTCalendar Timeobject date for display by a webpage - If this object's year is set to 9999
-	 *  This method will return the string "N/A".    */
-	public String getDateTime()
-	{
-		String monthString, dayString, hourString, minuteString, secondString;
-
-		try
-		{
-			int month = getMonth();
-			int day = getDay();
-			int hour = getHour();
-			int minute = getMinute();
-			int second = getSecond();
-
-			if (month < 10)
-			{
-				monthString = "0" + Integer.toString(getMonth());
-			}
-			else
-			{
-				monthString = Integer.toString(getMonth());
-			}
-			if (day < 10)
-			{
-				dayString = "0" + Integer.toString(getDay());
-			}
-			else
-			{
-				dayString = Integer.toString(getDay());
-			}
-
-
-			if (hour < 10)
-			{
-				hourString = "0" + Integer.toString(getHour());
-			}
-			else
-			{
-				hourString = Integer.toString(getHour());
-			}
-			if (minute < 10)
-			{
-				minuteString = "0" + Integer.toString(getMinute());
-			}
-			else
-			{
-				minuteString = Integer.toString(getMinute());
-			}
-			if (second < 10)
-			{
-				secondString = "0" + Integer.toString(getSecond());
-			}
-			else
-			{
-				secondString = Integer.toString(getSecond());
-			}
-
-			if ( (calendar == null) || (getYear() == 9999) || (getYear() == 9998))
-			{
-				return "N/A";
-			}
-			else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
-			{
-				return Integer.toString(getYear()) + "-" + monthString + "-" + dayString +
-					" " + hourString + ":" + minuteString + ":" + secondString;
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "N/A";
-		}
-	}
-
-
-	/** Formats an UTCalendar Timeobject date for display by a webpage - If this object's year is set to 9999
-	 *  This method will return the string "N/A".    */
-	public String formatXMLDateTime(boolean addSeconds)
-	{
-		String monthString, dayString, hourString, minuteString, secondString;
-
-		try
-		{
-			int month = getMonth();
-			int day = getDay();
-			int hour = getHour();
-			int minute = getMinute();
-			int second = getSecond();
-
-			if (isNull())
-			{
-				return "NULL";
-			}
-			else
-			{
-				if (month < 10)
-					monthString = "0" + Integer.toString(month);
-				else
-					monthString = Integer.toString(month);
-
-				if (day < 10)
-					dayString = "0" + Integer.toString(day);
-				else
-					dayString = Integer.toString(day);
-
-				if (hour < 10)
-					hourString = "0" + Integer.toString(hour);
-				else
-					hourString = Integer.toString(hour);
-
-				if (minute < 10)
-					minuteString = "0" + Integer.toString(getMinute());
-				else
-					minuteString = Integer.toString(getMinute());
-
-				if (second < 10)
-					secondString = "0" + Integer.toString(getSecond());
-				else
-					secondString = Integer.toString(getSecond());
-			}
-
-			if ( (calendar == null) || (getYear() == 9999) || (getYear() == 9998))
-			{
-				return "N/A";
-			}
-			else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
-			{
-				String secondDisplay = "";
-				if ( addSeconds )
-				   secondDisplay = ":" + secondString;
-
-				return Integer.toString(getYear()) + "-" + monthString + "-" + dayString +
-					" " + hourString + ":" + minuteString + secondDisplay;
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.formatXMLDateTime()!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "N/A";
-		}
-	}
-
-	public String formatDTNDateTime(boolean addSeconds)
-	{
-		String monthString, dayString, hourString, minuteString, secondString;
-
-		try
-		{
-			int month = getMonth();
-			int day = getDay();
-			int hour = getHour();
-			int minute = getMinute();
-			int second = getSecond();
-
-			if (isNull())
-			{
-				return "NULL";
-			}
-			else
-			{
-				// Don't prepend 0 char onto month or day
-			   monthString = Integer.toString(month);
-				dayString = Integer.toString(day);
-
-/** Don't prepend the 0 for the hour string for DTN data.
-				if (hour < 10)
-				{
-					hourString = "0" + Integer.toString(getHour());
-				}
-				else
-				{
-**/
-					hourString = Integer.toString(getHour());
-
-//				}
-				if (minute < 10)
-				{
-					minuteString = "0" + Integer.toString(getMinute());
-				}
-				else
-				{
-					minuteString = Integer.toString(getMinute());
-
-				}
-				if (second < 10)
-				{
-					secondString = "0" + Integer.toString(getSecond());
-				}
-				else
-				{
-					secondString = Integer.toString(getSecond());
-
-				}
-			}
-
-			if ( (calendar == null) || (getYear() == 9999) || (getYear() == 9998))
-			{
-				return "N/A";
-			}
-			else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
-			{
-				String secondDisplay = "";
-				if ( addSeconds )
-					secondDisplay = ":" + secondString;
-
-				return Integer.toString(getYear()) + "-" + monthString + "-" + dayString +
-					" " + hourString + ":" + minuteString + secondDisplay;
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.formatDTNDateTime()!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "N/A";
-		}
-	}
-
-   /** Formats an UTCalendarTime object date for insertion into the database.    */
-   public String formatDBDate()
-   {
-      try
-      {
-         if (isNull())
-         {
-            return "NULL";
-         }
-         else
-         {
-				String monthString, dayString;
-				int month = getMonth();
-				int day = getDay();
-
-				if (month < 10)
-					monthString = "0" + Integer.toString(month);
-				else
-					monthString = Integer.toString(month);
-
-				if (day < 10)
-					dayString = "0" + Integer.toString(day);
-				else
-					dayString = Integer.toString(day);
-
-
-            return "'" + Integer.toString(getYear()) + "-" + monthString + "-" + dayString + "'";
-         }
-      }
-      catch( Exception ex )
-      {
-         System.out.println( "============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]" );
-         return "NULL";
-      }
-   }
-
-   /** Formats an UTCalendarTime object date for insertion into the database.    */
-   public String formatDBDateNoTicks()
-   {
-      try
-      {
-         if (isNull())
-         {
-            return "NULL";
-         }
-         else
-         {
-            String monthString, dayString;
+        }
+
+    }
+
+    public final void resetCalendarTime(String hourStr, String minStr, String secStr) {
+        String thismethod = "UTCalendarTime_resetCalendarTime";
+        log.debug("INPUT:  hour: " + hourStr);
+        log.debug("INPUT:  minute: " + minStr);
+        log.debug("INPUT:  second: " + secStr);
+
+        try {
+            int year = getYear();
+            int month = getMonth() - 1;  // We set them as origin 0, but are returned values as origin 1.
+            int day = getDay();
+            createCalendar();
+            int hour = Integer.parseInt(hourStr);
+            int minute = Integer.parseInt(minStr);
+            int second = Integer.parseInt(secStr);
+            calendar.set(year, month, day, hour, minute, second);
+            javaDate = calendar.getTime();
+        } catch (Exception ex) {
+            log.info("============= ERROR IN UTCalendarTime.resetCalendarTime(hour,min,sec,trace)!     Exception Message:  [" + ex.getMessage() + "]");
+        }
+
+
+    }
+
+    public final void resetCalendarTime(String minStr, String secStr) {
+        String thismethod = "UTCalendarTime_resetCalendarTime";
+
+        log.debug("INPUT:  minute: " + minStr);
+        log.debug("INPUT:  second: " + secStr);
+
+        try {
+            int year = getYear();
+            int month = getMonth() - 1;  // We set them as origin 0, but are returned values as origin 1.
+            int day = getDay();
+
+            int hour = getHour();
+            createCalendar();
+            int minute = Integer.parseInt(minStr);
+            int second = Integer.parseInt(secStr);
+            calendar.set(year, month, day, hour, minute, second);
+            javaDate = calendar.getTime();
+        } catch (Exception ex) {
+            log.info("============= ERROR IN UTCalendarTime.resetCalendarTime(min,sec,trace)!     Exception Message:  [" + ex.getMessage() + "]");
+        }
+
+
+    }
+
+    public final void resetCalendarTime(String secStr) {
+
+        log.debug("INPUT:  second: " + secStr);
+
+        try {
+            int year = getYear();
+            int month = getMonth() - 1;  // We set them as origin 0, but are returned values as origin 1.
+            int day = getDay();
+
+            int hour = getHour();
+            int minute = getMinute();
+
+            createCalendar();
+            int second = Integer.parseInt(secStr);
+            calendar.set(year, month, day, hour, minute, second);
+            javaDate = calendar.getTime();
+        } catch (Exception ex) {
+            log.info("============= ERROR IN UTCalendarTime.resetCalendarTime(sec,trace)!     Exception Message:  [" + ex.getMessage() + "]");
+        }
+
+
+    }
+
+    /**
+     * Formats an UTCalendar Timeobject date for display by a webpage - If this object's year is set to 9999
+     * This method will return the string "N/A".
+     */
+    public String formatDateTimeDisplay() {
+        String hourString, minuteString, secondString;
+
+        try {
+            int hour = getHour();
+            int minute = getMinute();
+            int second = getSecond();
+
+            if (hour < 10) {
+                hourString = "0" + getHour();
+            } else {
+                hourString = Integer.toString(getHour());
+
+            }
+            if (minute < 10) {
+                minuteString = "0" + getMinute();
+            } else {
+                minuteString = Integer.toString(getMinute());
+
+            }
+            if (second < 10) {
+                secondString = "0" + getSecond();
+            } else {
+                secondString = Integer.toString(getSecond());
+
+            }
+
+            if ((calendar == null) || (getYear() == 9999) || (getYear() == 9998)) {
+                return "N/A";
+            } else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
+            {
+                return getMonth() + "/" + getDay() + "/" + getYear() +
+                        " - " + hourString + ":" + minuteString + ":" + secondString;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]");
+            return "N/A";
+        }
+    }
+
+    public String formatDateTimeDisplay_NoSecs() {
+        String hourString, minuteString;
+
+        try {
+            int hour = getHour();
+            int minute = getMinute();
+
+            if (hour < 10) {
+                hourString = "0" + getHour();
+            } else {
+                hourString = Integer.toString(getHour());
+            }
+            if (minute < 10) {
+                minuteString = "0" + getMinute();
+            } else {
+                minuteString = Integer.toString(getMinute());
+            }
+
+            if ((calendar == null) || (getYear() == 9999) || (getYear() == 9998)) {
+                return "N/A";
+            } else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
+            {
+                return getMonth() + "/" + getDay() + "/" + getYear() +
+                        " - " + hourString + ":" + minuteString;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]");
+            return "N/A";
+        }
+    }
+
+    public int formatIQChartDateDisplay() {
+        String yearString, monthString, dayString;
+
+        try {
+            int year = getYear();
             int month = getMonth();
             int day = getDay();
 
-            if (month < 10)
-               monthString = "0" + Integer.toString(month);
+            if (year > 2000) {
+                int twoDigitYear = year % 2000;
+                if (twoDigitYear < 10)
+                    yearString = "0" + twoDigitYear;
+                else
+                    yearString = Integer.toString(twoDigitYear);
+            } else {
+                int twoDigitYear = year % 1900;
+                if (twoDigitYear < 10)
+                    yearString = "0" + twoDigitYear;
+                else
+                    yearString = Integer.toString(twoDigitYear);
+            }
+
+            if (month < 10) {
+                monthString = "0" + getMonth();
+            } else {
+                monthString = Integer.toString(getMonth());
+            }
+
+            if (day < 10) {
+                dayString = "0" + getDay();
+            } else {
+                dayString = Integer.toString(getDay());
+            }
+
+
+            String finalString = "1" + yearString + monthString + dayString;
+            int returnVal = Integer.parseInt(finalString);
+
+            if ((calendar == null) || (getYear() == 9999) || (getYear() == 9998)) {
+                return 1060101;
+            } else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
+            {
+                return returnVal;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.formatIQChartDateDisplay()!     Exception Message:  [" + ex.getMessage() + "]");
+            return 1060101;
+        }
+    }
+
+    public int formatIQChartDateTimeDisplay() {
+        String monthString, dayString, hourString, minuteString;
+
+        try {
+            int month = getMonth();
+            int day = getDay();
+            int hour = getHour();
+            int minute = getMinute();
+
+            if (month < 10) {
+                monthString = "0" + getMonth();
+            } else {
+                monthString = Integer.toString(getMonth());
+            }
+
+            if (day < 10) {
+                dayString = "0" + getDay();
+            } else {
+                dayString = Integer.toString(getDay());
+            }
+
+            if (hour < 10) {
+                hourString = "0" + getHour();
+            } else {
+                hourString = Integer.toString(getHour());
+
+            }
+
+            if (minute < 10) {
+                minuteString = "0" + getMinute();
+            } else {
+                minuteString = Integer.toString(getMinute());
+
+            }
+
+            String finalString = "9" + monthString + dayString + hourString + minuteString;
+            int returnVal = Integer.parseInt(finalString);
+
+            if ((calendar == null) || (getYear() == 9999) || (getYear() == 9998)) {
+                return 901010101;
+            } else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
+            {
+                return returnVal;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.formatIQChartDateTimeDisplay()!     Exception Message:  [" + ex.getMessage() + "]");
+            return 901010101;
+        }
+    }
+
+    public String getDateTimeDisplay() {
+        return formatDateTimeDisplay();
+    }
+
+    public String formatTimeDisplay() {
+        String hourString, minuteString, secondString;
+
+        try {
+            int hour = getHour();
+            int minute = getMinute();
+            int second = getSecond();
+
+            if (hour < 10)
+                hourString = "0" + hour;
             else
-               monthString = Integer.toString(month);
+                hourString = Integer.toString(hour);
 
-            if (day < 10)
-               dayString = "0" + Integer.toString(day);
+            if (minute < 10)
+                minuteString = "0" + getMinute();
             else
-               dayString = Integer.toString(day);
+                minuteString = Integer.toString(getMinute());
+
+            if (second < 10)
+                secondString = "0" + getSecond();
+            else
+                secondString = Integer.toString(getSecond());
+
+            if ((calendar == null) || (getYear() == 9999) || (getYear() == 9998)) {
+                return "N/A";
+            } else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
+            {
+                return hourString + ":" + minuteString + ":" + secondString;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.formatTimeDisplay()!     Exception Message:  [" + ex.getMessage() + "]");
+            return "N/A";
+        }
+    }
+
+    public String formatTimeAsInt(String delim) {
+        String hourString, minuteString, secondString;
+
+        try {
+            int hour = getHour();
+            int minute = getMinute();
+            int second = getSecond();
+
+            if (hour < 10) {
+                hourString = "0" + getHour();
+            } else {
+                hourString = Integer.toString(getHour());
+
+            }
+            if (minute < 10) {
+                minuteString = "0" + getMinute();
+            } else {
+                minuteString = Integer.toString(getMinute());
+
+            }
+            if (second < 10) {
+                secondString = "0" + getSecond();
+            } else {
+                secondString = Integer.toString(getSecond());
+
+            }
+
+            if ((calendar == null) || (getYear() == 9999) || (getYear() == 9998)) {
+                return "N/A";
+            } else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
+            {
+                return hourString + delim + minuteString + delim + secondString;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.formatTimeAsInt()!     Exception Message:  [" + ex.getMessage() + "]");
+            return "N/A";
+        }
+    }
+
+    /**
+     * Formats an UTCalendar Timeobject date for display by a webpage - If this object's year is set to 9999
+     * This method will return the string "N/A".
+     */
+    public String getDateTime() {
+        String monthString, dayString, hourString, minuteString, secondString;
+
+        try {
+            int month = getMonth();
+            int day = getDay();
+            int hour = getHour();
+            int minute = getMinute();
+            int second = getSecond();
+
+            if (month < 10) {
+                monthString = "0" + getMonth();
+            } else {
+                monthString = Integer.toString(getMonth());
+            }
+            if (day < 10) {
+                dayString = "0" + getDay();
+            } else {
+                dayString = Integer.toString(getDay());
+            }
 
 
-            return Integer.toString(getYear()) + "-" + monthString + "-" + dayString;
-         }
-      }
-      catch( Exception ex )
-      {
-         System.out.println( "============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]" );
-         return "NULL";
-      }
-   }
+            if (hour < 10) {
+                hourString = "0" + getHour();
+            } else {
+                hourString = Integer.toString(getHour());
+            }
+            if (minute < 10) {
+                minuteString = "0" + getMinute();
+            } else {
+                minuteString = Integer.toString(getMinute());
+            }
+            if (second < 10) {
+                secondString = "0" + getSecond();
+            } else {
+                secondString = Integer.toString(getSecond());
+            }
+
+            if ((calendar == null) || (getYear() == 9999) || (getYear() == 9998)) {
+                return "N/A";
+            } else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
+            {
+                return getYear() + "-" + monthString + "-" + dayString +
+                        " " + hourString + ":" + minuteString + ":" + secondString;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]");
+            return "N/A";
+        }
+    }
+
+    /**
+     * Formats an UTCalendar Timeobject date for display by a webpage - If this object's year is set to 9999
+     * This method will return the string "N/A".
+     */
+    public String formatXMLDateTime(boolean addSeconds) {
+        String monthString, dayString, hourString, minuteString, secondString;
+
+        try {
+            int month = getMonth();
+            int day = getDay();
+            int hour = getHour();
+            int minute = getMinute();
+            int second = getSecond();
+
+            if (isNull()) {
+                return "NULL";
+            } else {
+                if (month < 10)
+                    monthString = "0" + month;
+                else
+                    monthString = Integer.toString(month);
+
+                if (day < 10)
+                    dayString = "0" + day;
+                else
+                    dayString = Integer.toString(day);
+
+                if (hour < 10)
+                    hourString = "0" + hour;
+                else
+                    hourString = Integer.toString(hour);
+
+                if (minute < 10)
+                    minuteString = "0" + getMinute();
+                else
+                    minuteString = Integer.toString(getMinute());
+
+                if (second < 10)
+                    secondString = "0" + getSecond();
+                else
+                    secondString = Integer.toString(getSecond());
+            }
+
+            if ((calendar == null) || (getYear() == 9999) || (getYear() == 9998)) {
+                return "N/A";
+            } else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
+            {
+                String secondDisplay = "";
+                if (addSeconds)
+                    secondDisplay = ":" + secondString;
+
+                return getYear() + "-" + monthString + "-" + dayString +
+                        " " + hourString + ":" + minuteString + secondDisplay;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.formatXMLDateTime()!     Exception Message:  [" + ex.getMessage() + "]");
+            return "N/A";
+        }
+    }
+
+    public String formatDTNDateTime(boolean addSeconds) {
+        String monthString, dayString, hourString, minuteString, secondString;
+
+        try {
+            int month = getMonth();
+            int day = getDay();
+            int hour = getHour();
+            int minute = getMinute();
+            int second = getSecond();
+
+            if (isNull()) {
+                return "NULL";
+            } else {
+                // Don't prepend 0 char onto month or day
+                monthString = Integer.toString(month);
+                dayString = Integer.toString(day);
+
+/** Don't prepend the 0 for the hour string for DTN data.
+ if (hour < 10)
+ {
+ hourString = "0" + Integer.toString(getHour());
+ }
+ else
+ {
+ **/
+                hourString = Integer.toString(getHour());
+
+//				}
+                if (minute < 10) {
+                    minuteString = "0" + getMinute();
+                } else {
+                    minuteString = Integer.toString(getMinute());
+
+                }
+                if (second < 10) {
+                    secondString = "0" + getSecond();
+                } else {
+                    secondString = Integer.toString(getSecond());
+
+                }
+            }
+
+            if ((calendar == null) || (getYear() == 9999) || (getYear() == 9998)) {
+                return "N/A";
+            } else // We shouldn't have to add one to the month display.  This seems to make it all work ok....
+            {
+                String secondDisplay = "";
+                if (addSeconds)
+                    secondDisplay = ":" + secondString;
+
+                return getYear() + "-" + monthString + "-" + dayString +
+                        " " + hourString + ":" + minuteString + secondDisplay;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.formatDTNDateTime()!     Exception Message:  [" + ex.getMessage() + "]");
+            return "N/A";
+        }
+    }
+
+    /**
+     * Formats an UTCalendarTime object date for insertion into the database.
+     */
+    public String formatDBDate() {
+        try {
+            if (isNull()) {
+                return "NULL";
+            } else {
+                String monthString, dayString;
+                int month = getMonth();
+                int day = getDay();
+
+                if (month < 10)
+                    monthString = "0" + month;
+                else
+                    monthString = Integer.toString(month);
+
+                if (day < 10)
+                    dayString = "0" + day;
+                else
+                    dayString = Integer.toString(day);
 
 
-	/** Formats an UTCalendarTime object date for insertion into the database.    */
-	public String formatDBDateTime()
-	{
-		try
-		{
-			if (isNull())
-			{
-				return "NULL";
-			}
-			else
-			{
-				int minute = getMinute();
-				String minuteString = "";
-				int second = getSecond();
-				String secondString = "";
+                return "'" + getYear() + "-" + monthString + "-" + dayString + "'";
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]");
+            return "NULL";
+        }
+    }
 
-				if (minute < 10)
-					minuteString = "0" + Integer.toString(minute);
-				else
-					minuteString = Integer.toString(minute);
+    /**
+     * Formats an UTCalendarTime object date for insertion into the database.
+     */
+    public String formatDBDateNoTicks() {
+        try {
+            if (isNull()) {
+                return "NULL";
+            } else {
+                String monthString, dayString;
+                int month = getMonth();
+                int day = getDay();
 
-				if (second < 10)
-					secondString = "0" + Integer.toString(second);
-				else
-					secondString = Integer.toString(second);
+                if (month < 10)
+                    monthString = "0" + month;
+                else
+                    monthString = Integer.toString(month);
 
-				return "'" + Integer.toString(getYear()) + "-" + Integer.toString(getMonth()) + "-" +
-					Integer.toString(getDay()) + " " + Integer.toString(getHour()) + ":" + minuteString + ":" +
-					secondString + ".000'";
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "NULL";
-		}
-	}
+                if (day < 10)
+                    dayString = "0" + day;
+                else
+                    dayString = Integer.toString(day);
 
 
-	/** Formats an UTCalendarTime object date for insertion into the database.    */
-	/** ENDED UP PUTTING THE FIX IN THE UTCalendarTime(java.util.Date) constructor.
-	public String formatDBDateTime_HistoricalDstFix()
-	{
-		try
-		{
-			if (isNull())
-			{
-				return "NULL";
-			}
-			else
-			{
-				// Is it between 3/9/07 and 3/31/07
-				if ( ( getYear() == 2007 ) && ( getMonth() == 3 ) &&
-				     ( getDay() >= 9 ) && ( getDay() <= 31 ) )
-				{  // If yes, decrement the hour by 1....?? DST PROBLEM ??
-					return "'" + Integer.toString(getYear()) + "-" + Integer.toString(getMonth()) + "-" +
-						Integer.toString(getDay()) + " " + Integer.toString(getHour() - 1) + ":" + Integer.toString(getMinute()) + ":" +
-						Integer.toString(getSecond()) + ".000'";
-				}
-				else
-					return "'" + Integer.toString(getYear()) + "-" + Integer.toString(getMonth()) + "-" +
-						Integer.toString(getDay()) + " " + Integer.toString(getHour()) + ":" + Integer.toString(getMinute()) + ":" +
-						Integer.toString(getSecond()) + ".000'";
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "NULL";
-		}
-	}
-**/
-
-   /** Formats an UTCalendarTime object date for stamping files.    */
-   public String formatFileDateTime()
-   {
-		try
-		{
-				return formatFileDateTimeHelper (false);
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.formatFileDateTime()!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "NULL";
-		}
-   }
-
-	public String formatFileDateTimeHelper (boolean addNoDelimiters)
-	{
-		try
-		{
-			if (isNull())
-			{
-				return "NULL";
-			}
-			else
-			{
-				String monthString, dayString, hourString, minuteString;
-				int month = getMonth();
-				int day = getDay();
-				int hour = getHour();
-				int minute = getMinute();
-
-				if (month < 10)
-				{
-					monthString = "0" + Integer.toString(getMonth());
-				}
-				else
-				{
-					monthString = Integer.toString(getMonth());
-				}
-				if (day < 10)
-				{
-					dayString = "0" + Integer.toString(getDay());
-				}
-				else
-				{
-					dayString = Integer.toString(getDay());
-				}
+                return getYear() + "-" + monthString + "-" + dayString;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]");
+            return "NULL";
+        }
+    }
 
 
-				if (hour < 10)
-				{
-					hourString = "0" + Integer.toString(getHour());
-				}
-				else
-				{
-					hourString = Integer.toString(getHour());
-				}
-				if (minute < 10)
-				{
-					minuteString = "0" + Integer.toString(getMinute());
-				}
-				else
-				{
-					minuteString = Integer.toString(getMinute());
-				}
+    /** Formats an UTCalendarTime object date for insertion into the database.    */
+    /** ENDED UP PUTTING THE FIX IN THE UTCalendarTime(java.util.Date) constructor.
+     public String formatDBDateTime_HistoricalDstFix()
+     {
+     try
+     {
+     if (isNull())
+     {
+     return "NULL";
+     }
+     else
+     {
+     // Is it between 3/9/07 and 3/31/07
+     if ( ( getYear() == 2007 ) && ( getMonth() == 3 ) &&
+     ( getDay() >= 9 ) && ( getDay() <= 31 ) )
+     {  // If yes, decrement the hour by 1....?? DST PROBLEM ??
+     return "'" + Integer.toString(getYear()) + "-" + Integer.toString(getMonth()) + "-" +
+     Integer.toString(getDay()) + " " + Integer.toString(getHour() - 1) + ":" + Integer.toString(getMinute()) + ":" +
+     Integer.toString(getSecond()) + ".000'";
+     }
+     else
+     return "'" + Integer.toString(getYear()) + "-" + Integer.toString(getMonth()) + "-" +
+     Integer.toString(getDay()) + " " + Integer.toString(getHour()) + ":" + Integer.toString(getMinute()) + ":" +
+     Integer.toString(getSecond()) + ".000'";
+     }
+     }
+     catch( Exception ex )
+     {
+     System.out.println( "============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]" );
+     return "NULL";
+     }
+     }
+     **/
 
-				if ( addNoDelimiters )
-					return Integer.toString(getYear()) + monthString +
-						dayString + hourString + minuteString;
-				else
-					return Integer.toString(getYear()) + monthString +
-						dayString + "-"  + hourString + "-" + minuteString;
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.formatFileDateTime()!     Exception Message:  [" + ex.getMessage() + "]" );
-			return "NULL";
-		}
-   }
+    /**
+     * Formats an UTCalendarTime object date for insertion into the database.
+     */
+    public String formatDBDateTime() {
+        try {
+            if (isNull()) {
+                return "NULL";
+            } else {
+                int minute = getMinute();
+                String minuteString = "";
+                int second = getSecond();
+                String secondString = "";
 
-	/** Not used for UTCalendar - Use for UTCalendarTime subclass only.
-	 * Returns the Hour of the Day (01-24) for the date this UTCalendar object represents.  */
-	public final long getMinutesSince1970 ()
-	{
-		try
-		{
-			if (isNull())
-			{
-				return 0;
-			}
-			else
-			{
-				long millisecondTime = calendar.getTimeInMillis();
-				return millisecondTime / (1000 * 60);
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]" );
-			return 0;
-		}
-	}
+                if (minute < 10)
+                    minuteString = "0" + minute;
+                else
+                    minuteString = Integer.toString(minute);
 
+                if (second < 10)
+                    secondString = "0" + second;
+                else
+                    secondString = Integer.toString(second);
 
+                return "'" + getYear() + "-" + getMonth() + "-" +
+                        getDay() + " " + getHour() + ":" + minuteString + ":" +
+                        secondString + ".000'";
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]");
+            return "NULL";
+        }
+    }
 
-	public final boolean isEqualInCalendarDateTime ( UTCalendarTime inCal,
-		boolean considerHoursAndMinutes // This is so we can pass in UTCalendarTime objects for daily data, and for that type data, we don't care about hours or mins.
-		)
-	{
-		if ( isEqualInCalendarDate ( inCal ) )
-		{
-			if ( considerHoursAndMinutes == false ) // If we don't care about hours or minutes, return true now.
-				return true;
+    /**
+     * Formats an UTCalendarTime object date for stamping files.
+     */
+    public String formatFileDateTime() {
+        try {
+            return formatFileDateTimeHelper(false);
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.formatFileDateTime()!     Exception Message:  [" + ex.getMessage() + "]");
+            return "NULL";
+        }
+    }
 
-			if ( (getHour() < inCal.getHour()) || (getHour() > inCal.getHour()))
-				return false;
-			else if ( (getMinute() < inCal.getMinute()) || (getMinute() > inCal.getMinute())) // The years must be equal
-				return false;
-			else
-				return true;
-		}
-		else
-			return false;
-	}
+    public String formatFileDateTimeHelper(boolean addNoDelimiters) {
+        try {
+            if (isNull()) {
+                return "NULL";
+            } else {
+                String monthString, dayString, hourString, minuteString;
+                int month = getMonth();
+                int day = getDay();
+                int hour = getHour();
+                int minute = getMinute();
 
-	public final boolean isBeforeInCalendarDateTime( UTCalendarTime inCal,
-		boolean considerHoursAndMinutes // This is so we can pass in UTCalendarTime objects for daily data, and for that type data, we don't care about hours or mins.
-	)
-	{
-		/**
-		String thisDatetimeString = formatDateTimeDisplay();
-		String inDatetimeString = inCal.formatDateTimeDisplay();
-
-		int thisYear = getYear();
-		int inYear = inCal.getYear();
-**/
-		if( getYear() < inCal.getYear() )
-			return true;
-		else if ( getYear() > inCal.getYear() )
-			return false;
-
-		else if ( getMonth() < inCal.getMonth() ) // The years already must be equal
-			return true;
-		else if ( getMonth() > inCal.getMonth() ) // The years already must be equal
-			return false;
-
-		else if ( getDay() < inCal.getDay() )
-			return true;
-		else if ( getDay() > inCal.getDay() )
-			return false;
-
-		if ( considerHoursAndMinutes == false ) // If we don't care about hours or minutes, return false now.  We would've returned true earlier if qualified.
-			return false;
-
-		else if ( getHour() < inCal.getHour() )
-			return true;
-		else if ( getHour() > inCal.getHour() )
-			return false;
-
-		else if ( getMinute() < inCal.getMinute() )
-			return true;
-		else if ( getMinute() > inCal.getMinute() )
-			return false;
-
-	   else
-			return false;
-	}
-
-	public final boolean isAfterInCalendarDateTime( UTCalendarTime inCal,
-		boolean considerHoursAndMinutes // This is so we can pass in UTCalendarTime objects for daily data, and for that type data, we don't care about hours or mins.
-		    )
-	{
-		if( getYear() > inCal.getYear() )
-			return true;
-		else if ( getYear() < inCal.getYear() )
-			return false;
-
-		else if ( getMonth() > inCal.getMonth() ) // The years already must be equal
-			return true;
-		else if ( getMonth() < inCal.getMonth() ) // The years already must be equal
-			return false;
-
-		else if ( getDay() > inCal.getDay() )
-			return true;
-	   else if ( getDay() < inCal.getDay() )
-			return false;
-
-		if ( considerHoursAndMinutes == false ) // If we don't care about hours or minutes, return false now.  We would've returned true earlier if qualified.
-			return false;
-
-		else if ( getHour() > inCal.getHour() )
-			return true;
-		else if ( getHour() < inCal.getHour() )
-			return false;
-
-		else if ( getMinute() > inCal.getMinute() )
-			return true;
-		else if ( getMinute() < inCal.getMinute() )
-			return false;
-
-		else
-			return false;
-	}
-
-	public final void decrementMinute( int numMinutes )
-	{
-		String thismethod = "decrementMinute";
-
-		try
-		{
-
-			//get the milliseconds
-			long mils = javaDate.getTime();
-
-			//compute the millseconds in minutes
-			long total = Labels.MINUTE * numMinutes;
-
-			//subtract and create new date
-			long newMils = mils - total;
-			javaDate = new Date(newMils);
-
-			//set the calendar
-			calendar.setTime( javaDate );
-
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.decrementMinute!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
-	}
+                if (month < 10) {
+                    monthString = "0" + getMonth();
+                } else {
+                    monthString = Integer.toString(getMonth());
+                }
+                if (day < 10) {
+                    dayString = "0" + getDay();
+                } else {
+                    dayString = Integer.toString(getDay());
+                }
 
 
-	public final void decrementMinute( )
-	{
-		String thismethod = "decrementMinute";
+                if (hour < 10) {
+                    hourString = "0" + getHour();
+                } else {
+                    hourString = Integer.toString(getHour());
+                }
+                if (minute < 10) {
+                    minuteString = "0" + getMinute();
+                } else {
+                    minuteString = Integer.toString(getMinute());
+                }
 
-		try
-		{
-			decrementMinute(1);
+                if (addNoDelimiters)
+                    return getYear() + monthString +
+                            dayString + hourString + minuteString;
+                else
+                    return getYear() + monthString +
+                            dayString + "-" + hourString + "-" + minuteString;
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.formatFileDateTime()!     Exception Message:  [" + ex.getMessage() + "]");
+            return "NULL";
+        }
+    }
 
-			if (UTCalendar.DEBUG_CALENDARS == 1)
-			{
-				System.out.println("*************  In UTCalendarTime_decrementMinute  *************");
-				displayDateInfo();
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.decrementMinute!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
-	}
+    /**
+     * Not used for UTCalendar - Use for UTCalendarTime subclass only.
+     * Returns the Hour of the Day (01-24) for the date this UTCalendar object represents.
+     */
+    public final long getMinutesSince1970() {
+        try {
+            if (isNull()) {
+                return 0;
+            } else {
+                long millisecondTime = calendar.getTimeInMillis();
+                return millisecondTime / (1000 * 60);
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendar!     Exception Message:  [" + ex.getMessage() + "]");
+            return 0;
+        }
+    }
 
+    public final boolean isEqualInCalendarDateTime(UTCalendarTime inCal,
+                                                   boolean considerHoursAndMinutes // This is so we can pass in UTCalendarTime objects for daily data, and for that type data, we don't care about hours or mins.
+    ) {
+        if (isEqualInCalendarDate(inCal)) {
+            if (!considerHoursAndMinutes) // If we don't care about hours or minutes, return true now.
+                return true;
 
+            // The years must be equal
+            if ((getHour() < inCal.getHour()) || (getHour() > inCal.getHour()))
+                return false;
+            else return (getMinute() >= inCal.getMinute()) && (getMinute() <= inCal.getMinute());
+        } else
+            return false;
+    }
 
-	public final void incrementMinute( )
-	{
-		String thismethod = "incrementMinute";
+    public final boolean isBeforeInCalendarDateTime(UTCalendarTime inCal,
+                                                    boolean considerHoursAndMinutes // This is so we can pass in UTCalendarTime objects for daily data, and for that type data, we don't care about hours or mins.
+    ) {
+        /**
+         String thisDatetimeString = formatDateTimeDisplay();
+         String inDatetimeString = inCal.formatDateTimeDisplay();
 
-		try
-		{
-			//get the milliseconds
-			long mils = javaDate.getTime();
+         int thisYear = getYear();
+         int inYear = inCal.getYear();
+         **/
+        if (getYear() < inCal.getYear())
+            return true;
+        else if (getYear() > inCal.getYear())
+            return false;
 
-			//add and create new date
-			long newMils = mils + Labels.MINUTE;
+        else if (getMonth() < inCal.getMonth()) // The years already must be equal
+            return true;
+        else if (getMonth() > inCal.getMonth()) // The years already must be equal
+            return false;
 
-	      //create the current javaDate
-			javaDate = new Date(newMils);
+        else if (getDay() < inCal.getDay())
+            return true;
+        else if (getDay() > inCal.getDay())
+            return false;
 
-			//set the calendar
-			calendar.setTime( javaDate );
+        if (!considerHoursAndMinutes) // If we don't care about hours or minutes, return false now.  We would've returned true earlier if qualified.
+            return false;
 
-			if (UTCalendar.DEBUG_CALENDARS == 1)
-			{
-				System.out.println("*************  In UTCalendarTime_incrementMinute  *************");
-				displayDateInfo();
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.incrementMinute()!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
-	}
+        else if (getHour() < inCal.getHour())
+            return true;
+        else if (getHour() > inCal.getHour())
+            return false;
 
-	public final void incrementHour( )
-	{
-		String thismethod = "incrementHour";
+        else if (getMinute() < inCal.getMinute())
+            return true;
+        else if (getMinute() > inCal.getMinute())
+            return false;
 
-		try
-		{
-			//get the milliseconds
-			long mils = javaDate.getTime();
+        else
+            return false;
+    }
 
-			//add and create new date
-			long newMils = mils + Labels.HOUR;
-			javaDate = new Date(newMils);
+    public final boolean isAfterInCalendarDateTime(UTCalendarTime inCal,
+                                                   boolean considerHoursAndMinutes // This is so we can pass in UTCalendarTime objects for daily data, and for that type data, we don't care about hours or mins.
+    ) {
+        if (getYear() > inCal.getYear())
+            return true;
+        else if (getYear() < inCal.getYear())
+            return false;
 
-			//set the calendar
-			calendar.setTime( javaDate );
+        else if (getMonth() > inCal.getMonth()) // The years already must be equal
+            return true;
+        else if (getMonth() < inCal.getMonth()) // The years already must be equal
+            return false;
 
-			if (UTCalendar.DEBUG_CALENDARS == 1)
-			{
-				System.out.println("*************  In UTCalendarTime_incrementMinute  *************");
-				displayDateInfo();
-			}
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN UTCalendarTime.incrementHour()!     Exception Message:  [" + ex.getMessage() + "]" );
-		}
-	}
+        else if (getDay() > inCal.getDay())
+            return true;
+        else if (getDay() < inCal.getDay())
+            return false;
 
+        if (!considerHoursAndMinutes) // If we don't care about hours or minutes, return false now.  We would've returned true earlier if qualified.
+            return false;
 
-	public static void main( String[] args )
-	{
-		try
-		{
-			boolean startCharts = false;
-			boolean restartOnLaunch = false;
-			boolean harvestOnRestart = false;
+        else if (getHour() > inCal.getHour())
+            return true;
+        else if (getHour() < inCal.getHour())
+            return false;
 
-			for ( int i=0; i<args.length; i++)
-			{
-				System.out.println("args [" + i + "]:  [" + args[i] + "]");
-				if ( args[i].equals("-charts") )
-					startCharts = true;
-				if ( args[i].equals("-restart") )
-					restartOnLaunch = true;
-				if ( args[i].equals("-restartAndHarvest") )
-				{
-					restartOnLaunch = true;
-					harvestOnRestart = true;
-				}
-			}
+        else if (getMinute() > inCal.getMinute())
+            return true;
+        else if (getMinute() < inCal.getMinute())
+            return false;
 
-			java.util.Date today = new Date();
-			UTCalendarTime thisCal = new UTCalendarTime(today);
-			thisCal.parseJavaDate();
-		}
-		catch( Exception e )
-		{
-			e.printStackTrace();
-		}
-	}
+        else
+            return false;
+    }
+
+    public final void decrementMinute(int numMinutes) {
+        String thismethod = "decrementMinute";
+
+        try {
+
+            //get the milliseconds
+            long mils = javaDate.getTime();
+
+            //compute the millseconds in minutes
+            long total = Labels.MINUTE * numMinutes;
+
+            //subtract and create new date
+            long newMils = mils - total;
+            javaDate = new Date(newMils);
+
+            //set the calendar
+            calendar.setTime(javaDate);
+
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.decrementMinute!     Exception Message:  [" + ex.getMessage() + "]");
+        }
+    }
+
+    public final void decrementMinute() {
+        String thismethod = "decrementMinute";
+
+        try {
+            decrementMinute(1);
+
+            if (UTCalendar.DEBUG_CALENDARS == 1) {
+                System.out.println("*************  In UTCalendarTime_decrementMinute  *************");
+                displayDateInfo();
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.decrementMinute!     Exception Message:  [" + ex.getMessage() + "]");
+        }
+    }
+
+    public final void incrementMinute() {
+        String thismethod = "incrementMinute";
+
+        try {
+            //get the milliseconds
+            long mils = javaDate.getTime();
+
+            //add and create new date
+            long newMils = mils + Labels.MINUTE;
+
+            //create the current javaDate
+            javaDate = new Date(newMils);
+
+            //set the calendar
+            calendar.setTime(javaDate);
+
+            if (UTCalendar.DEBUG_CALENDARS == 1) {
+                System.out.println("*************  In UTCalendarTime_incrementMinute  *************");
+                displayDateInfo();
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.incrementMinute()!     Exception Message:  [" + ex.getMessage() + "]");
+        }
+    }
+
+    public final void incrementHour() {
+        String thismethod = "incrementHour";
+
+        try {
+            //get the milliseconds
+            long mils = javaDate.getTime();
+
+            //add and create new date
+            long newMils = mils + Labels.HOUR;
+            javaDate = new Date(newMils);
+
+            //set the calendar
+            calendar.setTime(javaDate);
+
+            if (UTCalendar.DEBUG_CALENDARS == 1) {
+                System.out.println("*************  In UTCalendarTime_incrementMinute  *************");
+                displayDateInfo();
+            }
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN UTCalendarTime.incrementHour()!     Exception Message:  [" + ex.getMessage() + "]");
+        }
+    }
 
 
 }

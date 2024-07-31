@@ -1,13 +1,13 @@
 package com.greenmark.common.dto.account.database;
 
-import java.io.Serializable;
-import java.time.ZoneOffset;
-import java.util.Iterator;
-
 import com.greenmark.common.GmConstants;
 import com.greenmark.common.dto.account.timeperiod.AccountDailyDto;
 import com.greenmark.common.dto.scenario.database.decorator.ScenarioDecorator;
 import com.greenmark.common.service.MoneyCalculatorService;
+
+import java.io.Serializable;
+import java.time.ZoneOffset;
+import java.util.Iterator;
 
 /**
  * @formatter:off
@@ -24,12 +24,12 @@ import com.greenmark.common.service.MoneyCalculatorService;
  */
 
 public class AccountCalculator extends AccountCalculatorDtoDecorator implements Serializable {
-	public static final String CLASSNAME = "AccountCalculator";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "AccountCalculator";
+    private static final long serialVersionUID = 1L;
 
-	public AccountCalculator() {
-		super();
-	}
+    public AccountCalculator() {
+        super();
+    }
 
 //	public AccountCalculator(CreateAccountDto createAccountData) {
 //		super(createAccountData);
@@ -49,127 +49,127 @@ public class AccountCalculator extends AccountCalculatorDtoDecorator implements 
 //		calculateMonthlyPercentGrowth();
 //	}
 
-	public void calculateAccountStatistics() {
-		double netLiquidTotal = 0;
-		int numDays = 0, dayIndex = 0;
+    public void calculateAccountStatistics() {
+        double netLiquidTotal = 0;
+        int numDays = 0, dayIndex = 0;
 
-		if ((accountDailyList != null) && (accountDailyList.size() > 1)) {
-			// Estimate the number of calendar days since the first Account Daily item and the last
-			AccountDailyDto openBalancesDaily = (AccountDailyDto) accountDailyList.get(0); // This record is the previous day's open.
-			AccountDailyDto firstDaily = null;
-			if (accountDailyList.size() == 1)
-				firstDaily = (AccountDailyDto) accountDailyList.get(0); // Get the second record, the first one is our open balance record(yesterday)
-			else {
-				firstDaily = (AccountDailyDto) accountDailyList.get(1); // But this is the first date of user search.
-				dayIndex = 1;
-			}
-			AccountDailyDto lastDaily = (AccountDailyDto) accountDailyList.get(accountDailyList.size() - 1);
+        if ((accountDailyList != null) && (accountDailyList.size() > 1)) {
+            // Estimate the number of calendar days since the first Account Daily item and the last
+            AccountDailyDto openBalancesDaily = accountDailyList.get(0); // This record is the previous day's open.
+            AccountDailyDto firstDaily = null;
+            if (accountDailyList.size() == 1)
+                firstDaily = accountDailyList.get(0); // Get the second record, the first one is our open balance record(yesterday)
+            else {
+                firstDaily = accountDailyList.get(1); // But this is the first date of user search.
+                dayIndex = 1;
+            }
+            AccountDailyDto lastDaily = accountDailyList.get(accountDailyList.size() - 1);
 
-			for (int i = dayIndex; i < accountDailyList.size(); i++) {
-				AccountDailyDto dailyRecord = (AccountDailyDto) accountDailyList.get(i);
+            for (int i = dayIndex; i < accountDailyList.size(); i++) {
+                AccountDailyDto dailyRecord = accountDailyList.get(i);
 
-				double divisor = dailyRecord.getNetLiquidationValue();
-				if (isAccountTypeRegT() == false)
-					divisor = dailyRecord.getGrandTotalEquity() / 2.0;
-				leverageRatio += (dailyRecord.getLongPositionsTotal() + dailyRecord.getShortPositionsTotal()) / divisor;
-				numDays++;
-			}
+                double divisor = dailyRecord.getNetLiquidationValue();
+                if (!isAccountTypeRegT())
+                    divisor = dailyRecord.getGrandTotalEquity() / 2.0;
+                leverageRatio += (dailyRecord.getLongPositionsTotal() + dailyRecord.getShortPositionsTotal()) / divisor;
+                numDays++;
+            }
 
-			leverageRatio = leverageRatio / numDays;
-		}
-	}
+            leverageRatio = leverageRatio / numDays;
+        }
+    }
 
-	public float calcPercentGrowth(double numDaysPerPeriod) {
-		float returnVal = 0;
+    public float calcPercentGrowth(double numDaysPerPeriod) {
+        float returnVal = 0;
 
-		if ((accountDailyList != null) && (accountDailyList.size() > 1)) {
-			// Estimate the number of calendar days since the first Account Daily item and the last
-			AccountDailyDto openBalancesDaily = (AccountDailyDto) accountDailyList.get(0); // This record is the previous day's open.
-			AccountDailyDto firstDaily = null;
-			if (accountDailyList.size() == 1)
-				firstDaily = (AccountDailyDto) accountDailyList.get(0);
-			else
-				firstDaily = (AccountDailyDto) accountDailyList.get(1); // But this is the first date of user search.
-			AccountDailyDto lastDaily = (AccountDailyDto) accountDailyList.get(accountDailyList.size() - 1);
+        if ((accountDailyList != null) && (accountDailyList.size() > 1)) {
+            // Estimate the number of calendar days since the first Account Daily item and the last
+            AccountDailyDto openBalancesDaily = accountDailyList.get(0); // This record is the previous day's open.
+            AccountDailyDto firstDaily = null;
+            if (accountDailyList.size() == 1)
+                firstDaily = accountDailyList.get(0);
+            else
+                firstDaily = accountDailyList.get(1); // But this is the first date of user search.
+            AccountDailyDto lastDaily = accountDailyList.get(accountDailyList.size() - 1);
 
-			// Don't include the open balance record when determining how many days this calculation is for.
-			long lastEpochSecond = lastDaily.getThisDate().atZone(ZoneOffset.UTC).toEpochSecond();
-			long firstEpochSecond = firstDaily.getThisDate().atZone(ZoneOffset.UTC).toEpochSecond();
+            // Don't include the open balance record when determining how many days this calculation is for.
+            long lastEpochSecond = lastDaily.getThisDate().atZone(ZoneOffset.UTC).toEpochSecond();
+            long firstEpochSecond = firstDaily.getThisDate().atZone(ZoneOffset.UTC).toEpochSecond();
 
-			long millisecondDifference = (lastEpochSecond * 1000) - (firstEpochSecond * 1000);
-			long numCalendarDays = millisecondDifference / GmConstants.NUM_MILLISECONDS_IN_DAY;
-			double numYearsDecimal = (double) numCalendarDays / numDaysPerPeriod;
+            long millisecondDifference = (lastEpochSecond * 1000) - (firstEpochSecond * 1000);
+            long numCalendarDays = millisecondDifference / GmConstants.NUM_MILLISECONDS_IN_DAY;
+            double numYearsDecimal = (double) numCalendarDays / numDaysPerPeriod;
 
-			// Get the total growth from both the short and long positions
-			double equityDifference = 0;
-			double percentOfOriginalEquity = 0;
+            // Get the total growth from both the short and long positions
+            double equityDifference = 0;
+            double percentOfOriginalEquity = 0;
 
-			equityDifference = lastDaily.getGrandTotalEquity() - openBalancesDaily.getGrandTotalEquity();
-			percentOfOriginalEquity = equityDifference / openBalancesDaily.getGrandTotalEquity();
+            equityDifference = lastDaily.getGrandTotalEquity() - openBalancesDaily.getGrandTotalEquity();
+            percentOfOriginalEquity = equityDifference / openBalancesDaily.getGrandTotalEquity();
 
-			// Now divide by the fractional num years. Multiply by 100 to turn into a display percentage and not fractional percentage.
-			returnVal = (float) (percentOfOriginalEquity / numYearsDecimal) * 100;
-		}
-		return returnVal;
-	}
+            // Now divide by the fractional num years. Multiply by 100 to turn into a display percentage and not fractional percentage.
+            returnVal = (float) (percentOfOriginalEquity / numYearsDecimal) * 100;
+        }
+        return returnVal;
+    }
 
-	public float calculateYearlyROI() {
-		int numDaysForAccount = 0;
-		double totalProfitLoss = 0F;
-		double longTotalProfitLoss = 0F;
-		double shortTotalProfitLoss = 0F;
+    public float calculateYearlyROI() {
+        int numDaysForAccount = 0;
+        double totalProfitLoss = 0F;
+        double longTotalProfitLoss = 0F;
+        double shortTotalProfitLoss = 0F;
 
-		if ((scenarioList != null) && (scenarioList.size() > 0)) {
-			Iterator scenarioListIter = scenarioList.iterator();
-			while (scenarioListIter.hasNext()) {
-				ScenarioDecorator thisScenario = (ScenarioDecorator) scenarioListIter.next();
-				numDaysForAccount += thisScenario.getNumDaysInScenario();
+        if ((scenarioList != null) && (scenarioList.size() > 0)) {
+            Iterator scenarioListIter = scenarioList.iterator();
+            while (scenarioListIter.hasNext()) {
+                ScenarioDecorator thisScenario = (ScenarioDecorator) scenarioListIter.next();
+                numDaysForAccount += thisScenario.getNumDaysInScenario();
 
-				totalProfitLoss += thisScenario.getTotalProfitAndLoss();
-				longTotalProfitLoss += thisScenario.getLongProfitAndLoss();
-				shortTotalProfitLoss += thisScenario.getShortProfitAndLoss();
-			}
-		}
+                totalProfitLoss += thisScenario.getTotalProfitAndLoss();
+                longTotalProfitLoss += thisScenario.getLongProfitAndLoss();
+                shortTotalProfitLoss += thisScenario.getShortProfitAndLoss();
+            }
+        }
 
-		yearlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, numDaysForAccount, totalProfitLoss);
-		longYearlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, numDaysForAccount, longTotalProfitLoss);
-		shortYearlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, numDaysForAccount, shortTotalProfitLoss);
-		return yearlyRoi;
-	}
+        yearlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, numDaysForAccount, totalProfitLoss);
+        longYearlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, numDaysForAccount, longTotalProfitLoss);
+        shortYearlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, numDaysForAccount, shortTotalProfitLoss);
+        return yearlyRoi;
+    }
 
-	public float calculateMonthlyROI() {
-		int numDaysForAccount = 0;
-		double totalProfitLoss = 0F;
-		double longTotalProfitLoss = 0F;
-		double shortTotalProfitLoss = 0F;
+    public float calculateMonthlyROI() {
+        int numDaysForAccount = 0;
+        double totalProfitLoss = 0F;
+        double longTotalProfitLoss = 0F;
+        double shortTotalProfitLoss = 0F;
 
-		if ((scenarioList != null) && (scenarioList.size() > 0)) {
-			Iterator scenarioListIter = scenarioList.iterator();
-			while (scenarioListIter.hasNext()) {
-				ScenarioDecorator thisScenario = (ScenarioDecorator) scenarioListIter.next();
-				numDaysForAccount += thisScenario.getNumDaysInScenario();
+        if ((scenarioList != null) && (scenarioList.size() > 0)) {
+            Iterator scenarioListIter = scenarioList.iterator();
+            while (scenarioListIter.hasNext()) {
+                ScenarioDecorator thisScenario = (ScenarioDecorator) scenarioListIter.next();
+                numDaysForAccount += thisScenario.getNumDaysInScenario();
 
-				totalProfitLoss += thisScenario.getTotalProfitAndLoss();
-				longTotalProfitLoss += thisScenario.getLongProfitAndLoss();
-				shortTotalProfitLoss += thisScenario.getShortProfitAndLoss();
-			}
-		}
+                totalProfitLoss += thisScenario.getTotalProfitAndLoss();
+                longTotalProfitLoss += thisScenario.getLongProfitAndLoss();
+                shortTotalProfitLoss += thisScenario.getShortProfitAndLoss();
+            }
+        }
 
-		monthlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_MONTH, numDaysForAccount, totalProfitLoss);
-		longMonthlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_MONTH, numDaysForAccount, longTotalProfitLoss);
-		shortMonthlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_MONTH, numDaysForAccount, shortTotalProfitLoss);
-		return monthlyRoi;
-	}
+        monthlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_MONTH, numDaysForAccount, totalProfitLoss);
+        longMonthlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_MONTH, numDaysForAccount, longTotalProfitLoss);
+        shortMonthlyRoi = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_MONTH, numDaysForAccount, shortTotalProfitLoss);
+        return monthlyRoi;
+    }
 
-	public float calculateMonthlyPercentGrowth() {
-		calcPercentGrowthMonthly = calcPercentGrowth(GmConstants.AVG_NUM_CALENDAR_DAYS_PER_MONTH);
-		return calcPercentGrowthMonthly;
-	}
+    public float calculateMonthlyPercentGrowth() {
+        calcPercentGrowthMonthly = calcPercentGrowth(GmConstants.AVG_NUM_CALENDAR_DAYS_PER_MONTH);
+        return calcPercentGrowthMonthly;
+    }
 
-	public float calculateYearlyPercentGrowth() {
-		calcPercentGrowthYearly = calcPercentGrowth(GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR);
-		return calcPercentGrowthYearly;
-	}
+    public float calculateYearlyPercentGrowth() {
+        calcPercentGrowthYearly = calcPercentGrowth(GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR);
+        return calcPercentGrowthYearly;
+    }
 
 //	public boolean calculatePercentSuccessPositions(List<PositionDbDecorator> positionList) {
 //		// TOTAL

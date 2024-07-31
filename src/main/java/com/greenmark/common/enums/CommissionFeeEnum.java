@@ -15,10 +15,10 @@ import java.util.Optional;
  * @author  Monte Seibel
  * @version 7.5
  * @formatter:on
-**/
+ **/
 
 public enum CommissionFeeEnum {
-	// @formatter:off
+    // @formatter:off
 	FLAT_FEE("FLAT FEE", 1), 
 	KUCOIN("KUCOIN", 2), 
 	KUCOIN_KCS("KUCOIN-KCS", 3), 
@@ -26,38 +26,38 @@ public enum CommissionFeeEnum {
 	KRAKEN("KRAKEN", 5);
 	// @formatter:on
 
-	private final String name;
-	private final int id;
+    private final String name;
+    private final int id;
 
-	CommissionFeeEnum(String name, int id) {
-		this.name = name;
-		this.id = id;
-	}
+    CommissionFeeEnum(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public static String[] getAllNames() {
+        List<String> nameList = new ArrayList<>();
+        nameList.add(FLAT_FEE.getName());
+        nameList.add(KUCOIN.getName());
+        nameList.add(KUCOIN_KCS.getName());
+        nameList.add(BINANCE_BUSD.getName());
+        nameList.add(KRAKEN.getName());
 
-	public int getId() {
-		return id;
-	}
+        return nameList.toArray(new String[nameList.size()]);
+    }
 
-	public static String[] getAllNames() {
-		List<String> nameList = new ArrayList<>();
-		nameList.add(FLAT_FEE.getName());
-		nameList.add(KUCOIN.getName());
-		nameList.add(KUCOIN_KCS.getName());
-		nameList.add(BINANCE_BUSD.getName());
-		nameList.add(KRAKEN.getName());
+    public static Optional<CommissionFeeEnum> getByName(String value) {
+        return Arrays.stream(CommissionFeeEnum.values()).filter(accStatus -> accStatus.getName().equals(value)).findFirst();
+    }
 
-		return nameList.toArray(new String[nameList.size()]);
-	}
+    public static Optional<CommissionFeeEnum> getById(int value) {
+        return Arrays.stream(CommissionFeeEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
+    }
 
-	public static Optional<CommissionFeeEnum> getByName(String value) {
-		return Arrays.stream(CommissionFeeEnum.values()).filter(accStatus -> accStatus.getName().equals(value)).findFirst();
-	}
+    public String getName() {
+        return name;
+    }
 
-	public static Optional<CommissionFeeEnum> getById(int value) {
-		return Arrays.stream(CommissionFeeEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
-	}
+    public int getId() {
+        return id;
+    }
 }

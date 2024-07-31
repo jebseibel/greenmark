@@ -16,29 +16,28 @@ import java.io.Serializable;
  */
 
 public class BrokerHourlyDto extends BrokerTimePeriodDtoBase implements Serializable {
-	public static final String CLASSNAME = "BrokerHourlyDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "BrokerHourlyDto";
+    private static final long serialVersionUID = 1L;
 
-	protected long accountDailyId = 0;
+    protected long accountDailyId = 0;
 
-	public BrokerHourlyDto() {
-	}
+    public BrokerHourlyDto() {
+    }
 
-	public String dbSummary() {
-		StringBuffer stb = new StringBuffer();
-		stb.append(" > > " + CLASSNAME + ":");
-		stb.append("BrokerAccountHourlyId [" + id + "] ");
-		stb.append("accountDailyId [" + accountDailyId + "] ");
-		stb.append("active [" + active + "] ");
-		return stb.toString();
-	}
+    public String dbSummary() {
+        String stb = " > > " + CLASSNAME + ":" +
+                "BrokerAccountHourlyId [" + id + "] " +
+                "accountDailyId [" + accountDailyId + "] " +
+                "active [" + active + "] ";
+        return stb;
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public long getAccountDailyId() {
-		return accountDailyId;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public long getAccountDailyId() {
+        return accountDailyId;
+    }
 
-	public void setAccountDailyId(long accountDailyId) {
-		this.accountDailyId = accountDailyId;
-	}
+    public void setAccountDailyId(long accountDailyId) {
+        this.accountDailyId = accountDailyId;
+    }
 }

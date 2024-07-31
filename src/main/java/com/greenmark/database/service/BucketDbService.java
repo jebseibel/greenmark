@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.BucketDb;
+import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.BucketEntity;
 import com.greenmark.database.db.mapper.BucketMapper;
 import com.greenmark.database.db.repository.BucketRepository;
@@ -27,8 +27,8 @@ public class BucketDbService extends BasicDbService {
     /**
      * Create a record with name and description
      *
-     * @param extid - the extid to use
-     * @param name - value for name
+     * @param extid       - the extid to use
+     * @param name        - value for name
      * @param description - value for description
      * @return
      * @throws DataIntegrityViolationException
@@ -68,8 +68,8 @@ public class BucketDbService extends BasicDbService {
     /**
      * Update the Bucket name and description
      *
-     * @param extid - the extid to use
-     * @param name - value for name
+     * @param extid       - the extid to use
+     * @param name        - value for name
      * @param description - value for description
      * @return
      */
@@ -93,6 +93,7 @@ public class BucketDbService extends BasicDbService {
 
     /**
      * Delete by Extid
+     *
      * @param extid - to delete
      * @return boolean
      * @throws BucketDeleteFailureException
@@ -134,9 +135,11 @@ public class BucketDbService extends BasicDbService {
     // ////////////////////////////////////////////////////////
     // CHECK METHODS
     // ////////////////////////////////////////////////////////
+
     /**
      * Checks if the retrieval of Bucket failed elses throw an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws BucketRetrievalFailureException
      */
@@ -148,7 +151,8 @@ public class BucketDbService extends BasicDbService {
 
     /**
      * Checks if Bucket was created else throws an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws BucketUpdateFailureException
      */
@@ -160,7 +164,8 @@ public class BucketDbService extends BasicDbService {
 
     /**
      * Checks if Bucket was deleted else throws an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws BucketDeleteFailureException
      */
@@ -172,7 +177,8 @@ public class BucketDbService extends BasicDbService {
 
     /**
      * Checks if Bucket already exists
-     * @param extid - if exists throw exception
+     *
+     * @param extid   - if exists throw exception
      * @param message
      * @throws BucketCreateFailureException
      */
@@ -182,7 +188,6 @@ public class BucketDbService extends BasicDbService {
             throw new BucketCreateFailureException(message);
         }
     }
-
 
 
 }

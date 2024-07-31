@@ -2,29 +2,31 @@ package com.greenmark.account;
 
 import com.greenmark.common.core.Labels;
 
-public class BrokerAccount
-{
-   /** This is the class name. */
-   public static final String CLASSNAME = "BrokerAccount";
+public class BrokerAccount {
+    /**
+     * This is the class name.
+     */
+    public static final String CLASSNAME = "BrokerAccount";
 
-	public static final int BROKER_ACCOUNT_CASH = 1;
-	public static final int BROKER_ACCOUNT_MARGIN = 2;
-	protected int  brokerAccountType;
+    public static final int BROKER_ACCOUNT_CASH = 1;
+    public static final int BROKER_ACCOUNT_MARGIN = 2;
+    protected int brokerAccountType;
 
-   /** Used by the database **/
-   protected int active = Labels.OBJECT_ACTIVE;
+    /**
+     * Used by the database
+     **/
+    protected int active = Labels.OBJECT_ACTIVE;
 
 
-	protected double allocatedFunds = 0; // Total value of open buy orders
-	protected double availableFunds = 0;
-	protected double cashOnHand = 0;
-	protected double totalEquity = 0;
-	protected double unsettledFunds = 0;
+    protected double allocatedFunds = 0; // Total value of open buy orders
+    protected double availableFunds = 0;
+    protected double cashOnHand = 0;
+    protected double totalEquity = 0;
+    protected double unsettledFunds = 0;
 
-   public BrokerAccount(int inBrokerAccountType)
-   {
-		this.brokerAccountType = inBrokerAccountType;
-   }
+    public BrokerAccount(int inBrokerAccountType) {
+        this.brokerAccountType = inBrokerAccountType;
+    }
 
 //   public BrokerAccount ( String xmldata )
 //   {
@@ -77,143 +79,120 @@ public class BrokerAccount
 //		return stb.toString();
 //   }
 
-	/** Static formatter to display this broker Account's account type **/
-	public static String formatAccountType ( int accountType )
-	{
-		if ( accountType == BROKER_ACCOUNT_CASH )
-			return "Cash Account";
-		else
-			return "Margin Account";
-	}
+    /**
+     * Static formatter to display this broker Account's account type
+     **/
+    public static String formatAccountType(int accountType) {
+        if (accountType == BROKER_ACCOUNT_CASH)
+            return "Cash Account";
+        else
+            return "Margin Account";
+    }
 
-   public int getActive()
-   {
-      return this.active;
-   }
+    public int getActive() {
+        return this.active;
+    }
 
-   public void setActive(int active)
-   {
-      this.active = active;
-   }
-
-
-   //////////////////////////////////////////////////////////////////
-
-   public double getAllocatedFunds()
-   {
-      return allocatedFunds;
-   }
-
-   public void setAllocatedFunds( double allocatedFunds )
-   {
-      this.allocatedFunds = allocatedFunds;
-   }
-
-   public void addAllocatedFunds( float value )
-   {
-      this.allocatedFunds += value;
-   }
-
-   public void subtractAllocatedFunds( float value )
-   {
-      this.allocatedFunds -= value;
-   }
-
-   //////////////////////////////////////////////////////////////////
-   public double getAvailableFunds()
-   {
-      return availableFunds;
-   }
-
-   public void setAvailableFunds( double availableFunds )
-   {
-      this.availableFunds = availableFunds;
-   }
-
-   public void addAvailableFunds( float value )
-   {
-      this.availableFunds += value;
-   }
-
-   public void subtractAvailableFunds( float value )
-   {
-      this.availableFunds -= value;
-   }
-
-   ///////////////////////////////////////////////////////////////////////
-   public double getCashOnHand()
-   {
-      return cashOnHand;
-   }
-
-   public void setCashOnHand( double cashOnHand )
-   {
-      this.cashOnHand = cashOnHand;
-   }
-
-   public void addCashOnHand( float value )
-   {
-      this.cashOnHand += value;
-   }
-
-   public void subtractCashOnHand( float value )
-   {
-      this.cashOnHand -= value;
-   }
-
-   //////////////////////////////////////////////////////////////////
-
-   public double getTotalEquity()
-   {
-      return totalEquity;
-   }
-
-	public void setTotalEquity( double totalEquity )
-   {
-      this.totalEquity = totalEquity;
-   }
-
-	public void addTotalEquity( float value )
-	{
-		this.totalEquity += value;
-	}
-
-	public void subtractTotalEquity( float value )
-	{
-		this.totalEquity -= value;
-   }
-
-   //////////////////////////////////////////////////////////////////
-	public double getUnsettledFunds()
-	{
-		return unsettledFunds;
-	}
-
-	public void setUnsettledFunds(double unsettledFunds)
-	{
-		this.unsettledFunds = unsettledFunds;
-	}
-
-	public void addUnsettledFunds( float value )
-	{
-		this.unsettledFunds += value;
-	}
-
-	public void subtractUnsettledFunds( float value )
-	{
-		this.unsettledFunds -= value;
-   }
+    public void setActive(int active) {
+        this.active = active;
+    }
 
 
-	public int getBrokerAccountType()
-	{
-		return brokerAccountType;
-	}
+    //////////////////////////////////////////////////////////////////
 
-	public void setBrokerAccountType(int brokerAccountType)
-	{
-		this.brokerAccountType = brokerAccountType;
-	}
+    public double getAllocatedFunds() {
+        return allocatedFunds;
+    }
+
+    public void setAllocatedFunds(double allocatedFunds) {
+        this.allocatedFunds = allocatedFunds;
+    }
+
+    public void addAllocatedFunds(float value) {
+        this.allocatedFunds += value;
+    }
+
+    public void subtractAllocatedFunds(float value) {
+        this.allocatedFunds -= value;
+    }
+
+    //////////////////////////////////////////////////////////////////
+    public double getAvailableFunds() {
+        return availableFunds;
+    }
+
+    public void setAvailableFunds(double availableFunds) {
+        this.availableFunds = availableFunds;
+    }
+
+    public void addAvailableFunds(float value) {
+        this.availableFunds += value;
+    }
+
+    public void subtractAvailableFunds(float value) {
+        this.availableFunds -= value;
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+    public double getCashOnHand() {
+        return cashOnHand;
+    }
+
+    public void setCashOnHand(double cashOnHand) {
+        this.cashOnHand = cashOnHand;
+    }
+
+    public void addCashOnHand(float value) {
+        this.cashOnHand += value;
+    }
+
+    public void subtractCashOnHand(float value) {
+        this.cashOnHand -= value;
+    }
+
+    //////////////////////////////////////////////////////////////////
+
+    public double getTotalEquity() {
+        return totalEquity;
+    }
+
+    public void setTotalEquity(double totalEquity) {
+        this.totalEquity = totalEquity;
+    }
+
+    public void addTotalEquity(float value) {
+        this.totalEquity += value;
+    }
+
+    public void subtractTotalEquity(float value) {
+        this.totalEquity -= value;
+    }
+
+    //////////////////////////////////////////////////////////////////
+    public double getUnsettledFunds() {
+        return unsettledFunds;
+    }
+
+    public void setUnsettledFunds(double unsettledFunds) {
+        this.unsettledFunds = unsettledFunds;
+    }
+
+    public void addUnsettledFunds(float value) {
+        this.unsettledFunds += value;
+    }
+
+    public void subtractUnsettledFunds(float value) {
+        this.unsettledFunds -= value;
+    }
+
+
+    public int getBrokerAccountType() {
+        return brokerAccountType;
+    }
+
+    public void setBrokerAccountType(int brokerAccountType) {
+        this.brokerAccountType = brokerAccountType;
+    }
 
 
 }

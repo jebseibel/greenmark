@@ -13,10 +13,10 @@ import java.util.Optional;
  * @author  Monte Seibel
  * @version 7.5
  * @formatter:on
-**/
+ **/
 
 public enum PdbExchangeEnum {
-	// @formatter:off
+    // @formatter:off
 	REGRESSION("REGRESSION", 1),
 	KRAKEN_LIVE("KRAKEN", 2),
 	KRAKEN_RESEARCH("KRAKEN_RESEARCH", 3),
@@ -26,27 +26,27 @@ public enum PdbExchangeEnum {
 	FOREX("FOREX", 7);
 	// @formatter:on
 
-	private final String symbol;
-	private final int id;
+    private final String symbol;
+    private final int id;
 
-	PdbExchangeEnum(String name, int id) {
-		this.symbol = name;
-		this.id = id;
-	}
+    PdbExchangeEnum(String name, int id) {
+        this.symbol = name;
+        this.id = id;
+    }
 
-	public String getSymbol() {
-		return symbol;
-	}
+    public static Optional<PdbExchangeEnum> getByName(String value) {
+        return Arrays.stream(PdbExchangeEnum.values()).filter(accStatus -> accStatus.getSymbol().equals(value)).findFirst();
+    }
 
-	public int getId() {
-		return id;
-	}
+    public static Optional<PdbExchangeEnum> getById(int value) {
+        return Arrays.stream(PdbExchangeEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
+    }
 
-	public static Optional<PdbExchangeEnum> getByName(String value) {
-		return Arrays.stream(PdbExchangeEnum.values()).filter(accStatus -> accStatus.getSymbol().equals(value)).findFirst();
-	}
+    public String getSymbol() {
+        return symbol;
+    }
 
-	public static Optional<PdbExchangeEnum> getById(int value) {
-		return Arrays.stream(PdbExchangeEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
-	}
+    public int getId() {
+        return id;
+    }
 }

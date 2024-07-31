@@ -13,43 +13,43 @@ import java.util.Optional;
  * @author  Monte Seibel
  * @version 7.5
  * @formatter:on
-**/
+ **/
 
 public enum PdbUpdaterSlowdownEnum {
-	// @formatter:off
+    // @formatter:off
 	NO_SLOWDOWN(1, "NO_SLOWDOWN", 0), 
 	FAST(2, "FAST", 1), 
 	MEDIUM(3, "MEDIUM", 2), 
 	SLOW(4, "SLOW", 3);
 	// @formatter:on
 
-	private final Integer id;
-	private final String name;
-	private final Integer slowdownSeconds;
+    private final Integer id;
+    private final String name;
+    private final Integer slowdownSeconds;
 
-	PdbUpdaterSlowdownEnum(Integer id, String name, Integer slowdownSeconds) {
-		this.id = id;
-		this.name = name;
-		this.slowdownSeconds = slowdownSeconds;
-	}
+    PdbUpdaterSlowdownEnum(Integer id, String name, Integer slowdownSeconds) {
+        this.id = id;
+        this.name = name;
+        this.slowdownSeconds = slowdownSeconds;
+    }
 
-	public Integer getSlowdownSeconds() {
-		return slowdownSeconds;
-	}
+    public static Optional<PdbUpdaterSlowdownEnum> getByName(String value) {
+        return Arrays.stream(PdbUpdaterSlowdownEnum.values()).filter(accStatus -> accStatus.getName().equals(value)).findFirst();
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public static Optional<PdbUpdaterSlowdownEnum> getById(Integer value) {
+        return Arrays.stream(PdbUpdaterSlowdownEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Integer getSlowdownSeconds() {
+        return slowdownSeconds;
+    }
 
-	public static Optional<PdbUpdaterSlowdownEnum> getByName(String value) {
-		return Arrays.stream(PdbUpdaterSlowdownEnum.values()).filter(accStatus -> accStatus.getName().equals(value)).findFirst();
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public static Optional<PdbUpdaterSlowdownEnum> getById(Integer value) {
-		return Arrays.stream(PdbUpdaterSlowdownEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
-	}
+    public String getName() {
+        return name;
+    }
 }

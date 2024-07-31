@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ScenarioRepository extends CrudRepository<ScenarioEntity, Integer> {
     ScenarioEntity findByName(String name);
+
     ScenarioEntity findByExtid(String extid);
 }

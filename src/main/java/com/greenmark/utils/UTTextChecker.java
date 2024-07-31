@@ -13,49 +13,49 @@ package com.greenmark.utils;
  * @formatter:on
  */
 public class UTTextChecker {
-	public static final String CLASSNAME = "UTTextChecker";
+    public static final String CLASSNAME = "UTTextChecker";
 
-	/////////////////////////////////////////////////
-	// CONSTRUCTORS
-	/////////////////////////////////////////////////
-	private UTTextChecker() {
-		// can't call
-	}
+    /////////////////////////////////////////////////
+    // CONSTRUCTORS
+    /////////////////////////////////////////////////
+    private UTTextChecker() {
+        // can't call
+    }
 
-	/////////////////////////////////////////////////
-	// STATIC METHODS
-	/////////////////////////////////////////////////
+    /////////////////////////////////////////////////
+    // STATIC METHODS
+    /////////////////////////////////////////////////
 
-	public static boolean checkText(String data) {
-		// setup variables
-		char[] charData;
-		boolean match = true;
+    public static boolean checkText(String data) {
+        // setup variables
+        char[] charData;
+        boolean match = true;
 
-		int lenData = data.length();
-		int i;
-		// System.out.println( "len of incoming string data [" + lenData + "]" );
+        int lenData = data.length();
+        int i;
+        // System.out.println( "len of incoming string data [" + lenData + "]" );
 
-		// if it is empty, do nothing
-		if ((lenData < 1)) {
-			return match;
-		}
+        // if it is empty, do nothing
+        if ((lenData < 1)) {
+            return match;
+        }
 
-		// convert stringbuffer to a char-array
-		charData = new char[lenData];
-		data.getChars(0, lenData, charData, 0);
+        // convert stringbuffer to a char-array
+        charData = new char[lenData];
+        data.getChars(0, lenData, charData, 0);
 
-		// loop through the char array
-		for (i = 0; i < charData.length; i++) {
-			char c = charData[i];
-			if (c > '~') {
-				System.out.println("Bad!!! position [" + i + "] data " + data.substring(i - 20, i));
+        // loop through the char array
+        for (i = 0; i < charData.length; i++) {
+            char c = charData[i];
+            if (c > '~') {
+                System.out.println("Bad!!! position [" + i + "] data " + data.substring(i - 20, i));
 
-				match = false;
-			}
-		}
+                match = false;
+            }
+        }
 
-		// return
-		return match;
-	}
+        // return
+        return match;
+    }
 
 }

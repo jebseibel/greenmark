@@ -1,9 +1,9 @@
 package com.greenmark.common.dto;
 
+import com.greenmark.common.GmConstants;
+
 import java.io.Serializable;
 import java.util.Set;
-
-import com.greenmark.common.GmConstants;
 
 /**
  * @formatter:off
@@ -23,25 +23,25 @@ import com.greenmark.common.GmConstants;
  */
 
 public class ExchangeDto implements Serializable {
-	public static final String CLASSNAME = "ExchangeDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "ExchangeDto";
+    private static final long serialVersionUID = 1L;
 
-	private long id;
-	private int active = GmConstants.OBJECT_ACTIVE;
+    private long id;
+    private int active = GmConstants.OBJECT_ACTIVE;
 
-	private String symbol;
-	private String name;
-	private Long securityId;
+    private String symbol;
+    private String name;
+    private Long securityId;
 
-	private Set securities;
+    private Set securities;
 
-	public ExchangeDto() {
-	}
+    public ExchangeDto() {
+    }
 
-	public ExchangeDto(String exchangeSymbolName) {
-		this.symbol = exchangeSymbolName;
-		this.name = exchangeSymbolName;
-	}
+    public ExchangeDto(String exchangeSymbolName) {
+        this.symbol = exchangeSymbolName;
+        this.name = exchangeSymbolName;
+    }
 
 //	public ExchangeDto(String xmldata) {
 //		try {
@@ -74,57 +74,57 @@ public class ExchangeDto implements Serializable {
 //		return stb;
 //	}
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public long getId() {
-		return this.id;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public long getId() {
+        return this.id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public int getActive() {
-		return active;
-	}
+    public int getActive() {
+        return active;
+    }
 
-	public void setActive(int active) {
-		this.active = active;
-	}
+    public void setActive(int active) {
+        this.active = active;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getSymbol() {
-		return symbol;
-	}
+    public String getSymbol() {
+        return symbol;
+    }
 
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
-	public String getClassname() {
-		return CLASSNAME;
-	}
+    public String getClassname() {
+        return CLASSNAME;
+    }
 
-	public Set getSecurities() {
-		return securities;
-	}
+    public Set getSecurities() {
+        return securities;
+    }
 
-	public void setSecurities(Set securities) {
-		this.securities = securities;
-	}
+    public void setSecurities(Set securities) {
+        this.securities = securities;
+    }
 
-	public Long getSecurityId() {
-		return securityId;
-	}
+    public Long getSecurityId() {
+        return securityId;
+    }
 
-	public void setSecurityId(Long security_id) {
-		this.securityId = security_id;
-	}
+    public void setSecurityId(Long security_id) {
+        this.securityId = security_id;
+    }
 
 }

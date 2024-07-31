@@ -14,10 +14,10 @@ import java.util.Optional;
  * @author  Monte Seibel
  * @version 7.5
  * @formatter:on
-**/
+ **/
 
 public enum GreenmanServiceEnum {
-	// @formatter:off
+    // @formatter:off
 	BROKER("Broker Service", "broker_logs", "brokerService", 1), 
 	NOTIFICATION("Notification Service", "notification_logs", "notificationService", 2), 
 	TRADING_CLIENT("Trading Client","trading_client_logs", "tradingService", 3), 
@@ -26,44 +26,44 @@ public enum GreenmanServiceEnum {
 	WEBAPP("Web Application", "webapp_logs", "webapp", 6);
 	// @formatter:on
 
-	private final String name;
-	private final String logSubfolderName;
-	private final String springHttpBeanName;
-	private final int id;
+    private final String name;
+    private final String logSubfolderName;
+    private final String springHttpBeanName;
+    private final int id;
 
-	GreenmanServiceEnum(String name, String logSubfolderName, String springHttpBeanName, int id) {
-		this.name = name;
-		this.logSubfolderName = logSubfolderName;
-		this.springHttpBeanName = springHttpBeanName;
-		this.id = id;
-	}
+    GreenmanServiceEnum(String name, String logSubfolderName, String springHttpBeanName, int id) {
+        this.name = name;
+        this.logSubfolderName = logSubfolderName;
+        this.springHttpBeanName = springHttpBeanName;
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public static Optional<GreenmanServiceEnum> getByName(String value) {
+        return Arrays.stream(GreenmanServiceEnum.values()).filter(accStatus -> accStatus.name.equals(value)).findFirst();
+    }
 
-	public String getLogSubfolderName() {
-		return logSubfolderName;
-	}
+    public static Optional<GreenmanServiceEnum> getBySpringHttpBeanName(String value) {
+        return Arrays.stream(GreenmanServiceEnum.values()).filter(accStatus -> accStatus.springHttpBeanName.equals(value)).findFirst();
+    }
 
-	public String getSpringHttpBeanName() {
-		return springHttpBeanName;
-	}
+    public static Optional<GreenmanServiceEnum> getById(int value) {
+        return Arrays.stream(GreenmanServiceEnum.values()).filter(accStatus -> accStatus.id == value).findFirst();
+    }
 
-	public int getId() {
-		return id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public static Optional<GreenmanServiceEnum> getByName(String value) {
-		return Arrays.stream(GreenmanServiceEnum.values()).filter(accStatus -> accStatus.name.equals(value)).findFirst();
-	}
+    public String getLogSubfolderName() {
+        return logSubfolderName;
+    }
 
-	public static Optional<GreenmanServiceEnum> getBySpringHttpBeanName(String value) {
-		return Arrays.stream(GreenmanServiceEnum.values()).filter(accStatus -> accStatus.springHttpBeanName.equals(value)).findFirst();
-	}
+    public String getSpringHttpBeanName() {
+        return springHttpBeanName;
+    }
 
-	public static Optional<GreenmanServiceEnum> getById(int value) {
-		return Arrays.stream(GreenmanServiceEnum.values()).filter(accStatus -> accStatus.id == value).findFirst();
-	}
+    public int getId() {
+        return id;
+    }
 
 }

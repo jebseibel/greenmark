@@ -16,110 +16,110 @@ import java.io.Serializable;
  */
 
 public class AccountBalanceParams implements Serializable {
-	public static final String CLASSNAME = "AccountBalanceParams";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "AccountBalanceParams";
+    private static final long serialVersionUID = 1L;
 
-	protected double netLiquidationValue;
+    protected double netLiquidationValue;
 
-	protected double totalEquityCash;
-	protected double availableFundsCash;
-	protected double allocatedFundsCash;
-	protected double unsettledFundsCash;
+    protected double totalEquityCash;
+    protected double availableFundsCash;
+    protected double allocatedFundsCash;
+    protected double unsettledFundsCash;
 
-	protected double totalEquityMargin;
-	protected double availableFundsMargin;
-	protected double allocatedFundsMargin;
-	protected double unsettledFundsMargin;
+    protected double totalEquityMargin;
+    protected double availableFundsMargin;
+    protected double allocatedFundsMargin;
+    protected double unsettledFundsMargin;
 
-	protected double shortPositionsTotal = 0;
-	protected double longPositionsTotal = 0;
+    protected double shortPositionsTotal = 0;
+    protected double longPositionsTotal = 0;
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public double getNetLiquidationValue() {
-		return netLiquidationValue;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public double getNetLiquidationValue() {
+        return netLiquidationValue;
+    }
 
-	public void setNetLiquidationValue(double netLiquidationValue) {
-		this.netLiquidationValue = netLiquidationValue;
-	}
+    public void setNetLiquidationValue(double netLiquidationValue) {
+        this.netLiquidationValue = netLiquidationValue;
+    }
 
-	public double getTotalEquityCash() {
-		return totalEquityCash;
-	}
+    public double getTotalEquityCash() {
+        return totalEquityCash;
+    }
 
-	public void setTotalEquityCash(double totalEquityCash) {
-		this.totalEquityCash = totalEquityCash;
-	}
+    public void setTotalEquityCash(double totalEquityCash) {
+        this.totalEquityCash = totalEquityCash;
+    }
 
-	public double getAvailableFundsCash() {
-		return availableFundsCash;
-	}
+    public double getAvailableFundsCash() {
+        return availableFundsCash;
+    }
 
-	public void setAvailableFundsCash(double availableFundsCash) {
-		this.availableFundsCash = availableFundsCash;
-	}
+    public void setAvailableFundsCash(double availableFundsCash) {
+        this.availableFundsCash = availableFundsCash;
+    }
 
-	public double getAllocatedFundsCash() {
-		return allocatedFundsCash;
-	}
+    public double getAllocatedFundsCash() {
+        return allocatedFundsCash;
+    }
 
-	public void setAllocatedFundsCash(double allocatedFundsCash) {
-		this.allocatedFundsCash = allocatedFundsCash;
-	}
+    public void setAllocatedFundsCash(double allocatedFundsCash) {
+        this.allocatedFundsCash = allocatedFundsCash;
+    }
 
-	public double getUnsettledFundsCash() {
-		return unsettledFundsCash;
-	}
+    public double getUnsettledFundsCash() {
+        return unsettledFundsCash;
+    }
 
-	public void setUnsettledFundsCash(double unsettledFundsCash) {
-		this.unsettledFundsCash = unsettledFundsCash;
-	}
+    public void setUnsettledFundsCash(double unsettledFundsCash) {
+        this.unsettledFundsCash = unsettledFundsCash;
+    }
 
-	public double getTotalEquityMargin() {
-		return totalEquityMargin;
-	}
+    public double getTotalEquityMargin() {
+        return totalEquityMargin;
+    }
 
-	public void setTotalEquityMargin(double totalEquityMargin) {
-		this.totalEquityMargin = totalEquityMargin;
-	}
+    public void setTotalEquityMargin(double totalEquityMargin) {
+        this.totalEquityMargin = totalEquityMargin;
+    }
 
-	public double getAvailableFundsMargin() {
-		return availableFundsMargin;
-	}
+    public double getAvailableFundsMargin() {
+        return availableFundsMargin;
+    }
 
-	public void setAvailableFundsMargin(double availableFundsMargin) {
-		this.availableFundsMargin = availableFundsMargin;
-	}
+    public void setAvailableFundsMargin(double availableFundsMargin) {
+        this.availableFundsMargin = availableFundsMargin;
+    }
 
-	public double getAllocatedFundsMargin() {
-		return allocatedFundsMargin;
-	}
+    public double getAllocatedFundsMargin() {
+        return allocatedFundsMargin;
+    }
 
-	public void setAllocatedFundsMargin(double allocatedFundsMargin) {
-		this.allocatedFundsMargin = allocatedFundsMargin;
-	}
+    public void setAllocatedFundsMargin(double allocatedFundsMargin) {
+        this.allocatedFundsMargin = allocatedFundsMargin;
+    }
 
-	public double getUnsettledFundsMargin() {
-		return unsettledFundsMargin;
-	}
+    public double getUnsettledFundsMargin() {
+        return unsettledFundsMargin;
+    }
 
-	public void setUnsettledFundsMargin(double unsettledFundsMargin) {
-		this.unsettledFundsMargin = unsettledFundsMargin;
-	}
+    public void setUnsettledFundsMargin(double unsettledFundsMargin) {
+        this.unsettledFundsMargin = unsettledFundsMargin;
+    }
 
-	public double getShortPositionsTotal() {
-		return shortPositionsTotal;
-	}
+    public double getShortPositionsTotal() {
+        return shortPositionsTotal;
+    }
 
-	public void setShortPositionsTotal(double shortPositionsTotal) {
-		this.shortPositionsTotal = shortPositionsTotal;
-	}
+    public void setShortPositionsTotal(double shortPositionsTotal) {
+        this.shortPositionsTotal = shortPositionsTotal;
+    }
 
-	public double getLongPositionsTotal() {
-		return longPositionsTotal;
-	}
+    public double getLongPositionsTotal() {
+        return longPositionsTotal;
+    }
 
-	public void setLongPositionsTotal(double longPositionsTotal) {
-		this.longPositionsTotal = longPositionsTotal;
-	}
+    public void setLongPositionsTotal(double longPositionsTotal) {
+        this.longPositionsTotal = longPositionsTotal;
+    }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DatafeedService {
 
-    private FinnhubClient finnhubClient;
+    private final FinnhubClient finnhubClient;
 
     public DatafeedService(FinnhubClient finnhubClient) {
 
@@ -20,7 +20,7 @@ public class DatafeedService {
     public Quote getQuote(String symbol) throws FinnhubException {
         try {
             return finnhubClient.quote(symbol);
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("Finnhub exception {} for symbol {}", e.getMessage(), symbol);
             throw new FinnhubException(e.getMessage());
         }
@@ -29,7 +29,7 @@ public class DatafeedService {
     public Quote TechnicalIndicator(String symbol) throws FinnhubException {
         try {
             return finnhubClient.quote(symbol);
-        } catch (Exception e){
+        } catch (Exception e) {
             log.error("Finnhub exception {} for symbol {}", e.getMessage(), symbol);
             throw new FinnhubException(e.getMessage());
         }

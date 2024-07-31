@@ -1,13 +1,13 @@
 package com.greenmark.common.dto.broker.database.decorator;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Iterator;
-
 import com.greenmark.common.dto.broker.database.OrderBroker;
 import com.greenmark.common.dto.broker.decorator.ExecutionDtoDecorator;
 import com.greenmark.utils.UTDatetime;
 import com.greenmark.utils.UTFormatter;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Iterator;
 
 /**
  * @formatter:off
@@ -25,186 +25,186 @@ import com.greenmark.utils.UTFormatter;
  */
 
 public class OrderBrokerDecorator extends OrderBroker implements Serializable {
-	public static final String CLASSNAME = "OrderBrokerDecorator";
+    public static final String CLASSNAME = "OrderBrokerDecorator";
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public OrderBrokerDecorator() {
-	}
+    public OrderBrokerDecorator() {
+    }
 
-	public OrderBrokerDecorator(OrderBrokerDecorator inOrder) {
-		super(inOrder);
-	}
+    public OrderBrokerDecorator(OrderBrokerDecorator inOrder) {
+        super(inOrder);
+    }
 
-	public OrderBrokerDecorator(String xmldata) {
-		super(xmldata);
-	}
+    public OrderBrokerDecorator(String xmldata) {
+        super(xmldata);
+    }
 
-	// ------------------------------------------------ CONVENIENCE METHODS ---------------------------------------------------
-	public float calcExecutedNumShares() {
-		String methodname = "calcExecutedNumShares";
+    // ------------------------------------------------ CONVENIENCE METHODS ---------------------------------------------------
+    public float calcExecutedNumShares() {
+        String methodname = "calcExecutedNumShares";
 
-		float totalNumShares = 0;
+        float totalNumShares = 0;
 
-		try {
-			if (executionDtos == null)
-				return totalNumShares;
+        try {
+            if (executionDtos == null)
+                return totalNumShares;
 
-			for (Iterator I = executionDtos.iterator(); I.hasNext();) {
-				ExecutionDtoDecorator thisExec = (ExecutionDtoDecorator) I.next();
-				totalNumShares += thisExec.getExecutedNumShares();
-			}
-		} catch (Exception ex) {
-			// Ignore, Return default value below
-		}
-		return totalNumShares;
-	}
+            for (Iterator I = executionDtos.iterator(); I.hasNext(); ) {
+                ExecutionDtoDecorator thisExec = (ExecutionDtoDecorator) I.next();
+                totalNumShares += thisExec.getExecutedNumShares();
+            }
+        } catch (Exception ex) {
+            // Ignore, Return default value below
+        }
+        return totalNumShares;
+    }
 
-	public String getExecutedNumSharesDisplay() {
-		return Float.toString(calcExecutedNumShares());
-	}
+    public String getExecutedNumSharesDisplay() {
+        return Float.toString(calcExecutedNumShares());
+    }
 
-	public float getAveragePrice() {
-		String methodname = "getAveragePrice";
+    public float getAveragePrice() {
+        String methodname = "getAveragePrice";
 
-		float avgPrice = 0f;
-		float totalShares = (float) calcExecutedNumShares();
+        float avgPrice = 0f;
+        float totalShares = calcExecutedNumShares();
 
-		try {
-			if (executionDtos == null)
-				return avgPrice;
+        try {
+            if (executionDtos == null)
+                return avgPrice;
 
-			for (Iterator I = executionDtos.iterator(); I.hasNext();) {
-				ExecutionDtoDecorator thisExec = (ExecutionDtoDecorator) I.next();
-				avgPrice += thisExec.getExecutedPrice() * ((float) thisExec.getExecutedNumShares() / totalShares);
-			}
+            for (Iterator I = executionDtos.iterator(); I.hasNext(); ) {
+                ExecutionDtoDecorator thisExec = (ExecutionDtoDecorator) I.next();
+                avgPrice += thisExec.getExecutedPrice() * (thisExec.getExecutedNumShares() / totalShares);
+            }
 
-		} catch (Exception ex) {
-			// Ignore, Return default value below
-		}
+        } catch (Exception ex) {
+            // Ignore, Return default value below
+        }
 
-		return avgPrice;
-	}
+        return avgPrice;
+    }
 
-	public String getAveragePriceDisplay() {
-		String methodname = "getAveragePriceDisplay";
+    public String getAveragePriceDisplay() {
+        String methodname = "getAveragePriceDisplay";
 
-		String returnString = "N/A";
+        String returnString = "N/A";
 
-		try {
-			returnString = UTFormatter.formatPrice(getAveragePrice());
-		} catch (Exception ex) {
-			// Ignore, Return default value below
-		}
-		return returnString;
-	}
+        try {
+            returnString = UTFormatter.formatPrice(getAveragePrice());
+        } catch (Exception ex) {
+            // Ignore, Return default value below
+        }
+        return returnString;
+    }
 
-	// THIS INCLUDES THE TRANSACTION FEE
-	public float getTotalExecutedAmount() {
-		String methodname = "getTotalExecutedAmount";
+    // THIS INCLUDES THE TRANSACTION FEE
+    public float getTotalExecutedAmount() {
+        String methodname = "getTotalExecutedAmount";
 
-		float totalAmount = 0f;
+        float totalAmount = 0f;
 
-		try {
-			if (executionDtos == null)
-				return totalAmount;
+        try {
+            if (executionDtos == null)
+                return totalAmount;
 
-			for (Iterator I = executionDtos.iterator(); I.hasNext();) {
-				ExecutionDtoDecorator thisExec = (ExecutionDtoDecorator) I.next();
-				totalAmount += thisExec.getExecutedNumShares() * thisExec.getExecutedPrice();
-			}
-			totalAmount += transactionFee;
-			totalAmount += marginFee;
-		} catch (Exception ex) {
-			// Ignore, Return default value below
-		}
+            for (Iterator I = executionDtos.iterator(); I.hasNext(); ) {
+                ExecutionDtoDecorator thisExec = (ExecutionDtoDecorator) I.next();
+                totalAmount += thisExec.getExecutedNumShares() * thisExec.getExecutedPrice();
+            }
+            totalAmount += transactionFee;
+            totalAmount += marginFee;
+        } catch (Exception ex) {
+            // Ignore, Return default value below
+        }
 
-		return totalAmount;
-	}
+        return totalAmount;
+    }
 
-	public String getTotalExecutedAmountDisplay() {
-		String methodname = "getTotalExecutedAmountDisplay";
+    public String getTotalExecutedAmountDisplay() {
+        String methodname = "getTotalExecutedAmountDisplay";
 
-		String returnString = "N/A";
+        String returnString = "N/A";
 
-		try {
-			returnString = UTFormatter.formatPrice(getTotalExecutedAmount());
-		} catch (Exception ex) {
-			// Ignore, Return default value below
-		}
-		return returnString;
-	}
+        try {
+            returnString = UTFormatter.formatPrice(getTotalExecutedAmount());
+        } catch (Exception ex) {
+            // Ignore, Return default value below
+        }
+        return returnString;
+    }
 
-	// This method assumes the execution list was sorted from DB query by execution_date
-	public LocalDateTime getFirstExecutionDatetime() {
-		String methodname = "getFirstExecutionDatetime";
+    // This method assumes the execution list was sorted from DB query by execution_date
+    public LocalDateTime getFirstExecutionDatetime() {
+        String methodname = "getFirstExecutionDatetime";
 
-		LocalDateTime outDatetime = null;
+        LocalDateTime outDatetime = null;
 
-		try {
-			if (executionDtos == null)
-				return outDatetime;
+        try {
+            if (executionDtos == null)
+                return outDatetime;
 
-			ExecutionDtoDecorator thisExec = (ExecutionDtoDecorator) executionDtos.get(0);
-			return thisExec.getExecutionDate();
-		} catch (Exception ex) {
-			// Ignore, Return default value below
-		}
-		return outDatetime;
-	}
+            ExecutionDtoDecorator thisExec = executionDtos.get(0);
+            return thisExec.getExecutionDate();
+        } catch (Exception ex) {
+            // Ignore, Return default value below
+        }
+        return outDatetime;
+    }
 
-	// This method assumes the execution list was sorted from DB query by execution_date
-	public String getFirstExecutionDatetimeDisplay() {
-		String methodname = "getFirstExecutionDatetimeDisplay";
+    // This method assumes the execution list was sorted from DB query by execution_date
+    public String getFirstExecutionDatetimeDisplay() {
+        String methodname = "getFirstExecutionDatetimeDisplay";
 
-		String outDatetime = "N/A";
-		try {
-			LocalDateTime firstExecDate = getFirstExecutionDatetime();
+        String outDatetime = "N/A";
+        try {
+            LocalDateTime firstExecDate = getFirstExecutionDatetime();
 
-			if (firstExecDate == null)
-				return outDatetime;
+            if (firstExecDate == null)
+                return outDatetime;
 
-			outDatetime = UTDatetime.toString(firstExecDate);
-		} catch (Exception ex) {
-			// Ignore, Return default value below
-		}
-		return outDatetime;
-	}
+            outDatetime = UTDatetime.toString(firstExecDate);
+        } catch (Exception ex) {
+            // Ignore, Return default value below
+        }
+        return outDatetime;
+    }
 
-	// This method assumes the execution list was sorted from DB query by execution_date
-	public LocalDateTime getLastExecutionDatetime() {
-		String methodname = "getLastExecutionDatetime";
+    // This method assumes the execution list was sorted from DB query by execution_date
+    public LocalDateTime getLastExecutionDatetime() {
+        String methodname = "getLastExecutionDatetime";
 
-		LocalDateTime outDatetime = null;
+        LocalDateTime outDatetime = null;
 
-		try {
-			if (executionDtos == null)
-				return outDatetime;
+        try {
+            if (executionDtos == null)
+                return outDatetime;
 
-			int lastElem = executionDtos.size() - 1;
-			ExecutionDtoDecorator thisExec = (ExecutionDtoDecorator) executionDtos.get(lastElem);
-			return thisExec.getExecutionDate();
-		} catch (Exception ex) {
-			// Ignore, Return default value below
-		}
-		return outDatetime;
-	}
+            int lastElem = executionDtos.size() - 1;
+            ExecutionDtoDecorator thisExec = executionDtos.get(lastElem);
+            return thisExec.getExecutionDate();
+        } catch (Exception ex) {
+            // Ignore, Return default value below
+        }
+        return outDatetime;
+    }
 
-	// This method assumes the execution list was sorted from DB query by execution_date
-	public String getLastExecutionDatetimeDisplay() {
-		String methodname = "getLastExecutionDatetimeDisplay";
+    // This method assumes the execution list was sorted from DB query by execution_date
+    public String getLastExecutionDatetimeDisplay() {
+        String methodname = "getLastExecutionDatetimeDisplay";
 
-		String outDatetime = "N/A";
-		try {
-			LocalDateTime lastExecDate = getLastExecutionDatetime();
+        String outDatetime = "N/A";
+        try {
+            LocalDateTime lastExecDate = getLastExecutionDatetime();
 
-			if (lastExecDate == null)
-				return outDatetime;
+            if (lastExecDate == null)
+                return outDatetime;
 
-			outDatetime = UTDatetime.toString(lastExecDate);
-		} catch (Exception ex) {
-			// Ignore, Return default value below
-		}
-		return outDatetime;
-	}
+            outDatetime = UTDatetime.toString(lastExecDate);
+        } catch (Exception ex) {
+            // Ignore, Return default value below
+        }
+        return outDatetime;
+    }
 }

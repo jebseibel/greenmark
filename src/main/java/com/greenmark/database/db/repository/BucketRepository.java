@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BucketRepository extends CrudRepository<BucketEntity, Integer> {
     BucketEntity findByName(String name);
+
     BucketEntity findByExtid(String extid);
 }

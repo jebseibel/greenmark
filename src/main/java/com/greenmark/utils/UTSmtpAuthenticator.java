@@ -17,36 +17,35 @@ import javax.mail.PasswordAuthentication;
  */
 
 public class UTSmtpAuthenticator extends Authenticator {
-	public static final String CLASSNAME = "UTSmtpAuthenticator";
+    public static final String CLASSNAME = "UTSmtpAuthenticator";
+    /**
+     * The username and password authentication object that is needed for SMTP secure server authentication.
+     **/
+    private PasswordAuthentication userPass;
 
-	public UTSmtpAuthenticator() {
-	}
+    public UTSmtpAuthenticator() {
+    }
 
-	/**
-	 * This constructor creates an UTSmtpAuthenticator object using the input username and password.
-	 *
-	 * @param user
-	 *            A username that has access privileges for the secure SMTP server.
-	 * @param pass
-	 *            The password for the user with access privileges for the secure SMTP server.
-	 * @return Constructor method returns this object.
-	 */
-	public UTSmtpAuthenticator(String user, String pass) {
-		userPass = new PasswordAuthentication(user, pass);
-	}
+    /**
+     * This constructor creates an UTSmtpAuthenticator object using the input username and password.
+     *
+     * @param user A username that has access privileges for the secure SMTP server.
+     * @param pass The password for the user with access privileges for the secure SMTP server.
+     * @return Constructor method returns this object.
+     */
+    public UTSmtpAuthenticator(String user, String pass) {
+        userPass = new PasswordAuthentication(user, pass);
+    }
 
-	/**
-	 * Public accessor to return the internal PasswordAuthentication object that is required for connection to the secure SMTP server.
-	 */
-	public final PasswordAuthentication getPasswordAuthentication() {
-		return userPass;
-	}
+    public static void main(String[] args) {
+        UTSmtpAuthenticator UTSmtpAuthenticator1 = new UTSmtpAuthenticator();
+    }
 
-	/** The username and password authentication object that is needed for SMTP secure server authentication. **/
-	private PasswordAuthentication userPass;
-
-	public static void main(String[] args) {
-		UTSmtpAuthenticator UTSmtpAuthenticator1 = new UTSmtpAuthenticator();
-	}
+    /**
+     * Public accessor to return the internal PasswordAuthentication object that is required for connection to the secure SMTP server.
+     */
+    public final PasswordAuthentication getPasswordAuthentication() {
+        return userPass;
+    }
 
 }

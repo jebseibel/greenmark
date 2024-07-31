@@ -460,7 +460,7 @@ public class PriceDataDecorator extends PriceData implements Serializable {
             int lastPossibleTimePeriod = super.currentGreenmanPeriod - 1;
 
 
-                log.debug(CLASSNAME + ":" + methodname + " search for last possible timeperiod starts at: [" + super.dateString[lastPossibleTimePeriod] + "]");
+            log.debug(CLASSNAME + ":" + methodname + " search for last possible timeperiod starts at: [" + super.dateString[lastPossibleTimePeriod] + "]");
 
             UTCalendarTime dataDatetime = new UTCalendarTime(super.dateString[lastPossibleTimePeriod]);
 
@@ -470,7 +470,7 @@ public class PriceDataDecorator extends PriceData implements Serializable {
             }
 
 
-                log.debug(CLASSNAME + ":" + methodname + " found the last possible timeperiod for computations: [" + super.dateString[lastPossibleTimePeriod] + "]");
+            log.debug(CLASSNAME + ":" + methodname + " found the last possible timeperiod for computations: [" + super.dateString[lastPossibleTimePeriod] + "]");
 
             // Now find the highest high, or lowest low
             if (getLowestLow) {
@@ -485,8 +485,8 @@ public class PriceDataDecorator extends PriceData implements Serializable {
                     index++;
                 }
 
-                    log.debug(CLASSNAME + ":" + methodname + " returning lowest low: [" + lowestLow + "]   for date-time: [" + super.dateString[lowestLowIndex] + "]   index:" + index
-                            + " super.currentGmDays: " + super.currentGreenmanPeriod);
+                log.debug(CLASSNAME + ":" + methodname + " returning lowest low: [" + lowestLow + "]   for date-time: [" + super.dateString[lowestLowIndex] + "]   index:" + index
+                        + " super.currentGmDays: " + super.currentGreenmanPeriod);
 
                 return lowestLow;
             } else // Get highest high
@@ -502,8 +502,8 @@ public class PriceDataDecorator extends PriceData implements Serializable {
                     index++;
                 }
 
-                    log.debug(CLASSNAME + ":" + methodname + " returning highest high: [" + highestHigh + "]   for date-time: [" + super.dateString[highestHighIndex] + "]  index:" + index
-                            + " super.currentGmDays: " + super.currentGreenmanPeriod);
+                log.debug(CLASSNAME + ":" + methodname + " returning highest high: [" + highestHigh + "]   for date-time: [" + super.dateString[highestHighIndex] + "]  index:" + index
+                        + " super.currentGmDays: " + super.currentGreenmanPeriod);
 
                 return highestHigh;
             }

@@ -10,5 +10,7 @@ public enum LongShort {
         this.value = value;
     }
 
-    public int getValue() { return value; }
+    public int getValue() {
+        return value;
+    }
 }

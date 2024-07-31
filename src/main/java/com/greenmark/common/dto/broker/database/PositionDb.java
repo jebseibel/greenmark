@@ -1,13 +1,12 @@
 package com.greenmark.common.dto.broker.database;
 
-import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-
+import com.greenmark.common.GmConstantsStrategy;
+import com.greenmark.common.dto.strategy.decorator.DropcatDtoDecorator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 
-import com.greenmark.common.GmConstantsStrategy;
-import com.greenmark.common.dto.strategy.decorator.DropcatDtoDecorator;
+import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @formatter:off
@@ -24,37 +23,37 @@ import com.greenmark.common.dto.strategy.decorator.DropcatDtoDecorator;
  */
 @Slf4j
 public class PositionDb implements Serializable {
-	public static final String CLASSNAME = "PositionDb";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "PositionDb";
+    private static final long serialVersionUID = 1L;
 
-	protected String harvestStrategyAcronym;
+    protected String harvestStrategyAcronym;
 
-	protected DropcatDtoDecorator droppedCatInfo;
+    protected DropcatDtoDecorator droppedCatInfo;
 
-	public PositionDb() {
-		super();
-	}
+    public PositionDb() {
+        super();
+    }
 
-	public PositionDb(int harvestStrategyTypeId, int bucketStrategyStateId, int originBucketTimeframe) {
-		this.harvestStrategyAcronym = GmConstantsStrategy.getHarvestStrategyLabel(harvestStrategyTypeId, originBucketTimeframe);
-	}
+    public PositionDb(int harvestStrategyTypeId, int bucketStrategyStateId, int originBucketTimeframe) {
+        this.harvestStrategyAcronym = GmConstantsStrategy.getHarvestStrategyLabel(harvestStrategyTypeId, originBucketTimeframe);
+    }
 
-	public PositionDb(PositionDb oldPosition) {
-		try {
-			if (oldPosition != null) {
-				BeanUtils.copyProperties(this, oldPosition);
+    public PositionDb(PositionDb oldPosition) {
+        try {
+            if (oldPosition != null) {
+                BeanUtils.copyProperties(this, oldPosition);
 
-				if (oldPosition.getDroppedCatInfo() != null)
-					this.droppedCatInfo = new DropcatDtoDecorator(oldPosition.getDroppedCatInfo());
-			}
-		} catch (InvocationTargetException ite) {
-			System.out.println("ERROR creating " + CLASSNAME + ", InvocationTargetException, message: " + ite.getMessage());
-		} catch (IllegalAccessException iae) {
-			System.out.println("ERROR creating " + CLASSNAME + ", IllegalAccessException, message: " + iae.getMessage());
-		}
-	}
+                if (oldPosition.getDroppedCatInfo() != null)
+                    this.droppedCatInfo = new DropcatDtoDecorator(oldPosition.getDroppedCatInfo());
+            }
+        } catch (InvocationTargetException ite) {
+            System.out.println("ERROR creating " + CLASSNAME + ", InvocationTargetException, message: " + ite.getMessage());
+        } catch (IllegalAccessException iae) {
+            System.out.println("ERROR creating " + CLASSNAME + ", IllegalAccessException, message: " + iae.getMessage());
+        }
+    }
 
-	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
+    // ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
 //	public PositionDb(String xmldata) {
 //		super(xmldata, trace);
 //
@@ -152,21 +151,21 @@ public class PositionDb implements Serializable {
 //		return returnList;
 //	}
 
-	// ------------------------------------------------ SETTER/GETTER METHODS ---------------------------------------------------
-	public String getHarvestStrategyAcronym() {
-		return harvestStrategyAcronym;
-	}
+    // ------------------------------------------------ SETTER/GETTER METHODS ---------------------------------------------------
+    public String getHarvestStrategyAcronym() {
+        return harvestStrategyAcronym;
+    }
 
-	public void setHarvestStrategyAcronym(String harvestStrategyAcronym) {
-		this.harvestStrategyAcronym = harvestStrategyAcronym;
-	}
+    public void setHarvestStrategyAcronym(String harvestStrategyAcronym) {
+        this.harvestStrategyAcronym = harvestStrategyAcronym;
+    }
 
-	public DropcatDtoDecorator getDroppedCatInfo() {
-		return droppedCatInfo;
-	}
+    public DropcatDtoDecorator getDroppedCatInfo() {
+        return droppedCatInfo;
+    }
 
-	public void setDroppedCatInfo(DropcatDtoDecorator droppedCatInfo) {
-		this.droppedCatInfo = droppedCatInfo;
-	}
+    public void setDroppedCatInfo(DropcatDtoDecorator droppedCatInfo) {
+        this.droppedCatInfo = droppedCatInfo;
+    }
 
 }

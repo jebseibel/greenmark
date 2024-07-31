@@ -13,67 +13,67 @@ import com.greenmark.utils.UTTimeframe;
  * @author  Monte Seibel
  * @version 7.5
  * @formatter:on
-**/
+ **/
 
 public class PriceDataTimeframe {
-	public static final String CLASSNAME = "PriceDataTimeframe";
+    public static final String CLASSNAME = "PriceDataTimeframe";
 
-	private long id;
-	private long updateJobId;
+    private long id;
+    private long updateJobId;
 
-	private int timeframeEnumId; // From GMConstants: // TIMEFRAME ENUM VALUES
-	private String description;
+    private int timeframeEnumId; // From GMConstants: // TIMEFRAME ENUM VALUES
+    private String description;
 
-	private int active = GmConstants.OBJECT_ACTIVE;
+    private int active = GmConstants.OBJECT_ACTIVE;
 
-	public PriceDataTimeframe() {
-	}
+    public PriceDataTimeframe() {
+    }
 
-	public PriceDataTimeframe(long updateJobId, int timeframeEnumId) {
-		this.updateJobId = updateJobId;
-		this.timeframeEnumId = timeframeEnumId;
-		this.description = UTTimeframe.getDisplayStringForGmanTimeframe(timeframeEnumId);
-	}
+    public PriceDataTimeframe(long updateJobId, int timeframeEnumId) {
+        this.updateJobId = updateJobId;
+        this.timeframeEnumId = timeframeEnumId;
+        this.description = UTTimeframe.getDisplayStringForGmanTimeframe(timeframeEnumId);
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public long getId() {
-		return id;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public long getUpdateJobId() {
-		return updateJobId;
-	}
+    public long getUpdateJobId() {
+        return updateJobId;
+    }
 
-	public void setUpdateJobId(long updateJobId) {
-		this.updateJobId = updateJobId;
-	}
+    public void setUpdateJobId(long updateJobId) {
+        this.updateJobId = updateJobId;
+    }
 
-	public int getTimeframeEnumId() {
-		return timeframeEnumId;
-	}
+    public int getTimeframeEnumId() {
+        return timeframeEnumId;
+    }
 
-	public void setTimeframeEnumId(int timeframeEnumId) {
-		this.timeframeEnumId = timeframeEnumId;
-	}
+    public void setTimeframeEnumId(int timeframeEnumId) {
+        this.timeframeEnumId = timeframeEnumId;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public int getActive() {
-		return active;
-	}
+    public int getActive() {
+        return active;
+    }
 
-	public void setActive(int active) {
-		this.active = active;
-	}
+    public void setActive(int active) {
+        this.active = active;
+    }
 
 }

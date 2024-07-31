@@ -15,50 +15,50 @@ import java.util.Optional;
  * @author  Monte Seibel
  * @version 8
  * @formatter:on
-**/
+ **/
 
 public enum CurrencySymbolEnum {
-	// @formatter:off
+    // @formatter:off
 	USD("USD", 1), 
 	USDT("USDT", 2), 
 	USDC("USDC", 3);
 	// @formatter:on
 
-	private final String name;
-	private final int id;
+    private final String name;
+    private final int id;
 
-	CurrencySymbolEnum(String name, int id) {
-		this.name = name;
-		this.id = id;
-	}
+    CurrencySymbolEnum(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public static String[] getAllNames() {
+        List<String> nameList = new ArrayList<>();
+        nameList.add(USD.getName());
+        nameList.add(USDT.getName());
+        nameList.add(USDC.getName());
 
-	public int getId() {
-		return id;
-	}
+        String[] returnVal = new String[nameList.size()];
+        return nameList.toArray(returnVal);
+    }
 
-	public String getIdString() {
-		return ((Integer) id).toString();
-	}
+    public static Optional<CurrencySymbolEnum> getByName(String value) {
+        return Arrays.stream(CurrencySymbolEnum.values()).filter(accStatus -> accStatus.getName().equals(value)).findFirst();
+    }
 
-	public static String[] getAllNames() {
-		List<String> nameList = new ArrayList<>();
-		nameList.add(USD.getName());
-		nameList.add(USDT.getName());
-		nameList.add(USDC.getName());
+    public static Optional<CurrencySymbolEnum> getById(int value) {
+        return Arrays.stream(CurrencySymbolEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
+    }
 
-		String[] returnVal = new String[nameList.size()];
-		return nameList.toArray(returnVal);
-	}
+    public String getName() {
+        return name;
+    }
 
-	public static Optional<CurrencySymbolEnum> getByName(String value) {
-		return Arrays.stream(CurrencySymbolEnum.values()).filter(accStatus -> accStatus.getName().equals(value)).findFirst();
-	}
+    public int getId() {
+        return id;
+    }
 
-	public static Optional<CurrencySymbolEnum> getById(int value) {
-		return Arrays.stream(CurrencySymbolEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
-	}
+    public String getIdString() {
+        return ((Integer) id).toString();
+    }
 }

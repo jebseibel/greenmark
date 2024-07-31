@@ -14,12 +14,12 @@ package com.greenmark.utils;
  */
 
 public class UTStrings {
-	public static final String CLASSNAME = "UTStrings";
+    public static final String CLASSNAME = "UTStrings";
 
-	public static String getBooleanStringYN(boolean input) {
-		if (input)
-			return "Y";
-		else
-			return "N";
-	}
+    public static String getBooleanStringYN(boolean input) {
+        if (input)
+            return "Y";
+        else
+            return "N";
+    }
 }

@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountRepository extends CrudRepository<AccountEntity, Integer> {
     AccountEntity findByName(String name);
+
     AccountEntity findByExtid(String extid);
 }

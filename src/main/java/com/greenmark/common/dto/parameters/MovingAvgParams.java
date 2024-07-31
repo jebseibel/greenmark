@@ -17,34 +17,34 @@ import java.io.Serializable;
  */
 
 public class MovingAvgParams implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private int movingAveragePeriods;
-	private boolean isSimpleMovingAverage = false;
+    private int movingAveragePeriods;
+    private boolean isSimpleMovingAverage = false;
 
-	public MovingAvgParams() {
-		// Empty constructor
-	}
+    public MovingAvgParams() {
+        // Empty constructor
+    }
 
-	public MovingAvgParams(int movingAveragePeriods, boolean isSimpleMovingAverage) {
-		this.movingAveragePeriods = movingAveragePeriods;
-		this.isSimpleMovingAverage = isSimpleMovingAverage;
-	}
+    public MovingAvgParams(int movingAveragePeriods, boolean isSimpleMovingAverage) {
+        this.movingAveragePeriods = movingAveragePeriods;
+        this.isSimpleMovingAverage = isSimpleMovingAverage;
+    }
 
-	public int getMovingAveragePeriods() {
-		return movingAveragePeriods;
-	}
+    public int getMovingAveragePeriods() {
+        return movingAveragePeriods;
+    }
 
-	public void setMovingAveragePeriods(int movingAveragePeriods) {
-		this.movingAveragePeriods = movingAveragePeriods;
-	}
+    public void setMovingAveragePeriods(int movingAveragePeriods) {
+        this.movingAveragePeriods = movingAveragePeriods;
+    }
 
-	public boolean getIsSimpleMovingAverage() {
-		return isSimpleMovingAverage;
-	}
+    public boolean getIsSimpleMovingAverage() {
+        return isSimpleMovingAverage;
+    }
 
-	public void setIsSimpleMovingAverage(boolean isSimpleMovingAverage) {
-		this.isSimpleMovingAverage = isSimpleMovingAverage;
-	}
+    public void setIsSimpleMovingAverage(boolean isSimpleMovingAverage) {
+        this.isSimpleMovingAverage = isSimpleMovingAverage;
+    }
 
 }

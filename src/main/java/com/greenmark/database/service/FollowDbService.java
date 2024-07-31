@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.FollowDb;
+import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.FollowEntity;
 import com.greenmark.database.db.mapper.FollowMapper;
 import com.greenmark.database.db.repository.FollowRepository;
@@ -27,8 +27,8 @@ public class FollowDbService extends BasicDbService {
     /**
      * Create a record with name and description
      *
-     * @param extid - the extid to use
-     * @param name - value for name
+     * @param extid       - the extid to use
+     * @param name        - value for name
      * @param description - value for description
      * @return
      * @throws DataIntegrityViolationException
@@ -68,8 +68,8 @@ public class FollowDbService extends BasicDbService {
     /**
      * Update the Follow name and description
      *
-     * @param extid - the extid to use
-     * @param name - value for name
+     * @param extid       - the extid to use
+     * @param name        - value for name
      * @param description - value for description
      * @return
      */
@@ -93,6 +93,7 @@ public class FollowDbService extends BasicDbService {
 
     /**
      * Delete by Extid
+     *
      * @param extid - to delete
      * @return boolean
      * @throws FollowDeleteFailureException
@@ -134,9 +135,11 @@ public class FollowDbService extends BasicDbService {
     // ////////////////////////////////////////////////////////
     // CHECK METHODS
     // ////////////////////////////////////////////////////////
+
     /**
      * Checks if the retrieval of Follow failed elses throw an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws FollowRetrievalFailureException
      */
@@ -148,7 +151,8 @@ public class FollowDbService extends BasicDbService {
 
     /**
      * Checks if Follow was created else throws an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws FollowUpdateFailureException
      */
@@ -160,7 +164,8 @@ public class FollowDbService extends BasicDbService {
 
     /**
      * Checks if Follow was deleted else throws an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws FollowDeleteFailureException
      */
@@ -172,7 +177,8 @@ public class FollowDbService extends BasicDbService {
 
     /**
      * Checks if Follow already exists
-     * @param extid - if exists throw exception
+     *
+     * @param extid   - if exists throw exception
      * @param message
      * @throws FollowCreateFailureException
      */
@@ -182,7 +188,6 @@ public class FollowDbService extends BasicDbService {
             throw new FollowCreateFailureException(message);
         }
     }
-
 
 
 }

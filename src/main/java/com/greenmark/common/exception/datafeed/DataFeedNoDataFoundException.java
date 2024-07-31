@@ -15,24 +15,30 @@ package com.greenmark.common.exception.datafeed;
  */
 
 public class DataFeedNoDataFoundException extends Exception {
-	public static final String CLASSNAME = "DataFeedNoDataFoundException";
+    public static final String CLASSNAME = "DataFeedNoDataFoundException";
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/** The message that will be included in this exception for display to the user. */
-	protected String message;
+    /**
+     * The message that will be included in this exception for display to the user.
+     */
+    protected String message;
 
-	public DataFeedNoDataFoundException(String messageString) {
-		message = messageString;
-	}
+    public DataFeedNoDataFoundException(String messageString) {
+        message = messageString;
+    }
 
-	/** Public accessor to return the exception's message string. */
-	public final void setMessage(String newMessageString) {
-		message = newMessageString;
-	}
+    /**
+     * Public accessor to set the exception's message string.
+     */
+    public final String getMessage() {
+        return message;
+    }
 
-	/** Public accessor to set the exception's message string. */
-	public final String getMessage() {
-		return message;
-	}
+    /**
+     * Public accessor to return the exception's message string.
+     */
+    public final void setMessage(String newMessageString) {
+        message = newMessageString;
+    }
 }

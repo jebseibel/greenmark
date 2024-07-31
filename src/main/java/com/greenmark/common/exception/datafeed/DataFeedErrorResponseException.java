@@ -14,24 +14,30 @@ package com.greenmark.common.exception.datafeed;
  */
 
 public class DataFeedErrorResponseException extends Exception {
-	public static final String CLASSNAME = "DataFeedErrorResponseException";
+    public static final String CLASSNAME = "DataFeedErrorResponseException";
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/** The message that will be included in this exception for display to the user. */
-	protected String message;
+    /**
+     * The message that will be included in this exception for display to the user.
+     */
+    protected String message;
 
-	public DataFeedErrorResponseException(String messageString) {
-		message = messageString;
-	}
+    public DataFeedErrorResponseException(String messageString) {
+        message = messageString;
+    }
 
-	/** Public accessor to return the exception's message string. */
-	public final void setMessage(String newMessageString) {
-		message = newMessageString;
-	}
+    /**
+     * Public accessor to set the exception's message string.
+     */
+    public final String getMessage() {
+        return message;
+    }
 
-	/** Public accessor to set the exception's message string. */
-	public final String getMessage() {
-		return message;
-	}
+    /**
+     * Public accessor to return the exception's message string.
+     */
+    public final void setMessage(String newMessageString) {
+        message = newMessageString;
+    }
 }

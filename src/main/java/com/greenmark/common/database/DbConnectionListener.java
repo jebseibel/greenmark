@@ -14,5 +14,5 @@ package com.greenmark.common.database;
  */
 
 public interface DbConnectionListener {
-	void errorThrown(String message);
+    void errorThrown(String message);
 }

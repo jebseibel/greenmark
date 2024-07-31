@@ -13,8 +13,8 @@ package com.greenmark.utils.trace;
  * @formatter:on
  */
 public interface TraceMessageListener {
-	public void addMessage(String message);
-	// public boolean traceReady();
+    void addMessage(String message);
+    // public boolean traceReady();
 
-	public String getListenerName();
+    String getListenerName();
 }

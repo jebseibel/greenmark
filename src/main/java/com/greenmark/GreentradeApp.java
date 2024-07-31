@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GreentradeApp {
 
-    public static void main(String[] args) { SpringApplication.run(GreentradeApp.class, args); }
+    public static void main(String[] args) {
+        SpringApplication.run(GreentradeApp.class, args);
+    }
 
 }

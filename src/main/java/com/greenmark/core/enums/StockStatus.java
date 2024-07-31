@@ -6,12 +6,14 @@ public enum StockStatus {
     ORDER2_QUALIFY(3),
     ORDER2_PLACED(4),
     COMPLETE(5);
-    
+
     public final int value;
 
     StockStatus(int value) {
         this.value = value;
     }
 
-    public int getValue() { return value; }
+    public int getValue() {
+        return value;
+    }
 }

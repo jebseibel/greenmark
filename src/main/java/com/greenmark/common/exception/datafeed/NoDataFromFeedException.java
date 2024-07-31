@@ -17,7 +17,7 @@ package com.greenmark.common.exception.datafeed;
  */
 
 public class NoDataFromFeedException extends Exception {
-	public static final String CLASSNAME = "NoDataFromFeedException";
+    public static final String CLASSNAME = "NoDataFromFeedException";
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 }

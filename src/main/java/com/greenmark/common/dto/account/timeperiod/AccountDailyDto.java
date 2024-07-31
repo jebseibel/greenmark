@@ -20,43 +20,40 @@ import java.io.Serializable;
  */
 
 public class AccountDailyDto extends AccountTimePeriodBaseDto implements Serializable {
-	public static final String CLASSNAME = "AccountDailyDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "AccountDailyDto";
+    private static final long serialVersionUID = 1L;
+    /*** These values are stored in the DB and displayed by the website **/
+    public String brokerSettledCash;
+    public String brokerTotalCash;
+    public String brokerStockValue;
+    public String brokerSecuritiesOptionsValue;
+    public String brokerFuturesOptionsValue;
+    public String brokerNetLiquidationValue;
+    public String brokerEquityWithLoanValue;
+    public String brokerPreviousDayEquityWithLoanValue;
+    public String brokerSma;
+    public String brokerBuyingPower;
+    public String brokerAvailableFunds;
+    public String brokerLeverage;
+    public String brokerInitialMarginCurrent;
+    public String brokerMaintenanceMarginCurrent;
+    public String brokerAvailableFundsMarginCurrent;
+    public String brokerExcessLiquidityMarginCurrent;
+    public String brokerInitialMarginOvernite;
+    public String brokerMaintenanceMarginOvernite;
+    public String brokerAvailableFundsMarginOvernite;
+    public String brokerExcessLiquidityMarginOvernite;
+    protected long accountId = 0; // set to zero to find insert errors
+    protected int marketTrendOn = -1;
+    protected int marketTrendValue = -1;
+    protected int marketTrendGaugeValue = -1;
+    protected int marketTrendGaugeNum = -1;
+    protected float marketTrendIndicatorValue = 0F;
 
-	protected long accountId = 0; // set to zero to find insert errors
+    public AccountDailyDto() {
+    }
 
-	protected int marketTrendOn = -1;
-	protected int marketTrendValue = -1;
-	protected int marketTrendGaugeValue = -1;
-	protected int marketTrendGaugeNum = -1;
-	protected float marketTrendIndicatorValue = 0F;
-
-	/*** These values are stored in the DB and displayed by the website **/
-	public String brokerSettledCash;
-	public String brokerTotalCash;
-	public String brokerStockValue;
-	public String brokerSecuritiesOptionsValue;
-	public String brokerFuturesOptionsValue;
-	public String brokerNetLiquidationValue;
-	public String brokerEquityWithLoanValue;
-	public String brokerPreviousDayEquityWithLoanValue;
-	public String brokerSma;
-	public String brokerBuyingPower;
-	public String brokerAvailableFunds;
-	public String brokerLeverage;
-	public String brokerInitialMarginCurrent;
-	public String brokerMaintenanceMarginCurrent;
-	public String brokerAvailableFundsMarginCurrent;
-	public String brokerExcessLiquidityMarginCurrent;
-	public String brokerInitialMarginOvernite;
-	public String brokerMaintenanceMarginOvernite;
-	public String brokerAvailableFundsMarginOvernite;
-	public String brokerExcessLiquidityMarginOvernite;
-
-	public AccountDailyDto() {
-	}
-
-	public String dbSummary() {
+    public String dbSummary() {
         String stb = " > > " + CLASSNAME + ":" +
                 "accountDailyId        [" + id + "] " +
                 "accountId             [" + accountId + "] " +
@@ -65,215 +62,215 @@ public class AccountDailyDto extends AccountTimePeriodBaseDto implements Seriali
                 "marketTrendGaugeValue [" + marketTrendGaugeValue + "] " +
                 "marketTrendGaugeNum   [" + marketTrendGaugeNum + "] " +
                 "active                [" + active + "] ";
-		return stb;
-	}
+        return stb;
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public long getAccountId() {
-		return accountId;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public long getAccountId() {
+        return accountId;
+    }
 
-	public int getMarketTrendGaugeNum() {
-		return marketTrendGaugeNum;
-	}
+    public void setAccountId(long account_id) {
+        this.accountId = account_id;
+    }
 
-	public int getMarketTrendGaugeValue() {
-		return marketTrendGaugeValue;
-	}
+    public int getMarketTrendGaugeNum() {
+        return marketTrendGaugeNum;
+    }
 
-	public int getMarketTrendOn() {
-		return marketTrendOn;
-	}
+    public void setMarketTrendGaugeNum(int marketTrendGaugeNum) {
+        this.marketTrendGaugeNum = marketTrendGaugeNum;
+    }
 
-	public int getMarketTrendValue() {
-		return marketTrendValue;
-	}
+    public int getMarketTrendGaugeValue() {
+        return marketTrendGaugeValue;
+    }
 
-	public float getMarketTrendIndicatorValue() {
-		return marketTrendIndicatorValue;
-	}
+    public void setMarketTrendGaugeValue(int marketTrendGaugeValue) {
+        this.marketTrendGaugeValue = marketTrendGaugeValue;
+    }
 
-	public String getBrokerAvailableFunds() {
-		return brokerAvailableFunds;
-	}
+    public int getMarketTrendOn() {
+        return marketTrendOn;
+    }
 
-	public String getBrokerAvailableFundsMarginCurrent() {
-		return brokerAvailableFundsMarginCurrent;
-	}
+    public void setMarketTrendOn(int marketTrendOn) {
+        this.marketTrendOn = marketTrendOn;
+    }
 
-	public String getBrokerAvailableFundsMarginOvernite() {
-		return brokerAvailableFundsMarginOvernite;
-	}
+    public int getMarketTrendValue() {
+        return marketTrendValue;
+    }
 
-	public String getBrokerBuyingPower() {
-		return brokerBuyingPower;
-	}
+    public void setMarketTrendValue(int marketTrendValue) {
+        this.marketTrendValue = marketTrendValue;
+    }
 
-	public String getBrokerEquityWithLoanValue() {
-		return brokerEquityWithLoanValue;
-	}
+    public float getMarketTrendIndicatorValue() {
+        return marketTrendIndicatorValue;
+    }
 
-	public String getBrokerExcessLiquidityMarginCurrent() {
-		return brokerExcessLiquidityMarginCurrent;
-	}
+    public void setMarketTrendIndicatorValue(float marketTrendIndicatorValue) {
+        this.marketTrendIndicatorValue = marketTrendIndicatorValue;
+    }
 
-	public String getBrokerExcessLiquidityMarginOvernite() {
-		return brokerExcessLiquidityMarginOvernite;
-	}
+    public String getBrokerAvailableFunds() {
+        return brokerAvailableFunds;
+    }
 
-	public String getBrokerFuturesOptionsValue() {
-		return brokerFuturesOptionsValue;
-	}
+    public void setBrokerAvailableFunds(String brokerAvailableFunds) {
+        this.brokerAvailableFunds = brokerAvailableFunds;
+    }
 
-	public String getBrokerInitialMarginCurrent() {
-		return brokerInitialMarginCurrent;
-	}
+    public String getBrokerAvailableFundsMarginCurrent() {
+        return brokerAvailableFundsMarginCurrent;
+    }
 
-	public String getBrokerInitialMarginOvernite() {
-		return brokerInitialMarginOvernite;
-	}
+    public void setBrokerAvailableFundsMarginCurrent(String brokerAvailableFundsMarginCurrent) {
+        this.brokerAvailableFundsMarginCurrent = brokerAvailableFundsMarginCurrent;
+    }
 
-	public String getBrokerLeverage() {
-		return brokerLeverage;
-	}
+    public String getBrokerAvailableFundsMarginOvernite() {
+        return brokerAvailableFundsMarginOvernite;
+    }
 
-	public String getBrokerMaintenanceMarginCurrent() {
-		return brokerMaintenanceMarginCurrent;
-	}
+    public void setBrokerAvailableFundsMarginOvernite(String brokerAvailableFundsMarginOvernite) {
+        this.brokerAvailableFundsMarginOvernite = brokerAvailableFundsMarginOvernite;
+    }
 
-	public String getBrokerMaintenanceMarginOvernite() {
-		return brokerMaintenanceMarginOvernite;
-	}
+    public String getBrokerBuyingPower() {
+        return brokerBuyingPower;
+    }
 
-	public String getBrokerNetLiquidationValue() {
-		return brokerNetLiquidationValue;
-	}
+    public void setBrokerBuyingPower(String brokerBuyingPower) {
+        this.brokerBuyingPower = brokerBuyingPower;
+    }
 
-	public String getBrokerPreviousDayEquityWithLoanValue() {
-		return brokerPreviousDayEquityWithLoanValue;
-	}
+    public String getBrokerEquityWithLoanValue() {
+        return brokerEquityWithLoanValue;
+    }
 
-	public String getBrokerSecuritiesOptionsValue() {
-		return brokerSecuritiesOptionsValue;
-	}
+    public void setBrokerEquityWithLoanValue(String brokerEquityWithLoanValue) {
+        this.brokerEquityWithLoanValue = brokerEquityWithLoanValue;
+    }
 
-	public String getBrokerSettledCash() {
-		return brokerSettledCash;
-	}
+    public String getBrokerExcessLiquidityMarginCurrent() {
+        return brokerExcessLiquidityMarginCurrent;
+    }
 
-	public String getBrokerSma() {
-		return brokerSma;
-	}
+    public void setBrokerExcessLiquidityMarginCurrent(String brokerExcessLiquidityMarginCurrent) {
+        this.brokerExcessLiquidityMarginCurrent = brokerExcessLiquidityMarginCurrent;
+    }
 
-	public String getBrokerStockValue() {
-		return brokerStockValue;
-	}
+    public String getBrokerExcessLiquidityMarginOvernite() {
+        return brokerExcessLiquidityMarginOvernite;
+    }
 
-	public String getBrokerTotalCash() {
-		return brokerTotalCash;
-	}
+    public void setBrokerExcessLiquidityMarginOvernite(String brokerExcessLiquidityMarginOvernite) {
+        this.brokerExcessLiquidityMarginOvernite = brokerExcessLiquidityMarginOvernite;
+    }
 
-	public void setAccountId(long account_id) {
-		this.accountId = account_id;
-	}
+    public String getBrokerFuturesOptionsValue() {
+        return brokerFuturesOptionsValue;
+    }
 
-	public void setMarketTrendValue(int marketTrendValue) {
-		this.marketTrendValue = marketTrendValue;
-	}
+    public void setBrokerFuturesOptionsValue(String brokerFuturesOptionsValue) {
+        this.brokerFuturesOptionsValue = brokerFuturesOptionsValue;
+    }
 
-	public void setMarketTrendOn(int marketTrendOn) {
-		this.marketTrendOn = marketTrendOn;
-	}
+    public String getBrokerInitialMarginCurrent() {
+        return brokerInitialMarginCurrent;
+    }
 
-	public void setMarketTrendGaugeValue(int marketTrendGaugeValue) {
-		this.marketTrendGaugeValue = marketTrendGaugeValue;
-	}
+    public void setBrokerInitialMarginCurrent(String brokerInitialMarginCurrent) {
+        this.brokerInitialMarginCurrent = brokerInitialMarginCurrent;
+    }
 
-	public void setMarketTrendGaugeNum(int marketTrendGaugeNum) {
-		this.marketTrendGaugeNum = marketTrendGaugeNum;
-	}
+    public String getBrokerInitialMarginOvernite() {
+        return brokerInitialMarginOvernite;
+    }
 
-	public void setMarketTrendIndicatorValue(float marketTrendIndicatorValue) {
-		this.marketTrendIndicatorValue = marketTrendIndicatorValue;
-	}
+    public void setBrokerInitialMarginOvernite(String brokerInitialMarginOvernite) {
+        this.brokerInitialMarginOvernite = brokerInitialMarginOvernite;
+    }
 
-	public void setBrokerAvailableFunds(String brokerAvailableFunds) {
-		this.brokerAvailableFunds = brokerAvailableFunds;
-	}
+    public String getBrokerLeverage() {
+        return brokerLeverage;
+    }
 
-	public void setBrokerAvailableFundsMarginCurrent(String brokerAvailableFundsMarginCurrent) {
-		this.brokerAvailableFundsMarginCurrent = brokerAvailableFundsMarginCurrent;
-	}
+    public void setBrokerLeverage(String brokerLeverage) {
+        this.brokerLeverage = brokerLeverage;
+    }
 
-	public void setBrokerAvailableFundsMarginOvernite(String brokerAvailableFundsMarginOvernite) {
-		this.brokerAvailableFundsMarginOvernite = brokerAvailableFundsMarginOvernite;
-	}
+    public String getBrokerMaintenanceMarginCurrent() {
+        return brokerMaintenanceMarginCurrent;
+    }
 
-	public void setBrokerBuyingPower(String brokerBuyingPower) {
-		this.brokerBuyingPower = brokerBuyingPower;
-	}
+    public void setBrokerMaintenanceMarginCurrent(String brokerMaintenanceMarginCurrent) {
+        this.brokerMaintenanceMarginCurrent = brokerMaintenanceMarginCurrent;
+    }
 
-	public void setBrokerEquityWithLoanValue(String brokerEquityWithLoanValue) {
-		this.brokerEquityWithLoanValue = brokerEquityWithLoanValue;
-	}
+    public String getBrokerMaintenanceMarginOvernite() {
+        return brokerMaintenanceMarginOvernite;
+    }
 
-	public void setBrokerExcessLiquidityMarginCurrent(String brokerExcessLiquidityMarginCurrent) {
-		this.brokerExcessLiquidityMarginCurrent = brokerExcessLiquidityMarginCurrent;
-	}
+    public void setBrokerMaintenanceMarginOvernite(String brokerMaintenanceMarginOvernite) {
+        this.brokerMaintenanceMarginOvernite = brokerMaintenanceMarginOvernite;
+    }
 
-	public void setBrokerExcessLiquidityMarginOvernite(String brokerExcessLiquidityMarginOvernite) {
-		this.brokerExcessLiquidityMarginOvernite = brokerExcessLiquidityMarginOvernite;
-	}
+    public String getBrokerNetLiquidationValue() {
+        return brokerNetLiquidationValue;
+    }
 
-	public void setBrokerFuturesOptionsValue(String brokerFuturesOptionsValue) {
-		this.brokerFuturesOptionsValue = brokerFuturesOptionsValue;
-	}
+    public void setBrokerNetLiquidationValue(String brokerNetLiquidationValue) {
+        this.brokerNetLiquidationValue = brokerNetLiquidationValue;
+    }
 
-	public void setBrokerInitialMarginCurrent(String brokerInitialMarginCurrent) {
-		this.brokerInitialMarginCurrent = brokerInitialMarginCurrent;
-	}
+    public String getBrokerPreviousDayEquityWithLoanValue() {
+        return brokerPreviousDayEquityWithLoanValue;
+    }
 
-	public void setBrokerInitialMarginOvernite(String brokerInitialMarginOvernite) {
-		this.brokerInitialMarginOvernite = brokerInitialMarginOvernite;
-	}
+    public void setBrokerPreviousDayEquityWithLoanValue(String brokerPreviousDayEquityWithLoanValue) {
+        this.brokerPreviousDayEquityWithLoanValue = brokerPreviousDayEquityWithLoanValue;
+    }
 
-	public void setBrokerLeverage(String brokerLeverage) {
-		this.brokerLeverage = brokerLeverage;
-	}
+    public String getBrokerSecuritiesOptionsValue() {
+        return brokerSecuritiesOptionsValue;
+    }
 
-	public void setBrokerMaintenanceMarginCurrent(String brokerMaintenanceMarginCurrent) {
-		this.brokerMaintenanceMarginCurrent = brokerMaintenanceMarginCurrent;
-	}
+    public void setBrokerSecuritiesOptionsValue(String brokerSecuritiesOptionsValue) {
+        this.brokerSecuritiesOptionsValue = brokerSecuritiesOptionsValue;
+    }
 
-	public void setBrokerMaintenanceMarginOvernite(String brokerMaintenanceMarginOvernite) {
-		this.brokerMaintenanceMarginOvernite = brokerMaintenanceMarginOvernite;
-	}
+    public String getBrokerSettledCash() {
+        return brokerSettledCash;
+    }
 
-	public void setBrokerNetLiquidationValue(String brokerNetLiquidationValue) {
-		this.brokerNetLiquidationValue = brokerNetLiquidationValue;
-	}
+    public void setBrokerSettledCash(String brokerSettledCash) {
+        this.brokerSettledCash = brokerSettledCash;
+    }
 
-	public void setBrokerPreviousDayEquityWithLoanValue(String brokerPreviousDayEquityWithLoanValue) {
-		this.brokerPreviousDayEquityWithLoanValue = brokerPreviousDayEquityWithLoanValue;
-	}
+    public String getBrokerSma() {
+        return brokerSma;
+    }
 
-	public void setBrokerSecuritiesOptionsValue(String brokerSecuritiesOptionsValue) {
-		this.brokerSecuritiesOptionsValue = brokerSecuritiesOptionsValue;
-	}
+    public void setBrokerSma(String brokerSma) {
+        this.brokerSma = brokerSma;
+    }
 
-	public void setBrokerSettledCash(String brokerSettledCash) {
-		this.brokerSettledCash = brokerSettledCash;
-	}
+    public String getBrokerStockValue() {
+        return brokerStockValue;
+    }
 
-	public void setBrokerSma(String brokerSma) {
-		this.brokerSma = brokerSma;
-	}
+    public void setBrokerStockValue(String brokerStockValue) {
+        this.brokerStockValue = brokerStockValue;
+    }
 
-	public void setBrokerStockValue(String brokerStockValue) {
-		this.brokerStockValue = brokerStockValue;
-	}
+    public String getBrokerTotalCash() {
+        return brokerTotalCash;
+    }
 
-	public void setBrokerTotalCash(String brokerTotalCash) {
-		this.brokerTotalCash = brokerTotalCash;
-	}
+    public void setBrokerTotalCash(String brokerTotalCash) {
+        this.brokerTotalCash = brokerTotalCash;
+    }
 }

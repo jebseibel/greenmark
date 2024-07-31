@@ -1,18 +1,17 @@
 package com.greenmark.common.dto.broker.database;
 
+import com.greenmark.common.GmConstantsBroker;
+import com.greenmark.common.dto.broker.database.decorator.OrderDbDecorator;
+import com.greenmark.common.dto.broker.decorator.PositionDtoDecorator;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.beanutils.BeanUtils;
+
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
-
-import com.greenmark.common.GmConstantsBroker;
-import com.greenmark.common.dto.broker.database.decorator.OrderDbDecorator;
-import com.greenmark.common.dto.broker.decorator.PositionDtoDecorator;
 
 /**
  * @formatter:off
@@ -29,49 +28,49 @@ import com.greenmark.common.dto.broker.decorator.PositionDtoDecorator;
  */
 @Slf4j
 public class PositionBroker extends PositionDtoDecorator implements Serializable {
-	public static final String CLASSNAME = "PositionBroker";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "PositionBroker";
+    private static final long serialVersionUID = 1L;
 
-	protected String stockSymbol; // This is used to query DB.
-	protected String compactedExchangeSymbol; // This is used to find stock on all our hashtables.
+    protected String stockSymbol; // This is used to query DB.
+    protected String compactedExchangeSymbol; // This is used to find stock on all our hashtables.
 
-	protected float currentPrice = 0F;
+    protected float currentPrice = 0F;
 
-	// The key to the map is the orderId
-	protected Map<String, OrderDbDecorator> buyOrderList = new LinkedHashMap<>();
-	protected int numBuyOrders = 0;
-	protected boolean hasBuyOrders;
+    // The key to the map is the orderId
+    protected Map<String, OrderDbDecorator> buyOrderList = new LinkedHashMap<>();
+    protected int numBuyOrders = 0;
+    protected boolean hasBuyOrders;
 
-	// The key to the map is the orderId
-	protected Map<String, OrderDbDecorator> sellOrderList = new LinkedHashMap<>();
-	protected int numSellOrders = 0;
-	protected boolean hasSellOrders;
+    // The key to the map is the orderId
+    protected Map<String, OrderDbDecorator> sellOrderList = new LinkedHashMap<>();
+    protected int numSellOrders = 0;
+    protected boolean hasSellOrders;
 
-	public PositionBroker() {
-		super();
-		buyOrderList = new LinkedHashMap<>();
-		sellOrderList = new LinkedHashMap<>();
+    public PositionBroker() {
+        super();
+        buyOrderList = new LinkedHashMap<>();
+        sellOrderList = new LinkedHashMap<>();
 
-		// We create a Position after we've bought an order and always start in the Sell status.
-		positionPhase = GmConstantsBroker.TYPE_SELL;
-	}
+        // We create a Position after we've bought an order and always start in the Sell status.
+        positionPhase = GmConstantsBroker.TYPE_SELL;
+    }
 
-	public PositionBroker(int harvestStrategyTypeId, int bucketStrategyStateId, int originBucketTimeframe) {
-		super(harvestStrategyTypeId, bucketStrategyStateId, originBucketTimeframe);
-	}
+    public PositionBroker(int harvestStrategyTypeId, int bucketStrategyStateId, int originBucketTimeframe) {
+        super(harvestStrategyTypeId, bucketStrategyStateId, originBucketTimeframe);
+    }
 
-	public PositionBroker(PositionBroker oldPosition) {
-		try {
-			if (oldPosition != null)
-				BeanUtils.copyProperties(this, oldPosition);
-		} catch (InvocationTargetException ite) {
-			System.out.println("ERROR creating " + CLASSNAME + ", InvocationTargetException, message: " + ite.getMessage());
-		} catch (IllegalAccessException iae) {
-			System.out.println("ERROR creating " + CLASSNAME + ", IllegalAccessException, message: " + iae.getMessage());
-		}
-	}
+    public PositionBroker(PositionBroker oldPosition) {
+        try {
+            if (oldPosition != null)
+                BeanUtils.copyProperties(this, oldPosition);
+        } catch (InvocationTargetException ite) {
+            System.out.println("ERROR creating " + CLASSNAME + ", InvocationTargetException, message: " + ite.getMessage());
+        } catch (IllegalAccessException iae) {
+            System.out.println("ERROR creating " + CLASSNAME + ", IllegalAccessException, message: " + iae.getMessage());
+        }
+    }
 
-	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
+    // ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
 //	public PositionBroker(String xmldata) {
 //		super(xmldata, trace);
 //
@@ -155,113 +154,113 @@ public class PositionBroker extends PositionDtoDecorator implements Serializable
 //		return stb.toString();
 //	}
 
-	public void addBuyOrder(OrderDbDecorator placedBuyOrder) {
-		//buyOrderList.put(placedBuyOrder.getExternalOrderId(), placedBuyOrder);
-		numBuyOrders++;
-		//buyExecutedDatetime = new UTCalendarTime(String.valueOf(placedBuyOrder.getExecutedDatetime()));
-	}
+    public void addBuyOrder(OrderDbDecorator placedBuyOrder) {
+        //buyOrderList.put(placedBuyOrder.getExternalOrderId(), placedBuyOrder);
+        numBuyOrders++;
+        //buyExecutedDatetime = new UTCalendarTime(String.valueOf(placedBuyOrder.getExecutedDatetime()));
+    }
 
-	public void addSellOrder(OrderDbDecorator placedSellOrder) {
-		//sellOrderList.put(placedSellOrder.getExternalOrderId(), placedSellOrder);
-		numSellOrders++;
-		//sellExecutedDatetime = new UTCalendarTime(placedSellOrder.getExecutedDatetime());
-	}
+    public void addSellOrder(OrderDbDecorator placedSellOrder) {
+        //sellOrderList.put(placedSellOrder.getExternalOrderId(), placedSellOrder);
+        numSellOrders++;
+        //sellExecutedDatetime = new UTCalendarTime(placedSellOrder.getExecutedDatetime());
+    }
 
-	// Failsafe method for website
-	public boolean isHasBuyOrders() {
-		if (buyOrderList == null || buyOrderList.isEmpty()) {
-			setHasBuyOrders(false);
-			return hasBuyOrders;
-		} else {
-			setHasBuyOrders(true);
-			return hasBuyOrders;
-		}
-	}
+    // Failsafe method for website
+    public boolean isHasBuyOrders() {
+        if (buyOrderList == null || buyOrderList.isEmpty()) {
+            setHasBuyOrders(false);
+            return hasBuyOrders;
+        } else {
+            setHasBuyOrders(true);
+            return hasBuyOrders;
+        }
+    }
 
-	public boolean isHasSellOrders() {
-		if (sellOrderList == null || sellOrderList.isEmpty()) {
-			setHasSellOrders(false);
-			return hasSellOrders;
-		} else {
-			setHasSellOrders(true);
-			return hasSellOrders;
-		}
-	}
+    public void setHasBuyOrders(boolean hasBuyOrders) {
+        this.hasBuyOrders = hasBuyOrders;
+    }
 
-	public Map<String, OrderDbDecorator> getBuyOrderMap() {
-		return buyOrderList;
-	}
+    public boolean isHasSellOrders() {
+        if (sellOrderList == null || sellOrderList.isEmpty()) {
+            setHasSellOrders(false);
+            return hasSellOrders;
+        } else {
+            setHasSellOrders(true);
+            return hasSellOrders;
+        }
+    }
 
-	public List<OrderDbDecorator> getBuyOrderList() {
-		List<OrderDbDecorator> returnList = new ArrayList<>();
-		returnList.addAll(buyOrderList.values());
-		return returnList;
-	}
+    public void setHasSellOrders(boolean hasSellOrders) {
+        this.hasSellOrders = hasSellOrders;
+    }
 
-	public Map<String, OrderDbDecorator> getSellOrderMap() {
-		return sellOrderList;
-	}
+    public Map<String, OrderDbDecorator> getBuyOrderMap() {
+        return buyOrderList;
+    }
 
-	public List<OrderDbDecorator> getSellOrderList() {
-		List<OrderDbDecorator> returnList = new ArrayList<>();
-		returnList.addAll(sellOrderList.values());
-		return returnList;
-	}
+    public List<OrderDbDecorator> getBuyOrderList() {
+        List<OrderDbDecorator> returnList = new ArrayList<>();
+        returnList.addAll(buyOrderList.values());
+        return returnList;
+    }
 
-	// ------------------------------------------------ SETTER/GETTER METHODS ---------------------------------------------------
-	public String getStockSymbol() {
-		return stockSymbol;
-	}
+    public void setBuyOrderList(Map<String, OrderDbDecorator> buyOrderList) {
+        this.buyOrderList = buyOrderList;
+    }
 
-	public void setStockSymbol(String stockSymbol) {
-		this.stockSymbol = stockSymbol;
-	}
+    public Map<String, OrderDbDecorator> getSellOrderMap() {
+        return sellOrderList;
+    }
 
-	public String getCompactedExchangeSymbol() {
-		return compactedExchangeSymbol;
-	}
+    public List<OrderDbDecorator> getSellOrderList() {
+        List<OrderDbDecorator> returnList = new ArrayList<>();
+        returnList.addAll(sellOrderList.values());
+        return returnList;
+    }
 
-	public void setCompactedExchangeSymbol(String compactedExchangeSymbol) {
-		this.compactedExchangeSymbol = compactedExchangeSymbol;
-	}
+    public void setSellOrderList(Map<String, OrderDbDecorator> sellOrderList) {
+        this.sellOrderList = sellOrderList;
+    }
 
-	public float getCurrentPrice() {
-		return currentPrice;
-	}
+    // ------------------------------------------------ SETTER/GETTER METHODS ---------------------------------------------------
+    public String getStockSymbol() {
+        return stockSymbol;
+    }
 
-	public void setCurrentPrice(float currentPrice) {
-		this.currentPrice = currentPrice;
-	}
+    public void setStockSymbol(String stockSymbol) {
+        this.stockSymbol = stockSymbol;
+    }
 
-	public void setBuyOrderList(Map<String, OrderDbDecorator> buyOrderList) {
-		this.buyOrderList = buyOrderList;
-	}
+    public String getCompactedExchangeSymbol() {
+        return compactedExchangeSymbol;
+    }
 
-	public int getNumBuyOrders() {
-		return numBuyOrders;
-	}
+    public void setCompactedExchangeSymbol(String compactedExchangeSymbol) {
+        this.compactedExchangeSymbol = compactedExchangeSymbol;
+    }
 
-	public void setNumBuyOrders(int numBuyOrders) {
-		this.numBuyOrders = numBuyOrders;
-	}
+    public float getCurrentPrice() {
+        return currentPrice;
+    }
 
-	public void setHasBuyOrders(boolean hasBuyOrders) {
-		this.hasBuyOrders = hasBuyOrders;
-	}
+    public void setCurrentPrice(float currentPrice) {
+        this.currentPrice = currentPrice;
+    }
 
-	public void setSellOrderList(Map<String, OrderDbDecorator> sellOrderList) {
-		this.sellOrderList = sellOrderList;
-	}
+    public int getNumBuyOrders() {
+        return numBuyOrders;
+    }
 
-	public int getNumSellOrders() {
-		return numSellOrders;
-	}
+    public void setNumBuyOrders(int numBuyOrders) {
+        this.numBuyOrders = numBuyOrders;
+    }
 
-	public void setNumSellOrders(int numSellOrders) {
-		this.numSellOrders = numSellOrders;
-	}
+    public int getNumSellOrders() {
+        return numSellOrders;
+    }
 
-	public void setHasSellOrders(boolean hasSellOrders) {
-		this.hasSellOrders = hasSellOrders;
-	}
+    public void setNumSellOrders(int numSellOrders) {
+        this.numSellOrders = numSellOrders;
+    }
 }

@@ -15,18 +15,17 @@ package com.greenmark.utils;
 
 @Deprecated
 public class UTForward {
-	public static final String CLASSNAME = "UTForward";
+    public static final String CLASSNAME = "UTForward";
+    private String trace = "";
 
-	public UTForward() {
-	}
+    public UTForward() {
+    }
 
-	private String trace = "";
+    public String getTrace() {
+        return trace;
+    }
 
-	public String getTrace() {
-		return trace;
-	}
-
-	public void setTrace(String traceParam) {
-		this.trace = traceParam;
-	}
+    public void setTrace(String traceParam) {
+        this.trace = traceParam;
+    }
 }

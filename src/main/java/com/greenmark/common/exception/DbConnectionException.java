@@ -14,27 +14,33 @@ package com.greenmark.common.exception;
  */
 
 public class DbConnectionException extends Exception {
-	public static final String CLASSNAME = "DbConnectionException";
+    public static final String CLASSNAME = "DbConnectionException";
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/** The message that will be included in this exception for display to the user. */
-	protected String message;
+    /**
+     * The message that will be included in this exception for display to the user.
+     */
+    protected String message;
 
-	public DbConnectionException() {
-	}
+    public DbConnectionException() {
+    }
 
-	public DbConnectionException(String messageString) {
-		message = messageString;
-	}
+    public DbConnectionException(String messageString) {
+        message = messageString;
+    }
 
-	/** Public accessor to return the exception's message string. */
-	public final void setMessage(String newMessageString) {
-		message = newMessageString;
-	}
+    /**
+     * Public accessor to set the exception's message string.
+     */
+    public final String getMessage() {
+        return message;
+    }
 
-	/** Public accessor to set the exception's message string. */
-	public final String getMessage() {
-		return message;
-	}
+    /**
+     * Public accessor to return the exception's message string.
+     */
+    public final void setMessage(String newMessageString) {
+        message = newMessageString;
+    }
 }

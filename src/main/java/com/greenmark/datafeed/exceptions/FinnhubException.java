@@ -1,9 +1,8 @@
 package com.greenmark.datafeed.exceptions;
 
-public class FinnhubException extends Exception{
+public class FinnhubException extends Exception {
 
-    public FinnhubException(String message)
-    {
+    public FinnhubException(String message) {
         super(message);
     }
 }

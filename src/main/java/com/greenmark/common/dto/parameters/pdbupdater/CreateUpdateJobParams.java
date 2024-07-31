@@ -13,48 +13,48 @@ import java.util.List;
  * @author Monte Seibel
  * @version 7.5
  * @formatter:on
-**/
+ **/
 
 public class CreateUpdateJobParams implements Serializable {
-	public static final String CLASSNAME = "CreateUpdateJobParams";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "CreateUpdateJobParams";
+    private static final long serialVersionUID = 1L;
 
-	private String jobName;
-	private String jobDescription;
+    private String jobName;
+    private String jobDescription;
 
-	private List<Integer> selectedTimeframes;
-	private List<Integer> selectedSecurityIds;
+    private List<Integer> selectedTimeframes;
+    private List<Integer> selectedSecurityIds;
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public String getJobName() {
-		return jobName;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public String getJobName() {
+        return jobName;
+    }
 
-	public void setJobName(String jobName) {
-		this.jobName = jobName;
-	}
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
+    }
 
-	public String getJobDescription() {
-		return jobDescription;
-	}
+    public String getJobDescription() {
+        return jobDescription;
+    }
 
-	public void setJobDescription(String jobDescription) {
-		this.jobDescription = jobDescription;
-	}
+    public void setJobDescription(String jobDescription) {
+        this.jobDescription = jobDescription;
+    }
 
-	public List<Integer> getSelectedTimeframes() {
-		return selectedTimeframes;
-	}
+    public List<Integer> getSelectedTimeframes() {
+        return selectedTimeframes;
+    }
 
-	public void setSelectedTimeframes(List<Integer> selectedTimeframes) {
-		this.selectedTimeframes = selectedTimeframes;
-	}
+    public void setSelectedTimeframes(List<Integer> selectedTimeframes) {
+        this.selectedTimeframes = selectedTimeframes;
+    }
 
-	public List<Integer> getSelectedSecurityIds() {
-		return selectedSecurityIds;
-	}
+    public List<Integer> getSelectedSecurityIds() {
+        return selectedSecurityIds;
+    }
 
-	public void setSelectedSecurityIds(List<Integer> selectedSecurityIds) {
-		this.selectedSecurityIds = selectedSecurityIds;
-	}
+    public void setSelectedSecurityIds(List<Integer> selectedSecurityIds) {
+        this.selectedSecurityIds = selectedSecurityIds;
+    }
 }

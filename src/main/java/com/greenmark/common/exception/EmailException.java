@@ -14,35 +14,40 @@ package com.greenmark.common.exception;
  */
 
 public class EmailException extends Exception {
-	public static final String CLASSNAME = "EmailException";
+    public static final String CLASSNAME = "EmailException";
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/** The message that will be included in this exception for display to the user. */
-	protected String message;
+    /**
+     * The message that will be included in this exception for display to the user.
+     */
+    protected String message;
 
-	public EmailException() {
-	}
+    public EmailException() {
+    }
 
-	/**
-	 * This constructor creates an EmailException object and initializes its message attribute with the input messageString parameter.
-	 *
-	 * @param messageString
-	 *            Any message that will be included in this exception for display to the user.
-	 * @return This Object
-	 */
-	public EmailException(String messageString) {
-		message = messageString;
-	}
+    /**
+     * This constructor creates an EmailException object and initializes its message attribute with the input messageString parameter.
+     *
+     * @param messageString Any message that will be included in this exception for display to the user.
+     * @return This Object
+     */
+    public EmailException(String messageString) {
+        message = messageString;
+    }
 
-	/** Public accessor to return the exception's message string. */
-	public final void setMessage(String newMessageString) {
-		message = newMessageString;
-	}
+    /**
+     * Public accessor to set the exception's message string.
+     */
+    public final String getMessage() {
+        return message;
+    }
 
-	/** Public accessor to set the exception's message string. */
-	public final String getMessage() {
-		return message;
-	}
+    /**
+     * Public accessor to return the exception's message string.
+     */
+    public final void setMessage(String newMessageString) {
+        message = newMessageString;
+    }
 
 }

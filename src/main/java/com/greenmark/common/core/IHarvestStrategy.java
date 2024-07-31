@@ -14,28 +14,28 @@ package com.greenmark.common.core;
  */
 public interface IHarvestStrategy {
 
-	public int getHarvestStrategyType();
+    int getHarvestStrategyType();
 
-	public void setOriginBucketTimeframe(int timeframe);
+    void setHarvestStrategyType(int harvestStrategyType);
 
-	public void setHarvestStrategyType(int harvestStrategyType);
+    void setOriginBucketTimeframe(int timeframe);
 
-	public String toXml(String prefix, String endline);
+    String toXml(String prefix, String endline);
 
-	public String getHarvestStrategyLabel();
+    String getHarvestStrategyLabel();
 
-	public String getAcronym();
+    String getAcronym();
 
-	public boolean isStrategyNone();
+    boolean isStrategyNone();
 
-	public boolean isStrategyHarvester();
+    boolean isStrategyHarvester();
 
-	public boolean isStrategyB2B();
+    boolean isStrategyB2B();
 
-	public boolean isStrategyDropcat();
+    boolean isStrategyDropcat();
 
-	public boolean isStrategyATH();
+    boolean isStrategyATH();
 
-	public int getOriginBuyBucketTimeframe();
+    int getOriginBuyBucketTimeframe();
 
 }

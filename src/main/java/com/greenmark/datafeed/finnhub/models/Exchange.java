@@ -17,8 +17,8 @@
 package com.greenmark.datafeed.finnhub.models;
 
 public enum Exchange {
-	
-	NYSE_EURONEXT_AMSTERDAM("AS"),
+
+    NYSE_EURONEXT_AMSTERDAM("AS"),
     ATHENS_EXCHANGE("AT"),
     ASX("AX"),
     BOLSA_DE_COMERCIO_DE_BUENOS_AIRES("BA"),
@@ -80,9 +80,9 @@ public enum Exchange {
     VIENNA_STOCK_EXCHANGE("VI"),
     VIETNAM_EXCHANGES("VN"),
     NASDAQ_VILNIUS("VS"),
-    WARSAW_STOCK_EXCHANGES("WA");	
+    WARSAW_STOCK_EXCHANGES("WA");
 
-    private String code;
+    private final String code;
 
     Exchange(String code) {
         this.code = code;

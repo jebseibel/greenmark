@@ -1,8 +1,8 @@
 package com.greenmark.common.dto.broker.database;
 
-import java.io.Serializable;
-
 import com.greenmark.utils.UTDisplayFormatter;
+
+import java.io.Serializable;
 
 /**
  * @formatter:off
@@ -18,25 +18,23 @@ import com.greenmark.utils.UTDisplayFormatter;
  */
 
 public class BrokerAccount implements Serializable {
-	public static final String CLASSNAME = "BrokerAccount";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "BrokerAccount";
+    public static final int BROKER_ACCOUNT_CASH = 1;
+    public static final int BROKER_ACCOUNT_MARGIN = 2;
+    public static final int BROKER_ACCOUNT_IB = 3;
+    private static final long serialVersionUID = 1L;
+    protected int brokerAccountType;
 
-	public static final int BROKER_ACCOUNT_CASH = 1;
-	public static final int BROKER_ACCOUNT_MARGIN = 2;
-	public static final int BROKER_ACCOUNT_IB = 3;
+    protected double allocatedFunds = 0; // Total value of open buy orders
+    protected double cashOnHand = 0;
+    protected double totalEquity = 0;
+    protected double unsettledFunds = 0;
 
-	protected int brokerAccountType;
+    public BrokerAccount(int inBrokerAccountType) {
+        this.brokerAccountType = inBrokerAccountType;
+    }
 
-	protected double allocatedFunds = 0; // Total value of open buy orders
-	protected double cashOnHand = 0;
-	protected double totalEquity = 0;
-	protected double unsettledFunds = 0;
-
-	public BrokerAccount(int inBrokerAccountType) {
-		this.brokerAccountType = inBrokerAccountType;
-	}
-
-	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
+    // ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
 //	public BrokerAccount(String xmldata) {
 //		try {
 //			this.cashOnHand = UTXmlUtils.getXmlDataAsDouble(xmldata, "CASH_ON_HAND");
@@ -58,26 +56,29 @@ public class BrokerAccount implements Serializable {
 //		return stb;
 //	}
 
-	// ------------------------------------------------ CONVENIENCE METHODS ---------------------------------------------------
-	/** Static formatter to display this broker Account's account type **/
-	public static String formatAccountType(int accountType) {
-		if (accountType == BROKER_ACCOUNT_CASH)
-			return "Cash Account";
-		else
-			return "Margin Account";
-	}
+    // ------------------------------------------------ CONVENIENCE METHODS ---------------------------------------------------
 
-	public String toString() {
+    /**
+     * Static formatter to display this broker Account's account type
+     **/
+    public static String formatAccountType(int accountType) {
+        if (accountType == BROKER_ACCOUNT_CASH)
+            return "Cash Account";
+        else
+            return "Margin Account";
+    }
+
+    public String toString() {
         String outString = "ACCOUNT:   " +
                 formatAccountType(brokerAccountType) +
                 "   ";
 
-		return outString;
-	}
+        return outString;
+    }
 
-	public String toStringSystem() {
-		String prefix = UTDisplayFormatter.TAB;
-		String endline = "\n";
+    public String toStringSystem() {
+        String prefix = UTDisplayFormatter.TAB;
+        String endline = "\n";
         String stb = prefix + "-----------------------------------------------" + endline +
                 prefix + CLASSNAME + endline +
                 prefix + " . . . allocatedFunds = [" + allocatedFunds + "]" + endline +
@@ -85,79 +86,79 @@ public class BrokerAccount implements Serializable {
                 prefix + " . . . totalEquityCash    = [" + totalEquity + "]" + endline +
                 prefix + " . . . unsettledFunds = [" + unsettledFunds + "]" + endline +
                 prefix + "-----------------------------------------------" + endline;
-		return stb;
-	}
+        return stb;
+    }
 
-	public void addCashOnHand(float value) {
-		this.cashOnHand += value;
-	}
+    public void addCashOnHand(float value) {
+        this.cashOnHand += value;
+    }
 
-	public void subtractCashOnHand(float value) {
-		this.cashOnHand -= value;
-	}
+    public void subtractCashOnHand(float value) {
+        this.cashOnHand -= value;
+    }
 
-	public void addAllocatedFunds(float value) {
-		this.allocatedFunds += value;
-	}
+    public void addAllocatedFunds(float value) {
+        this.allocatedFunds += value;
+    }
 
-	public void subtractAllocatedFunds(float value) {
-		this.allocatedFunds -= value;
-	}
+    public void subtractAllocatedFunds(float value) {
+        this.allocatedFunds -= value;
+    }
 
-	public void addTotalEquity(float value) {
-		this.totalEquity += value;
-	}
+    public void addTotalEquity(float value) {
+        this.totalEquity += value;
+    }
 
-	public void subtractTotalEquity(float value) {
-		this.totalEquity -= value;
-	}
+    public void subtractTotalEquity(float value) {
+        this.totalEquity -= value;
+    }
 
-	public void addUnsettledFunds(float value) {
-		this.unsettledFunds += value;
-	}
+    public void addUnsettledFunds(float value) {
+        this.unsettledFunds += value;
+    }
 
-	public void subtractUnsettledFunds(float value) {
-		this.unsettledFunds -= value;
-	}
+    public void subtractUnsettledFunds(float value) {
+        this.unsettledFunds -= value;
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public int getBrokerAccountType() {
-		return brokerAccountType;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public int getBrokerAccountType() {
+        return brokerAccountType;
+    }
 
-	public void setBrokerAccountType(int brokerAccountType) {
-		this.brokerAccountType = brokerAccountType;
-	}
+    public void setBrokerAccountType(int brokerAccountType) {
+        this.brokerAccountType = brokerAccountType;
+    }
 
-	public double getAllocatedFunds() {
-		return allocatedFunds;
-	}
+    public double getAllocatedFunds() {
+        return allocatedFunds;
+    }
 
-	public void setAllocatedFunds(double allocatedFunds) {
-		this.allocatedFunds = allocatedFunds;
-	}
+    public void setAllocatedFunds(double allocatedFunds) {
+        this.allocatedFunds = allocatedFunds;
+    }
 
-	public double getCashOnHand() {
-		return cashOnHand;
-	}
+    public double getCashOnHand() {
+        return cashOnHand;
+    }
 
-	public void setCashOnHand(double cashOnHand) {
-		this.cashOnHand = cashOnHand;
-	}
+    public void setCashOnHand(double cashOnHand) {
+        this.cashOnHand = cashOnHand;
+    }
 
-	public double getTotalEquity() {
-		return totalEquity;
-	}
+    public double getTotalEquity() {
+        return totalEquity;
+    }
 
-	public void setTotalEquity(double totalEquity) {
-		this.totalEquity = totalEquity;
-	}
+    public void setTotalEquity(double totalEquity) {
+        this.totalEquity = totalEquity;
+    }
 
-	public double getUnsettledFunds() {
-		return unsettledFunds;
-	}
+    public double getUnsettledFunds() {
+        return unsettledFunds;
+    }
 
-	public void setUnsettledFunds(double unsettledFunds) {
-		this.unsettledFunds = unsettledFunds;
-	}
+    public void setUnsettledFunds(double unsettledFunds) {
+        this.unsettledFunds = unsettledFunds;
+    }
 }

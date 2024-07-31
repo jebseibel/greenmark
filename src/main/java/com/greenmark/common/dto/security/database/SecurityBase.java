@@ -23,42 +23,42 @@ import com.greenmark.common.dto.security.database.decorator.SecurityDbDecorator;
  */
 
 public class SecurityBase extends SecurityDbDecorator implements Serializable {
-	public static final String CLASSNAME = "SecurityBase";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "SecurityBase";
+    private static final long serialVersionUID = 1L;
 
-	protected int status = GmConstantsBroker.STATUS_NEW;
-	protected boolean newlyHarvested = false;
+    protected int status = GmConstantsBroker.STATUS_NEW;
+    protected boolean newlyHarvested = false;
 
-	protected LocalDateTime movedToBucketDatetime;
-	protected int currentTimeframe; // Which bucket is it in?
-	protected int movedFromTimeframe; // Which Bucket did it come from?
+    protected LocalDateTime movedToBucketDatetime;
+    protected int currentTimeframe; // Which bucket is it in?
+    protected int movedFromTimeframe; // Which Bucket did it come from?
 
-	protected float minute60LowHighPt = 0;
-	protected boolean minute60LowHighCalculated = false;
-	protected float dailyLowHighPt = 0;
-	protected boolean dailyLowHighCalculated = false;
+    protected float minute60LowHighPt = 0;
+    protected boolean minute60LowHighCalculated = false;
+    protected float dailyLowHighPt = 0;
+    protected boolean dailyLowHighCalculated = false;
 
-	protected float stockWatchSize = 0;
-	protected float stockWatchAmount = 0;
+    protected float stockWatchSize = 0;
+    protected float stockWatchAmount = 0;
 
-	protected float calculatedEntryPrice = 0; // If order is placed to buy/sell security
-	protected float highLowPriceOnOrder = 0; // This is the high (long) or low (short) executedPrice when we calculated the entryPrice
-	protected float orderSize = 0;
-	protected float orderAmount = 0;
-	protected int orderError = GmConstants.ORDER_ERROR_DEFAULT;
+    protected float calculatedEntryPrice = 0; // If order is placed to buy/sell security
+    protected float highLowPriceOnOrder = 0; // This is the high (long) or low (short) executedPrice when we calculated the entryPrice
+    protected float orderSize = 0;
+    protected float orderAmount = 0;
+    protected int orderError = GmConstants.ORDER_ERROR_DEFAULT;
 
-	protected boolean priceHistoryInitialized = false;
-	protected boolean rawDataPrinted = false;
+    protected boolean priceHistoryInitialized = false;
+    protected boolean rawDataPrinted = false;
 
-	protected int sellStrategyWhenCreated = GmConstantsStrategy.NO_SELL_STRATEGY;
+    protected int sellStrategyWhenCreated = GmConstantsStrategy.NO_SELL_STRATEGY;
 
-	public SecurityBase() {
-		super();
-	}
+    public SecurityBase() {
+        super();
+    }
 
-	public SecurityBase(String displaySymbol, String dbQuerySymbol, int longOrShort, int stockType) {
-		super(displaySymbol, dbQuerySymbol, longOrShort, stockType);
-	}
+    public SecurityBase(String displaySymbol, String dbQuerySymbol, int longOrShort, int stockType) {
+        super(displaySymbol, dbQuerySymbol, longOrShort, stockType);
+    }
 
 //	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
 //	public SecurityBase(String xmldata) {
@@ -141,188 +141,188 @@ public class SecurityBase extends SecurityDbDecorator implements Serializable {
 //		return stb.toString();
 //	}
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public int getStatus() {
-		return status;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public int getStatus() {
+        return status;
+    }
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-	public int getLongOrShort() {
-		return longOrShort;
-	}
+    public int getLongOrShort() {
+        return longOrShort;
+    }
 
-	public void setLongOrShort(int longOrShort) {
-		this.longOrShort = longOrShort;
-	}
+    public void setLongOrShort(int longOrShort) {
+        this.longOrShort = longOrShort;
+    }
 
-	public int getStockType() {
-		return stockType;
-	}
+    public int getStockType() {
+        return stockType;
+    }
 
-	public void setStockType(int stockType) {
-		this.stockType = stockType;
-	}
+    public void setStockType(int stockType) {
+        this.stockType = stockType;
+    }
 
-	public boolean isPriceHistoryInitialized() {
-		return priceHistoryInitialized;
-	}
+    public boolean isPriceHistoryInitialized() {
+        return priceHistoryInitialized;
+    }
 
-	public void setPriceHistoryInitialized(boolean priceHistoryInitialized) {
-		this.priceHistoryInitialized = priceHistoryInitialized;
-	}
+    public void setPriceHistoryInitialized(boolean priceHistoryInitialized) {
+        this.priceHistoryInitialized = priceHistoryInitialized;
+    }
 
-	public boolean isRawDataPrinted() {
-		return rawDataPrinted;
-	}
+    public boolean isRawDataPrinted() {
+        return rawDataPrinted;
+    }
 
-	public void setRawDataPrinted(boolean rawDataPrinted) {
-		this.rawDataPrinted = rawDataPrinted;
-	}
+    public void setRawDataPrinted(boolean rawDataPrinted) {
+        this.rawDataPrinted = rawDataPrinted;
+    }
 
-	public int getBuyOrSell() {
-		return buyOrSell;
-	}
+    public int getBuyOrSell() {
+        return buyOrSell;
+    }
 
-	public void setBuyOrSell(int buyOrSell) {
-		this.buyOrSell = buyOrSell;
-	}
+    public void setBuyOrSell(int buyOrSell) {
+        this.buyOrSell = buyOrSell;
+    }
 
-	public int getSellStrategyWhenCreated() {
-		return sellStrategyWhenCreated;
-	}
+    public int getSellStrategyWhenCreated() {
+        return sellStrategyWhenCreated;
+    }
 
-	public void setSellStrategyWhenCreated(int sellStrategyWhenCreated) {
-		this.sellStrategyWhenCreated = sellStrategyWhenCreated;
-	}
+    public void setSellStrategyWhenCreated(int sellStrategyWhenCreated) {
+        this.sellStrategyWhenCreated = sellStrategyWhenCreated;
+    }
 
-	public boolean isNewlyHarvested() {
-		return newlyHarvested;
-	}
+    public boolean isNewlyHarvested() {
+        return newlyHarvested;
+    }
 
-	public void setNewlyHarvested(boolean newlyHarvested) {
-		this.newlyHarvested = newlyHarvested;
-	}
+    public void setNewlyHarvested(boolean newlyHarvested) {
+        this.newlyHarvested = newlyHarvested;
+    }
 
-	public int getNumPeriodsInBucket() {
-		return numPeriodsInBucket;
-	}
+    public int getNumPeriodsInBucket() {
+        return numPeriodsInBucket;
+    }
 
-	public void setNumPeriodsInBucket(int numPeriodsInBucket) {
-		this.numPeriodsInBucket = numPeriodsInBucket;
-	}
+    public void setNumPeriodsInBucket(int numPeriodsInBucket) {
+        this.numPeriodsInBucket = numPeriodsInBucket;
+    }
 
-	public LocalDateTime getMovedToBucketDatetime() {
-		return movedToBucketDatetime;
-	}
+    public LocalDateTime getMovedToBucketDatetime() {
+        return movedToBucketDatetime;
+    }
 
-	public void setMovedToBucketDatetime(LocalDateTime movedToBucketDatetime) {
-		this.movedToBucketDatetime = movedToBucketDatetime;
-	}
+    public void setMovedToBucketDatetime(LocalDateTime movedToBucketDatetime) {
+        this.movedToBucketDatetime = movedToBucketDatetime;
+    }
 
-	public int getCurrentTimeframe() {
-		return currentTimeframe;
-	}
+    public int getCurrentTimeframe() {
+        return currentTimeframe;
+    }
 
-	public void setCurrentTimeframe(int currentTimeframe) {
-		this.currentTimeframe = currentTimeframe;
-	}
+    public void setCurrentTimeframe(int currentTimeframe) {
+        this.currentTimeframe = currentTimeframe;
+    }
 
-	public int getMovedFromTimeframe() {
-		return movedFromTimeframe;
-	}
+    public int getMovedFromTimeframe() {
+        return movedFromTimeframe;
+    }
 
-	public void setMovedFromTimeframe(int movedFromTimeframe) {
-		this.movedFromTimeframe = movedFromTimeframe;
-	}
+    public void setMovedFromTimeframe(int movedFromTimeframe) {
+        this.movedFromTimeframe = movedFromTimeframe;
+    }
 
-	public float getMinute60LowHighPt() {
-		return minute60LowHighPt;
-	}
+    public float getMinute60LowHighPt() {
+        return minute60LowHighPt;
+    }
 
-	public void setMinute60LowHighPt(float minute60LowHighPt) {
-		this.minute60LowHighPt = minute60LowHighPt;
-	}
+    public void setMinute60LowHighPt(float minute60LowHighPt) {
+        this.minute60LowHighPt = minute60LowHighPt;
+    }
 
-	public boolean isMinute60LowHighCalculated() {
-		return minute60LowHighCalculated;
-	}
+    public boolean isMinute60LowHighCalculated() {
+        return minute60LowHighCalculated;
+    }
 
-	public void setMinute60LowHighCalculated(boolean minute60LowHighCalculated) {
-		this.minute60LowHighCalculated = minute60LowHighCalculated;
-	}
+    public void setMinute60LowHighCalculated(boolean minute60LowHighCalculated) {
+        this.minute60LowHighCalculated = minute60LowHighCalculated;
+    }
 
-	public float getDailyLowHighPt() {
-		return dailyLowHighPt;
-	}
+    public float getDailyLowHighPt() {
+        return dailyLowHighPt;
+    }
 
-	public void setDailyLowHighPt(float dailyLowHighPt) {
-		this.dailyLowHighPt = dailyLowHighPt;
-	}
+    public void setDailyLowHighPt(float dailyLowHighPt) {
+        this.dailyLowHighPt = dailyLowHighPt;
+    }
 
-	public boolean isDailyLowHighCalculated() {
-		return dailyLowHighCalculated;
-	}
+    public boolean isDailyLowHighCalculated() {
+        return dailyLowHighCalculated;
+    }
 
-	public void setDailyLowHighCalculated(boolean dailyLowHighCalculated) {
-		this.dailyLowHighCalculated = dailyLowHighCalculated;
-	}
+    public void setDailyLowHighCalculated(boolean dailyLowHighCalculated) {
+        this.dailyLowHighCalculated = dailyLowHighCalculated;
+    }
 
-	public float getCalculatedEntryPrice() {
-		return calculatedEntryPrice;
-	}
+    public float getCalculatedEntryPrice() {
+        return calculatedEntryPrice;
+    }
 
-	public void setCalculatedEntryPrice(float calculatedEntryPrice) {
-		this.calculatedEntryPrice = calculatedEntryPrice;
-	}
+    public void setCalculatedEntryPrice(float calculatedEntryPrice) {
+        this.calculatedEntryPrice = calculatedEntryPrice;
+    }
 
-	public float getHighLowPriceOnOrder() {
-		return highLowPriceOnOrder;
-	}
+    public float getHighLowPriceOnOrder() {
+        return highLowPriceOnOrder;
+    }
 
-	public void setHighLowPriceOnOrder(float highLowPriceOnOrder) {
-		this.highLowPriceOnOrder = highLowPriceOnOrder;
-	}
+    public void setHighLowPriceOnOrder(float highLowPriceOnOrder) {
+        this.highLowPriceOnOrder = highLowPriceOnOrder;
+    }
 
-	public float getStockWatchSize() {
-		return stockWatchSize;
-	}
+    public float getStockWatchSize() {
+        return stockWatchSize;
+    }
 
-	public void setStockWatchSize(float stockWatchSize) {
-		this.stockWatchSize = stockWatchSize;
-	}
+    public void setStockWatchSize(float stockWatchSize) {
+        this.stockWatchSize = stockWatchSize;
+    }
 
-	public float getStockWatchAmount() {
-		return stockWatchAmount;
-	}
+    public float getStockWatchAmount() {
+        return stockWatchAmount;
+    }
 
-	public void setStockWatchAmount(float stockWatchAmount) {
-		this.stockWatchAmount = stockWatchAmount;
-	}
+    public void setStockWatchAmount(float stockWatchAmount) {
+        this.stockWatchAmount = stockWatchAmount;
+    }
 
-	public float getOrderSize() {
-		return orderSize;
-	}
+    public float getOrderSize() {
+        return orderSize;
+    }
 
-	public void setOrderSize(float orderSize) {
-		this.orderSize = orderSize;
-	}
+    public void setOrderSize(float orderSize) {
+        this.orderSize = orderSize;
+    }
 
-	public float getOrderAmount() {
-		return orderAmount;
-	}
+    public float getOrderAmount() {
+        return orderAmount;
+    }
 
-	public void setOrderAmount(float orderAmount) {
-		this.orderAmount = orderAmount;
-	}
+    public void setOrderAmount(float orderAmount) {
+        this.orderAmount = orderAmount;
+    }
 
-	public int getOrderError() {
-		return orderError;
-	}
+    public int getOrderError() {
+        return orderError;
+    }
 
-	public void setOrderError(int orderError) {
-		this.orderError = orderError;
-	}
+    public void setOrderError(int orderError) {
+        this.orderError = orderError;
+    }
 }

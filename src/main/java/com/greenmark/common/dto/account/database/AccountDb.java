@@ -1,13 +1,13 @@
 package com.greenmark.common.dto.account.database;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.greenmark.common.dto.account.decorator.AccountDtoDecorator;
 import com.greenmark.common.dto.account.timeperiod.decorator.AccountDailyDtoDecorator;
 import com.greenmark.common.dto.account.timeperiod.decorator.AccountEventDtoDecorator;
 import com.greenmark.common.dto.scenario.database.decorator.ScenarioDecorator;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @formatter:off
@@ -24,28 +24,28 @@ import com.greenmark.common.dto.scenario.database.decorator.ScenarioDecorator;
  */
 
 public class AccountDb extends AccountDtoDecorator implements Serializable {
-	public static final String CLASSNAME = "AccountDb";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "AccountDb";
+    private static final long serialVersionUID = 1L;
 
-	protected int numDaysInAccount = 0;
+    protected int numDaysInAccount = 0;
 
-	protected List<AccountEventDtoDecorator> eventList = new ArrayList<>();
+    protected List<AccountEventDtoDecorator> eventList = new ArrayList<>();
 
-	protected List<ScenarioDecorator> scenarioList = new ArrayList<>();
-	protected boolean hasScenarios;
+    protected List<ScenarioDecorator> scenarioList = new ArrayList<>();
+    protected boolean hasScenarios;
 
 
-	// NOTE: None of the following member variables are needed in XML Save/Restore.
-	protected List<AccountDailyDtoDecorator> accountDailyList = new ArrayList<>();
-	protected boolean hasAccountDaily;
+    // NOTE: None of the following member variables are needed in XML Save/Restore.
+    protected List<AccountDailyDtoDecorator> accountDailyList = new ArrayList<>();
+    protected boolean hasAccountDaily;
 
-	protected AccountDailyDtoDecorator previousDay = null; // Used by the website AccountDailySummary webpage for display
+    protected AccountDailyDtoDecorator previousDay = null; // Used by the website AccountDailySummary webpage for display
 
-	public AccountDb() {
-		super();
-	}
+    public AccountDb() {
+        super();
+    }
 
-	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
+    // ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
 //	public AccountDb(String xmldata) {
 //		super(xmldata, trace);
 //
@@ -117,92 +117,92 @@ public class AccountDb extends AccountDtoDecorator implements Serializable {
 //		return stb.toString();
 //	}
 
-	// ------------------------------------------- CONVENIENCE METHODS -----------------------------------
-	public void addScenario(ScenarioDecorator newScenario) {
-		if (scenarioList == null)
-			scenarioList = new ArrayList<ScenarioDecorator>();
+    public static String getClassname() {
+        return CLASSNAME;
+    }
 
-		scenarioList.add(newScenario);
-		if (scenarioList.size() > 0)
-			hasScenarios = true;
-	}
+    // ------------------------------------------- CONVENIENCE METHODS -----------------------------------
+    public void addScenario(ScenarioDecorator newScenario) {
+        if (scenarioList == null)
+            scenarioList = new ArrayList<ScenarioDecorator>();
 
-	// Failsafe method for website
-	public boolean isHasScenarios() {
-		if (scenarioList == null || scenarioList.isEmpty()) {
-			setHasScenarios(false);
-			return hasScenarios;
-		} else {
-			setHasScenarios(true);
-			return hasScenarios;
-		}
-	}
+        scenarioList.add(newScenario);
+        if (scenarioList.size() > 0)
+            hasScenarios = true;
+    }
 
-	// Failsafe method for website
-	public boolean isHasAccountDaily() {
-		if (accountDailyList == null || accountDailyList.isEmpty()) {
-			setHasAccountDaily(false);
-			return hasAccountDaily;
-		} else {
-			setHasAccountDaily(true);
-			return hasAccountDaily;
-		}
-	}
+    // Failsafe method for website
+    public boolean isHasScenarios() {
+        if (scenarioList == null || scenarioList.isEmpty()) {
+            setHasScenarios(false);
+            return hasScenarios;
+        } else {
+            setHasScenarios(true);
+            return hasScenarios;
+        }
+    }
 
-	public int getNumDaysInAccount() {
-		// Every scenario adds an extra day.
-		int numScenarios = scenarioList.size();
+    public void setHasScenarios(boolean hasScenarios) {
+        this.hasScenarios = hasScenarios;
+    }
 
-		int returnVal = accountDailyList.size() - numScenarios;
-		return returnVal;
-	}
+    // Failsafe method for website
+    public boolean isHasAccountDaily() {
+        if (accountDailyList == null || accountDailyList.isEmpty()) {
+            setHasAccountDaily(false);
+            return hasAccountDaily;
+        } else {
+            setHasAccountDaily(true);
+            return hasAccountDaily;
+        }
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public void setNumDaysInAccount(int numDaysInAccount) {
-		this.numDaysInAccount = numDaysInAccount;
-	}
+    public void setHasAccountDaily(boolean hasAccountDaily) {
+        this.hasAccountDaily = hasAccountDaily;
+    }
 
-	public List<AccountEventDtoDecorator> getEventList() {
-		return eventList;
-	}
+    public int getNumDaysInAccount() {
+        // Every scenario adds an extra day.
+        int numScenarios = scenarioList.size();
 
-	public void setEventList(List<AccountEventDtoDecorator> eventList) {
-		this.eventList = eventList;
-	}
+        int returnVal = accountDailyList.size() - numScenarios;
+        return returnVal;
+    }
 
-	public List<ScenarioDecorator> getScenarioList() {
-		return scenarioList;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public void setNumDaysInAccount(int numDaysInAccount) {
+        this.numDaysInAccount = numDaysInAccount;
+    }
 
-	public void setScenarioList(List<ScenarioDecorator> scenarioList) {
-		this.scenarioList = scenarioList;
-	}
+    public List<AccountEventDtoDecorator> getEventList() {
+        return eventList;
+    }
 
-	public void setHasScenarios(boolean hasScenarios) {
-		this.hasScenarios = hasScenarios;
-	}
+    public void setEventList(List<AccountEventDtoDecorator> eventList) {
+        this.eventList = eventList;
+    }
 
-	public List<AccountDailyDtoDecorator> getAccountDailyList() {
-		return accountDailyList;
-	}
+    public List<ScenarioDecorator> getScenarioList() {
+        return scenarioList;
+    }
 
-	public void setAccountDailyList(List<AccountDailyDtoDecorator> accountDailyList) {
-		this.accountDailyList = accountDailyList;
-	}
+    public void setScenarioList(List<ScenarioDecorator> scenarioList) {
+        this.scenarioList = scenarioList;
+    }
 
-	public AccountDailyDtoDecorator getPreviousDay() {
-		return previousDay;
-	}
+    public List<AccountDailyDtoDecorator> getAccountDailyList() {
+        return accountDailyList;
+    }
 
-	public void setPreviousDay(AccountDailyDtoDecorator previousDay) {
-		this.previousDay = previousDay;
-	}
+    public void setAccountDailyList(List<AccountDailyDtoDecorator> accountDailyList) {
+        this.accountDailyList = accountDailyList;
+    }
 
-	public void setHasAccountDaily(boolean hasAccountDaily) {
-		this.hasAccountDaily = hasAccountDaily;
-	}
+    public AccountDailyDtoDecorator getPreviousDay() {
+        return previousDay;
+    }
 
-	public static String getClassname() {
-		return CLASSNAME;
-	}
+    public void setPreviousDay(AccountDailyDtoDecorator previousDay) {
+        this.previousDay = previousDay;
+    }
 }

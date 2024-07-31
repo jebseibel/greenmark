@@ -17,95 +17,91 @@ import java.io.Serializable;
  */
 
 public class DbConfigBase implements Serializable {
-	public static final String CLASSNAME = "AvailableResultsDbConfig";
+    public static final String CLASSNAME = "AvailableResultsDbConfig";
+    public static final String DATABASE_LISTING_KEY_DATABASE_NAME = "name";
+    private static final long serialVersionUID = 1L;
+    protected String databaseName;
+    protected String databaseConnectionUrl;
+    protected String databaseConnectionUsername;
+    protected String databaseConnectionPassword;
+    protected String databaseAvailInvestorDemo;
 
-	private static final long serialVersionUID = 1L;
+    protected String listId;
 
-	public static final String DATABASE_LISTING_KEY_DATABASE_NAME = "name";
+    protected String propertiesListingKeyPrefix;
 
-	protected String databaseName;
-	protected String databaseConnectionUrl;
-	protected String databaseConnectionUsername;
-	protected String databaseConnectionPassword;
-	protected String databaseAvailInvestorDemo;
+    public DbConfigBase() {
+    }
 
-	protected String listId;
+    @Override
+    public String toString() {
 
-	protected String propertiesListingKeyPrefix;
+        String returnString = "AvailableDatabaseProperties: " +
+                "databaseName: " + databaseName +
+                ",databaseConnectionUrl: " + databaseConnectionUrl +
+                ",databaseConnectionUsername: " + databaseConnectionUsername +
+                ",databaseConnectionPassword: " + databaseConnectionPassword +
+                ",databaseAvailInvestorDemo: " + databaseAvailInvestorDemo +
+                ",listId: " + listId +
+                ",propertiesListingKeyPrefix: " + propertiesListingKeyPrefix;
 
-	public DbConfigBase() {
-	}
+        return returnString;
+    }
 
-	@Override
-	public String toString() {
-		StringBuffer returnString = new StringBuffer();
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public String getDatabaseName() {
+        return databaseName;
+    }
 
-		returnString.append("AvailableDatabaseProperties: ");
-		returnString.append("databaseName: " + databaseName);
-		returnString.append(",databaseConnectionUrl: " + databaseConnectionUrl);
-		returnString.append(",databaseConnectionUsername: " + databaseConnectionUsername);
-		returnString.append(",databaseConnectionPassword: " + databaseConnectionPassword);
-		returnString.append(",databaseAvailInvestorDemo: " + databaseAvailInvestorDemo);
-		returnString.append(",listId: " + listId);
-		returnString.append(",propertiesListingKeyPrefix: " + propertiesListingKeyPrefix);
+    public void setDatabaseName(String databaseName) {
+        this.databaseName = databaseName;
+    }
 
-		return returnString.toString();
-	}
+    public String getListId() {
+        return listId;
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public String getDatabaseName() {
-		return databaseName;
-	}
+    public void setListId(String listId) {
+        this.listId = listId;
+    }
 
-	public String getListId() {
-		return listId;
-	}
+    public String getDatabaseConnectionUrl() {
+        return databaseConnectionUrl;
+    }
 
-	public String getDatabaseConnectionUrl() {
-		return databaseConnectionUrl;
-	}
+    public void setDatabaseConnectionUrl(String databaseConnectionUrl) {
+        this.databaseConnectionUrl = databaseConnectionUrl;
+    }
 
-	public String getDatabaseConnectionUsername() {
-		return databaseConnectionUsername;
-	}
+    public String getDatabaseConnectionUsername() {
+        return databaseConnectionUsername;
+    }
 
-	public String getDatabaseConnectionPassword() {
-		return databaseConnectionPassword;
-	}
+    public void setDatabaseConnectionUsername(String databaseConnectionUsername) {
+        this.databaseConnectionUsername = databaseConnectionUsername;
+    }
 
-	public String getPropertiesListingKeyPrefix() {
-		return propertiesListingKeyPrefix;
-	}
+    public String getDatabaseConnectionPassword() {
+        return databaseConnectionPassword;
+    }
 
-	public String getDatabaseAvailInvestorDemo() {
-		return databaseAvailInvestorDemo;
-	}
+    public void setDatabaseConnectionPassword(String databaseConnectionPassword) {
+        this.databaseConnectionPassword = databaseConnectionPassword;
+    }
 
-	public void setDatabaseName(String databaseName) {
-		this.databaseName = databaseName;
-	}
+    public String getPropertiesListingKeyPrefix() {
+        return propertiesListingKeyPrefix;
+    }
 
-	public void setListId(String listId) {
-		this.listId = listId;
-	}
+    public void setPropertiesListingKeyPrefix(String propertiesListingKeyPrefix) {
+        this.propertiesListingKeyPrefix = propertiesListingKeyPrefix;
+    }
 
-	public void setDatabaseConnectionUrl(String databaseConnectionUrl) {
-		this.databaseConnectionUrl = databaseConnectionUrl;
-	}
+    public String getDatabaseAvailInvestorDemo() {
+        return databaseAvailInvestorDemo;
+    }
 
-	public void setDatabaseConnectionUsername(String databaseConnectionUsername) {
-		this.databaseConnectionUsername = databaseConnectionUsername;
-	}
-
-	public void setDatabaseConnectionPassword(String databaseConnectionPassword) {
-		this.databaseConnectionPassword = databaseConnectionPassword;
-	}
-
-	public void setPropertiesListingKeyPrefix(String propertiesListingKeyPrefix) {
-		this.propertiesListingKeyPrefix = propertiesListingKeyPrefix;
-	}
-
-	public void setDatabaseAvailInvestorDemo(String databaseAvailInvestorDemo) {
-		this.databaseAvailInvestorDemo = databaseAvailInvestorDemo;
-	}
+    public void setDatabaseAvailInvestorDemo(String databaseAvailInvestorDemo) {
+        this.databaseAvailInvestorDemo = databaseAvailInvestorDemo;
+    }
 }

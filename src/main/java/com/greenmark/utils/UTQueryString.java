@@ -22,139 +22,135 @@ import java.util.Vector;
  */
 
 public class UTQueryString {
-	public static final String CLASSNAME = "UTQueryString";
+    public static final String CLASSNAME = "UTQueryString";
 
-	public static final String MULTI_VALUE_DELIMITER = ", ";
+    public static final String MULTI_VALUE_DELIMITER = ", ";
 
-	/////////////////////////////////////////////////
-	// CONSTRUCTORS
-	/////////////////////////////////////////////////
-	private UTQueryString() {
-		// can't call
-	}
+    /////////////////////////////////////////////////
+    // CONSTRUCTORS
+    /////////////////////////////////////////////////
+    private UTQueryString() {
+        // can't call
+    }
 
-	/////////////////////////////////////////////////
-	// STATIC METHODS
-	/////////////////////////////////////////////////
+    /////////////////////////////////////////////////
+    // STATIC METHODS
+    /////////////////////////////////////////////////
 
-	public static Hashtable getValues(String queryString) {
-		return UTQueryString.getValues(queryString, UTQueryString.MULTI_VALUE_DELIMITER);
-	}
+    public static Hashtable getValues(String queryString) {
+        return UTQueryString.getValues(queryString, UTQueryString.MULTI_VALUE_DELIMITER);
+    }
 
-	/**
-	 * This method returns a query string.
-	 */
-	public static Hashtable getValues(String queryString, String delim) {
-		Hashtable hqs = new Hashtable();
-		try {
+    /**
+     * This method returns a query string.
+     */
+    public static Hashtable getValues(String queryString, String delim) {
+        Hashtable hqs = new Hashtable();
+        try {
 
-			StringTokenizer st = new StringTokenizer(queryString, "&");
+            StringTokenizer st = new StringTokenizer(queryString, "&");
 
-			// do first one
-			String token = st.nextToken();
-			int delim_loc = token.indexOf("=");
-			String names = token.substring(0, delim_loc);
-			String name = UTQueryString._buildValue(names).toString();
-			String values = token.substring(delim_loc + 1);
-			String value = UTQueryString._buildValue(values).toString();
-			hqs.put(name, value);
+            // do first one
+            String token = st.nextToken();
+            int delim_loc = token.indexOf("=");
+            String names = token.substring(0, delim_loc);
+            String name = UTQueryString._buildValue(names).toString();
+            String values = token.substring(delim_loc + 1);
+            String value = UTQueryString._buildValue(values).toString();
+            hqs.put(name, value);
 
-			// get the rest of the tokens
-			while (st.hasMoreTokens()) {
-				token = st.nextToken();
+            // get the rest of the tokens
+            while (st.hasMoreTokens()) {
+                token = st.nextToken();
 
-				if (!token.endsWith("=")) {
-					delim_loc = token.indexOf("=");
+                if (!token.endsWith("=")) {
+                    delim_loc = token.indexOf("=");
 
-					names = token.substring(0, delim_loc);
-					name = UTQueryString._buildValue(names).toString();
+                    names = token.substring(0, delim_loc);
+                    name = UTQueryString._buildValue(names).toString();
 
-					values = token.substring(delim_loc + 1);
-					value = UTQueryString._buildValue(values).toString();
+                    values = token.substring(delim_loc + 1);
+                    value = UTQueryString._buildValue(values).toString();
 
-					// check for multipart query items
-					if (hqs.containsKey(name)) {
-						String oldvalue = (String) hqs.get(name);
-						value = oldvalue + delim + value;
-					}
+                    // check for multipart query items
+                    if (hqs.containsKey(name)) {
+                        String oldvalue = (String) hqs.get(name);
+                        value = oldvalue + delim + value;
+                    }
 
-					hqs.put(name, value);
-				}
-			}
-		} catch (Exception e) {
-			System.out.println("Caught exception in CLASS: " + CLASSNAME + ", message: [" + e.getMessage() + "]");
-		}
-		return hqs;
+                    hqs.put(name, value);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Caught exception in CLASS: " + CLASSNAME + ", message: [" + e.getMessage() + "]");
+        }
+        return hqs;
 
-	}
+    }
 
-	/**
-	 * build the value.
-	 */
-	private static StringBuffer _buildValue(String values) {
-		StringBuffer out = new StringBuffer();
-		String value = "";
+    /**
+     * build the value.
+     */
+    private static StringBuffer _buildValue(String values) {
+        StringBuffer out = new StringBuffer();
+        String value = "";
 
-		// early exit
-		if (UTUtils.isNorE(values)) {
-			return out;
-		}
+        // early exit
+        if (UTUtils.isNorE(values)) {
+            return out;
+        }
 
-		// parse
-		StringTokenizer st = new StringTokenizer(values, "+");
-		value = st.nextToken();
-		out.append(value);
+        // parse
+        StringTokenizer st = new StringTokenizer(values, "+");
+        value = st.nextToken();
+        out.append(value);
 
-		// get the rest
-		while (st.hasMoreTokens()) {
-			value = st.nextToken();
-			out.append(" " + value);
-		}
+        // get the rest
+        while (st.hasMoreTokens()) {
+            value = st.nextToken();
+            out.append(" " + value);
+        }
 
-		return out;
-	}
+        return out;
+    }
 
-	/**
-	 * Unpacks a multi value query string value and returns a vector of values. Use this if you had this class build you multivalue values. This happens when you use check boxes in a form - or have
-	 * selects that can return more than one value.
-	 * <p>
-	 * 
-	 * @param <code>values</code>
-	 *            A string that has multivalues in it.
-	 * @param <code>delim</code>
-	 *            The delimiter between the values
-	 */
-	public static Vector unpackMultiValues(String values) {
-		return UTQueryString.unpackMultiValues(values, UTQueryString.MULTI_VALUE_DELIMITER);
-	}
+    /**
+     * Unpacks a multi value query string value and returns a vector of values. Use this if you had this class build you multivalue values. This happens when you use check boxes in a form - or have
+     * selects that can return more than one value.
+     * <p>
+     *
+     * @param <code>values</code> A string that has multivalues in it.
+     * @param <code>delim</code>  The delimiter between the values
+     */
+    public static Vector unpackMultiValues(String values) {
+        return UTQueryString.unpackMultiValues(values, UTQueryString.MULTI_VALUE_DELIMITER);
+    }
 
-	/**
-	 * Unpacks a multi value query string value and returns a vector of values. Use this if you had this class build you multivalue values. This happens when you use check boxes in a form - or have
-	 * selects that can return more than one value.
-	 * <p>
-	 * This method uses the UTQueryString.MULTI_VALUE_DELIMITER as the delimiter.
-	 * <p>
-	 * 
-	 * @param <code>values</code>
-	 *            A string that has multivalues in it.
-	 * @param <code>delim</code>
-	 *            The delimiter between the values
-	 */
-	public static Vector unpackMultiValues(String values, String delim) {
-		Vector out = new Vector();
+    /**
+     * Unpacks a multi value query string value and returns a vector of values. Use this if you had this class build you multivalue values. This happens when you use check boxes in a form - or have
+     * selects that can return more than one value.
+     * <p>
+     * This method uses the UTQueryString.MULTI_VALUE_DELIMITER as the delimiter.
+     * <p>
+     *
+     * @param <code>values</code> A string that has multivalues in it.
+     * @param <code>delim</code>  The delimiter between the values
+     */
+    public static Vector unpackMultiValues(String values, String delim) {
+        Vector out = new Vector();
 
-		// parse
-		StringTokenizer st = new StringTokenizer(values, delim);
-		String value = st.nextToken();
-		out.addElement(value);
+        // parse
+        StringTokenizer st = new StringTokenizer(values, delim);
+        String value = st.nextToken();
+        out.addElement(value);
 
-		// get the rest
-		while (st.hasMoreTokens()) {
-			value = st.nextToken();
-			out.addElement(value);
-		}
+        // get the rest
+        while (st.hasMoreTokens()) {
+            value = st.nextToken();
+            out.addElement(value);
+        }
 
-		return out;
-	}
+        return out;
+    }
 
 }

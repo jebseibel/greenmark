@@ -21,92 +21,92 @@ import com.greenmark.utils.UTCalendarTime;
  */
 
 public class ScenarioDtoDecorator extends ScenarioDto implements Serializable {
-	private static final String CLASSNAME = "ScenarioDtoDecorator";
-	private static final long serialVersionUID = 1L;
+    private static final String CLASSNAME = "ScenarioDtoDecorator";
+    private static final long serialVersionUID = 1L;
 
-	public ScenarioDtoDecorator() {
-	}
+    public ScenarioDtoDecorator() {
+    }
 
-	// This is used by the historical scenarios to do 3 scenarios for 1 account.
-	public ScenarioDtoDecorator(ScenarioDtoDecorator currentScenario, AccountBalanceParams accountBalance, int currentScenarioNumber) {
-		super(currentScenario, accountBalance, currentScenarioNumber);
-	}
+    // This is used by the historical scenarios to do 3 scenarios for 1 account.
+    public ScenarioDtoDecorator(ScenarioDtoDecorator currentScenario, AccountBalanceParams accountBalance, int currentScenarioNumber) {
+        super(currentScenario, accountBalance, currentScenarioNumber);
+    }
 
-	public ScenarioDtoDecorator(String xmldata) {
-		super(xmldata);
-	}
+    public ScenarioDtoDecorator(String xmldata) {
+        super(xmldata);
+    }
 
-	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
-	public String getStartDateInFieldDisplay() {
-		String returnString = "N/A";
+    // ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
+    public String getStartDateInFieldDisplay() {
+        String returnString = "N/A";
 
-		try {
-			if (startDate != null) {
-				UTCalendarTime returnTime = new UTCalendarTime(startDate);
-				returnString = returnTime.formatParameterDate();
-			}
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN ScenarioDbDecorator!   getStartDateInFieldDisplay  Exception Message:  [" + ex.getMessage() + "]");
-		}
+        try {
+            if (startDate != null) {
+                UTCalendarTime returnTime = new UTCalendarTime(startDate);
+                returnString = returnTime.formatParameterDate();
+            }
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN ScenarioDbDecorator!   getStartDateInFieldDisplay  Exception Message:  [" + ex.getMessage() + "]");
+        }
 
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getStartDateDisplay() {
-		String returnString = "N/A";
+    public String getStartDateDisplay() {
+        String returnString = "N/A";
 
-		try {
-			if (startDate != null) {
-				UTCalendarTime returnTime = new UTCalendarTime(startDate);
-				returnString = returnTime.formatDateDisplay();
-			}
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN ScenarioDbDecorator!   getStartDateDisplay  Exception Message:  [" + ex.getMessage() + "]");
-		}
+        try {
+            if (startDate != null) {
+                UTCalendarTime returnTime = new UTCalendarTime(startDate);
+                returnString = returnTime.formatDateDisplay();
+            }
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN ScenarioDbDecorator!   getStartDateDisplay  Exception Message:  [" + ex.getMessage() + "]");
+        }
 
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getStopDateInFieldDisplay() {
-		String returnString = "N/A";
+    public String getStopDateInFieldDisplay() {
+        String returnString = "N/A";
 
-		try {
-			if (stopDate != null) {
-				UTCalendarTime returnTime = new UTCalendarTime(stopDate);
-				returnString = returnTime.formatParameterDate();
-			}
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN ScenarioDbDecorator!   getStopDateInFieldDisplay  Exception Message:  [" + ex.getMessage() + "]");
-		}
+        try {
+            if (stopDate != null) {
+                UTCalendarTime returnTime = new UTCalendarTime(stopDate);
+                returnString = returnTime.formatParameterDate();
+            }
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN ScenarioDbDecorator!   getStopDateInFieldDisplay  Exception Message:  [" + ex.getMessage() + "]");
+        }
 
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getStopDateDisplay() {
-		String returnString = "N/A";
+    public String getStopDateDisplay() {
+        String returnString = "N/A";
 
-		try {
-			if (stopDate != null) {
-				UTCalendarTime returnTime = new UTCalendarTime(stopDate);
-				returnString = returnTime.formatDateDisplay();
-			}
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN ScenarioDbDecorator!   getStopDateDisplay  Exception Message:  [" + ex.getMessage() + "]");
-		}
+        try {
+            if (stopDate != null) {
+                UTCalendarTime returnTime = new UTCalendarTime(stopDate);
+                returnString = returnTime.formatDateDisplay();
+            }
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN ScenarioDbDecorator!   getStopDateDisplay  Exception Message:  [" + ex.getMessage() + "]");
+        }
 
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String dbSummary() {
+    public String dbSummary() {
         String stb = " > > " + CLASSNAME + " :: " +
                 "id [" + id + "] " +
                 "modelTemplateId [" + modelId + "] " +
                 "name [" + name + "] " +
                 "active [" + active + "] ";
-		return stb;
-	}
+        return stb;
+    }
 }

@@ -17,74 +17,74 @@ import java.time.LocalDateTime;
  * @author  Monte Seibel
  * @version 7.5
  * @formatter:on
-**/
+ **/
 
 public class LagPeriodsPrice {
-	public static final String CLASSNAME = "LagPeriodsPrice";
+    public static final String CLASSNAME = "LagPeriodsPrice";
 
-	private Float entryPrice = 0F;
-	private LocalDateTime entryPriceDatetime;
+    private Float entryPrice = 0F;
+    private LocalDateTime entryPriceDatetime;
 
-	private boolean calcPriceHigher = false;
+    private boolean calcPriceHigher = false;
 
-	private boolean success = true;
-	private String errorMessage = "";
+    private boolean success = true;
+    private String errorMessage = "";
 
-	public LagPeriodsPrice() {
-		// Default constructor
-	}
+    public LagPeriodsPrice() {
+        // Default constructor
+    }
 
-	// This is used for market orders where we're simply setting a price and not calculating using lag periods.
-	public LagPeriodsPrice(float entryPrice, LocalDateTime entryPriceDatetime) {
-		this.success = true;
-		this.entryPrice = entryPrice;
-		this.entryPriceDatetime = entryPriceDatetime;
-	}
+    // This is used for market orders where we're simply setting a price and not calculating using lag periods.
+    public LagPeriodsPrice(float entryPrice, LocalDateTime entryPriceDatetime) {
+        this.success = true;
+        this.entryPrice = entryPrice;
+        this.entryPriceDatetime = entryPriceDatetime;
+    }
 
-	public LagPeriodsPrice(String errorMessage) {
-		this.success = false;
-		this.errorMessage = errorMessage;
-	}
+    public LagPeriodsPrice(String errorMessage) {
+        this.success = false;
+        this.errorMessage = errorMessage;
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public Float getEntryPrice() {
-		return entryPrice;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public Float getEntryPrice() {
+        return entryPrice;
+    }
 
-	public void setEntryPrice(Float entryPrice) {
-		this.entryPrice = entryPrice;
-	}
+    public void setEntryPrice(Float entryPrice) {
+        this.entryPrice = entryPrice;
+    }
 
-	public LocalDateTime getEntryPriceDatetime() {
-		return entryPriceDatetime;
-	}
+    public LocalDateTime getEntryPriceDatetime() {
+        return entryPriceDatetime;
+    }
 
-	public void setEntryPriceDatetime(LocalDateTime entryPriceDatetime) {
-		this.entryPriceDatetime = entryPriceDatetime;
-	}
+    public void setEntryPriceDatetime(LocalDateTime entryPriceDatetime) {
+        this.entryPriceDatetime = entryPriceDatetime;
+    }
 
-	public boolean isCalcPriceHigher() {
-		return calcPriceHigher;
-	}
+    public boolean isCalcPriceHigher() {
+        return calcPriceHigher;
+    }
 
-	public void setCalcPriceHigher(boolean calcPriceHigher) {
-		this.calcPriceHigher = calcPriceHigher;
-	}
+    public void setCalcPriceHigher(boolean calcPriceHigher) {
+        this.calcPriceHigher = calcPriceHigher;
+    }
 
-	public boolean isSuccess() {
-		return success;
-	}
+    public boolean isSuccess() {
+        return success;
+    }
 
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 
-	public String getErrorMessage() {
-		return errorMessage;
-	}
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
 
 }

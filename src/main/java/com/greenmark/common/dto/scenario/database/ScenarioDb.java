@@ -31,72 +31,71 @@ import com.greenmark.utils.UTXmlUtils;
  */
 
 public class ScenarioDb extends ScenarioDtoDecorator implements Serializable {
-	private static final String CLASSNAME = "ScenarioDb";
-	private static final long serialVersionUID = 1L;
+    private static final String CLASSNAME = "ScenarioDb";
+    private static final long serialVersionUID = 1L;
 
-	protected AccountSummaryDto scenarioSummary;
+    protected AccountSummaryDto scenarioSummary;
 
-	// NOTE: None of the following member variables are needed in XML Save/Restore.
-	protected StrategyDto strategy;
+    // NOTE: None of the following member variables are needed in XML Save/Restore.
+    protected StrategyDto strategy;
 
-	protected List<PositionDbDecorator> positionList = new ArrayList<>();
-	protected boolean hasPositions = false;
+    protected List<PositionDbDecorator> positionList = new ArrayList<>();
+    protected boolean hasPositions = false;
 
-	protected List<RejectedSecurityDtoDecorator> rejectedList = new ArrayList<>();
-	protected boolean hasRejectedPositions = false;
+    protected List<RejectedSecurityDtoDecorator> rejectedList = new ArrayList<>();
+    protected boolean hasRejectedPositions = false;
 
-	protected List<PositionDbDecorator> dropcatPositionList = new ArrayList<>();
-	protected boolean hasDropcatPositions = false;
+    protected List<PositionDbDecorator> dropcatPositionList = new ArrayList<>();
+    protected boolean hasDropcatPositions = false;
 
-	protected List<AccountDailyDtoDecorator> accountDailyList = new ArrayList<>();
-	protected boolean hasAccountDaily;
+    protected List<AccountDailyDtoDecorator> accountDailyList = new ArrayList<>();
+    protected boolean hasAccountDaily;
 
-	public ScenarioDb() {
-	}
+    public ScenarioDb() {
+    }
 
-	// This is used by the historical scenarios to do 3 scenarios for 1 account.
-	public ScenarioDb(ScenarioDtoDecorator currentScenario, AccountBalanceParams accountBalance, int currentScenarioNumber) {
-		super(currentScenario, accountBalance, currentScenarioNumber);
-	}
+    // This is used by the historical scenarios to do 3 scenarios for 1 account.
+    public ScenarioDb(ScenarioDtoDecorator currentScenario, AccountBalanceParams accountBalance, int currentScenarioNumber) {
+        super(currentScenario, accountBalance, currentScenarioNumber);
+    }
 
-	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
-	public ScenarioDb(String xmldata) {
-		super(xmldata);
+    // ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
+    public ScenarioDb(String xmldata) {
+        super(xmldata);
 
-		try {
-			String scenarioSummaryXml = UTXmlUtils.getXmlData(xmldata, "SCENARIO_SUMMARY");
-			if (UTUtils.isNotNorE(scenarioSummaryXml))
-				scenarioSummary = new AccountSummaryDto(scenarioSummaryXml);
-		} catch (Exception e) {
-			System.out.println("Exception in " + CLASSNAME + ".Constructor; message [" + e.getMessage() + "]");
-		}
-	}
+        try {
+            String scenarioSummaryXml = UTXmlUtils.getXmlData(xmldata, "SCENARIO_SUMMARY");
+            if (UTUtils.isNotNorE(scenarioSummaryXml))
+                scenarioSummary = new AccountSummaryDto(scenarioSummaryXml);
+        } catch (Exception e) {
+            System.out.println("Exception in " + CLASSNAME + ".Constructor; message [" + e.getMessage() + "]");
+        }
+    }
 
-	public String toXmlWrapper(String prefix, String endline) {
-		StringBuffer stb = new StringBuffer();
-		stb.append(prefix + "<SCENARIO>" + endline);
-		stb.append(prefix + toXml(prefix, endline) + endline);
-		stb.append(prefix + "</SCENARIO>" + endline);
-		return stb.toString();
-	}
+    public String toXmlWrapper(String prefix, String endline) {
+        String stb = prefix + "<SCENARIO>" + endline +
+                prefix + toXml(prefix, endline) + endline +
+                prefix + "</SCENARIO>" + endline;
+        return stb;
+    }
 
-	@Override
-	public final String toXml(String prefix, String endline) {
-		StringBuffer stb = new StringBuffer();
+    @Override
+    public final String toXml(String prefix, String endline) {
+        StringBuffer stb = new StringBuffer();
 
-		stb.append(super.toXml(prefix, endline));
+        stb.append(super.toXml(prefix, endline));
 
-		if (scenarioSummary != null) {
-			stb.append(prefix + UTDisplayFormatter.TAB + "<SCENARIO_SUMMARY>" + endline);
-			stb.append(scenarioSummary.toXml(prefix + UTDisplayFormatter.TAB + UTDisplayFormatter.TAB, endline));
-			stb.append(prefix + UTDisplayFormatter.TAB + "</SCENARIO_SUMMARY>" + endline);
-		}
+        if (scenarioSummary != null) {
+            stb.append(prefix + UTDisplayFormatter.TAB + "<SCENARIO_SUMMARY>" + endline);
+            stb.append(scenarioSummary.toXml(prefix + UTDisplayFormatter.TAB + UTDisplayFormatter.TAB, endline));
+            stb.append(prefix + UTDisplayFormatter.TAB + "</SCENARIO_SUMMARY>" + endline);
+        }
 
-		return stb.toString();
-	}
+        return stb.toString();
+    }
 
-	// ------------------------------------------------ CONVENIENCE METHODS ---------------------------------------------------
-	// Failsafe method for website
+    // ------------------------------------------------ CONVENIENCE METHODS ---------------------------------------------------
+    // Failsafe method for website
 //	public boolean isHasPositions() {
 //		if (positionList == null || positionList.isEmpty()) {
 //			setHasPositions(false);
@@ -107,18 +106,18 @@ public class ScenarioDb extends ScenarioDtoDecorator implements Serializable {
 //		}
 //	}
 
-	// Failsafe method for website
-	public boolean isHasRejectedPositions() {
-		if (rejectedList == null || rejectedList.isEmpty()) {
-			setHasRejectedPositions(false);
-			return hasRejectedPositions;
-		} else {
-			setHasRejectedPositions(true);
-			return hasRejectedPositions;
-		}
-	}
+    // Failsafe method for website
+    public boolean isHasRejectedPositions() {
+        if (rejectedList == null || rejectedList.isEmpty()) {
+            setHasRejectedPositions(false);
+            return hasRejectedPositions;
+        } else {
+            setHasRejectedPositions(true);
+            return hasRejectedPositions;
+        }
+    }
 
-	// Failsafe method for website
+    // Failsafe method for website
 //	public boolean isHasDropcatPositions() {
 //		if (dropcatPositionList == null || dropcatPositionList.isEmpty()) {
 //			setHasDropcatPositions(false);
@@ -129,93 +128,92 @@ public class ScenarioDb extends ScenarioDtoDecorator implements Serializable {
 //		}
 //	}
 
-	// Failsafe method for website
-	public boolean isHasAccountDaily() {
-		if (accountDailyList == null || accountDailyList.isEmpty()) {
-			setHasAccountDaily(false);
-			return hasAccountDaily;
-		} else {
-			setHasAccountDaily(true);
-			return hasAccountDaily;
-		}
-	}
+    public void setHasRejectedPositions(boolean hasRejectedPositions) {
+        this.hasRejectedPositions = hasRejectedPositions;
+    }
 
-	public String dbSummary() {
-		StringBuffer stb = new StringBuffer();
-		stb.append(" > > " + CLASSNAME + " :: ");
-		stb.append("id [" + id + "] ");
-		stb.append("modelTemplateId [" + modelId + "] ");
-		stb.append("name [" + name + "] ");
-		stb.append("active [" + active + "] ");
-		return stb.toString();
-	}
+    // Failsafe method for website
+    public boolean isHasAccountDaily() {
+        if (accountDailyList == null || accountDailyList.isEmpty()) {
+            setHasAccountDaily(false);
+            return hasAccountDaily;
+        } else {
+            setHasAccountDaily(true);
+            return hasAccountDaily;
+        }
+    }
 
-	public int getNumDaysInScenario() {
-		return accountDailyList.size() - 1;
-	}
+    public void setHasAccountDaily(boolean hasAccountDaily) {
+        this.hasAccountDaily = hasAccountDaily;
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public List<AccountDailyDtoDecorator> getAccountDailyList() {
-		return accountDailyList;
-	}
+    public String dbSummary() {
+        String stb = " > > " + CLASSNAME + " :: " +
+                "id [" + id + "] " +
+                "modelTemplateId [" + modelId + "] " +
+                "name [" + name + "] " +
+                "active [" + active + "] ";
+        return stb;
+    }
 
-	public void setAccountDailyList(List<AccountDailyDtoDecorator> accountDailyList) {
-		this.accountDailyList = accountDailyList;
-	}
+    public int getNumDaysInScenario() {
+        return accountDailyList.size() - 1;
+    }
 
-	public AccountSummaryDto getScenarioSummary() {
-		return scenarioSummary;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public List<AccountDailyDtoDecorator> getAccountDailyList() {
+        return accountDailyList;
+    }
 
-	public void setScenarioSummary(AccountSummaryDto scenarioSummary) {
-		this.scenarioSummary = scenarioSummary;
-	}
+    public void setAccountDailyList(List<AccountDailyDtoDecorator> accountDailyList) {
+        this.accountDailyList = accountDailyList;
+    }
 
-	public List<PositionDbDecorator> getPositionList() {
-		return positionList;
-	}
+    public AccountSummaryDto getScenarioSummary() {
+        return scenarioSummary;
+    }
 
-	public void setPositionList(List<PositionDbDecorator> positionList) {
-		this.positionList = positionList;
-	}
+    public void setScenarioSummary(AccountSummaryDto scenarioSummary) {
+        this.scenarioSummary = scenarioSummary;
+    }
 
-	public void setHasPositions(boolean hasPositions) {
-		this.hasPositions = hasPositions;
-	}
+    public List<PositionDbDecorator> getPositionList() {
+        return positionList;
+    }
 
-	public List<RejectedSecurityDtoDecorator> getRejectedList() {
-		return rejectedList;
-	}
+    public void setPositionList(List<PositionDbDecorator> positionList) {
+        this.positionList = positionList;
+    }
 
-	public void setRejectedList(List<RejectedSecurityDtoDecorator> rejectedList) {
-		this.rejectedList = rejectedList;
-	}
+    public void setHasPositions(boolean hasPositions) {
+        this.hasPositions = hasPositions;
+    }
 
-	public void setHasRejectedPositions(boolean hasRejectedPositions) {
-		this.hasRejectedPositions = hasRejectedPositions;
-	}
+    public List<RejectedSecurityDtoDecorator> getRejectedList() {
+        return rejectedList;
+    }
 
-	public List<PositionDbDecorator> getDropcatPositionList() {
-		return dropcatPositionList;
-	}
+    public void setRejectedList(List<RejectedSecurityDtoDecorator> rejectedList) {
+        this.rejectedList = rejectedList;
+    }
 
-	public void setDropcatPositionList(List<PositionDbDecorator> dropcatPositionList) {
-		this.dropcatPositionList = dropcatPositionList;
-	}
+    public List<PositionDbDecorator> getDropcatPositionList() {
+        return dropcatPositionList;
+    }
 
-	public void setHasDropcatPositions(boolean hasDropcatPositions) {
-		this.hasDropcatPositions = hasDropcatPositions;
-	}
+    public void setDropcatPositionList(List<PositionDbDecorator> dropcatPositionList) {
+        this.dropcatPositionList = dropcatPositionList;
+    }
 
-	public void setHasAccountDaily(boolean hasAccountDaily) {
-		this.hasAccountDaily = hasAccountDaily;
-	}
+    public void setHasDropcatPositions(boolean hasDropcatPositions) {
+        this.hasDropcatPositions = hasDropcatPositions;
+    }
 
-	public StrategyDto getStrategy() {
-		return strategy;
-	}
+    public StrategyDto getStrategy() {
+        return strategy;
+    }
 
-	public void setStrategy(StrategyDto model) {
-		this.strategy = model;
-	}
+    public void setStrategy(StrategyDto model) {
+        this.strategy = model;
+    }
 }

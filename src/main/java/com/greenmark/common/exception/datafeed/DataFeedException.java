@@ -14,34 +14,38 @@ package com.greenmark.common.exception.datafeed;
  */
 
 public class DataFeedException extends Exception {
-	public static final String CLASSNAME = "DataFeedException";
+    public static final String CLASSNAME = "DataFeedException";
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    /**
+     * The message that will be included in this exception for display to the user.
+     */
+    protected String message;
 
-	public DataFeedException() {
-	}
+    public DataFeedException() {
+    }
 
-	/** The message that will be included in this exception for display to the user. */
-	protected String message;
+    /**
+     * This constructor creates an DataFeedException object and initializes its message attribute with the input messageString parameter.
+     *
+     * @param messageString Any message that will be included in this exception for display to the user.
+     * @return This Object
+     */
+    public DataFeedException(String messageString) {
+        message = messageString;
+    }
 
-	/**
-	 * This constructor creates an DataFeedException object and initializes its message attribute with the input messageString parameter.
-	 *
-	 * @param messageString
-	 *            Any message that will be included in this exception for display to the user.
-	 * @return This Object
-	 */
-	public DataFeedException(String messageString) {
-		message = messageString;
-	}
+    /**
+     * Public accessor to set the exception's message string.
+     */
+    public final String getMessage() {
+        return message;
+    }
 
-	/** Public accessor to return the exception's message string. */
-	public final void setMessage(String newMessageString) {
-		message = newMessageString;
-	}
-
-	/** Public accessor to set the exception's message string. */
-	public final String getMessage() {
-		return message;
-	}
+    /**
+     * Public accessor to return the exception's message string.
+     */
+    public final void setMessage(String newMessageString) {
+        message = newMessageString;
+    }
 }

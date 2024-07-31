@@ -25,36 +25,36 @@ import com.greenmark.common.enums.RejectedTypeEnum;
  */
 
 public class RejectedSecurityDto implements Serializable {
-	public static final String CLASSNAME = "RejectedSecurityDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "RejectedSecurityDto";
+    private static final long serialVersionUID = 1L;
 
-	protected long id;
-	protected int active;
+    protected long id;
+    protected int active;
 
-	protected long scenarioId;
-	protected long securityId;
+    protected long scenarioId;
+    protected long securityId;
 
-	protected String stockSymbol; // This is for the DB record and the map and map keys.
-	protected String compactedExchangeSymbol;
-	protected String stockName; // This is for the DB record only.
-	protected String stockStrategyAcronym; // This is for the to/from XML and the map keys.
+    protected String stockSymbol; // This is for the DB record and the map and map keys.
+    protected String compactedExchangeSymbol;
+    protected String stockName; // This is for the DB record only.
+    protected String stockStrategyAcronym; // This is for the to/from XML and the map keys.
 
-	protected String rejectedReason;
-	protected String description;
-	protected RejectedTypeEnum rejectedType;
+    protected String rejectedReason;
+    protected String description;
+    protected RejectedTypeEnum rejectedType;
 
-	protected LocalDateTime rejectedDatetime;
-	protected long rejectedNumdate;
-	protected int rejectedFromTimeframe;
+    protected LocalDateTime rejectedDatetime;
+    protected long rejectedNumdate;
+    protected int rejectedFromTimeframe;
 
-	protected int numPeriodsInBucket = 0;
-	protected int remainingPeriodsInBucket = 0;
-	protected int numPeriodsAgingThresh;
+    protected int numPeriodsInBucket = 0;
+    protected int remainingPeriodsInBucket = 0;
+    protected int numPeriodsAgingThresh;
 
-	protected LocalDateTime restoredToModelDatetime;
+    protected LocalDateTime restoredToModelDatetime;
 
-	protected String displaySymbol;
-	protected int longOrShort;
+    protected String displaySymbol;
+    protected int longOrShort;
 
 //	public RejectedSecurityDto() {
 //	}
@@ -124,164 +124,164 @@ public class RejectedSecurityDto implements Serializable {
 //		return stb;
 //	}
 
-	/////////////////////////////////// SETTERS-GETTERS ///////////////////////////////////////
-	public long getId() {
-		return id;
-	}
+    /////////////////////////////////// SETTERS-GETTERS ///////////////////////////////////////
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public int getActive() {
-		return active;
-	}
+    public int getActive() {
+        return active;
+    }
 
-	public void setActive(int active) {
-		this.active = active;
-	}
+    public void setActive(int active) {
+        this.active = active;
+    }
 
-	public long getScenarioId() {
-		return scenarioId;
-	}
+    public long getScenarioId() {
+        return scenarioId;
+    }
 
-	public void setScenarioId(long scenarioId) {
-		this.scenarioId = scenarioId;
-	}
+    public void setScenarioId(long scenarioId) {
+        this.scenarioId = scenarioId;
+    }
 
-	public long getSecurityId() {
-		return securityId;
-	}
+    public long getSecurityId() {
+        return securityId;
+    }
 
-	public void setSecurityId(long securityId) {
-		this.securityId = securityId;
-	}
+    public void setSecurityId(long securityId) {
+        this.securityId = securityId;
+    }
 
-	public String getStockSymbol() {
-		return stockSymbol;
-	}
+    public String getStockSymbol() {
+        return stockSymbol;
+    }
 
-	public void setStockSymbol(String stockSymbol) {
-		this.stockSymbol = stockSymbol;
-	}
+    public void setStockSymbol(String stockSymbol) {
+        this.stockSymbol = stockSymbol;
+    }
 
-	public String getCompactedExchangeSymbol() {
-		return compactedExchangeSymbol;
-	}
+    public String getCompactedExchangeSymbol() {
+        return compactedExchangeSymbol;
+    }
 
-	public void setCompactedExchangeSymbol(String compactedExchangeSymbol) {
-		this.compactedExchangeSymbol = compactedExchangeSymbol;
-	}
+    public void setCompactedExchangeSymbol(String compactedExchangeSymbol) {
+        this.compactedExchangeSymbol = compactedExchangeSymbol;
+    }
 
-	public String getStockName() {
-		return stockName;
-	}
+    public String getStockName() {
+        return stockName;
+    }
 
-	public void setStockName(String stockName) {
-		this.stockName = stockName;
-	}
+    public void setStockName(String stockName) {
+        this.stockName = stockName;
+    }
 
-	public String getStockStrategyAcronym() {
-		return stockStrategyAcronym;
-	}
+    public String getStockStrategyAcronym() {
+        return stockStrategyAcronym;
+    }
 
-	public void setStockStrategyAcronym(String stockStrategyAcronym) {
-		this.stockStrategyAcronym = stockStrategyAcronym;
-	}
+    public void setStockStrategyAcronym(String stockStrategyAcronym) {
+        this.stockStrategyAcronym = stockStrategyAcronym;
+    }
 
-	public String getRejectedReason() {
-		return rejectedReason;
-	}
+    public String getRejectedReason() {
+        return rejectedReason;
+    }
 
-	public void setRejectedReason(String rejectedReason) {
-		this.rejectedReason = rejectedReason;
-	}
+    public void setRejectedReason(String rejectedReason) {
+        this.rejectedReason = rejectedReason;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public RejectedTypeEnum getRejectedType() {
-		return rejectedType;
-	}
+    public RejectedTypeEnum getRejectedType() {
+        return rejectedType;
+    }
 
-	public void setRejectedType(RejectedTypeEnum rejectedType) {
-		this.rejectedType = rejectedType;
-	}
+    public void setRejectedType(RejectedTypeEnum rejectedType) {
+        this.rejectedType = rejectedType;
+    }
 
-	public LocalDateTime getRejectedDatetime() {
-		return rejectedDatetime;
-	}
+    public LocalDateTime getRejectedDatetime() {
+        return rejectedDatetime;
+    }
 
-	public void setRejectedDatetime(LocalDateTime rejectedDatetime) {
-		this.rejectedDatetime = rejectedDatetime;
-	}
+    public void setRejectedDatetime(LocalDateTime rejectedDatetime) {
+        this.rejectedDatetime = rejectedDatetime;
+    }
 
-	public long getRejectedNumdate() {
-		return rejectedNumdate;
-	}
+    public long getRejectedNumdate() {
+        return rejectedNumdate;
+    }
 
-	public void setRejectedNumdate(long rejectedNumdate) {
-		this.rejectedNumdate = rejectedNumdate;
-	}
+    public void setRejectedNumdate(long rejectedNumdate) {
+        this.rejectedNumdate = rejectedNumdate;
+    }
 
-	public int getRejectedFromTimeframe() {
-		return rejectedFromTimeframe;
-	}
+    public int getRejectedFromTimeframe() {
+        return rejectedFromTimeframe;
+    }
 
-	public void setRejectedFromTimeframe(int rejectedFromTimeframe) {
-		this.rejectedFromTimeframe = rejectedFromTimeframe;
-	}
+    public void setRejectedFromTimeframe(int rejectedFromTimeframe) {
+        this.rejectedFromTimeframe = rejectedFromTimeframe;
+    }
 
-	public int getNumPeriodsInBucket() {
-		return numPeriodsInBucket;
-	}
+    public int getNumPeriodsInBucket() {
+        return numPeriodsInBucket;
+    }
 
-	public void setNumPeriodsInBucket(int numPeriodsInBucket) {
-		this.numPeriodsInBucket = numPeriodsInBucket;
-	}
+    public void setNumPeriodsInBucket(int numPeriodsInBucket) {
+        this.numPeriodsInBucket = numPeriodsInBucket;
+    }
 
-	public int getRemainingPeriodsInBucket() {
-		return remainingPeriodsInBucket;
-	}
+    public int getRemainingPeriodsInBucket() {
+        return remainingPeriodsInBucket;
+    }
 
-	public void setRemainingPeriodsInBucket(int remainingPeriodsInBucket) {
-		this.remainingPeriodsInBucket = remainingPeriodsInBucket;
-	}
+    public void setRemainingPeriodsInBucket(int remainingPeriodsInBucket) {
+        this.remainingPeriodsInBucket = remainingPeriodsInBucket;
+    }
 
-	public int getNumPeriodsAgingThresh() {
-		return numPeriodsAgingThresh;
-	}
+    public int getNumPeriodsAgingThresh() {
+        return numPeriodsAgingThresh;
+    }
 
-	public void setNumPeriodsAgingThresh(int numPeriodsAgingThresh) {
-		this.numPeriodsAgingThresh = numPeriodsAgingThresh;
-	}
+    public void setNumPeriodsAgingThresh(int numPeriodsAgingThresh) {
+        this.numPeriodsAgingThresh = numPeriodsAgingThresh;
+    }
 
-	public LocalDateTime getRestoredToModelDatetime() {
-		return restoredToModelDatetime;
-	}
+    public LocalDateTime getRestoredToModelDatetime() {
+        return restoredToModelDatetime;
+    }
 
-	public void setRestoredToModelDatetime(LocalDateTime restoredToModelDatetime) {
-		this.restoredToModelDatetime = restoredToModelDatetime;
-	}
+    public void setRestoredToModelDatetime(LocalDateTime restoredToModelDatetime) {
+        this.restoredToModelDatetime = restoredToModelDatetime;
+    }
 
-	public String getDisplaySymbol() {
-		return displaySymbol;
-	}
+    public String getDisplaySymbol() {
+        return displaySymbol;
+    }
 
-	public void setDisplaySymbol(String displaySymbol) {
-		this.displaySymbol = displaySymbol;
-	}
+    public void setDisplaySymbol(String displaySymbol) {
+        this.displaySymbol = displaySymbol;
+    }
 
-	public int getLongOrShort() {
-		return longOrShort;
-	}
+    public int getLongOrShort() {
+        return longOrShort;
+    }
 
-	public void setLongOrShort(int longOrShort) {
-		this.longOrShort = longOrShort;
-	}
+    public void setLongOrShort(int longOrShort) {
+        this.longOrShort = longOrShort;
+    }
 }

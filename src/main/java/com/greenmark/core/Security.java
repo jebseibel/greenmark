@@ -4,100 +4,92 @@ import com.greenmark.common.core.Labels;
 
 import java.util.Vector;
 
-public class Security
-{
-   /** This is the class name. */
-   private static final String CLASSNAME = "Security";
+public class Security {
+    /**
+     * This is the class name.
+     */
+    private static final String CLASSNAME = "Security";
 
-   /** Used by the database **/
-   private long id;           //leave as null for hibernate
-   private int active = Labels.OBJECT_ACTIVE;
-   /**************************/
+    /**
+     * Used by the database
+     **/
+    private long id;           //leave as null for hibernate
+    private int active = Labels.OBJECT_ACTIVE;
+    /**************************/
 
-   private String name;
-   private String symbol;
+    private String name;
+    private String symbol;
 
-	private Vector exchanges = null;
-	//private Long exchange_id;
+    private Vector exchanges = null;
+    //private Long exchange_id;
 
-   public Security()
-   {
-   }
+    public Security() {
+    }
 
-   public Security( String name, String symbol)
-   {
-      this.name = name;
-      this.symbol = symbol;
-   }
+    public Security(String name, String symbol) {
+        this.name = name;
+        this.symbol = symbol;
+    }
 
-  public int getActive() {
-    return active;
-  }
+    public int getActive() {
+        return active;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public void setActive(int active) {
+        this.active = active;
+    }
 
-  public String getSymbol() {
-    return symbol;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setSymbol(String symbol) {
-    this.symbol = symbol;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getSymbol() {
+        return symbol;
+    }
 
-  public void setActive(int active) {
-    this.active = active;
-  }
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
-  public String dbSummary()
-  {
-     StringBuffer stb = new StringBuffer();
-     stb.append( " > > " + CLASSNAME + " :: ");
-     stb.append( "id [" +id+ "] ");
-     stb.append( "active [" +active+ "] ");
-     return stb.toString();
-  }
+    public String dbSummary() {
+        String stb = " > > " + CLASSNAME + " :: " +
+                "id [" + id + "] " +
+                "active [" + active + "] ";
+        return stb;
+    }
 
 
-   public String toString()
-   {
-      return "";
-   }
+    public String toString() {
+        return "";
+    }
 
-   public long getId()
-   {
-      return id;
-   }
+    public long getId() {
+        return id;
+    }
 
-   public void setId(long id)
-   {
-      this.id = id;
-   }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-   public String getClassname()
-   {
-      return CLASSNAME;
-   }
+    public String getClassname() {
+        return CLASSNAME;
+    }
 
-   public Vector getExchanges()
-   {
-      return exchanges;
-   }
+    public Vector getExchanges() {
+        return exchanges;
+    }
 
-   public void setExchanges(Vector exchanges)
-   {
-      this.exchanges = exchanges;
-   }
+    public void setExchanges(Vector exchanges) {
+        this.exchanges = exchanges;
+    }
 
-   public void addExchange(Exchange exchange)
-   {
-      if (this.exchanges == null) this.exchanges = new Vector();
-      this.exchanges.add( exchange );
-   }
+    public void addExchange(Exchange exchange) {
+        if (this.exchanges == null) this.exchanges = new Vector();
+        this.exchanges.add(exchange);
+    }
 
 }

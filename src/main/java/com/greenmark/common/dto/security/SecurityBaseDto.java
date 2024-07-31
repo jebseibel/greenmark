@@ -25,82 +25,82 @@ import com.greenmark.utils.UTXmlUtils;
  */
 
 public class SecurityBaseDto implements Serializable {
-	public static final String CLASSNAME = "SecurityBaseDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "SecurityBaseDto";
+    private static final long serialVersionUID = 1L;
 
-	protected long id;
-	protected int active = GmConstants.OBJECT_ACTIVE;
+    protected long id;
+    protected int active = GmConstants.OBJECT_ACTIVE;
 
-	protected String dbQuerySymbol; // Unique symbol for DB queries: Securities.symbol, for crypto format: <EXCHANGE>:<SHORTSYMBOL>
-	protected String displaySymbol; // Used every label on GUI. From Prices DB column: Securities.name;
+    protected String dbQuerySymbol; // Unique symbol for DB queries: Securities.symbol, for crypto format: <EXCHANGE>:<SHORTSYMBOL>
+    protected String displaySymbol; // Used every label on GUI. From Prices DB column: Securities.name;
 
-	protected String compactedSymbol; // This is parsed off the symbol after the ':'
-	protected String market; // Also known as the exchange, parsed off the symbol before the ':'
-	protected String compactedExchangeSymbol; // This is a unique identifier used by maps as it will contain the exchanges first 2 letter appended by the compactedSymbol
+    protected String compactedSymbol; // This is parsed off the symbol after the ':'
+    protected String market; // Also known as the exchange, parsed off the symbol before the ':'
+    protected String compactedExchangeSymbol; // This is a unique identifier used by maps as it will contain the exchanges first 2 letter appended by the compactedSymbol
 
-	protected String name; // Not used. This is for NYSE/NASDAQ or better crypto queries from Finnhub.
+    protected String name; // Not used. This is for NYSE/NASDAQ or better crypto queries from Finnhub.
 
-	public SecurityBaseDto() {
-	}
+    public SecurityBaseDto() {
+    }
 
-	public SecurityBaseDto(String displaySymbol, String dbQuerySymbol) {
-		// This has crypto format of exchange:compactedSymbol
-		if (dbQuerySymbol.contains(":")) {
-			this.market = dbQuerySymbol.split(":")[0];
-			this.compactedSymbol = dbQuerySymbol.split(":")[1];
+    public SecurityBaseDto(String displaySymbol, String dbQuerySymbol) {
+        // This has crypto format of exchange:compactedSymbol
+        if (dbQuerySymbol.contains(":")) {
+            this.market = dbQuerySymbol.split(":")[0];
+            this.compactedSymbol = dbQuerySymbol.split(":")[1];
 
-			this.displaySymbol = displaySymbol;
-			this.name = displaySymbol;
-		}
+            this.displaySymbol = displaySymbol;
+            this.name = displaySymbol;
+        }
 
-		this.dbQuerySymbol = dbQuerySymbol;
-	}
+        this.dbQuerySymbol = dbQuerySymbol;
+    }
 
-	public boolean isUSD() {
+    // ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
+    public SecurityBaseDto(String xmldata) {
+        this();
+
+        try {
+            id = UTXmlUtils.getXmlDataAsInt(xmldata, "ID");
+            active = UTXmlUtils.getXmlDataAsInt(xmldata, "ACTIVE");
+
+            dbQuerySymbol = UTXmlUtils.getXmlData(xmldata, "DBQUERY_SYMBOL");
+            displaySymbol = UTXmlUtils.getXmlData(xmldata, "DISPLAY_SYMBOL");
+
+            compactedSymbol = UTXmlUtils.getXmlData(xmldata, "COMPACTED_SYMBOL");
+            market = UTXmlUtils.getXmlData(xmldata, "MARKET");
+            compactedExchangeSymbol = UTXmlUtils.getXmlData(xmldata, "COMPACTED_EXCHANGE_SYMBOL");
+
+            name = UTXmlUtils.getXmlData(xmldata, "NAME");
+        } catch (Exception e) {
+            System.out.println("Error creating stock from XML, message: " + e.getMessage());
+        }
+    }
+
+    public boolean isUSD() {
         return dbQuerySymbol.endsWith(CurrencySymbolEnum.USD.getName());
-	}
+    }
 
-	public boolean isUSDT() {
+    public boolean isUSDT() {
         return dbQuerySymbol.endsWith(CurrencySymbolEnum.USDT.getName());
-	}
+    }
 
-	public boolean isUSDC() {
+    public boolean isUSDC() {
         return dbQuerySymbol.endsWith(CurrencySymbolEnum.USDC.getName());
-	}
+    }
 
-	public boolean isAnyUSD() {
+    public boolean isAnyUSD() {
         return isUSD() || isUSDT() || isUSDC();
-	}
+    }
 
-	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
-	public SecurityBaseDto(String xmldata) {
-		this();
-
-		try {
-			id = UTXmlUtils.getXmlDataAsInt(xmldata, "ID");
-			active = UTXmlUtils.getXmlDataAsInt(xmldata, "ACTIVE");
-
-			dbQuerySymbol = UTXmlUtils.getXmlData(xmldata, "DBQUERY_SYMBOL");
-			displaySymbol = UTXmlUtils.getXmlData(xmldata, "DISPLAY_SYMBOL");
-
-			compactedSymbol = UTXmlUtils.getXmlData(xmldata, "COMPACTED_SYMBOL");
-			market = UTXmlUtils.getXmlData(xmldata, "MARKET");
-			compactedExchangeSymbol = UTXmlUtils.getXmlData(xmldata, "COMPACTED_EXCHANGE_SYMBOL");
-
-			name = UTXmlUtils.getXmlData(xmldata, "NAME");
-		} catch (Exception e) {
-			System.out.println("Error creating stock from XML, message: " + e.getMessage());
-		}
-	}
-
-	public String toXmlWrapper(String prefix, String endline) {
+    public String toXmlWrapper(String prefix, String endline) {
         String stb = prefix + "<SECURITY>" + endline +
                 prefix + toXml(prefix, endline) + endline +
                 prefix + "</SECURITY>" + endline;
-		return stb;
-	}
+        return stb;
+    }
 
-	public String toXml(String prefix, String endline) {
+    public String toXml(String prefix, String endline) {
 
         String stb = prefix + UTDisplayFormatter.TAB + "<ID>" + this.id + "</ID>" + endline +
                 prefix + UTDisplayFormatter.TAB + "<ACTIVE>" + this.getActive() + "</ACTIVE>" + endline +
@@ -111,71 +111,71 @@ public class SecurityBaseDto implements Serializable {
                 prefix + UTDisplayFormatter.TAB + "<COMPACTED_EXCHANGE_SYMBOL>" + this.compactedExchangeSymbol + "</COMPACTED_EXCHANGE_SYMBOL>" + endline +
                 prefix + UTDisplayFormatter.TAB + "<NAME>" + this.name + "</NAME>" + endline;
 
-		return stb;
-	}
+        return stb;
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public long getId() {
-		return id;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public int getActive() {
-		return active;
-	}
+    public int getActive() {
+        return active;
+    }
 
-	public void setActive(int active) {
-		this.active = active;
-	}
+    public void setActive(int active) {
+        this.active = active;
+    }
 
-	public String getDbQuerySymbol() {
-		return dbQuerySymbol;
-	}
+    public String getDbQuerySymbol() {
+        return dbQuerySymbol;
+    }
 
-	public void setDbQuerySymbol(String symbol) {
-		this.dbQuerySymbol = symbol;
-	}
+    public void setDbQuerySymbol(String symbol) {
+        this.dbQuerySymbol = symbol;
+    }
 
-	public String getDisplaySymbol() {
-		return displaySymbol;
-	}
+    public String getDisplaySymbol() {
+        return displaySymbol;
+    }
 
-	public void setDisplaySymbol(String displaySymbol) {
-		this.displaySymbol = displaySymbol;
-	}
+    public void setDisplaySymbol(String displaySymbol) {
+        this.displaySymbol = displaySymbol;
+    }
 
-	public String getCompactedSymbol() {
-		return compactedSymbol;
-	}
+    public String getCompactedSymbol() {
+        return compactedSymbol;
+    }
 
-	public void setCompactedSymbol(String compactedSymbol) {
-		this.compactedSymbol = compactedSymbol;
-	}
+    public void setCompactedSymbol(String compactedSymbol) {
+        this.compactedSymbol = compactedSymbol;
+    }
 
-	public String getMarket() {
-		return market;
-	}
+    public String getMarket() {
+        return market;
+    }
 
-	public void setMarket(String market) {
-		this.market = market;
-	}
+    public void setMarket(String market) {
+        this.market = market;
+    }
 
-	public String getCompactedExchangeSymbol() {
-		return compactedExchangeSymbol;
-	}
+    public String getCompactedExchangeSymbol() {
+        return compactedExchangeSymbol;
+    }
 
-	public void setCompactedExchangeSymbol(String compactedExchangeSymbol) {
-		this.compactedExchangeSymbol = compactedExchangeSymbol;
-	}
+    public void setCompactedExchangeSymbol(String compactedExchangeSymbol) {
+        this.compactedExchangeSymbol = compactedExchangeSymbol;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 }

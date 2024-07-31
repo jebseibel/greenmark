@@ -22,59 +22,59 @@ import com.greenmark.utils.UTLabels;
  */
 
 public class RejectedSecurityDtoDecorator extends RejectedSecurityDto implements Serializable {
-	public static final String CLASSNAME = "RejectedSecurityDtoDecorator";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "RejectedSecurityDtoDecorator";
+    private static final long serialVersionUID = 1L;
 
-	public RejectedSecurityDtoDecorator() {
-		super();
-	}
+    public RejectedSecurityDtoDecorator() {
+        super();
+    }
 
 //	public RejectedSecurityDtoDecorator(String xmldata) {
 //		super(xmldata, trace);
 //	}
 
-	public final String getLongOrShortString() {
-		if (longOrShort == GmConstants.SHORT_SECURITY)
-			return "Short";
-		if (longOrShort == GmConstants.LONG_SECURITY)
-			return "Long";
-		return "None";
-	}
+    public final String getLongOrShortString() {
+        if (longOrShort == GmConstants.SHORT_SECURITY)
+            return "Short";
+        if (longOrShort == GmConstants.LONG_SECURITY)
+            return "Long";
+        return "None";
+    }
 
-	public String getRejectedFromTimeframeString() {
-		return UTLabels.getGmanLabelForGmanTimeframe(rejectedFromTimeframe);
-	}
+    public String getRejectedFromTimeframeString() {
+        return UTLabels.getGmanLabelForGmanTimeframe(rejectedFromTimeframe);
+    }
 
-	public String getRestoredToModelDatetimeString() {
-		return UTDatetime.toString(restoredToModelDatetime);
-	}
+    public String getRestoredToModelDatetimeString() {
+        return UTDatetime.toString(restoredToModelDatetime);
+    }
 
-	public String getRejectedDatetimeString() {
-		return UTDatetime.toString(rejectedDatetime);
-	}
+    public String getRejectedDatetimeString() {
+        return UTDatetime.toString(rejectedDatetime);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
 
-		RejectedSecurityDtoDecorator other = (RejectedSecurityDtoDecorator) obj;
+        RejectedSecurityDtoDecorator other = (RejectedSecurityDtoDecorator) obj;
 
-		if (!rejectedReason.equals(other.rejectedReason)) {
-			return false;
-		}
+        if (!rejectedReason.equals(other.rejectedReason)) {
+            return false;
+        }
 
-		if (!description.equals(other.description)) {
-			return false;
-		}
+        if (!description.equals(other.description)) {
+            return false;
+        }
 
-		if (!rejectedDatetime.equals(other.rejectedDatetime)) {
-			return false;
-		}
+        if (!rejectedDatetime.equals(other.rejectedDatetime)) {
+            return false;
+        }
 
         return rejectedFromTimeframe == other.rejectedFromTimeframe;
     }

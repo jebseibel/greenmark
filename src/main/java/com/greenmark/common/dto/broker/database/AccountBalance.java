@@ -1,10 +1,10 @@
 package com.greenmark.common.dto.broker.database;
 
-import java.io.Serializable;
-
 import com.greenmark.common.dto.account.AccountDto;
 import com.greenmark.common.dto.account.database.AccountDecorator;
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.Serializable;
 
 /**
  * @formatter:off
@@ -22,24 +22,24 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class AccountBalance extends AccountDecorator implements Serializable {
-	public static final String CLASSNAME = "AccountBalance";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "AccountBalance";
+    private static final long serialVersionUID = 1L;
 
-	public BrokerAccount cashAccount = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_CASH);
-	public BrokerAccount marginAccount = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_MARGIN);
+    public BrokerAccount cashAccount = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_CASH);
+    public BrokerAccount marginAccount = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_MARGIN);
 
-	public BrokerAccount brokerAccountCash = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_IB);
-	public BrokerAccount brokerAccountMargin = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_IB);
+    public BrokerAccount brokerAccountCash = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_IB);
+    public BrokerAccount brokerAccountMargin = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_IB);
 
-	public AccountBalance() {
-		super();
-		cashAccount = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_CASH);
-		marginAccount = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_MARGIN);
-	}
+    public AccountBalance() {
+        super();
+        cashAccount = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_CASH);
+        marginAccount = new BrokerAccount(BrokerAccount.BROKER_ACCOUNT_MARGIN);
+    }
 
-	public AccountBalance(AccountDto inAccount) {
-		super(inAccount);
-	}
+    public AccountBalance(AccountDto inAccount) {
+        super(inAccount);
+    }
 
 //	public AccountBalance(CreateAccountDto createAccountData) {
 //		super(createAccountData);
@@ -87,199 +87,199 @@ public class AccountBalance extends AccountDecorator implements Serializable {
 //		return stb;
 //	}
 
-	// ------------------------------------------- CONVENIENCE METHODS -----------------------------------
+    // ------------------------------------------- CONVENIENCE METHODS -----------------------------------
 
-	///////////////////////////////////////////////////////////////
-	// CONVENIENCE METHODS FOR CASH AND MARGIN ACCOUNTS
-	///////////////////////////////////////////////////////////////
-	public double getGrandTotalEquity() {
-		return cashAccount.getTotalEquity() + marginAccount.getTotalEquity();
-	}
+    ///////////////////////////////////////////////////////////////
+    // CONVENIENCE METHODS FOR CASH AND MARGIN ACCOUNTS
+    ///////////////////////////////////////////////////////////////
+    public double getGrandTotalEquity() {
+        return cashAccount.getTotalEquity() + marginAccount.getTotalEquity();
+    }
 
-	public double getGrandAllocatedFunds() {
-		return cashAccount.getAllocatedFunds() + marginAccount.getAllocatedFunds();
-	}
+    public double getGrandAllocatedFunds() {
+        return cashAccount.getAllocatedFunds() + marginAccount.getAllocatedFunds();
+    }
 
-	public double getGrandCashOnHand() {
-		return cashAccount.getCashOnHand() + marginAccount.getCashOnHand();
-	}
+    public double getGrandCashOnHand() {
+        return cashAccount.getCashOnHand() + marginAccount.getCashOnHand();
+    }
 
-	// We only use CashOnHand anymore, this remains for the website.
-	public double getGrandAvailableFunds() {
-		return cashAccount.getCashOnHand() + marginAccount.getCashOnHand();
-	}
+    // We only use CashOnHand anymore, this remains for the website.
+    public double getGrandAvailableFunds() {
+        return cashAccount.getCashOnHand() + marginAccount.getCashOnHand();
+    }
 
-	public double getGrandUnsettledFunds() {
-		return cashAccount.getUnsettledFunds() + marginAccount.getUnsettledFunds();
-	}
+    public double getGrandUnsettledFunds() {
+        return cashAccount.getUnsettledFunds() + marginAccount.getUnsettledFunds();
+    }
 
-	//////////////////////////////////////////////////////////////////
-	// Keep these original setter's and getter's, they are for the Cash account
-	public double getAllocatedFunds() {
-		return cashAccount.getAllocatedFunds();
-	}
+    //////////////////////////////////////////////////////////////////
+    // Keep these original setter's and getter's, they are for the Cash account
+    public double getAllocatedFunds() {
+        return cashAccount.getAllocatedFunds();
+    }
 
-	public void setAllocatedFunds(double allocatedFunds) {
-		cashAccount.setAllocatedFunds(allocatedFunds);
-	}
+    public void setAllocatedFunds(double allocatedFunds) {
+        cashAccount.setAllocatedFunds(allocatedFunds);
+    }
 
-	public void addAllocatedFunds(float value) {
-		cashAccount.addAllocatedFunds(value);
-	}
+    public void addAllocatedFunds(float value) {
+        cashAccount.addAllocatedFunds(value);
+    }
 
-	public void subtractAllocatedFunds(float value) {
-		cashAccount.subtractAllocatedFunds(value);
-	}
+    public void subtractAllocatedFunds(float value) {
+        cashAccount.subtractAllocatedFunds(value);
+    }
 
-	///////////////////////////////////////////////////////////////////////
-	public double getCashOnHand() {
-		return cashAccount.getCashOnHand();
-	}
+    ///////////////////////////////////////////////////////////////////////
+    public double getCashOnHand() {
+        return cashAccount.getCashOnHand();
+    }
 
-	public void setCashOnHand(double cashOnHand) {
-		cashAccount.setCashOnHand(cashOnHand);
-	}
+    public void setCashOnHand(double cashOnHand) {
+        cashAccount.setCashOnHand(cashOnHand);
+    }
 
-	public void addCashOnHand(float value) {
-		cashAccount.addCashOnHand(value);
-	}
+    public void addCashOnHand(float value) {
+        cashAccount.addCashOnHand(value);
+    }
 
-	public void subtractCashOnHand(float value) {
-		cashAccount.subtractCashOnHand(value);
-	}
+    public void subtractCashOnHand(float value) {
+        cashAccount.subtractCashOnHand(value);
+    }
 
-	///////////////////////////////////////////////////////////////
-	public double getTotalEquity() {
-		return cashAccount.getTotalEquity();
-	}
+    ///////////////////////////////////////////////////////////////
+    public double getTotalEquity() {
+        return cashAccount.getTotalEquity();
+    }
 
-	public void setTotalEquity(double totalEquity) {
-		cashAccount.setTotalEquity(totalEquity);
-	}
+    public void setTotalEquity(double totalEquity) {
+        cashAccount.setTotalEquity(totalEquity);
+    }
 
-	public void addTotalEquity(float value) {
-		cashAccount.addTotalEquity(value);
-	}
+    public void addTotalEquity(float value) {
+        cashAccount.addTotalEquity(value);
+    }
 
-	public void subtractTotalEquity(float value) {
-		cashAccount.subtractTotalEquity(value);
-	}
+    public void subtractTotalEquity(float value) {
+        cashAccount.subtractTotalEquity(value);
+    }
 
-	///////////////////////////////////////////////////////////////
-	public double getUnsettledFunds() {
-		return cashAccount.getUnsettledFunds();
-	}
+    ///////////////////////////////////////////////////////////////
+    public double getUnsettledFunds() {
+        return cashAccount.getUnsettledFunds();
+    }
 
-	public void setUnsettledFunds(double totalEquity) {
-		cashAccount.setUnsettledFunds(totalEquity);
-	}
+    public void setUnsettledFunds(double totalEquity) {
+        cashAccount.setUnsettledFunds(totalEquity);
+    }
 
-	public void addUnsettledFunds(float value) {
-		cashAccount.addUnsettledFunds(value);
-	}
+    public void addUnsettledFunds(float value) {
+        cashAccount.addUnsettledFunds(value);
+    }
 
-	public void subtractUnsettledFunds(float value) {
-		cashAccount.subtractUnsettledFunds(value);
-	}
+    public void subtractUnsettledFunds(float value) {
+        cashAccount.subtractUnsettledFunds(value);
+    }
 
-	//////////////////////////////////////////////////////////////////
-	// Here are the convenience setter's and getter's for the Margin account
-	public double getAllocatedFundsMargin() {
-		return marginAccount.getAllocatedFunds();
-	}
+    //////////////////////////////////////////////////////////////////
+    // Here are the convenience setter's and getter's for the Margin account
+    public double getAllocatedFundsMargin() {
+        return marginAccount.getAllocatedFunds();
+    }
 
-	public void setAllocatedFundsMargin(double allocatedFunds) {
-		marginAccount.setAllocatedFunds(allocatedFunds);
-	}
+    public void setAllocatedFundsMargin(double allocatedFunds) {
+        marginAccount.setAllocatedFunds(allocatedFunds);
+    }
 
-	public void addAllocatedFundsMargin(float value) {
-		marginAccount.addAllocatedFunds(value);
-	}
+    public void addAllocatedFundsMargin(float value) {
+        marginAccount.addAllocatedFunds(value);
+    }
 
-	public void subtractAllocatedFundsMargin(float value) {
-		marginAccount.subtractAllocatedFunds(value);
-	}
+    public void subtractAllocatedFundsMargin(float value) {
+        marginAccount.subtractAllocatedFunds(value);
+    }
 
-	///////////////////////////////////////////////////////////////////////
-	public double getCashOnHandMargin() {
-		return marginAccount.getCashOnHand();
-	}
+    ///////////////////////////////////////////////////////////////////////
+    public double getCashOnHandMargin() {
+        return marginAccount.getCashOnHand();
+    }
 
-	public void setCashOnHandMargin(double cashOnHand) {
-		marginAccount.setCashOnHand(cashOnHand);
-	}
+    public void setCashOnHandMargin(double cashOnHand) {
+        marginAccount.setCashOnHand(cashOnHand);
+    }
 
-	public void addCashOnHandMargin(float value) {
-		marginAccount.addCashOnHand(value);
-	}
+    public void addCashOnHandMargin(float value) {
+        marginAccount.addCashOnHand(value);
+    }
 
-	public void subtractCashOnHandMargin(float value) {
-		marginAccount.subtractCashOnHand(value);
-	}
+    public void subtractCashOnHandMargin(float value) {
+        marginAccount.subtractCashOnHand(value);
+    }
 
-	///////////////////////////////////////////////////////////////
-	public double getTotalEquityMargin() {
-		return marginAccount.getTotalEquity();
-	}
+    ///////////////////////////////////////////////////////////////
+    public double getTotalEquityMargin() {
+        return marginAccount.getTotalEquity();
+    }
 
-	public void setTotalEquityMargin(double totalEquity) {
-		marginAccount.setTotalEquity(totalEquity);
-	}
+    public void setTotalEquityMargin(double totalEquity) {
+        marginAccount.setTotalEquity(totalEquity);
+    }
 
-	public void addTotalEquityMargin(float value) {
-		marginAccount.addTotalEquity(value);
-	}
+    public void addTotalEquityMargin(float value) {
+        marginAccount.addTotalEquity(value);
+    }
 
-	public void subtractTotalEquityMargin(float value) {
-		marginAccount.subtractTotalEquity(value);
-	}
+    public void subtractTotalEquityMargin(float value) {
+        marginAccount.subtractTotalEquity(value);
+    }
 
-	///////////////////////////////////////////////////////////////
-	public double getUnsettledFundsMargin() {
-		return marginAccount.getUnsettledFunds();
-	}
+    ///////////////////////////////////////////////////////////////
+    public double getUnsettledFundsMargin() {
+        return marginAccount.getUnsettledFunds();
+    }
 
-	public void setUnsettledFundsMargin(double totalEquity) {
-		marginAccount.setUnsettledFunds(totalEquity);
-	}
+    public void setUnsettledFundsMargin(double totalEquity) {
+        marginAccount.setUnsettledFunds(totalEquity);
+    }
 
-	public void addUnsettledFundsMargin(float value) {
-		marginAccount.addUnsettledFunds(value);
-	}
+    public void addUnsettledFundsMargin(float value) {
+        marginAccount.addUnsettledFunds(value);
+    }
 
-	public void subtractUnsettledFundsMargin(float value) {
-		marginAccount.subtractUnsettledFunds(value);
-	}
+    public void subtractUnsettledFundsMargin(float value) {
+        marginAccount.subtractUnsettledFunds(value);
+    }
 
-	public BrokerAccount getCashAccount() {
-		return cashAccount;
-	}
+    public BrokerAccount getCashAccount() {
+        return cashAccount;
+    }
 
-	public void setCashAccount(BrokerAccount cashAccount) {
-		this.cashAccount = cashAccount;
-	}
+    public void setCashAccount(BrokerAccount cashAccount) {
+        this.cashAccount = cashAccount;
+    }
 
-	public BrokerAccount getMarginAccount() {
-		return marginAccount;
-	}
+    public BrokerAccount getMarginAccount() {
+        return marginAccount;
+    }
 
-	public void setMarginAccount(BrokerAccount marginAccount) {
-		this.marginAccount = marginAccount;
-	}
+    public void setMarginAccount(BrokerAccount marginAccount) {
+        this.marginAccount = marginAccount;
+    }
 
-	public BrokerAccount getBrokerAccountCash() {
-		return brokerAccountCash;
-	}
+    public BrokerAccount getBrokerAccountCash() {
+        return brokerAccountCash;
+    }
 
-	public void setBrokerAccountCash(BrokerAccount brokerAccountCash) {
-		this.brokerAccountCash = brokerAccountCash;
-	}
+    public void setBrokerAccountCash(BrokerAccount brokerAccountCash) {
+        this.brokerAccountCash = brokerAccountCash;
+    }
 
-	public BrokerAccount getBrokerAccountMargin() {
-		return brokerAccountMargin;
-	}
+    public BrokerAccount getBrokerAccountMargin() {
+        return brokerAccountMargin;
+    }
 
-	public void setBrokerAccountMargin(BrokerAccount brokerAccountMargin) {
-		this.brokerAccountMargin = brokerAccountMargin;
-	}
+    public void setBrokerAccountMargin(BrokerAccount brokerAccountMargin) {
+        this.brokerAccountMargin = brokerAccountMargin;
+    }
 }

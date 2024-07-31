@@ -22,30 +22,30 @@ import com.greenmark.common.dto.security.SecurityExchangeDto;
  */
 
 public class SecurityDb extends SecurityDto implements Serializable {
-	public static final String CLASSNAME = "SecurityDb";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "SecurityDb";
+    private static final long serialVersionUID = 1L;
 
-	protected long accountId = 0; // set to zero to find insert errors
+    protected long accountId = 0; // set to zero to find insert errors
 
-	protected int numDisqualifiedMinute60 = 0;
-	protected int numDisqualifiedMinute15 = 0;
-	protected int numDisqualifiedMinute05 = 0;
-	protected int numDisqualifiedMinute01 = 0;
+    protected int numDisqualifiedMinute60 = 0;
+    protected int numDisqualifiedMinute15 = 0;
+    protected int numDisqualifiedMinute05 = 0;
+    protected int numDisqualifiedMinute01 = 0;
 
-	protected List<ExchangeDto> exchanges = null;
-	protected SecurityExchangeDto securityExchangeDto; // Contains leverageRatio, shortable and inverse members.
+    protected List<ExchangeDto> exchanges = null;
+    protected SecurityExchangeDto securityExchangeDto; // Contains leverageRatio, shortable and inverse members.
 
-	public SecurityDb() {
-		super();
-		securityExchangeDto = new SecurityExchangeDto();
-	}
+    public SecurityDb() {
+        super();
+        securityExchangeDto = new SecurityExchangeDto();
+    }
 
-	public SecurityDb(String displaySymbol, String dbQuerySymbol, int longOrShort, int stockType) {
-		super(displaySymbol, dbQuerySymbol, longOrShort, stockType);
-		securityExchangeDto = new SecurityExchangeDto();
-	}
+    public SecurityDb(String displaySymbol, String dbQuerySymbol, int longOrShort, int stockType) {
+        super(displaySymbol, dbQuerySymbol, longOrShort, stockType);
+        securityExchangeDto = new SecurityExchangeDto();
+    }
 
-	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
+    // ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
 //	public SecurityDb(String xmldata) {
 //		super(xmldata, trace);
 //
@@ -112,100 +112,100 @@ public class SecurityDb extends SecurityDto implements Serializable {
 //		return stb.toString();
 //	}
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public long getAccountId() {
-		return accountId;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public long getAccountId() {
+        return accountId;
+    }
 
-	public void setAccountId(long accountId) {
-		this.accountId = accountId;
-	}
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
 
-	public int getNumDisqualifiedMinute60() {
-		return numDisqualifiedMinute60;
-	}
+    public int getNumDisqualifiedMinute60() {
+        return numDisqualifiedMinute60;
+    }
 
-	public void setNumDisqualifiedMinute60(int numDisqualifiedMinute60) {
-		this.numDisqualifiedMinute60 = numDisqualifiedMinute60;
-	}
+    public void setNumDisqualifiedMinute60(int numDisqualifiedMinute60) {
+        this.numDisqualifiedMinute60 = numDisqualifiedMinute60;
+    }
 
-	public int getNumDisqualifiedMinute15() {
-		return numDisqualifiedMinute15;
-	}
+    public int getNumDisqualifiedMinute15() {
+        return numDisqualifiedMinute15;
+    }
 
-	public void setNumDisqualifiedMinute15(int numDisqualifiedMinute15) {
-		this.numDisqualifiedMinute15 = numDisqualifiedMinute15;
-	}
+    public void setNumDisqualifiedMinute15(int numDisqualifiedMinute15) {
+        this.numDisqualifiedMinute15 = numDisqualifiedMinute15;
+    }
 
-	public int getNumDisqualifiedMinute05() {
-		return numDisqualifiedMinute05;
-	}
+    public int getNumDisqualifiedMinute05() {
+        return numDisqualifiedMinute05;
+    }
 
-	public void setNumDisqualifiedMinute05(int numDisqualifiedMinute05) {
-		this.numDisqualifiedMinute05 = numDisqualifiedMinute05;
-	}
+    public void setNumDisqualifiedMinute05(int numDisqualifiedMinute05) {
+        this.numDisqualifiedMinute05 = numDisqualifiedMinute05;
+    }
 
-	public int getNumDisqualifiedMinute01() {
-		return numDisqualifiedMinute01;
-	}
+    public int getNumDisqualifiedMinute01() {
+        return numDisqualifiedMinute01;
+    }
 
-	public void setNumDisqualifiedMinute01(int numDisqualifiedMinute01) {
-		this.numDisqualifiedMinute01 = numDisqualifiedMinute01;
-	}
+    public void setNumDisqualifiedMinute01(int numDisqualifiedMinute01) {
+        this.numDisqualifiedMinute01 = numDisqualifiedMinute01;
+    }
 
-	public long getSecurityId() {
-		return securityId;
-	}
+    public long getSecurityId() {
+        return securityId;
+    }
 
-	public void setSecurityId(long securityId) {
-		this.securityId = securityId;
-	}
+    public void setSecurityId(long securityId) {
+        this.securityId = securityId;
+    }
 
-	public int getLongOrShort() {
-		return longOrShort;
-	}
+    public int getLongOrShort() {
+        return longOrShort;
+    }
 
-	public void setLongOrShort(int longOrShort) {
-		this.longOrShort = longOrShort;
-	}
+    public void setLongOrShort(int longOrShort) {
+        this.longOrShort = longOrShort;
+    }
 
-	public int getStockType() {
-		return stockType;
-	}
+    public int getStockType() {
+        return stockType;
+    }
 
-	public void setStockType(int stockType) {
-		this.stockType = stockType;
-	}
+    public void setStockType(int stockType) {
+        this.stockType = stockType;
+    }
 
-	public SecurityExchangeDto getSecurityExchangeDto() {
-		return securityExchangeDto;
-	}
+    public SecurityExchangeDto getSecurityExchangeDto() {
+        return securityExchangeDto;
+    }
 
-	public void setSecurityExchangeDto(SecurityExchangeDto securityExchangeDto) {
-		this.securityExchangeDto = securityExchangeDto;
-	}
+    public void setSecurityExchangeDto(SecurityExchangeDto securityExchangeDto) {
+        this.securityExchangeDto = securityExchangeDto;
+    }
 
-	public int getBuyOrSell() {
-		return buyOrSell;
-	}
+    public int getBuyOrSell() {
+        return buyOrSell;
+    }
 
-	public void setBuyOrSell(int buyOrSell) {
-		this.buyOrSell = buyOrSell;
-	}
+    public void setBuyOrSell(int buyOrSell) {
+        this.buyOrSell = buyOrSell;
+    }
 
-	public int getNumPeriodsInBucket() {
-		return numPeriodsInBucket;
-	}
+    public int getNumPeriodsInBucket() {
+        return numPeriodsInBucket;
+    }
 
-	public void setNumPeriodsInBucket(int numPeriodsInBucket) {
-		this.numPeriodsInBucket = numPeriodsInBucket;
-	}
+    public void setNumPeriodsInBucket(int numPeriodsInBucket) {
+        this.numPeriodsInBucket = numPeriodsInBucket;
+    }
 
-	public List<ExchangeDto> getExchanges() {
-		return exchanges;
-	}
+    public List<ExchangeDto> getExchanges() {
+        return exchanges;
+    }
 
-	public void setExchanges(List<ExchangeDto> exchanges) {
-		this.exchanges = exchanges;
-	}
+    public void setExchanges(List<ExchangeDto> exchanges) {
+        this.exchanges = exchanges;
+    }
 }

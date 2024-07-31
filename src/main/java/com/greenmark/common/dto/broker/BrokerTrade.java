@@ -1,11 +1,11 @@
 package com.greenmark.common.dto.broker;
 
+import com.greenmark.utils.UTDisplayFormatter;
+import com.greenmark.utils.UTXmlUtils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
-import com.greenmark.utils.UTDisplayFormatter;
-import com.greenmark.utils.UTXmlUtils;
 
 /**
  * @formatter:off
@@ -17,201 +17,198 @@ import com.greenmark.utils.UTXmlUtils;
  * @author  Monte Seibel
  * @version 7.5
  * @formatter:on
-**/
+ **/
 
 public class BrokerTrade {
-	public static final String CLASSNAME = "BrokerTrade";
+    public static final String CLASSNAME = "BrokerTrade";
+    public static final int pendingSubmitMax = 3; // three different times that we checked the order for them to acknowledge
+    public int pendingSubmitCount = 0;
+    private int orderId;
+    private String symbol = "";
+    private String status = "";
+    // next vars are updated with each execution, since IB figures these out they are always accurate
+    private int remaining; // executedNumShares remaining to be filled
+    private int totalShares; // total executedNumShares that we want to buy/sell
 
-	private int orderId;
-	private String symbol = "";
-	private String status = "";
+    // This is the last execution we received from IB - it has the latest executedPrice info
+    // (we rolled up all the other partials into this one).
+    // It is called 'last' because it is the last execution we have gotten from IB
+    // When GM asks for executionDtos we roll them all up into one in the IBConverter
+    // method 'createCumulativeExecution' and return it back in the 'Executions' Vector.
+    private BrokerExecution lastExecution;
 
-	public int pendingSubmitCount = 0;
-	public static final int pendingSubmitMax = 3; // three different times that we checked the order for them to acknowledge
+    private BrokerOrder order;
+    private BrokerContract contract;
+    private Collection<BrokerExecution> executions = new ArrayList(); // BrokerExecution
 
-	// next vars are updated with each execution, since IB figures these out they are always accurate
-	private int remaining; // executedNumShares remaining to be filled
-	private int totalShares; // total executedNumShares that we want to buy/sell
+    public BrokerTrade() {
+        // default constructor
+    }
 
-	// This is the last execution we received from IB - it has the latest executedPrice info
-	// (we rolled up all the other partials into this one).
-	// It is called 'last' because it is the last execution we have gotten from IB
-	// When GM asks for executionDtos we roll them all up into one in the IBConverter
-	// method 'createCumulativeExecution' and return it back in the 'Executions' Vector.
-	private BrokerExecution lastExecution;
+    // ------------------------------------------------ XML IN/OUT ---------------------------------------------------
+    public BrokerTrade(String xmldata) {
+        this();
 
-	private BrokerOrder order;
-	private BrokerContract contract;
-	private Collection<BrokerExecution> executions = new ArrayList(); // BrokerExecution
+        try {
+            this.orderId = UTXmlUtils.getXmlDataAsInt(xmldata, "orderId");
+            this.status = UTXmlUtils.getXmlData(xmldata, "status");
+            this.remaining = UTXmlUtils.getXmlDataAsInt(xmldata, "remaining");
+        } catch (Exception e) {
+            System.out.println("Exception in " + CLASSNAME + ".Constructor; message [" + e.getMessage() + "]");
+        }
+    }
 
-	public BrokerTrade() {
-		// default constructor
-	}
+    public static int getPendingsubmitmax() {
+        return pendingSubmitMax;
+    }
 
-	// ------------------------------------------------ XML IN/OUT ---------------------------------------------------
-	public BrokerTrade(String xmldata) {
-		this();
+    public String toXml(String prefix, String endline) {
+        StringBuffer stb = new StringBuffer();
+        String contractXml = "";
+        String orderXml = "";
 
-		try {
-			this.orderId = UTXmlUtils.getXmlDataAsInt(xmldata, "orderId");
-			this.status = UTXmlUtils.getXmlData(xmldata, "status");
-			this.remaining = UTXmlUtils.getXmlDataAsInt(xmldata, "remaining");
-		} catch (Exception e) {
-			System.out.println("Exception in " + CLASSNAME + ".Constructor; message [" + e.getMessage() + "]");
-		}
-	}
+        if (this.contract != null)
+            contractXml = this.contract.toXml(prefix + UTDisplayFormatter.TAB, endline);
+        if (this.order != null)
+            orderXml = this.order.toXml(prefix + UTDisplayFormatter.TAB, endline);
 
-	public String toXml(String prefix, String endline) {
-		StringBuffer stb = new StringBuffer();
-		String contractXml = "";
-		String orderXml = "";
+        stb.append(prefix + "<IBTRADE>" + endline);
+        stb.append(prefix + UTDisplayFormatter.TAB + "<orderId>" + this.orderId + "</orderId>" + endline);
+        stb.append(prefix + UTDisplayFormatter.TAB + "<status>" + this.status + "</status>" + endline);
+        stb.append(prefix + UTDisplayFormatter.TAB + "<remaining>" + this.remaining + "</remaining>" + endline);
+        stb.append(contractXml);
+        stb.append(orderXml);
 
-		if (this.contract != null)
-			contractXml = this.contract.toXml(prefix + UTDisplayFormatter.TAB, endline);
-		if (this.order != null)
-			orderXml = this.order.toXml(prefix + UTDisplayFormatter.TAB, endline);
+        ///////////////////////////////////////////////
+        if ((executions != null) && (!this.getExecutions().isEmpty())) {
+            stb.append(prefix + "<EXECUTIONS>" + endline);
+            Iterator iter = executions.iterator();
+            while (iter.hasNext()) {
+                BrokerExecution execution = (BrokerExecution) iter.next();
+                stb.append(execution.toXmlShort(prefix + UTDisplayFormatter.TAB, endline));
+            }
+            stb.append(prefix + "</EXECUTIONS>" + endline);
+        }
+        stb.append(prefix + "</IBTRADE>" + endline);
 
-		stb.append(prefix + "<IBTRADE>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<orderId>" + this.orderId + "</orderId>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<status>" + this.status + "</status>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<remaining>" + this.remaining + "</remaining>" + endline);
-		stb.append(contractXml);
-		stb.append(orderXml);
+        return stb.toString();
+    }
 
-		///////////////////////////////////////////////
-		if ((executions != null) && (!this.getExecutions().isEmpty())) {
-			stb.append(prefix + "<EXECUTIONS>" + endline);
-			Iterator iter = executions.iterator();
-			while (iter.hasNext()) {
-				BrokerExecution execution = (BrokerExecution) iter.next();
-				stb.append(execution.toXmlShort(prefix + UTDisplayFormatter.TAB, endline));
-			}
-			stb.append(prefix + "</EXECUTIONS>" + endline);
-		}
-		stb.append(prefix + "</IBTRADE>" + endline);
+    @Deprecated
+    public String toXmlAbridgedDisplay(String prefix, String endline) {
+        StringBuffer stb = new StringBuffer();
+        String contractXml = "";
+        String orderXml = "";
 
-		return stb.toString();
-	}
+        if (this.contract != null)
+            contractXml = this.contract.toXmlShort(prefix + UTDisplayFormatter.TAB, endline);
+        if (this.order != null)
+            orderXml = this.order.toXmlShort(prefix + UTDisplayFormatter.TAB, endline);
 
-	@Deprecated
-	public String toXmlAbridgedDisplay(String prefix, String endline) {
-		StringBuffer stb = new StringBuffer();
-		String contractXml = "";
-		String orderXml = "";
+        stb.append(prefix + "<IBTRADE>" + endline);
+        stb.append(prefix + UTDisplayFormatter.TAB + "<orderId>" + this.orderId + "</orderId>" + endline);
+        stb.append(prefix + UTDisplayFormatter.TAB + "<status>" + this.status + "</status>" + endline);
+        stb.append(prefix + UTDisplayFormatter.TAB + "<remaining>" + this.remaining + "</remaining>" + endline);
+        stb.append(contractXml);
+        stb.append(orderXml);
 
-		if (this.contract != null)
-			contractXml = this.contract.toXmlShort(prefix + UTDisplayFormatter.TAB, endline);
-		if (this.order != null)
-			orderXml = this.order.toXmlShort(prefix + UTDisplayFormatter.TAB, endline);
+        ///////////////////////////////////////////////
+        if ((executions != null) && (!this.getExecutions().isEmpty())) {
+            stb.append(prefix + "<EXECUTIONS>" + endline);
+            Iterator iter = executions.iterator();
+            while (iter.hasNext()) {
+                BrokerExecution execution = (BrokerExecution) iter.next();
+                stb.append(execution.toXmlShort(prefix + UTDisplayFormatter.TAB, endline));
+            }
+            stb.append(prefix + "</EXECUTIONS>" + endline);
+        }
+        stb.append(prefix + "</IBTRADE>" + endline);
 
-		stb.append(prefix + "<IBTRADE>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<orderId>" + this.orderId + "</orderId>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<status>" + this.status + "</status>" + endline);
-		stb.append(prefix + UTDisplayFormatter.TAB + "<remaining>" + this.remaining + "</remaining>" + endline);
-		stb.append(contractXml);
-		stb.append(orderXml);
+        return stb.toString();
+    }
 
-		///////////////////////////////////////////////
-		if ((executions != null) && (!this.getExecutions().isEmpty())) {
-			stb.append(prefix + "<EXECUTIONS>" + endline);
-			Iterator iter = executions.iterator();
-			while (iter.hasNext()) {
-				BrokerExecution execution = (BrokerExecution) iter.next();
-				stb.append(execution.toXmlShort(prefix + UTDisplayFormatter.TAB, endline));
-			}
-			stb.append(prefix + "</EXECUTIONS>" + endline);
-		}
-		stb.append(prefix + "</IBTRADE>" + endline);
+    public String getOrderIdAsString() {
+        return Integer.toString(orderId);
+    }
 
-		return stb.toString();
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public int getOrderId() {
+        return orderId;
+    }
 
-	public String getOrderIdAsString() {
-		return Integer.toString(orderId);
-	}
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public int getOrderId() {
-		return orderId;
-	}
+    public String getSymbol() {
+        return symbol;
+    }
 
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
-	public String getSymbol() {
-		return symbol;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public int getPendingSubmitCount() {
+        return pendingSubmitCount;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setPendingSubmitCount(int pendingSubmitCount) {
+        this.pendingSubmitCount = pendingSubmitCount;
+    }
 
-	public int getPendingSubmitCount() {
-		return pendingSubmitCount;
-	}
+    public int getRemaining() {
+        return remaining;
+    }
 
-	public void setPendingSubmitCount(int pendingSubmitCount) {
-		this.pendingSubmitCount = pendingSubmitCount;
-	}
+    public void setRemaining(int remaining) {
+        this.remaining = remaining;
+    }
 
-	public int getRemaining() {
-		return remaining;
-	}
+    public int getTotalShares() {
+        return totalShares;
+    }
 
-	public void setRemaining(int remaining) {
-		this.remaining = remaining;
-	}
+    public void setTotalShares(int totalShares) {
+        this.totalShares = totalShares;
+    }
 
-	public int getTotalShares() {
-		return totalShares;
-	}
+    public BrokerExecution getLastExecution() {
+        return lastExecution;
+    }
 
-	public void setTotalShares(int totalShares) {
-		this.totalShares = totalShares;
-	}
+    public void setLastExecution(BrokerExecution lastExecution) {
+        this.lastExecution = lastExecution;
+    }
 
-	public BrokerExecution getLastExecution() {
-		return lastExecution;
-	}
+    public BrokerOrder getOrder() {
+        return order;
+    }
 
-	public void setLastExecution(BrokerExecution lastExecution) {
-		this.lastExecution = lastExecution;
-	}
+    public void setOrder(BrokerOrder order) {
+        this.order = order;
+    }
 
-	public BrokerOrder getOrder() {
-		return order;
-	}
+    public BrokerContract getContract() {
+        return contract;
+    }
 
-	public void setOrder(BrokerOrder order) {
-		this.order = order;
-	}
+    public void setContract(BrokerContract contract) {
+        this.contract = contract;
+    }
 
-	public BrokerContract getContract() {
-		return contract;
-	}
+    public Collection<BrokerExecution> getExecutions() {
+        return executions;
+    }
 
-	public void setContract(BrokerContract contract) {
-		this.contract = contract;
-	}
-
-	public Collection<BrokerExecution> getExecutions() {
-		return executions;
-	}
-
-	public void setExecutions(Collection<BrokerExecution> executions) {
-		this.executions = executions;
-	}
-
-	public static int getPendingsubmitmax() {
-		return pendingSubmitMax;
-	}
+    public void setExecutions(Collection<BrokerExecution> executions) {
+        this.executions = executions;
+    }
 }

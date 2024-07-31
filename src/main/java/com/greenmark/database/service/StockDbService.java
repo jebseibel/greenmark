@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.StockDb;
+import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.StockEntity;
 import com.greenmark.database.db.mapper.StockMapper;
 import com.greenmark.database.db.repository.StockRepository;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Service
 public class StockDbService extends BasicDbService {
 
-    private StockRepository repository;
+    private final StockRepository repository;
 
     public StockDbService(StockRepository repository) {
         super("Stock");
@@ -27,8 +27,8 @@ public class StockDbService extends BasicDbService {
     /**
      * Create a record with name and description
      *
-     * @param extid - the extid to use
-     * @param name - value for name
+     * @param extid       - the extid to use
+     * @param name        - value for name
      * @param description - value for description
      * @return
      * @throws DataIntegrityViolationException
@@ -68,8 +68,8 @@ public class StockDbService extends BasicDbService {
     /**
      * Update the Stock name and description
      *
-     * @param extid - the extid to use
-     * @param name - value for name
+     * @param extid       - the extid to use
+     * @param name        - value for name
      * @param description - value for description
      * @return
      */
@@ -93,6 +93,7 @@ public class StockDbService extends BasicDbService {
 
     /**
      * Delete by Extid
+     *
      * @param extid - to delete
      * @return boolean
      * @throws StockDeleteFailureException
@@ -134,9 +135,11 @@ public class StockDbService extends BasicDbService {
     // ////////////////////////////////////////////////////////
     // CHECK METHODS
     // ////////////////////////////////////////////////////////
+
     /**
      * Checks if the retrieval of Stock failed elses throw an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws StockRetrievalFailureException
      */
@@ -148,7 +151,8 @@ public class StockDbService extends BasicDbService {
 
     /**
      * Checks if Stock was created else throws an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws StockUpdateFailureException
      */
@@ -160,7 +164,8 @@ public class StockDbService extends BasicDbService {
 
     /**
      * Checks if Stock was deleted else throws an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws StockDeleteFailureException
      */
@@ -172,7 +177,8 @@ public class StockDbService extends BasicDbService {
 
     /**
      * Checks if Stock already exists
-     * @param extid - if exists throw exception
+     *
+     * @param extid   - if exists throw exception
      * @param message
      * @throws StockCreateFailureException
      */
@@ -182,7 +188,6 @@ public class StockDbService extends BasicDbService {
             throw new StockCreateFailureException(message);
         }
     }
-
 
 
 }

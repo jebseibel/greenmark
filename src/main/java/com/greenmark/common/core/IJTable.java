@@ -16,5 +16,5 @@ package com.greenmark.common.core;
 
 public interface IJTable {
 
-	String toString();
+    String toString();
 }

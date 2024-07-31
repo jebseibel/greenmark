@@ -16,28 +16,28 @@ import java.io.Serializable;
  */
 
 public class BrokerDailyDto extends BrokerTimePeriodDtoBase implements Serializable {
-	public static final String CLASSNAME = "BrokerDailyDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "BrokerDailyDto";
+    private static final long serialVersionUID = 1L;
 
-	protected long accountId = 0;
+    protected long accountId = 0;
 
-	public BrokerDailyDto() {
-	}
+    public BrokerDailyDto() {
+    }
 
-	public String dbSummary() {
+    public String dbSummary() {
         String stb = " > > " + CLASSNAME + ":" +
                 "accountDailyId        [" + id + "] " +
                 "accountId             [" + accountId + "] " +
                 "active                [" + active + "] ";
-		return stb;
-	}
+        return stb;
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public long getAccountId() {
-		return accountId;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public long getAccountId() {
+        return accountId;
+    }
 
-	public void setAccountId(long account_id) {
-		this.accountId = account_id;
-	}
+    public void setAccountId(long account_id) {
+        this.accountId = account_id;
+    }
 }

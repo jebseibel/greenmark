@@ -1,7 +1,5 @@
 package com.greenmark.account;
 
-import com.greenmark.utils.UTDatetime;
-
 public class AccountEvent {
     public static final String CLASSNAME = "AccountEvent";
     private String action = "";
@@ -84,13 +82,6 @@ public class AccountEvent {
 //    }
 
     /**
-     * @param action The action to set.
-     */
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    /**
      * @return Returns the action.
      */
     public String getAction() {
@@ -98,10 +89,10 @@ public class AccountEvent {
     }
 
     /**
-     * @param amount The amount to set.
+     * @param action The action to set.
      */
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setAction(String action) {
+        this.action = action;
     }
 
     /**
@@ -112,10 +103,10 @@ public class AccountEvent {
     }
 
     /**
-     * @param fee The fee to set.
+     * @param amount The amount to set.
      */
-    public void setFee(float fee) {
-        this.fee = fee;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     /**
@@ -126,10 +117,10 @@ public class AccountEvent {
     }
 
     /**
-     * @param cashOnHand The cashOnHand to set.
+     * @param fee The fee to set.
      */
-    public void setCashOnHand_Cash(double cashOnHand) {
-        this.cashOnHand_Cash = cashOnHand;
+    public void setFee(float fee) {
+        this.fee = fee;
     }
 
     /**
@@ -140,10 +131,10 @@ public class AccountEvent {
     }
 
     /**
-     * @param allocated The allocated to set.
+     * @param cashOnHand The cashOnHand to set.
      */
-    public void setAllocatedFundsCash(double allocated) {
-        this.allocatedFundsCash = allocated;
+    public void setCashOnHand_Cash(double cashOnHand) {
+        this.cashOnHand_Cash = cashOnHand;
     }
 
     /**
@@ -154,10 +145,10 @@ public class AccountEvent {
     }
 
     /**
-     * @param allocated The unsettledFundsCash to set.
+     * @param allocated The allocated to set.
      */
-    public void setUnsettledFundsCash(double allocated) {
-        this.unsettledFundsCash = allocated;
+    public void setAllocatedFundsCash(double allocated) {
+        this.allocatedFundsCash = allocated;
     }
 
     /**
@@ -168,10 +159,10 @@ public class AccountEvent {
     }
 
     /**
-     * @param cashOnHand The cashOnHand to set.
+     * @param allocated The unsettledFundsCash to set.
      */
-    public void setCashOnHand_Margin(double cashOnHand) {
-        this.cashOnHand_Margin = cashOnHand;
+    public void setUnsettledFundsCash(double allocated) {
+        this.unsettledFundsCash = allocated;
     }
 
     /**
@@ -182,10 +173,10 @@ public class AccountEvent {
     }
 
     /**
-     * @param allocated The allocated to set.
+     * @param cashOnHand The cashOnHand to set.
      */
-    public void setAllocatedFundsMargin(double allocated) {
-        this.allocatedFundsMargin = allocated;
+    public void setCashOnHand_Margin(double cashOnHand) {
+        this.cashOnHand_Margin = cashOnHand;
     }
 
     /**
@@ -196,10 +187,10 @@ public class AccountEvent {
     }
 
     /**
-     * @param allocated The unsettledFundsMargin to set.
+     * @param allocated The allocated to set.
      */
-    public void setUnsettledFundsMargin(double allocated) {
-        this.unsettledFundsMargin = allocated;
+    public void setAllocatedFundsMargin(double allocated) {
+        this.allocatedFundsMargin = allocated;
     }
 
     /**
@@ -209,6 +200,12 @@ public class AccountEvent {
         return unsettledFundsMargin;
     }
 
+    /**
+     * @param allocated The unsettledFundsMargin to set.
+     */
+    public void setUnsettledFundsMargin(double allocated) {
+        this.unsettledFundsMargin = allocated;
+    }
 
     public double getAccountBalanceCash() {
         return accountBalanceCash;
@@ -242,16 +239,15 @@ public class AccountEvent {
         this.positionsTotalShort = positionsTotal;
     }
 
-
-    public void setEventdate(String eventdate) {
-        this.eventdate = eventdate;
-    }
-
     /**
      * @return Returns the action.
      */
     public String getEventdate() {
         return this.eventdate;
+    }
+
+    public void setEventdate(String eventdate) {
+        this.eventdate = eventdate;
     }
 
 

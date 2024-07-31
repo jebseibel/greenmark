@@ -1,8 +1,8 @@
 package com.greenmark.utils;
 
-import java.time.LocalDateTime;
-
 import com.greenmark.common.GmConstants;
+
+import java.time.LocalDateTime;
 
 /**
  * @formatter:off
@@ -16,6 +16,7 @@ import com.greenmark.common.GmConstants;
  * @version 7.0
  * @formatter:on
  */
+
 /**
  * @formatter:off
  * <p>Copyright: Copyright (c) 2022</p>
@@ -29,41 +30,41 @@ import com.greenmark.common.GmConstants;
  * @formatter:on
  */
 public class UTNumdate {
-	public static final String CLASSNAME = "UTNumdate";
+    public static final String CLASSNAME = "UTNumdate";
 
-	public static final int getTodaysNumdate() {
-		return fromLDT(LocalDateTime.now());
-	}
+    public static final int getTodaysNumdate() {
+        return fromLDT(LocalDateTime.now());
+    }
 
-	// --------------------------- FROM METHODS -------------------------------
-	public static final int fromLDT(LocalDateTime thisdate) {
-		if (thisdate == null)
-			return 0;
+    // --------------------------- FROM METHODS -------------------------------
+    public static final int fromLDT(LocalDateTime thisdate) {
+        if (thisdate == null)
+            return 0;
 
-		int thisDayEpochI = (int) (UTDatetime.toEpoch(thisdate) / GmConstants.SECONDS_IN_DAY);
-		return thisDayEpochI;
-	}
+        int thisDayEpochI = (int) (UTDatetime.toEpoch(thisdate) / GmConstants.SECONDS_IN_DAY);
+        return thisDayEpochI;
+    }
 
-	public static final int fromDate(java.util.Date thisdate) {
-		if (thisdate == null)
-			return 0;
+    public static final int fromDate(java.util.Date thisdate) {
+        if (thisdate == null)
+            return 0;
 
-		return fromLDT(UTDatetime.fromDate(thisdate));
-	}
+        return fromLDT(UTDatetime.fromDate(thisdate));
+    }
 
-	public static final int fromString(String thisdate) {
-		if (thisdate == null)
-			return 0;
+    public static final int fromString(String thisdate) {
+        if (thisdate == null)
+            return 0;
 
-		return fromLDT(UTDatetime.fromLDTString(thisdate));
-	}
+        return fromLDT(UTDatetime.fromLDTString(thisdate));
+    }
 
-	public static final int fromUTCalendarTime(UTCalendarTime thisdate) {
-		if (thisdate == null)
-			return 0;
+    public static final int fromUTCalendarTime(UTCalendarTime thisdate) {
+        if (thisdate == null)
+            return 0;
 
-		int numdays = fromDate(thisdate.getJavaDate());
-		return numdays;
-	}
+        int numdays = fromDate(thisdate.getJavaDate());
+        return numdays;
+    }
 
 }

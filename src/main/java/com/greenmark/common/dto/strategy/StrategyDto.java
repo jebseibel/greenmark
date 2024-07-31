@@ -26,130 +26,128 @@ import com.greenmark.utils.UTXmlUtils;
  */
 
 public class StrategyDto implements Serializable {
-	public static final String CLASSNAME = "StrategyDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "StrategyDto";
+    // These are the types
+    // Base are ones that can be initialized
+    // Instance are changed Base instances
+    public static final int MODEL_TYPE_TEMPLATE = 1;
+    public static final int MODEL_TYPE_INSTANCE = 2;
+    private static final long serialVersionUID = 1L;
+    private long id;
+    private int active = GmConstants.OBJECT_ACTIVE;
 
-	// These are the types
-	// Base are ones that can be initialized
-	// Instance are changed Base instances
-	public static final int MODEL_TYPE_TEMPLATE = 1;
-	public static final int MODEL_TYPE_INSTANCE = 2;
+    private String name;
+    private String description = "";
+    private Date modifiedDatetime;
+    private String xml;
+    private int type;
 
-	private long id;
-	private int active = GmConstants.OBJECT_ACTIVE;
+    public StrategyDto() {
+    }
 
-	private String name;
-	private String description = "";
-	private Date modifiedDatetime;
-	private String xml;
-	private int type;
+    // NOTE: This class doesn't need to save/restore to XML for the TradingClient. This constructor is used when initializing the Config class.
+    public StrategyDto(String xmldata) {
+        try {
+            this.id = UTXmlUtils.getXmlDataAsLong(xmldata, "ID");
+            this.active = UTXmlUtils.getXmlDataAsInt(xmldata, "ACTIVE");
+            this.name = UTXmlUtils.getXmlData(xmldata, "NAME");
+            this.description = UTXmlUtils.getXmlData(xmldata, "DESCRIPTION");
 
-	public StrategyDto() {
-	}
+            this.xml = xmldata;
+        } catch (Exception e) {
+            System.out.println("Exception in " + CLASSNAME + ".Constructor; message [" + e.getMessage() + "]");
+        }
+    }
 
-	// NOTE: This class doesn't need to save/restore to XML for the TradingClient. This constructor is used when initializing the Config class.
-	public StrategyDto(String xmldata) {
-		try {
-			this.id = UTXmlUtils.getXmlDataAsLong(xmldata, "ID");
-			this.active = UTXmlUtils.getXmlDataAsInt(xmldata, "ACTIVE");
-			this.name = UTXmlUtils.getXmlData(xmldata, "NAME");
-			this.description = UTXmlUtils.getXmlData(xmldata, "DESCRIPTION");
+    // ------------------------------------------------ CONVENIENCE METHODS ---------------------------------------------------
+    public String dbSummary() {
+        StringBuffer stb = new StringBuffer();
+        stb.append(" > > " + CLASSNAME + " :: ");
+        stb.append("id [" + id + "] ");
 
-			this.xml = xmldata;
-		} catch (Exception e) {
-			System.out.println("Exception in " + CLASSNAME + ".Constructor; message [" + e.getMessage() + "]");
-		}
-	}
+        if (xml.length() > 10) {
+            stb.append("xml snippet [" + xml.substring(0, 10) + "] length=" + xml.length() + " ");
+        } else {
+            stb.append("xml snippet [" + xml + "] ");
+        }
+        stb.append("name [" + name + "] ");
+        stb.append("datetime [" + modifiedDatetime + "] ");
+        stb.append("active [" + active + "] ");
+        return stb.toString();
+    }
 
-	// ------------------------------------------------ CONVENIENCE METHODS ---------------------------------------------------
-	public String dbSummary() {
-		StringBuffer stb = new StringBuffer();
-		stb.append(" > > " + CLASSNAME + " :: ");
-		stb.append("id [" + id + "] ");
-
-		if (xml.length() > 10) {
-			stb.append("xml snippet [" + xml.substring(0, 10) + "] length=" + xml.length() + " ");
-		} else {
-			stb.append("xml snippet [" + xml + "] ");
-		}
-		stb.append("name [" + name + "] ");
-		stb.append("datetime [" + modifiedDatetime + "] ");
-		stb.append("active [" + active + "] ");
-		return stb.toString();
-	}
-
-	public boolean isModelATemplate() {
+    public boolean isModelATemplate() {
         return type == MODEL_TYPE_TEMPLATE;
-	}
+    }
 
-	public String getTypeString() {
-		if (type == MODEL_TYPE_TEMPLATE)
-			return "Template";
-		else if (type == MODEL_TYPE_INSTANCE)
-			return "Instance";
-		else
-			return "Unknown";
-	}
+    public String getTypeString() {
+        if (type == MODEL_TYPE_TEMPLATE)
+            return "Template";
+        else if (type == MODEL_TYPE_INSTANCE)
+            return "Instance";
+        else
+            return "Unknown";
+    }
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public long getId() {
-		return id;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public long getId() {
+        return id;
+    }
 
-	public void setXml(String xml) {
-		this.xml = xml;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getXml() {
-		return xml;
-	}
+    public String getXml() {
+        return xml;
+    }
 
-	public int getActive() {
-		return active;
-	}
+    public void setXml(String xml) {
+        this.xml = xml;
+    }
 
-	public void setActive(int value) {
-		this.active = value;
-	}
+    public int getActive() {
+        return active;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setActive(int value) {
+        this.active = value;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Date getModifiedDatetime() {
-		return modifiedDatetime;
-	}
+    public Date getModifiedDatetime() {
+        return modifiedDatetime;
+    }
 
-	public void setModifiedDatetime(Date modifiedDatetime) {
-		this.modifiedDatetime = modifiedDatetime;
-	}
+    public void setModifiedDatetime(Date modifiedDatetime) {
+        this.modifiedDatetime = modifiedDatetime;
+    }
 
-	public String getClassname() {
-		return CLASSNAME;
-	}
+    public String getClassname() {
+        return CLASSNAME;
+    }
 
-	public int getType() {
-		return type;
-	}
+    public int getType() {
+        return type;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setType(int type) {
+        this.type = type;
+    }
 
-	public void setType(int type) {
-		this.type = type;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
 }

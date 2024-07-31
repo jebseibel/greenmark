@@ -6,45 +6,47 @@ import com.greenmark.utils.UTCalendarTime;
 
 import java.util.Date;
 
-public class Scenario
-{
-   /** This is the class name. */
-   private static final String CLASSNAME = "Scenario";
+public class Scenario {
+    /**
+     * This is the class name.
+     */
+    private static final String CLASSNAME = "Scenario";
 
-   /** Used by the database **/
-   protected long id;           //leave as null for hibernate
-   protected long modelId = 0;  //set to zero to find insert errors
-	protected long accountId = 0;  //set to zero to find insert errors
-   protected int active = Labels.OBJECT_ACTIVE;
+    /**
+     * Used by the database
+     **/
+    protected long id;           //leave as null for hibernate
+    protected long modelId = 0;  //set to zero to find insert errors
+    protected long accountId = 0;  //set to zero to find insert errors
+    protected int active = Labels.OBJECT_ACTIVE;
 //	protected Account account;    // MOVED - Accounts contain scenarios
-   /**************************/
+    /**************************/
 
-   protected String name;
+    protected String name;
 
-   protected double openTotalEquity;
-   protected double openCashOnHand;
-   protected double openAllocatedFunds;
-	protected double openUnsettledFunds;
+    protected double openTotalEquity;
+    protected double openCashOnHand;
+    protected double openAllocatedFunds;
+    protected double openUnsettledFunds;
 
-	protected double openTotalEquityMargin;
-	protected double openCashOnHandMargin;
-   protected double openAllocatedFundsMargin;
-	protected double openUnsettledFundsMargin;
+    protected double openTotalEquityMargin;
+    protected double openCashOnHandMargin;
+    protected double openAllocatedFundsMargin;
+    protected double openUnsettledFundsMargin;
 
-   protected Date startDate;
-   protected Date stopDate;
+    protected Date startDate;
+    protected Date stopDate;
 
-   protected String machineName;
+    protected String machineName;
 
-   protected String datafeedType;  // This is NOT where we store the config datafeed type
-	// that is used by the software.  That value can be found by calling:
-	//  Config.getValue(DataFeedManager.CONFIG_DATAFEED_TYPE);
+    protected String datafeedType;  // This is NOT where we store the config datafeed type
+    // that is used by the software.  That value can be found by calling:
+    //  Config.getValue(DataFeedManager.CONFIG_DATAFEED_TYPE);
 
 
-	public Scenario ()
-	{
-		// Hibernate needs an empty constructor
-	}
+    public Scenario() {
+        // Hibernate needs an empty constructor
+    }
 //
 //	public Scenario ( String xmldata )
 //	{
@@ -157,275 +159,216 @@ public class Scenario
 //		return stb.toString();
 //	}
 
-   public long getId()
-   {
-      return id;
-   }
+    public long getId() {
+        return id;
+    }
 
-	public int getActive()
-	{
-		return active;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setActive(int active)
-	{
-		this.active = active;
-	}
+    public int getActive() {
+        return active;
+    }
 
-	public long getModelId()
-	{
-		return modelId;
-	}
+    public void setActive(int active) {
+        this.active = active;
+    }
 
-	public void setModelId(long modelId)
-	{
-		this.modelId = modelId;
-	}
+    public long getModelId() {
+        return modelId;
+    }
 
-	public double getOpenAllocatedFunds()
-	{
-		return openAllocatedFunds;
-	}
+    public void setModelId(long modelId) {
+        this.modelId = modelId;
+    }
 
-	public void setOpenAllocatedFunds(double openAllocatedFunds)
-	{
-		this.openAllocatedFunds = openAllocatedFunds;
-	}
+    public double getOpenAllocatedFunds() {
+        return openAllocatedFunds;
+    }
 
-	public double getOpenCashOnHand()
-	{
-		return openCashOnHand;
-	}
+    public void setOpenAllocatedFunds(double openAllocatedFunds) {
+        this.openAllocatedFunds = openAllocatedFunds;
+    }
 
-	public void setOpenCashOnHand(double openCashOnHand)
-	{
-		this.openCashOnHand = openCashOnHand;
-	}
+    public double getOpenCashOnHand() {
+        return openCashOnHand;
+    }
 
-	public double getOpenTotalEquity()
-	{
-		return openTotalEquity;
-	}
+    public void setOpenCashOnHand(double openCashOnHand) {
+        this.openCashOnHand = openCashOnHand;
+    }
 
-	public void setOpenTotalEquity(double openTotalEquity)
-	{
-		this.openTotalEquity = openTotalEquity;
-	}
+    public double getOpenTotalEquity() {
+        return openTotalEquity;
+    }
 
-	public Date getStartDate()
-	{
-		return startDate;
-	}
+    public void setOpenTotalEquity(double openTotalEquity) {
+        this.openTotalEquity = openTotalEquity;
+    }
 
-	public String getStartDateInFieldDisplay()
-	{
-		String returnString = "N/A";
+    public Date getStartDate() {
+        return startDate;
+    }
 
-		try
-		{
-			if ( startDate != null )
-			{
-				UTCalendarTime returnTime = new UTCalendarTime(startDate);
-				returnString = returnTime.formatParameterDate();
-			}
-			return returnString;
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN Scenario!   getStartDateInFieldDisplay  Exception Message:  [" + ex.getMessage() + "]" );
-		}
+    public void setStartDate(Date start_date) {
+        this.startDate = start_date;
+    }
 
-		return returnString;
-	}
+    public String getStartDateInFieldDisplay() {
+        String returnString = "N/A";
 
+        try {
+            if (startDate != null) {
+                UTCalendarTime returnTime = new UTCalendarTime(startDate);
+                returnString = returnTime.formatParameterDate();
+            }
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN Scenario!   getStartDateInFieldDisplay  Exception Message:  [" + ex.getMessage() + "]");
+        }
 
-	public String getStartDateDisplay()
-	{
-		String returnString = "N/A";
+        return returnString;
+    }
 
-		try
-		{
-			if ( startDate != null )
-			{
-				UTCalendarTime returnTime = new UTCalendarTime(startDate);
-				returnString = returnTime.formatDateDisplay();
-			}
-			return returnString;
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN Scenario!   getStartDateDisplay  Exception Message:  [" + ex.getMessage() + "]" );
-		}
+    public String getStartDateDisplay() {
+        String returnString = "N/A";
 
-		return returnString;
-	}
+        try {
+            if (startDate != null) {
+                UTCalendarTime returnTime = new UTCalendarTime(startDate);
+                returnString = returnTime.formatDateDisplay();
+            }
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN Scenario!   getStartDateDisplay  Exception Message:  [" + ex.getMessage() + "]");
+        }
 
-	public void setStartDate(Date start_date)
-	{
-		this.startDate = start_date;
-	}
+        return returnString;
+    }
 
-	public Date getStopDate()
-	{
-		return stopDate;
-	}
+    public Date getStopDate() {
+        return stopDate;
+    }
 
-	public String getStopDateInFieldDisplay()
-	{
-		String returnString = "N/A";
+    public void setStopDate(Date stop_date) {
+        this.stopDate = stop_date;
+    }
 
-		try
-		{
-			if ( stopDate != null )
-			{
-				UTCalendarTime returnTime = new UTCalendarTime(stopDate);
-				returnString = returnTime.formatParameterDate();
-			}
-			return returnString;
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN Scenario!   getStopDateInFieldDisplay  Exception Message:  [" + ex.getMessage() + "]" );
-		}
+    public String getStopDateInFieldDisplay() {
+        String returnString = "N/A";
 
-		return returnString;
-	}
+        try {
+            if (stopDate != null) {
+                UTCalendarTime returnTime = new UTCalendarTime(stopDate);
+                returnString = returnTime.formatParameterDate();
+            }
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN Scenario!   getStopDateInFieldDisplay  Exception Message:  [" + ex.getMessage() + "]");
+        }
 
+        return returnString;
+    }
 
-	public String getStopDateDisplay()
-	{
-		String returnString = "N/A";
+    public String getStopDateDisplay() {
+        String returnString = "N/A";
 
-		try
-		{
-			if ( stopDate != null )
-			{
-				UTCalendarTime returnTime = new UTCalendarTime(stopDate);
-				returnString = returnTime.formatDateDisplay();
-			}
-			return returnString;
-		}
-		catch( Exception ex )
-		{
-			System.out.println( "============= ERROR IN Scenario!   getStopDateDisplay  Exception Message:  [" + ex.getMessage() + "]" );
-		}
+        try {
+            if (stopDate != null) {
+                UTCalendarTime returnTime = new UTCalendarTime(stopDate);
+                returnString = returnTime.formatDateDisplay();
+            }
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN Scenario!   getStopDateDisplay  Exception Message:  [" + ex.getMessage() + "]");
+        }
 
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public void setStopDate(Date stop_date)
-	{
-		this.stopDate = stop_date;
-	}
+    public String getDatafeedType() {
+        return datafeedType;
+    }
 
-	public String getDatafeedType()
-	{
-		return datafeedType;
-	}
+    public void setDatafeedType(String datafeedType) {
+        this.datafeedType = datafeedType;
+    }
 
-	public void setDatafeedType(String datafeedType)
-	{
-		this.datafeedType = datafeedType;
-	}
+    public String getMachineName() {
+        return machineName;
+    }
 
-	public String getMachineName()
-	{
-		return machineName;
-	}
+    public void setMachineName(String machineName) {
+        this.machineName = machineName;
+    }
 
-	public void setMachineName(String machineName)
-	{
-		this.machineName = machineName;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName()
-	{
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+    public String dbSummary() {
+        String stb = " > > " + CLASSNAME + " :: " +
+                "id [" + id + "] " +
+                "modelTemplateId [" + modelId + "] " +
+                "name [" + name + "] " +
+                "active [" + active + "] ";
+        return stb;
+    }
 
-	public String dbSummary()
-	{
-      StringBuffer stb = new StringBuffer();
-      stb.append( " > > " + CLASSNAME + " :: " );
-      stb.append( "id [" + id + "] " );
-      stb.append( "modelTemplateId [" + modelId + "] " );
-      stb.append( "name [" + name + "] " );
-      stb.append( "active [" + active + "] " );
-      return stb.toString();
-   }
+    public String getClassname() {
+        return CLASSNAME;
+    }
 
-   public void setId(long id)
-   {
-      this.id = id;
-   }
+    public long getAccountId() {
+        return accountId;
+    }
 
-   public String getClassname()
-   {
-      return CLASSNAME;
-   }
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
 
-   public long getAccountId()
-   {
-      return accountId;
-   }
+    public double getOpenAllocatedFundsMargin() {
+        return openAllocatedFundsMargin;
+    }
 
-	public double getOpenAllocatedFundsMargin()
-	{
-		return openAllocatedFundsMargin;
-	}
+    public void setOpenAllocatedFundsMargin(double openAllocatedFundsMargin) {
+        this.openAllocatedFundsMargin = openAllocatedFundsMargin;
+    }
 
-	public double getOpenTotalEquityMargin()
-	{
-		return openTotalEquityMargin;
-	}
+    public double getOpenTotalEquityMargin() {
+        return openTotalEquityMargin;
+    }
 
-	public double getOpenCashOnHandMargin()
-	{
-		return openCashOnHandMargin;
-	}
+    public void setOpenTotalEquityMargin(double openTotalEquityMargin) {
+        this.openTotalEquityMargin = openTotalEquityMargin;
+    }
 
-	public double getOpenUnsettledFunds()
-	{
-		return openUnsettledFunds;
-	}
+    public double getOpenCashOnHandMargin() {
+        return openCashOnHandMargin;
+    }
 
-	public double getOpenUnsettledFundsMargin()
-	{
-		return openUnsettledFundsMargin;
-	}
+    public void setOpenCashOnHandMargin(double openCashOnHandMargin) {
+        this.openCashOnHandMargin = openCashOnHandMargin;
+    }
 
-	public void setAccountId(long accountId)
-   {
-      this.accountId = accountId;
-   }
+    public double getOpenUnsettledFunds() {
+        return openUnsettledFunds;
+    }
 
-	public void setOpenAllocatedFundsMargin(double openAllocatedFundsMargin)
-	{
-		this.openAllocatedFundsMargin = openAllocatedFundsMargin;
-	}
+    public void setOpenUnsettledFunds(double openUnsettledFunds) {
+        this.openUnsettledFunds = openUnsettledFunds;
+    }
 
-	public void setOpenTotalEquityMargin(double openTotalEquityMargin)
-	{
-		this.openTotalEquityMargin = openTotalEquityMargin;
-	}
+    public double getOpenUnsettledFundsMargin() {
+        return openUnsettledFundsMargin;
+    }
 
-	public void setOpenCashOnHandMargin(double openCashOnHandMargin)
-	{
-		this.openCashOnHandMargin = openCashOnHandMargin;
-	}
-
-	public void setOpenUnsettledFunds(double openUnsettledFunds)
-	{
-		this.openUnsettledFunds = openUnsettledFunds;
-	}
-
-	public void setOpenUnsettledFundsMargin(double openUnsettledFundsMargin)
-	{
-		this.openUnsettledFundsMargin = openUnsettledFundsMargin;
-	}
+    public void setOpenUnsettledFundsMargin(double openUnsettledFundsMargin) {
+        this.openUnsettledFundsMargin = openUnsettledFundsMargin;
+    }
 }

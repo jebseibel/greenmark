@@ -15,47 +15,47 @@ import java.util.Optional;
  * @author  Monte Seibel
  * @version 7.5
  * @formatter:on
-**/
+ **/
 
 public enum BrokerTypeEnum {
-	// @formatter:off
+    // @formatter:off
 	TRAPPING_SIMULATOR("Trapping Simulator", 1), 
 	KRAKEN_SIMULATOR("Kraken Simulator", 2), 
 	KRAKEN_REALTIME("Kraken LIVE", 3);
 	// @formatter:on
 
-	private final String name;
-	private final int id;
+    private final String name;
+    private final int id;
 
-	BrokerTypeEnum(String name, int id) {
-		this.name = name;
-		this.id = id;
-	}
+    BrokerTypeEnum(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public static String[] getAllNames() {
+        List<String> nameList = new ArrayList<>();
+        nameList.add(TRAPPING_SIMULATOR.getName());
+        nameList.add(KRAKEN_SIMULATOR.getName());
+        nameList.add(KRAKEN_REALTIME.getName());
 
-	public int getId() {
-		return id;
-	}
+        String[] returnVal = new String[nameList.size()];
+        return nameList.toArray(returnVal);
+    }
 
-	public static String[] getAllNames() {
-		List<String> nameList = new ArrayList<>();
-		nameList.add(TRAPPING_SIMULATOR.getName());
-		nameList.add(KRAKEN_SIMULATOR.getName());
-		nameList.add(KRAKEN_REALTIME.getName());
+    public static Optional<BrokerTypeEnum> getByName(String value) {
+        return Arrays.stream(BrokerTypeEnum.values()).filter(accStatus -> accStatus.getName().equals(value)).findFirst();
+    }
 
-		String[] returnVal = new String[nameList.size()];
-		return nameList.toArray(returnVal);
-	}
+    public static Optional<BrokerTypeEnum> getById(int value) {
+        return Arrays.stream(BrokerTypeEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
+    }
 
-	public static Optional<BrokerTypeEnum> getByName(String value) {
-		return Arrays.stream(BrokerTypeEnum.values()).filter(accStatus -> accStatus.getName().equals(value)).findFirst();
-	}
+    public String getName() {
+        return name;
+    }
 
-	public static Optional<BrokerTypeEnum> getById(int value) {
-		return Arrays.stream(BrokerTypeEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
-	}
+    public int getId() {
+        return id;
+    }
 
 }

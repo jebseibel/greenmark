@@ -28,120 +28,112 @@ import com.greenmark.utils.UTXmlUtils;
  */
 
 public class AccountEventDto implements Serializable {
-	public static final String CLASSNAME = "AccountEventDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "AccountEventDto";
+    private static final long serialVersionUID = 1L;
+    protected LocalDateTime eventDate;
+    protected String description = "";
+    protected String symbol = "";
+    protected String harvestStrategyAcronym = "";
+    protected float numShares = 0F;
+    protected float orderPrice = 0F;
+    protected float orderAmount = 0F;
+    protected float transactionFee = 0F;
+    protected float marginFee = 0F;
+    protected double allocatedFundsCash;
+    protected double unsettledFundsCash;
+    protected double cashOnHand_Cash;
+    protected double allocatedFundsMargin;
+    protected double unsettledFundsMargin;
+    protected double cashOnHand_Margin;
+    protected double accountBalanceCash;
+    protected double positionsTotalLong;
+    protected double accountBalanceMargin;
+    protected double positionsTotalShort;
+    private long id;
+    private long accountId;
+    private int active;
 
-	private long id;
-	private long accountId;
-	private int active;
+    public AccountEventDto() {
+        super();
+    }
 
-	protected LocalDateTime eventDate;
-	protected String description = "";
-	protected String symbol = "";
-	protected String harvestStrategyAcronym = "";
+    public AccountEventDto(AccountBalanceParams accountBalances, LocalDateTime eventDate, String description, String symbol, String harvestStrategyAcronym, float numShares, float orderPrice,
+                           float orderAmount, float transactionFee, float marginFee) {
+        this.eventDate = eventDate;
+        this.description = description;
+        this.symbol = symbol;
+        this.harvestStrategyAcronym = harvestStrategyAcronym;
 
-	protected float numShares = 0F;
-	protected float orderPrice = 0F;
-	protected float orderAmount = 0F;
+        this.numShares = numShares;
+        this.orderPrice = orderPrice;
+        this.orderAmount = orderAmount;
 
-	protected float transactionFee = 0F;
-	protected float marginFee = 0F;
+        this.transactionFee = transactionFee;
+        this.marginFee = marginFee;
 
-	protected double allocatedFundsCash;
-	protected double unsettledFundsCash;
-	protected double cashOnHand_Cash;
+        this.accountBalanceCash = accountBalances.getTotalEquityCash();
+        this.cashOnHand_Cash = accountBalances.getAvailableFundsCash();
+        this.allocatedFundsCash = accountBalances.getAllocatedFundsCash();
+        this.unsettledFundsCash = accountBalances.getUnsettledFundsCash();
+        this.positionsTotalLong = accountBalances.getLongPositionsTotal();
 
-	protected double allocatedFundsMargin;
-	protected double unsettledFundsMargin;
-	protected double cashOnHand_Margin;
+        this.accountBalanceMargin = accountBalances.getTotalEquityMargin();
+        this.cashOnHand_Margin = accountBalances.getAvailableFundsMargin();
+        this.allocatedFundsMargin = accountBalances.getAllocatedFundsMargin();
+        this.unsettledFundsMargin = accountBalances.getUnsettledFundsMargin();
+        this.positionsTotalShort = accountBalances.getShortPositionsTotal();
+    }
 
-	protected double accountBalanceCash;
-	protected double positionsTotalLong;
+    // ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
+    public AccountEventDto(String xmldata) {
+        try {
+            id = UTXmlUtils.getXmlDataAsLong(xmldata, "ID");
+            accountId = UTXmlUtils.getXmlDataAsLong(xmldata, "ACCOUNT_ID");
+            active = UTXmlUtils.getXmlDataAsInt(xmldata, "ACTIVE");
 
-	protected double accountBalanceMargin;
-	protected double positionsTotalShort;
+            String eventDateXml = UTXmlUtils.getXmlData(xmldata, "EVENTDATE");
+            if (UTUtils.isNotNorE(eventDateXml)) {
+                eventDate = UTDatetime.fromDbString(eventDateXml);
 
-	public AccountEventDto() {
-		super();
-	}
+                description = UTXmlUtils.getXmlData(xmldata, "DESCRIPTION");
+                symbol = UTXmlUtils.getXmlData(xmldata, "SYMBOL");
+                harvestStrategyAcronym = UTXmlUtils.getXmlData(xmldata, "HARVEST_STRATEGY_ACRONYM");
 
-	public AccountEventDto(AccountBalanceParams accountBalances, LocalDateTime eventDate, String description, String symbol, String harvestStrategyAcronym, float numShares, float orderPrice,
-			float orderAmount, float transactionFee, float marginFee) {
-		this.eventDate = eventDate;
-		this.description = description;
-		this.symbol = symbol;
-		this.harvestStrategyAcronym = harvestStrategyAcronym;
+                numShares = UTXmlUtils.getXmlDataAsInt(xmldata, "NUM_SHARES");
+                orderPrice = UTXmlUtils.getXmlDataAsFloat(xmldata, "ORDER_PRICE");
+                orderAmount = UTXmlUtils.getXmlDataAsFloat(xmldata, "ORDER_AMOUNT");
 
-		this.numShares = numShares;
-		this.orderPrice = orderPrice;
-		this.orderAmount = orderAmount;
+                transactionFee = UTXmlUtils.getXmlDataAsFloat(xmldata, "TRANSACTION_FEE");
+                marginFee = UTXmlUtils.getXmlDataAsFloat(xmldata, "MARGIN_FEE");
 
-		this.transactionFee = transactionFee;
-		this.marginFee = marginFee;
+                cashOnHand_Cash = UTXmlUtils.getXmlDataAsFloat(xmldata, "CASHONHAND_CASH");
+                allocatedFundsCash = UTXmlUtils.getXmlDataAsFloat(xmldata, "ALLOCATED_CASH");
+                unsettledFundsCash = UTXmlUtils.getXmlDataAsFloat(xmldata, "UNSETTLED_CASH");
 
-		this.accountBalanceCash = accountBalances.getTotalEquityCash();
-		this.cashOnHand_Cash = accountBalances.getAvailableFundsCash();
-		this.allocatedFundsCash = accountBalances.getAllocatedFundsCash();
-		this.unsettledFundsCash = accountBalances.getUnsettledFundsCash();
-		this.positionsTotalLong = accountBalances.getLongPositionsTotal();
+                cashOnHand_Margin = UTXmlUtils.getXmlDataAsFloat(xmldata, "CASHONHAND_MARGIN");
+                allocatedFundsMargin = UTXmlUtils.getXmlDataAsFloat(xmldata, "ALLOCATED_MARGIN");
+                unsettledFundsMargin = UTXmlUtils.getXmlDataAsFloat(xmldata, "UNSETTLED_MARGIN");
 
-		this.accountBalanceMargin = accountBalances.getTotalEquityMargin();
-		this.cashOnHand_Margin = accountBalances.getAvailableFundsMargin();
-		this.allocatedFundsMargin = accountBalances.getAllocatedFundsMargin();
-		this.unsettledFundsMargin = accountBalances.getUnsettledFundsMargin();
-		this.positionsTotalShort = accountBalances.getShortPositionsTotal();
-	}
+                accountBalanceCash = UTXmlUtils.getXmlDataAsFloat(xmldata, "ACCOUNT_BALANCE_CASH");
+                accountBalanceMargin = UTXmlUtils.getXmlDataAsFloat(xmldata, "ACCOUNT_BALANCE_MARGIN");
 
-	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
-	public AccountEventDto(String xmldata) {
-		try {
-			id = UTXmlUtils.getXmlDataAsLong(xmldata, "ID");
-			accountId = UTXmlUtils.getXmlDataAsLong(xmldata, "ACCOUNT_ID");
-			active = UTXmlUtils.getXmlDataAsInt(xmldata, "ACTIVE");
+                positionsTotalLong = UTXmlUtils.getXmlDataAsFloat(xmldata, "POSITIONS_TOTAL_LONG");
+                positionsTotalShort = UTXmlUtils.getXmlDataAsFloat(xmldata, "POSITIONS_TOTAL_SHORT");
+            }
+        } catch (Exception e) {
+            System.out.println("Exception in " + CLASSNAME + ".Constructor; message [" + e.getMessage() + "]");
+        }
 
-			String eventDateXml = UTXmlUtils.getXmlData(xmldata, "EVENTDATE");
-			if (UTUtils.isNotNorE(eventDateXml)) {
-				eventDate = UTDatetime.fromDbString(eventDateXml);
+    }
 
-				description = UTXmlUtils.getXmlData(xmldata, "DESCRIPTION");
-				symbol = UTXmlUtils.getXmlData(xmldata, "SYMBOL");
-				harvestStrategyAcronym = UTXmlUtils.getXmlData(xmldata, "HARVEST_STRATEGY_ACRONYM");
-
-				numShares = UTXmlUtils.getXmlDataAsInt(xmldata, "NUM_SHARES");
-				orderPrice = UTXmlUtils.getXmlDataAsFloat(xmldata, "ORDER_PRICE");
-				orderAmount = UTXmlUtils.getXmlDataAsFloat(xmldata, "ORDER_AMOUNT");
-
-				transactionFee = UTXmlUtils.getXmlDataAsFloat(xmldata, "TRANSACTION_FEE");
-				marginFee = UTXmlUtils.getXmlDataAsFloat(xmldata, "MARGIN_FEE");
-
-				cashOnHand_Cash = UTXmlUtils.getXmlDataAsFloat(xmldata, "CASHONHAND_CASH");
-				allocatedFundsCash = UTXmlUtils.getXmlDataAsFloat(xmldata, "ALLOCATED_CASH");
-				unsettledFundsCash = UTXmlUtils.getXmlDataAsFloat(xmldata, "UNSETTLED_CASH");
-
-				cashOnHand_Margin = UTXmlUtils.getXmlDataAsFloat(xmldata, "CASHONHAND_MARGIN");
-				allocatedFundsMargin = UTXmlUtils.getXmlDataAsFloat(xmldata, "ALLOCATED_MARGIN");
-				unsettledFundsMargin = UTXmlUtils.getXmlDataAsFloat(xmldata, "UNSETTLED_MARGIN");
-
-				accountBalanceCash = UTXmlUtils.getXmlDataAsFloat(xmldata, "ACCOUNT_BALANCE_CASH");
-				accountBalanceMargin = UTXmlUtils.getXmlDataAsFloat(xmldata, "ACCOUNT_BALANCE_MARGIN");
-
-				positionsTotalLong = UTXmlUtils.getXmlDataAsFloat(xmldata, "POSITIONS_TOTAL_LONG");
-				positionsTotalShort = UTXmlUtils.getXmlDataAsFloat(xmldata, "POSITIONS_TOTAL_SHORT");
-			}
-		} catch (Exception e) {
-			System.out.println("Exception in " + CLASSNAME + ".Constructor; message [" + e.getMessage() + "]");
-		}
-
-	}
-
-	public String toXmlWrapper(String prefix, String endline) {
+    public String toXmlWrapper(String prefix, String endline) {
         String stb = prefix + "<ACCOUNT_EVENT>" + endline +
                 prefix + toXml(prefix, endline) +
                 prefix + "</ACCOUNT_EVENT>" + endline;
-		return stb;
-	}
+        return stb;
+    }
 
-	public final String toXml(String prefix, String endline) {
+    public final String toXml(String prefix, String endline) {
 
         String stb = prefix + "<ID>" + this.id + "</ID>" + endline +
                 prefix + UTDisplayFormatter.TAB + "<ACCOUNT_ID>" + this.accountId + "</ACCOUNT_ID>" + endline +
@@ -166,245 +158,245 @@ public class AccountEventDto implements Serializable {
                 prefix + UTDisplayFormatter.TAB + "<POSITIONS_TOTAL_LONG>" + this.positionsTotalLong + "</POSITIONS_TOTAL_LONG>" + endline +
                 prefix + UTDisplayFormatter.TAB + "<POSITIONS_TOTAL_SHORT>" + this.positionsTotalShort + "</POSITIONS_TOTAL_SHORT>" + endline;
 
-		return stb;
-	}
+        return stb;
+    }
 
-	public String toString() {
-		StringBuffer stb = new StringBuffer(200);
+    public String toString() {
+        StringBuffer stb = new StringBuffer(200);
 
-		try {
-			stb.append(UTFormatter.returnEmptyString(30 - this.getDescription().length()));
-			stb.append(this.getDescription());
-			stb.append(" ");
+        try {
+            stb.append(UTFormatter.returnEmptyString(30 - this.getDescription().length()));
+            stb.append(this.getDescription());
+            stb.append(" ");
 
-			stb.append(this.getSymbol());
-			stb.append(UTFormatter.returnEmptyString(21 - this.getSymbol().length()));
+            stb.append(this.getSymbol());
+            stb.append(UTFormatter.returnEmptyString(21 - this.getSymbol().length()));
 
-			stb.append(this.getHarvestStrategyAcronym());
-			stb.append(UTFormatter.returnEmptyString(7 - this.getHarvestStrategyAcronym().length()));
+            stb.append(this.getHarvestStrategyAcronym());
+            stb.append(UTFormatter.returnEmptyString(7 - this.getHarvestStrategyAcronym().length()));
 
-			stb.append(UTDatetime.toString(eventDate));
-			stb.append(UTFormatter.returnEmptyString(21 - UTDatetime.toString(eventDate).length()));
+            stb.append(UTDatetime.toString(eventDate));
+            stb.append(UTFormatter.returnEmptyString(21 - UTDatetime.toString(eventDate).length()));
 
-			stb.append(UTFormatter.formatShares(this.getNumShares()));
-			stb.append(UTFormatter.returnEmptyString(12 - UTFormatter.formatShares(this.getNumShares()).length()));
+            stb.append(UTFormatter.formatShares(this.getNumShares()));
+            stb.append(UTFormatter.returnEmptyString(12 - UTFormatter.formatShares(this.getNumShares()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getOrderPrice()));
-			stb.append(UTFormatter.returnEmptyString(12 - UTFormatter.formatPrice(this.getOrderPrice()).length()));
+            stb.append(UTFormatter.formatPrice(this.getOrderPrice()));
+            stb.append(UTFormatter.returnEmptyString(12 - UTFormatter.formatPrice(this.getOrderPrice()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getOrderAmount()));
-			stb.append(UTFormatter.returnEmptyString(11 - UTFormatter.formatPrice(this.getOrderAmount()).length()));
+            stb.append(UTFormatter.formatPrice(this.getOrderAmount()));
+            stb.append(UTFormatter.returnEmptyString(11 - UTFormatter.formatPrice(this.getOrderAmount()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getTransactionFee()));
-			stb.append(UTFormatter.returnEmptyString(9 - UTFormatter.formatPrice(this.getTransactionFee()).length()));
+            stb.append(UTFormatter.formatPrice(this.getTransactionFee()));
+            stb.append(UTFormatter.returnEmptyString(9 - UTFormatter.formatPrice(this.getTransactionFee()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getMarginFee()));
-			stb.append(UTFormatter.returnEmptyString(9 - UTFormatter.formatPrice(this.getMarginFee()).length()));
+            stb.append(UTFormatter.formatPrice(this.getMarginFee()));
+            stb.append(UTFormatter.returnEmptyString(9 - UTFormatter.formatPrice(this.getMarginFee()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getAccountBalanceCash()));
-			stb.append(UTFormatter.returnEmptyString(13 - UTFormatter.formatPrice(this.getAccountBalanceCash()).length()));
+            stb.append(UTFormatter.formatPrice(this.getAccountBalanceCash()));
+            stb.append(UTFormatter.returnEmptyString(13 - UTFormatter.formatPrice(this.getAccountBalanceCash()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getCashOnHand_Cash()));
-			stb.append(UTFormatter.returnEmptyString(14 - UTFormatter.formatPrice(this.getCashOnHand_Cash()).length()));
+            stb.append(UTFormatter.formatPrice(this.getCashOnHand_Cash()));
+            stb.append(UTFormatter.returnEmptyString(14 - UTFormatter.formatPrice(this.getCashOnHand_Cash()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getAllocatedFundsCash()));
-			stb.append(UTFormatter.returnEmptyString(14 - UTFormatter.formatPrice(this.getAllocatedFundsCash()).length()));
+            stb.append(UTFormatter.formatPrice(this.getAllocatedFundsCash()));
+            stb.append(UTFormatter.returnEmptyString(14 - UTFormatter.formatPrice(this.getAllocatedFundsCash()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getPositionsTotalLong()));
-			stb.append(UTFormatter.returnEmptyString(14 - UTFormatter.formatPrice(this.getPositionsTotalLong()).length()));
+            stb.append(UTFormatter.formatPrice(this.getPositionsTotalLong()));
+            stb.append(UTFormatter.returnEmptyString(14 - UTFormatter.formatPrice(this.getPositionsTotalLong()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getAccountBalanceMargin()));
-			stb.append(UTFormatter.returnEmptyString(15 - UTFormatter.formatPrice(this.getAccountBalanceMargin()).length()));
+            stb.append(UTFormatter.formatPrice(this.getAccountBalanceMargin()));
+            stb.append(UTFormatter.returnEmptyString(15 - UTFormatter.formatPrice(this.getAccountBalanceMargin()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getCashOnHand_Margin()));
-			stb.append(UTFormatter.returnEmptyString(15 - UTFormatter.formatPrice(this.getCashOnHand_Margin()).length()));
+            stb.append(UTFormatter.formatPrice(this.getCashOnHand_Margin()));
+            stb.append(UTFormatter.returnEmptyString(15 - UTFormatter.formatPrice(this.getCashOnHand_Margin()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getAllocatedFundsMargin()));
-			stb.append(UTFormatter.returnEmptyString(15 - UTFormatter.formatPrice(this.getAllocatedFundsMargin()).length()));
+            stb.append(UTFormatter.formatPrice(this.getAllocatedFundsMargin()));
+            stb.append(UTFormatter.returnEmptyString(15 - UTFormatter.formatPrice(this.getAllocatedFundsMargin()).length()));
 
-			stb.append(UTFormatter.formatPrice(this.getPositionsTotalShort()));
-			stb.append(UTFormatter.returnEmptyString(15 - UTFormatter.formatPrice(this.getPositionsTotalShort()).length()));
-		} catch (Exception e) {
-			System.out.println("Exception in LoadedCurrencyDecorator.toString(): message: " + e.getMessage());
-		}
+            stb.append(UTFormatter.formatPrice(this.getPositionsTotalShort()));
+            stb.append(UTFormatter.returnEmptyString(15 - UTFormatter.formatPrice(this.getPositionsTotalShort()).length()));
+        } catch (Exception e) {
+            System.out.println("Exception in LoadedCurrencyDecorator.toString(): message: " + e.getMessage());
+        }
 
-		return stb.toString();
-	}
+        return stb.toString();
+    }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public long getAccountId() {
-		return accountId;
-	}
+    public long getAccountId() {
+        return accountId;
+    }
 
-	public void setAccountId(long accountId) {
-		this.accountId = accountId;
-	}
+    public void setAccountId(long accountId) {
+        this.accountId = accountId;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getSymbol() {
-		return symbol;
-	}
+    public String getSymbol() {
+        return symbol;
+    }
 
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
 
-	public String getHarvestStrategyAcronym() {
-		return harvestStrategyAcronym;
-	}
+    public String getHarvestStrategyAcronym() {
+        return harvestStrategyAcronym;
+    }
 
-	public void setHarvestStrategyAcronym(String harvestStrategyAcronym) {
-		this.harvestStrategyAcronym = harvestStrategyAcronym;
-	}
+    public void setHarvestStrategyAcronym(String harvestStrategyAcronym) {
+        this.harvestStrategyAcronym = harvestStrategyAcronym;
+    }
 
-	public float getNumShares() {
-		return numShares;
-	}
+    public float getNumShares() {
+        return numShares;
+    }
 
-	public void setNumShares(float numShares) {
-		this.numShares = numShares;
-	}
+    public void setNumShares(float numShares) {
+        this.numShares = numShares;
+    }
 
-	public float getOrderPrice() {
-		return orderPrice;
-	}
+    public float getOrderPrice() {
+        return orderPrice;
+    }
 
-	public void setOrderPrice(float orderPrice) {
-		this.orderPrice = orderPrice;
-	}
+    public void setOrderPrice(float orderPrice) {
+        this.orderPrice = orderPrice;
+    }
 
-	public float getOrderAmount() {
-		return orderAmount;
-	}
+    public float getOrderAmount() {
+        return orderAmount;
+    }
 
-	public void setOrderAmount(float orderAmount) {
-		this.orderAmount = orderAmount;
-	}
+    public void setOrderAmount(float orderAmount) {
+        this.orderAmount = orderAmount;
+    }
 
-	public void setCashOnHand_Cash(double cashOnHand) {
-		this.cashOnHand_Cash = cashOnHand;
-	}
+    public double getCashOnHand_Cash() {
+        return cashOnHand_Cash;
+    }
 
-	public double getCashOnHand_Cash() {
-		return cashOnHand_Cash;
-	}
+    public void setCashOnHand_Cash(double cashOnHand) {
+        this.cashOnHand_Cash = cashOnHand;
+    }
 
-	public void setAllocatedFundsCash(double allocated) {
-		this.allocatedFundsCash = allocated;
-	}
+    public double getAllocatedFundsCash() {
+        return allocatedFundsCash;
+    }
 
-	public double getAllocatedFundsCash() {
-		return allocatedFundsCash;
-	}
+    public void setAllocatedFundsCash(double allocated) {
+        this.allocatedFundsCash = allocated;
+    }
 
-	public void setUnsettledFundsCash(double allocated) {
-		this.unsettledFundsCash = allocated;
-	}
+    public double getUnsettledFundsCash() {
+        return unsettledFundsCash;
+    }
 
-	public double getUnsettledFundsCash() {
-		return unsettledFundsCash;
-	}
+    public void setUnsettledFundsCash(double allocated) {
+        this.unsettledFundsCash = allocated;
+    }
 
-	public void setCashOnHand_Margin(double cashOnHand) {
-		this.cashOnHand_Margin = cashOnHand;
-	}
+    public double getCashOnHand_Margin() {
+        return cashOnHand_Margin;
+    }
 
-	public double getCashOnHand_Margin() {
-		return cashOnHand_Margin;
-	}
+    public void setCashOnHand_Margin(double cashOnHand) {
+        this.cashOnHand_Margin = cashOnHand;
+    }
 
-	public void setAllocatedFundsMargin(double allocated) {
-		this.allocatedFundsMargin = allocated;
-	}
+    public double getAllocatedFundsMargin() {
+        return allocatedFundsMargin;
+    }
 
-	public double getAllocatedFundsMargin() {
-		return allocatedFundsMargin;
-	}
+    public void setAllocatedFundsMargin(double allocated) {
+        this.allocatedFundsMargin = allocated;
+    }
 
-	public void setUnsettledFundsMargin(double allocated) {
-		this.unsettledFundsMargin = allocated;
-	}
+    public double getUnsettledFundsMargin() {
+        return unsettledFundsMargin;
+    }
 
-	public double getUnsettledFundsMargin() {
-		return unsettledFundsMargin;
-	}
+    public void setUnsettledFundsMargin(double allocated) {
+        this.unsettledFundsMargin = allocated;
+    }
 
-	public double getAccountBalanceCash() {
-		return accountBalanceCash;
-	}
+    public double getAccountBalanceCash() {
+        return accountBalanceCash;
+    }
 
-	public void setAccountBalanceCash(double accountBalance) {
-		this.accountBalanceCash = accountBalance;
-	}
+    public void setAccountBalanceCash(double accountBalance) {
+        this.accountBalanceCash = accountBalance;
+    }
 
-	public double getAccountBalanceMargin() {
-		return accountBalanceMargin;
-	}
+    public double getAccountBalanceMargin() {
+        return accountBalanceMargin;
+    }
 
-	public void setAccountBalanceMargin(double accountBalance) {
-		this.accountBalanceMargin = accountBalance;
-	}
+    public void setAccountBalanceMargin(double accountBalance) {
+        this.accountBalanceMargin = accountBalance;
+    }
 
-	public double getPositionsTotalLong() {
-		return positionsTotalLong;
-	}
+    public double getPositionsTotalLong() {
+        return positionsTotalLong;
+    }
 
-	public void setPositionsTotalLong(double positionsTotal) {
-		this.positionsTotalLong = positionsTotal;
-	}
+    public void setPositionsTotalLong(double positionsTotal) {
+        this.positionsTotalLong = positionsTotal;
+    }
 
-	public double getPositionsTotalShort() {
-		return positionsTotalShort;
-	}
+    public double getPositionsTotalShort() {
+        return positionsTotalShort;
+    }
 
-	public void setPositionsTotalShort(double positionsTotal) {
-		this.positionsTotalShort = positionsTotal;
-	}
+    public void setPositionsTotalShort(double positionsTotal) {
+        this.positionsTotalShort = positionsTotal;
+    }
 
-	public float getTransactionFee() {
-		return transactionFee;
-	}
+    public float getTransactionFee() {
+        return transactionFee;
+    }
 
-	public void setTransactionFee(float transactionFee) {
-		this.transactionFee = transactionFee;
-	}
+    public void setTransactionFee(float transactionFee) {
+        this.transactionFee = transactionFee;
+    }
 
-	public float getMarginFee() {
-		return marginFee;
-	}
+    public float getMarginFee() {
+        return marginFee;
+    }
 
-	public void setMarginFee(float marginFee) {
-		this.marginFee = marginFee;
-	}
+    public void setMarginFee(float marginFee) {
+        this.marginFee = marginFee;
+    }
 
-	public LocalDateTime getEventDate() {
-		return eventDate;
-	}
+    public LocalDateTime getEventDate() {
+        return eventDate;
+    }
 
-	public void setEventDate(LocalDateTime eventDate) {
-		this.eventDate = eventDate;
-	}
+    public void setEventDate(LocalDateTime eventDate) {
+        this.eventDate = eventDate;
+    }
 
-	public int getActive() {
-		return active;
-	}
+    public int getActive() {
+        return active;
+    }
 
-	public void setActive(int active) {
-		this.active = active;
-	}
+    public void setActive(int active) {
+        this.active = active;
+    }
 
 }

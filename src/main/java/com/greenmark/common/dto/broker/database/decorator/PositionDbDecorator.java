@@ -1,12 +1,12 @@
 package com.greenmark.common.dto.broker.database.decorator;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Map;
-
 import com.greenmark.common.GmConstantsBroker;
 import com.greenmark.common.dto.broker.database.PositionDb;
 import com.greenmark.utils.*;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Map;
 
 /**
  * @formatter:off
@@ -23,74 +23,74 @@ import com.greenmark.utils.*;
  */
 
 public class PositionDbDecorator extends PositionDb implements Serializable {
-	public static final String CLASSNAME = "PositionDbDecorator";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "PositionDbDecorator";
+    private static final long serialVersionUID = 1L;
 
-	private String id;
-	private String stockSymbol;
+    private String id;
+    private String stockSymbol;
 
-	public PositionDbDecorator() {
-		super();
-	}
+    public PositionDbDecorator() {
+        super();
+    }
 
-	public PositionDbDecorator(int harvestStrategyTypeId, int bucketStrategyStateId, int originBucketTimeframe) {
-		super(harvestStrategyTypeId, bucketStrategyStateId, originBucketTimeframe);
-	}
+    public PositionDbDecorator(int harvestStrategyTypeId, int bucketStrategyStateId, int originBucketTimeframe) {
+        super(harvestStrategyTypeId, bucketStrategyStateId, originBucketTimeframe);
+    }
 
-	public PositionDbDecorator(PositionDbDecorator oldPosition) {
-		super(oldPosition);
-	}
+    public PositionDbDecorator(PositionDbDecorator oldPosition) {
+        super(oldPosition);
+    }
 
 //	public PositionDbDecorator(String xmldata) {
 //		super(xmldata, trace);
 //	}
 
-	public String getStockSymbolAndId() {
-		return stockSymbol + "    :    " + id;
-	}
+    public String getStockSymbolAndId() {
+        return stockSymbol + "    :    " + id;
+    }
 
-	public String getHarvestStrategyString() {
-		return harvestStrategyAcronym;
-	}
+    public String getHarvestStrategyString() {
+        return harvestStrategyAcronym;
+    }
 
-	public String getOriginBucketTimeframeString() {
+    public String getOriginBucketTimeframeString() {
 //		return UTLabels.getGmanLabelForGmanTimeframe(originBucketTimeframe);
-		return UTLabels.getGmanLabelForGmanTimeframe(1);
-	}
+        return UTLabels.getGmanLabelForGmanTimeframe(1);
+    }
 
-	public String getBuyExecutedDateString() {
+    public String getBuyExecutedDateString() {
 //		if (buyExecutedDatetime != null)
 //			return buyExecutedDatetime.formatDateTimeDisplay();
 //		else
-			return "Unknown";
-	}
+        return "Unknown";
+    }
 
-	public String getBuyExecutedDateOnlyString() {
+    public String getBuyExecutedDateOnlyString() {
 //		if (buyExecutedDatetime != null)
 //			return buyExecutedDatetime.formatDateDisplay();
 //		else
-			return "Unknown";
-	}
+        return "Unknown";
+    }
 
-	public String getSellExecutedDateOnlyString() {
+    public String getSellExecutedDateOnlyString() {
 //		if (sellExecutedDatetime != null)
 //			return sellExecutedDatetime.formatDateDisplay();
 //		else
-			return "Unknown";
-	}
+        return "Unknown";
+    }
 
-	public String getSellExecutedDateString() {
+    public String getSellExecutedDateString() {
 //		if (sellExecutedDatetime != null)
 //			return sellExecutedDatetime.formatDateTimeDisplay();
 //		else
-			return "Unknown";
-	}
+        return "Unknown";
+    }
 
-	/////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (ENTRY NUM SHARES) /////////////////////
-	public float calcTargetNumShares(int buyOrSell) throws Exception {
-		float totalNumShares = 0f;
+    /////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (ENTRY NUM SHARES) /////////////////////
+    public float calcTargetNumShares(int buyOrSell) throws Exception {
+        float totalNumShares = 0f;
 
-		Map iterList;
+        Map iterList;
 //		if (buyOrSell == GmConstantsBroker.TYPE_BUY)
 //			iterList = buyOrderList;
 //		else
@@ -110,31 +110,31 @@ public class PositionDbDecorator extends PositionDb implements Serializable {
 //			//throw new Exception("" + CLASSNAME + ": calcTargetNumShares   Exception Message: " + ex.getMessage());
 //		}
 
-		return totalNumShares;
-	}
+        return totalNumShares;
+    }
 
-	public String formatTargetNumShares(int buyOrSell) throws Exception {
-		try {
-			String returnString = "N/A";
-			returnString = UTFormatter.formatShares((float) calcTargetNumShares(buyOrSell));
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN " + CLASSNAME + "!   formatTargetNumShares  Exception Message:  [" + ex.getMessage() + "]");
-			throw new Exception("" + CLASSNAME + ": formatTargetNumShares   Exception Message: " + ex.getMessage());
-		}
-	}
+    public String formatTargetNumShares(int buyOrSell) throws Exception {
+        try {
+            String returnString = "N/A";
+            returnString = UTFormatter.formatShares(calcTargetNumShares(buyOrSell));
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN " + CLASSNAME + "!   formatTargetNumShares  Exception Message:  [" + ex.getMessage() + "]");
+            throw new Exception(CLASSNAME + ": formatTargetNumShares   Exception Message: " + ex.getMessage());
+        }
+    }
 
-	public String getBuyTargetNumShares() throws Exception {
-		return formatTargetNumShares(GmConstantsBroker.TYPE_BUY);
-	}
+    public String getBuyTargetNumShares() throws Exception {
+        return formatTargetNumShares(GmConstantsBroker.TYPE_BUY);
+    }
 
-	public String getSellTargetNumShares() throws Exception {
-		return formatTargetNumShares(GmConstantsBroker.TYPE_SELL);
-	}
+    public String getSellTargetNumShares() throws Exception {
+        return formatTargetNumShares(GmConstantsBroker.TYPE_SELL);
+    }
 
-	/////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (ENTRY PRICE) /////////////////////
-	public float calcTargetPrice(int buyOrSell) throws Exception {
-		float avgPrice = 0f;
+    /////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (ENTRY PRICE) /////////////////////
+    public float calcTargetPrice(int buyOrSell) throws Exception {
+        float avgPrice = 0f;
 
 //		try {
 //			float totalShares = (float) calcTargetNumShares(buyOrSell);
@@ -157,31 +157,31 @@ public class PositionDbDecorator extends PositionDb implements Serializable {
 //			throw new Exception("" + CLASSNAME + ": calcAveragePrice   Exception Message: " + ex.getMessage());
 //		}
 
-		return avgPrice;
-	}
+        return avgPrice;
+    }
 
-	public String formatTargetPrice(int buyOrSell) throws Exception {
-		try {
-			String returnString = "N/A";
-			returnString = UTDisplayFormatter.floatToString(calcTargetPrice(buyOrSell));
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN " + CLASSNAME + "!   calcAveragePrice  Exception Message:  [" + ex.getMessage() + "]");
-			throw new Exception("" + CLASSNAME + ": formatTargetPrice   Exception Message: " + ex.getMessage());
-		}
-	}
+    public String formatTargetPrice(int buyOrSell) throws Exception {
+        try {
+            String returnString = "N/A";
+            returnString = UTDisplayFormatter.floatToString(calcTargetPrice(buyOrSell));
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN " + CLASSNAME + "!   calcAveragePrice  Exception Message:  [" + ex.getMessage() + "]");
+            throw new Exception(CLASSNAME + ": formatTargetPrice   Exception Message: " + ex.getMessage());
+        }
+    }
 
-	public String getBuyTargetPrice() throws Exception {
-		return formatTargetPrice(GmConstantsBroker.TYPE_BUY);
-	}
+    public String getBuyTargetPrice() throws Exception {
+        return formatTargetPrice(GmConstantsBroker.TYPE_BUY);
+    }
 
-	public String getSellTargetPrice() throws Exception {
-		return formatTargetPrice(GmConstantsBroker.TYPE_SELL);
-	}
+    public String getSellTargetPrice() throws Exception {
+        return formatTargetPrice(GmConstantsBroker.TYPE_SELL);
+    }
 
-	/////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (TRANSACTION FEES) /////////////////////
-	public float calcTransactionFees(int buyOrSell) throws Exception {
-		float avgPrice = 0f;
+    /////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (TRANSACTION FEES) /////////////////////
+    public float calcTransactionFees(int buyOrSell) throws Exception {
+        float avgPrice = 0f;
 
 //		try {
 //			float totalShares = (float) calcTargetNumShares(buyOrSell);
@@ -204,31 +204,31 @@ public class PositionDbDecorator extends PositionDb implements Serializable {
 //			throw new Exception("" + CLASSNAME + ": calcAveragePrice   Exception Message: " + ex.getMessage());
 //		}
 
-		return avgPrice;
-	}
+        return avgPrice;
+    }
 
-	public String formatTransactionFees(int buyOrSell) throws Exception {
-		try {
-			String returnString = "N/A";
-			returnString = UTFormatter.formatPrice(calcTransactionFees(buyOrSell));
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN " + CLASSNAME + "!   calcAveragePrice  Exception Message:  [" + ex.getMessage() + "]");
-			throw new Exception("" + CLASSNAME + ": formatTargetPrice   Exception Message: " + ex.getMessage());
-		}
-	}
+    public String formatTransactionFees(int buyOrSell) throws Exception {
+        try {
+            String returnString = "N/A";
+            returnString = UTFormatter.formatPrice(calcTransactionFees(buyOrSell));
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN " + CLASSNAME + "!   calcAveragePrice  Exception Message:  [" + ex.getMessage() + "]");
+            throw new Exception(CLASSNAME + ": formatTargetPrice   Exception Message: " + ex.getMessage());
+        }
+    }
 
-	public String getBuyTransactionFees() throws Exception {
-		return formatTransactionFees(GmConstantsBroker.TYPE_BUY);
-	}
+    public String getBuyTransactionFees() throws Exception {
+        return formatTransactionFees(GmConstantsBroker.TYPE_BUY);
+    }
 
-	public String getSellTransactionFees() throws Exception {
-		return formatTransactionFees(GmConstantsBroker.TYPE_SELL);
-	}
+    public String getSellTransactionFees() throws Exception {
+        return formatTransactionFees(GmConstantsBroker.TYPE_SELL);
+    }
 
-	/////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (EXECUTED NUM SHARES) /////////////////////
-	public float calcTotalExecNumShares(int buyOrSell) throws Exception {
-		float totalNumShares = 0f;
+    /////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (EXECUTED NUM SHARES) /////////////////////
+    public float calcTotalExecNumShares(int buyOrSell) throws Exception {
+        float totalNumShares = 0f;
 
 //		try {
 //			Map iterList;
@@ -249,31 +249,31 @@ public class PositionDbDecorator extends PositionDb implements Serializable {
 //			throw new Exception("" + CLASSNAME + ": calcTotalExecNumShares   Exception Message: " + ex.getMessage());
 //		}
 
-		return totalNumShares;
-	}
+        return totalNumShares;
+    }
 
-	public String formatTotalExecNumShares(int buyOrSell) throws Exception {
-		try {
-			String returnString = "N/A";
-			returnString = UTFormatter.formatShares((float) calcTotalExecNumShares(buyOrSell));
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN " + CLASSNAME + "!   formatTotalExecNumShares  Exception Message:  [" + ex.getMessage() + "]");
-			throw new Exception("" + CLASSNAME + ": formatTotalExecNumShares   Exception Message: " + ex.getMessage());
-		}
-	}
+    public String formatTotalExecNumShares(int buyOrSell) throws Exception {
+        try {
+            String returnString = "N/A";
+            returnString = UTFormatter.formatShares(calcTotalExecNumShares(buyOrSell));
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN " + CLASSNAME + "!   formatTotalExecNumShares  Exception Message:  [" + ex.getMessage() + "]");
+            throw new Exception(CLASSNAME + ": formatTotalExecNumShares   Exception Message: " + ex.getMessage());
+        }
+    }
 
-	public String getBuyTotalExecNumShares() throws Exception {
-		return formatTotalExecNumShares(GmConstantsBroker.TYPE_BUY);
-	}
+    public String getBuyTotalExecNumShares() throws Exception {
+        return formatTotalExecNumShares(GmConstantsBroker.TYPE_BUY);
+    }
 
-	public String getSellTotalExecNumShares() throws Exception {
-		return formatTotalExecNumShares(GmConstantsBroker.TYPE_SELL);
-	}
+    public String getSellTotalExecNumShares() throws Exception {
+        return formatTotalExecNumShares(GmConstantsBroker.TYPE_SELL);
+    }
 
-	/////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (AVERAGE PRICE) /////////////////////
-	public float calcAveragePrice(int buyOrSell) throws Exception {
-		float avgPrice = 0f;
+    /////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (AVERAGE PRICE) /////////////////////
+    public float calcAveragePrice(int buyOrSell) throws Exception {
+        float avgPrice = 0f;
 
 //		try {
 //			float totalShares = (float) calcTotalExecNumShares(buyOrSell);
@@ -296,31 +296,31 @@ public class PositionDbDecorator extends PositionDb implements Serializable {
 //			throw new Exception("" + CLASSNAME + ": calcAveragePrice   Exception Message: " + ex.getMessage());
 //		}
 
-		return avgPrice;
-	}
+        return avgPrice;
+    }
 
-	public String formatAveragePrice(int buyOrSell) throws Exception {
-		try {
-			String returnString = "N/A";
-			returnString = UTDisplayFormatter.floatToString(calcAveragePrice(buyOrSell));
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN " + CLASSNAME + "!   formatAveragePrice  Exception Message:  [" + ex.getMessage() + "]");
-			throw new Exception("" + CLASSNAME + ": formatAveragePrice   Exception Message: " + ex.getMessage());
-		}
-	}
+    public String formatAveragePrice(int buyOrSell) throws Exception {
+        try {
+            String returnString = "N/A";
+            returnString = UTDisplayFormatter.floatToString(calcAveragePrice(buyOrSell));
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN " + CLASSNAME + "!   formatAveragePrice  Exception Message:  [" + ex.getMessage() + "]");
+            throw new Exception(CLASSNAME + ": formatAveragePrice   Exception Message: " + ex.getMessage());
+        }
+    }
 
-	public String getBuyAveragePrice() throws Exception {
-		return formatAveragePrice(GmConstantsBroker.TYPE_BUY);
-	}
+    public String getBuyAveragePrice() throws Exception {
+        return formatAveragePrice(GmConstantsBroker.TYPE_BUY);
+    }
 
-	public String getSellAveragePrice() throws Exception {
-		return formatAveragePrice(GmConstantsBroker.TYPE_SELL);
-	}
+    public String getSellAveragePrice() throws Exception {
+        return formatAveragePrice(GmConstantsBroker.TYPE_SELL);
+    }
 
-	/////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (TOTAL ORDER AMOUNT) /////////////////////
-	public float calcOrderListTotalAmount(int buyOrSell) throws Exception {
-		float totalNumShares = 0f;
+    /////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (TOTAL ORDER AMOUNT) /////////////////////
+    public float calcOrderListTotalAmount(int buyOrSell) throws Exception {
+        float totalNumShares = 0f;
 
 //		Map iterList;
 //		if (buyOrSell == GmConstantsBroker.TYPE_BUY)
@@ -341,34 +341,34 @@ public class PositionDbDecorator extends PositionDb implements Serializable {
 //			throw new Exception("" + CLASSNAME + ": calcTotalExecNumShares   Exception Message: " + ex.getMessage());
 //		}
 
-		return totalNumShares;
-	}
+        return totalNumShares;
+    }
 
-	public String formatOrderListTotalAmount(int buyOrSell) throws Exception {
-		try {
-			String returnString = "N/A";
-			returnString = UTFormatter.formatPrice(calcOrderListTotalAmount(buyOrSell));
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN " + CLASSNAME + "!   formatOrderListTotalAmount  Exception Message:  [" + ex.getMessage() + "]");
-			throw new Exception("" + CLASSNAME + ": formatOrderListTotalAmount   Exception Message: " + ex.getMessage());
-		}
-	}
+    public String formatOrderListTotalAmount(int buyOrSell) throws Exception {
+        try {
+            String returnString = "N/A";
+            returnString = UTFormatter.formatPrice(calcOrderListTotalAmount(buyOrSell));
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN " + CLASSNAME + "!   formatOrderListTotalAmount  Exception Message:  [" + ex.getMessage() + "]");
+            throw new Exception(CLASSNAME + ": formatOrderListTotalAmount   Exception Message: " + ex.getMessage());
+        }
+    }
 
-	public String getBuyOrderListTotalAmount() throws Exception {
-		return formatOrderListTotalAmount(GmConstantsBroker.TYPE_BUY);
-	}
+    public String getBuyOrderListTotalAmount() throws Exception {
+        return formatOrderListTotalAmount(GmConstantsBroker.TYPE_BUY);
+    }
 
-	public String getSellOrderListTotalAmount() throws Exception {
-		return formatOrderListTotalAmount(GmConstantsBroker.TYPE_SELL);
-	}
+    public String getSellOrderListTotalAmount() throws Exception {
+        return formatOrderListTotalAmount(GmConstantsBroker.TYPE_SELL);
+    }
 
-	/////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (FIRST DATETIME) /////////////////////
-	public java.util.Date calcFirstDatetime(int buyOrSell) throws Exception {
-		UTCalendarTime returnTime = new UTCalendarTime();
-		returnTime.setCalendar("January", "01", "3000", "12", "01", "01");
-		LocalDateTime firstDate = UTDatetime.fromUTCalendarTime(returnTime);
-		boolean foundADate = false;
+    /////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (FIRST DATETIME) /////////////////////
+    public java.util.Date calcFirstDatetime(int buyOrSell) throws Exception {
+        UTCalendarTime returnTime = new UTCalendarTime();
+        returnTime.setCalendar("January", "01", "3000", "12", "01", "01");
+        LocalDateTime firstDate = UTDatetime.fromUTCalendarTime(returnTime);
+        boolean foundADate = false;
 
 //		Map iterList;
 //		if (buyOrSell == GmConstantsBroker.TYPE_BUY)
@@ -398,42 +398,42 @@ public class PositionDbDecorator extends PositionDb implements Serializable {
 //			throw new Exception("" + CLASSNAME + ": calcFirstDatetime   Exception Message: " + ex.getMessage());
 //		}
 
-		if (foundADate)
-			return UTDatetime.toDate(firstDate);
-		else
-			return null;
-	}
+        if (foundADate)
+            return UTDatetime.toDate(firstDate);
+        else
+            return null;
+    }
 
-	public String formatFirstDatetime(int buyOrSell) throws Exception {
-		try {
-			String returnString = "N/A";
-			java.util.Date firstDatetime = calcFirstDatetime(buyOrSell);
-			if (firstDatetime != null) {
-				UTCalendarTime returnTime = new UTCalendarTime(firstDatetime);
-				returnString = returnTime.formatDateTimeDisplay();
-			}
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN " + CLASSNAME + "!   formatFirstDatetime  Exception Message:  [" + ex.getMessage() + "]");
-			throw new Exception("" + CLASSNAME + ": formatFirstDatetime   Exception Message: " + ex.getMessage());
-		}
-	}
+    public String formatFirstDatetime(int buyOrSell) throws Exception {
+        try {
+            String returnString = "N/A";
+            java.util.Date firstDatetime = calcFirstDatetime(buyOrSell);
+            if (firstDatetime != null) {
+                UTCalendarTime returnTime = new UTCalendarTime(firstDatetime);
+                returnString = returnTime.formatDateTimeDisplay();
+            }
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN " + CLASSNAME + "!   formatFirstDatetime  Exception Message:  [" + ex.getMessage() + "]");
+            throw new Exception(CLASSNAME + ": formatFirstDatetime   Exception Message: " + ex.getMessage());
+        }
+    }
 
-	public String getBuyFirstDatetime() throws Exception {
-		return formatFirstDatetime(GmConstantsBroker.TYPE_BUY);
-	}
+    public String getBuyFirstDatetime() throws Exception {
+        return formatFirstDatetime(GmConstantsBroker.TYPE_BUY);
+    }
 
-	public String getSellFirstDatetime() throws Exception {
-		return formatFirstDatetime(GmConstantsBroker.TYPE_SELL);
-	}
+    public String getSellFirstDatetime() throws Exception {
+        return formatFirstDatetime(GmConstantsBroker.TYPE_SELL);
+    }
 
-	/////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (LAST DATETIME) /////////////////////
-	public java.util.Date calcLastDatetime(int buyOrSell) throws Exception {
-		UTCalendarTime returnTime = new UTCalendarTime();
+    /////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (LAST DATETIME) /////////////////////
+    public java.util.Date calcLastDatetime(int buyOrSell) throws Exception {
+        UTCalendarTime returnTime = new UTCalendarTime();
 
-		returnTime.setCalendar("January", "01", "1900", "12", "01", "01");
-		LocalDateTime lastDate = UTDatetime.fromUTCalendarTime(returnTime);
-		boolean foundADate = false;
+        returnTime.setCalendar("January", "01", "1900", "12", "01", "01");
+        LocalDateTime lastDate = UTDatetime.fromUTCalendarTime(returnTime);
+        boolean foundADate = false;
 
 //		Map iterList;
 //		if (buyOrSell == GmConstantsBroker.TYPE_BUY)
@@ -463,38 +463,38 @@ public class PositionDbDecorator extends PositionDb implements Serializable {
 //			throw new Exception("" + CLASSNAME + ": calcLastDatetime   Exception Message: " + ex.getMessage());
 //		}
 
-		if (foundADate)
-			return UTDatetime.toDate(lastDate);
-		else
-			return null;
-	}
+        if (foundADate)
+            return UTDatetime.toDate(lastDate);
+        else
+            return null;
+    }
 
-	public String formatLastDatetime(int buyOrSell) throws Exception {
-		try {
-			String returnString = "N/A";
-			java.util.Date lastDatetime = calcLastDatetime(buyOrSell);
-			if (lastDatetime != null) {
-				UTCalendarTime returnTime = new UTCalendarTime(lastDatetime);
-				returnString = returnTime.formatDateTimeDisplay();
-			}
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN " + CLASSNAME + "!   formatLastDatetime  Exception Message:  [" + ex.getMessage() + "]");
-			throw new Exception("" + CLASSNAME + ": formatLastDatetime   Exception Message: " + ex.getMessage());
-		}
-	}
+    public String formatLastDatetime(int buyOrSell) throws Exception {
+        try {
+            String returnString = "N/A";
+            java.util.Date lastDatetime = calcLastDatetime(buyOrSell);
+            if (lastDatetime != null) {
+                UTCalendarTime returnTime = new UTCalendarTime(lastDatetime);
+                returnString = returnTime.formatDateTimeDisplay();
+            }
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN " + CLASSNAME + "!   formatLastDatetime  Exception Message:  [" + ex.getMessage() + "]");
+            throw new Exception(CLASSNAME + ": formatLastDatetime   Exception Message: " + ex.getMessage());
+        }
+    }
 
-	public String getBuyLastDatetime() throws Exception {
-		return formatLastDatetime(GmConstantsBroker.TYPE_BUY);
-	}
+    public String getBuyLastDatetime() throws Exception {
+        return formatLastDatetime(GmConstantsBroker.TYPE_BUY);
+    }
 
-	public String getSellLastDatetime() throws Exception {
-		return formatLastDatetime(GmConstantsBroker.TYPE_SELL);
-	}
+    public String getSellLastDatetime() throws Exception {
+        return formatLastDatetime(GmConstantsBroker.TYPE_SELL);
+    }
 
-	/////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (MEMBER VARIABLES) /////////////////////
-	public String getShortOrLong() throws Exception {
-		String returnString = "N/A";
+    /////////////// CONVENIENCE METHODS FOR DISPLAY FORMATTERS (MEMBER VARIABLES) /////////////////////
+    public String getShortOrLong() throws Exception {
+        String returnString = "N/A";
 
 //		try {
 //			Map iterList;
@@ -514,84 +514,84 @@ public class PositionDbDecorator extends PositionDb implements Serializable {
 //			System.out.println("============= ERROR IN " + CLASSNAME + "!   formatShortOrLong  Exception Message:  [" + ex.getMessage() + "]");
 //			throw new Exception("" + CLASSNAME + ": formatShortOrLong   Exception Message: " + ex.getMessage());
 //		}
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getPainPriceDisplay() {
-		String returnString = "N/A";
+    public String getPainPriceDisplay() {
+        String returnString = "N/A";
 //		returnString = UTDisplayFormatter.floatToString(painPrice);
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getTotalGrowthPricesAmountDisplay() {
-		String returnString = "N/A";
+    public String getTotalGrowthPricesAmountDisplay() {
+        String returnString = "N/A";
 //		returnString = UTFormatter.formatPrice(totalGrowthPricesAmount);
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getTotalGrowthAmountDisplay() {
-		String returnString = "N/A";
+    public String getTotalGrowthAmountDisplay() {
+        String returnString = "N/A";
 //		returnString = UTFormatter.formatPrice(totalGrowthAmount);
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getSuccessOrPain() {
+    public String getSuccessOrPain() {
 //		if (totalGrowthAmount > 0)
 //			return "SUCCESS";
 //		else
-			return "LOSS";
-	}
+        return "LOSS";
+    }
 
-	public String getLongOrShortDisplay() {
+    public String getLongOrShortDisplay() {
 //		if (longOrShort == 1)
 //			return "LONG";
 //		else
-			return "SHORT";
-	}
+        return "SHORT";
+    }
 
-	public String getBuyExecutedPriceDisplay() {
-		String returnString = "N/A";
+    public String getBuyExecutedPriceDisplay() {
+        String returnString = "N/A";
 //		returnString = UTDisplayFormatter.floatToString(buyExecutedPrice);
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getSellExecutedPriceDisplay() {
-		String returnString = "N/A";
+    public String getSellExecutedPriceDisplay() {
+        String returnString = "N/A";
 //		returnString = UTDisplayFormatter.floatToString(sellExecutedPrice);
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getPercentGrowthPricesDisplay() {
-		String returnString = "N/A";
+    public String getPercentGrowthPricesDisplay() {
+        String returnString = "N/A";
 //		returnString = UTFormatter.formatPrice(percentGrowthPrices);
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getPercentGrowthDisplay() {
-		String returnString = "N/A";
+    public String getPercentGrowthDisplay() {
+        String returnString = "N/A";
 //		returnString = UTFormatter.formatPrice(percentGrowth);
-		return returnString;
-	}
+        return returnString;
+    }
 
-	public String getTotalTransactionFeesString() {
-		try {
-			String returnString = "N/A";
+    public String getTotalTransactionFeesString() {
+        try {
+            String returnString = "N/A";
 //			returnString = UTFormatter.formatPrice(totalTransactionFees);
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN " + CLASSNAME + "!   getTotalTransactionFeesString  Exception Message:  [" + ex.getMessage() + "]");
-		}
-		return "";
-	}
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN " + CLASSNAME + "!   getTotalTransactionFeesString  Exception Message:  [" + ex.getMessage() + "]");
+        }
+        return "";
+    }
 
-	public String getTotalMarginFeesString() {
-		try {
-			String returnString = "N/A";
+    public String getTotalMarginFeesString() {
+        try {
+            String returnString = "N/A";
 //			returnString = UTFormatter.formatPrice(totalMarginFees);
-			return returnString;
-		} catch (Exception ex) {
-			System.out.println("============= ERROR IN " + CLASSNAME + "!   getTotalMarginFeesString  Exception Message:  [" + ex.getMessage() + "]");
-		}
-		return "";
-	}
+            return returnString;
+        } catch (Exception ex) {
+            System.out.println("============= ERROR IN " + CLASSNAME + "!   getTotalMarginFeesString  Exception Message:  [" + ex.getMessage() + "]");
+        }
+        return "";
+    }
 }

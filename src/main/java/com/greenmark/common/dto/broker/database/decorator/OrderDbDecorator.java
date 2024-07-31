@@ -1,9 +1,5 @@
 package com.greenmark.common.dto.broker.database.decorator;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Iterator;
-
 import com.greenmark.common.GmConstantsBroker;
 import com.greenmark.common.dto.broker.ExecutionDto;
 import com.greenmark.common.dto.broker.database.OrderDb;
@@ -12,6 +8,10 @@ import com.greenmark.common.dto.parameters.LagPeriodsPrice;
 import com.greenmark.utils.UTCalendarTime;
 import com.greenmark.utils.UTDatetime;
 import com.greenmark.utils.trace.Trace;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Iterator;
 
 /**
  * @formatter:off
@@ -28,136 +28,136 @@ import com.greenmark.utils.trace.Trace;
  */
 
 public class OrderDbDecorator extends OrderDb implements Serializable {
-	public static final String CLASSNAME = "OrderDbDecorator";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "OrderDbDecorator";
+    private static final long serialVersionUID = 1L;
 
-	public OrderDbDecorator() {
-	}
+    public OrderDbDecorator() {
+    }
 
-	public OrderDbDecorator(OrderDbDecorator inOrder) {
-		super(inOrder);
-	}
+    public OrderDbDecorator(OrderDbDecorator inOrder) {
+        super(inOrder);
+    }
 
-	public OrderDbDecorator(String symbol, String compactedExchangeSymbol, int stopOrMktOrder, int longOrShortOrder, String harvestStrategyAcronym, LocalDateTime orderPlacedDatetime,
-			LagPeriodsPrice lagPeriodsPrice) {
-		super(symbol, compactedExchangeSymbol, stopOrMktOrder, longOrShortOrder, harvestStrategyAcronym, orderPlacedDatetime, lagPeriodsPrice);
-	}
+    public OrderDbDecorator(String symbol, String compactedExchangeSymbol, int stopOrMktOrder, int longOrShortOrder, String harvestStrategyAcronym, LocalDateTime orderPlacedDatetime,
+                            LagPeriodsPrice lagPeriodsPrice) {
+        super(symbol, compactedExchangeSymbol, stopOrMktOrder, longOrShortOrder, harvestStrategyAcronym, orderPlacedDatetime, lagPeriodsPrice);
+    }
 
-	public OrderDbDecorator(PositionDbDecorator myPosition, float currentPrice, LagPeriodsPrice entryPrice, float numShares, int stopOrMktOrder, int longOrShort) {
-		super(myPosition, currentPrice, entryPrice, numShares, stopOrMktOrder, longOrShort);
-	}
+    public OrderDbDecorator(PositionDbDecorator myPosition, float currentPrice, LagPeriodsPrice entryPrice, float numShares, int stopOrMktOrder, int longOrShort) {
+        super(myPosition, currentPrice, entryPrice, numShares, stopOrMktOrder, longOrShort);
+    }
 
-	public OrderDbDecorator(String xmldata) {
-		super(xmldata);
-	}
+    public OrderDbDecorator(String xmldata) {
+        super(xmldata);
+    }
 
-	// Used by the IBBroker Simulator and Live Version
-	public void orderExecutedStub(Trace trace) {
-		String methodname = "orderExecutedStub";
-		trace.in(CLASSNAME, methodname);
-		if (trace.isLevelVerbose())
-			trace.addVerbose("Entering orderExecutedStub ------------");
+    // Used by the IBBroker Simulator and Live Version
+    public void orderExecutedStub(Trace trace) {
+        String methodname = "orderExecutedStub";
+        trace.in(CLASSNAME, methodname);
+        if (trace.isLevelVerbose())
+            trace.addVerbose("Entering orderExecutedStub ------------");
 
-		// If our executedPrice is zero because the cumulativeBrokerExecution is bad (Financial Advisor type account), sum the executionDtos ourselves
-		sumOrderExecutions(trace);
+        // If our executedPrice is zero because the cumulativeBrokerExecution is bad (Financial Advisor type account), sum the executionDtos ourselves
+        sumOrderExecutions(trace);
 
-		
-	}
 
-	public void sumOrderExecutions(Trace trace) {
-		String methodname = "sumOrderExecutions";
-		trace.addVerbose("Entering sumOrderExecutions ------------");
+    }
 
-		executedNumShares = 0;
-		executedPrice = 0;
+    public void sumOrderExecutions(Trace trace) {
+        String methodname = "sumOrderExecutions";
+        trace.addVerbose("Entering sumOrderExecutions ------------");
 
-		LocalDateTime earliestDatetime = UTDatetime.getNowLDT();
+        executedNumShares = 0;
+        executedPrice = 0;
 
-		// First sum the total num executed executedNumShares, then compute average
-		int i = 0;
-		if (executionDtos != null) {
+        LocalDateTime earliestDatetime = UTDatetime.getNowLDT();
 
-			for (ExecutionDto thisExec : executionDtos) {
-				// Only sum the execution amount if it has a positive number of executedNumShares (Investment Advisor orders allocate executedNumShares to sub-accounts and
-				// these executionDtos have a negative number of executedNumShares), which mean the total becomes zero...
-				if (thisExec.getExecutedNumShares() > 0F) {
-					executedNumShares += thisExec.getExecutedNumShares();
+        // First sum the total num executed executedNumShares, then compute average
+        int i = 0;
+        if (executionDtos != null) {
 
-					if (earliestDatetime.isAfter(thisExec.getExecutionDate()) || (i == 0))
-						earliestDatetime = thisExec.getExecutionDate();
+            for (ExecutionDto thisExec : executionDtos) {
+                // Only sum the execution amount if it has a positive number of executedNumShares (Investment Advisor orders allocate executedNumShares to sub-accounts and
+                // these executionDtos have a negative number of executedNumShares), which mean the total becomes zero...
+                if (thisExec.getExecutedNumShares() > 0F) {
+                    executedNumShares += thisExec.getExecutedNumShares();
 
-					i++;
-				}
+                    if (earliestDatetime.isAfter(thisExec.getExecutionDate()) || (i == 0))
+                        earliestDatetime = thisExec.getExecutionDate();
 
-				// Also set the order ID, since these may have been added as a list by IBBroker, and we
-				// will surely need it for some reason later (though the DAO insert accounts for it)
-				thisExec.setOrderId(id);
+                    i++;
+                }
 
-			} // Endfor each execution
+                // Also set the order ID, since these may have been added as a list by IBBroker, and we
+                // will surely need it for some reason later (though the DAO insert accounts for it)
+                thisExec.setOrderId(id);
 
-			executedDatetime = earliestDatetime;
+            } // Endfor each execution
 
-			// Now compute weighted average
-			for (ExecutionDto thisExec : executionDtos) {
-				// Only sum the execution amount if it has a positive number of executedNumShares (Investment Advisor orders allocate executedNumShares to sub-accounts and
-				// these executionDtos have a negative number of executedNumShares), which mean the total becomes zero...
-				if (thisExec.getExecutedNumShares() > 0F) {
-					// Simply sum weighted value of this execution executedPrice with all the other executionDtos
-					executedPrice += (thisExec.getExecutedPrice() * (thisExec.getExecutedNumShares() / executedNumShares));
-				}
-			}
-		}
-	}
+            executedDatetime = earliestDatetime;
 
-	public boolean isPartialExpired(int numMinutes, UTCalendarTime todaysDatetime) {
+            // Now compute weighted average
+            for (ExecutionDto thisExec : executionDtos) {
+                // Only sum the execution amount if it has a positive number of executedNumShares (Investment Advisor orders allocate executedNumShares to sub-accounts and
+                // these executionDtos have a negative number of executedNumShares), which mean the total becomes zero...
+                if (thisExec.getExecutedNumShares() > 0F) {
+                    // Simply sum weighted value of this execution executedPrice with all the other executionDtos
+                    executedPrice += (thisExec.getExecutedPrice() * (thisExec.getExecutedNumShares() / executedNumShares));
+                }
+            }
+        }
+    }
 
-		// Get the earliest execution datetime
-		ExecutionDtoDecorator firstExecution = null;
-		Iterator executionIter = executionDtos.iterator();
-		if (executionIter.hasNext())
-			firstExecution = (ExecutionDtoDecorator) executionIter.next();
+    public boolean isPartialExpired(int numMinutes, UTCalendarTime todaysDatetime) {
 
-		if (firstExecution == null) // We couldn't find one
-			return false;
+        // Get the earliest execution datetime
+        ExecutionDtoDecorator firstExecution = null;
+        Iterator executionIter = executionDtos.iterator();
+        if (executionIter.hasNext())
+            firstExecution = (ExecutionDtoDecorator) executionIter.next();
 
-		// Add numMinutes to the first ExecutionDtoDecorator datetime
-		UTCalendarTime executionDatetime = new UTCalendarTime();
-		for (int i = 0; i < numMinutes; i++)
-			executionDatetime.incrementMinute();
+        if (firstExecution == null) // We couldn't find one
+            return false;
+
+        // Add numMinutes to the first ExecutionDtoDecorator datetime
+        UTCalendarTime executionDatetime = new UTCalendarTime();
+        for (int i = 0; i < numMinutes; i++)
+            executionDatetime.incrementMinute();
 
         return executionDatetime.isBeforeInCalendarDateTime(todaysDatetime, true);// No expirations for now.....
     }
 
-	public String getStopOrMarketOrderDisplay() {
-		return GmConstantsBroker.getStopOrMarketOrderDisplay(stopOrMarketOrder);
-	}
+    public String getStopOrMarketOrderDisplay() {
+        return GmConstantsBroker.getStopOrMarketOrderDisplay(stopOrMarketOrder);
+    }
 
-	public String getBuyOrSellOrderDisplay() {
-		return GmConstantsBroker.getBuyOrSellOrderDisplay(buyOrSellOrder);
-	}
+    public String getBuyOrSellOrderDisplay() {
+        return GmConstantsBroker.getBuyOrSellOrderDisplay(buyOrSellOrder);
+    }
 
-	public String getStatusDisplay() {
-		return GmConstantsBroker.getStatusDisplay(status);
-	}
+    public String getStatusDisplay() {
+        return GmConstantsBroker.getStatusDisplay(status);
+    }
 
-	public String toStringSystemOut() {
-		StringBuffer stb = new StringBuffer();
-		String formattedDate = "";
-		if (executedDatetime != null) {
-			formattedDate = UTDatetime.toDbString(executedDatetime);
-		}
-		stb.append("\n-----------------------------------------------\n");
-		stb.append("Order for stock= [" + stockSymbol + "]\n");
-		stb.append("   current_price= [" + currentPrice + "]\n");
-		stb.append("   executed_price= [" + executedPrice + "]\n");
-		stb.append("   executed_num_shares= [" + executedNumShares + "]\n");
-		stb.append("   executed_datetime= [" + formattedDate + "]\n");
-		stb.append("   orderID= [" + externalOrderId + "]\n");
-		stb.append("   external_tracking_num= [" + externalTrackingNum + "]\n");
-		stb.append("   entry_price= [" + entryPrice + "]\n");
-		stb.append("   target_size_in_shares= [" + targetSizeInShares + "]\n");
-		stb.append("   target_amount_in_dollars= [" + targetAmountInDollars + "]\n");
-		stb.append("-----------------------------------------------\n");
-		return stb.toString();
-	}
+    public String toStringSystemOut() {
+        StringBuffer stb = new StringBuffer();
+        String formattedDate = "";
+        if (executedDatetime != null) {
+            formattedDate = UTDatetime.toDbString(executedDatetime);
+        }
+        stb.append("\n-----------------------------------------------\n");
+        stb.append("Order for stock= [" + stockSymbol + "]\n");
+        stb.append("   current_price= [" + currentPrice + "]\n");
+        stb.append("   executed_price= [" + executedPrice + "]\n");
+        stb.append("   executed_num_shares= [" + executedNumShares + "]\n");
+        stb.append("   executed_datetime= [" + formattedDate + "]\n");
+        stb.append("   orderID= [" + externalOrderId + "]\n");
+        stb.append("   external_tracking_num= [" + externalTrackingNum + "]\n");
+        stb.append("   entry_price= [" + entryPrice + "]\n");
+        stb.append("   target_size_in_shares= [" + targetSizeInShares + "]\n");
+        stb.append("   target_amount_in_dollars= [" + targetAmountInDollars + "]\n");
+        stb.append("-----------------------------------------------\n");
+        return stb.toString();
+    }
 }

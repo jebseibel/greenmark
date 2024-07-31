@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.ScenarioDb;
+import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.ScenarioEntity;
 import com.greenmark.database.db.mapper.ScenarioMapper;
 import com.greenmark.database.db.repository.ScenarioRepository;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Service
 public class ScenarioDbService extends BasicDbService {
 
-    private ScenarioRepository repository;
+    private final ScenarioRepository repository;
 
     public ScenarioDbService(ScenarioRepository repository) {
         super("Scenario");
@@ -27,8 +27,8 @@ public class ScenarioDbService extends BasicDbService {
     /**
      * Create a record with name and description
      *
-     * @param extid - the extid to use
-     * @param name - value for name
+     * @param extid       - the extid to use
+     * @param name        - value for name
      * @param description - value for description
      * @return
      * @throws DataIntegrityViolationException
@@ -68,8 +68,8 @@ public class ScenarioDbService extends BasicDbService {
     /**
      * Update the Scenario name and description
      *
-     * @param extid - the extid to use
-     * @param name - value for name
+     * @param extid       - the extid to use
+     * @param name        - value for name
      * @param description - value for description
      * @return
      */
@@ -93,6 +93,7 @@ public class ScenarioDbService extends BasicDbService {
 
     /**
      * Delete by Extid
+     *
      * @param extid - to delete
      * @return boolean
      * @throws ScenarioDeleteFailureException
@@ -134,9 +135,11 @@ public class ScenarioDbService extends BasicDbService {
     // ////////////////////////////////////////////////////////
     // CHECK METHODS
     // ////////////////////////////////////////////////////////
+
     /**
      * Checks if the retrieval of Scenario failed elses throw an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws ScenarioRetrievalFailureException
      */
@@ -148,7 +151,8 @@ public class ScenarioDbService extends BasicDbService {
 
     /**
      * Checks if Scenario was created else throws an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws ScenarioUpdateFailureException
      */
@@ -160,7 +164,8 @@ public class ScenarioDbService extends BasicDbService {
 
     /**
      * Checks if Scenario was deleted else throws an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws ScenarioDeleteFailureException
      */
@@ -172,7 +177,8 @@ public class ScenarioDbService extends BasicDbService {
 
     /**
      * Checks if Scenario already exists
-     * @param extid - if exists throw exception
+     *
+     * @param extid   - if exists throw exception
      * @param message
      * @throws ScenarioCreateFailureException
      */
@@ -182,7 +188,6 @@ public class ScenarioDbService extends BasicDbService {
             throw new ScenarioCreateFailureException(message);
         }
     }
-
 
 
 }

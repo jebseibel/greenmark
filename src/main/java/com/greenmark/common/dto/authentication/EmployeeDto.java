@@ -21,109 +21,109 @@ import java.io.Serializable;
  */
 
 public class EmployeeDto implements Serializable {
-	private static final String CLASSNAME = "EmployeeDto";
-	private static final long serialVersionUID = 1L;
+    private static final String CLASSNAME = "EmployeeDto";
+    private static final long serialVersionUID = 1L;
 
-	private long id;
-	private int active = 0;
+    private long id;
+    private int active = 0;
 
-	private String username = null;
-	private String password = null;
-	private String firstName = null;
-	private String lastName = null;
-	private String emailAddress = null;
-	private java.util.Date inactiveDate = null;
+    private String username = null;
+    private String password = null;
+    private String firstName = null;
+    private String lastName = null;
+    private String emailAddress = null;
+    private java.util.Date inactiveDate = null;
 
-	public EmployeeDto() {
-	}
+    public EmployeeDto() {
+    }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public String dbSummary() {
-		StringBuffer stb = new StringBuffer();
-		stb.append(" > > " + CLASSNAME + " :: ");
-		stb.append("id [" + id + "] ");
-		stb.append("username [" + username + "] ");
+    public void setId(long id) {
+        this.id = id;
+    }
 
-		stb.append("password [" + password + "] ");
-		stb.append("firstName [" + firstName + "] ");
-		stb.append("lastName [" + lastName + "] ");
-		stb.append("emailAddress [" + emailAddress + "] ");
-		if (inactiveDate != null)
-			stb.append("inactiveDate [" + inactiveDate + "] ");
-		stb.append("active [" + active + "] ");
-		return stb.toString();
-	}
+    public String dbSummary() {
+        StringBuffer stb = new StringBuffer();
+        stb.append(" > > " + CLASSNAME + " :: ");
+        stb.append("id [" + id + "] ");
+        stb.append("username [" + username + "] ");
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public String toString() {
-		return dbSummary();
-	}
+        stb.append("password [" + password + "] ");
+        stb.append("firstName [" + firstName + "] ");
+        stb.append("lastName [" + lastName + "] ");
+        stb.append("emailAddress [" + emailAddress + "] ");
+        if (inactiveDate != null)
+            stb.append("inactiveDate [" + inactiveDate + "] ");
+        stb.append("active [" + active + "] ");
+        return stb.toString();
+    }
 
-	public String getClassname() {
-		return CLASSNAME;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public String toString() {
+        return dbSummary();
+    }
 
-	public int getActive() {
-		return active;
-	}
+    public String getClassname() {
+        return CLASSNAME;
+    }
 
-	public void setActive(int active) {
-		this.active = active;
-	}
+    public int getActive() {
+        return active;
+    }
 
-	public String getEmailAddress() {
-		return emailAddress;
-	}
+    public void setActive(int active) {
+        this.active = active;
+    }
 
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
+    public String getEmailAddress() {
+        return emailAddress;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public java.util.Date getInactiveDate() {
-		return inactiveDate;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setInactiveDate(java.util.Date inactiveDate) {
-		this.inactiveDate = inactiveDate;
-	}
+    public java.util.Date getInactiveDate() {
+        return inactiveDate;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setInactiveDate(java.util.Date inactiveDate) {
+        this.inactiveDate = inactiveDate;
+    }
 
 }

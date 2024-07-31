@@ -27,32 +27,32 @@ import com.greenmark.common.service.MoneyCalculatorService;
  */
 
 public class ScenarioCalculator extends ScenarioCalculatorDtoDecorator implements Serializable {
-	public static final String CLASSNAME = "ScenarioCalculator";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "ScenarioCalculator";
+    private static final long serialVersionUID = 1L;
 
-	public ScenarioCalculator() {
-	}
+    public ScenarioCalculator() {
+    }
 
-	public ScenarioCalculator(ScenarioDtoDecorator currentScenario, AccountBalanceParams accountBalance, int currentScenarioNumber) {
-		super(currentScenario, accountBalance, currentScenarioNumber);
-	}
+    public ScenarioCalculator(ScenarioDtoDecorator currentScenario, AccountBalanceParams accountBalance, int currentScenarioNumber) {
+        super(currentScenario, accountBalance, currentScenarioNumber);
+    }
 
-	public ScenarioCalculator(String xmldata) {
-		super(xmldata);
-	}
+    public ScenarioCalculator(String xmldata) {
+        super(xmldata);
+    }
 
-	public ScenarioCalculator(ScenarioDbDecorator inScenario) {
-		super();
+    public ScenarioCalculator(ScenarioDbDecorator inScenario) {
+        super();
 
-		try {
-			if (inScenario != null)
-				BeanUtils.copyProperties(this, inScenario);
-		} catch (InvocationTargetException ite) {
-			System.out.println("ERROR creating " + CLASSNAME + ", InvocationTargetException, message: " + ite.getMessage() + ", cause: " + ite.getCause().toString());
-		} catch (IllegalAccessException iae) {
-			System.out.println("ERROR creating " + CLASSNAME + ", IllegalAccessException, message: " + iae.getMessage());
-		}
-	}
+        try {
+            if (inScenario != null)
+                BeanUtils.copyProperties(this, inScenario);
+        } catch (InvocationTargetException ite) {
+            System.out.println("ERROR creating " + CLASSNAME + ", InvocationTargetException, message: " + ite.getMessage() + ", cause: " + ite.getCause().toString());
+        } catch (IllegalAccessException iae) {
+            System.out.println("ERROR creating " + CLASSNAME + ", IllegalAccessException, message: " + iae.getMessage());
+        }
+    }
 
 //	public void calculateAllStatistics(List<PositionDbDecorator> positionList) {
 //		this.setPositionList(positionList);
@@ -62,63 +62,63 @@ public class ScenarioCalculator extends ScenarioCalculatorDtoDecorator implement
 //		calculateMonthlyROI();
 //	}
 
-	public float calculateYearlyROI() {
-		double totalProfitLoss = getTotalProfitAndLoss();
-		double longTotalProfitLoss = getLongProfitAndLoss();
-		double shortTotalProfitLoss = getShortProfitAndLoss();
+    public float calculateYearlyROI() {
+        double totalProfitLoss = getTotalProfitAndLoss();
+        double longTotalProfitLoss = getLongProfitAndLoss();
+        double shortTotalProfitLoss = getShortProfitAndLoss();
 
-		this.calcRoiYearly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, (accountDailyList.size() - 1), totalProfitLoss);
-		this.longCalcRoiYearly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, (accountDailyList.size() - 1), longTotalProfitLoss);
-		this.shortCalcRoiYearly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, (accountDailyList.size() - 1), shortTotalProfitLoss);
+        this.calcRoiYearly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, (accountDailyList.size() - 1), totalProfitLoss);
+        this.longCalcRoiYearly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, (accountDailyList.size() - 1), longTotalProfitLoss);
+        this.shortCalcRoiYearly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, (accountDailyList.size() - 1), shortTotalProfitLoss);
 
-		return this.calcRoiYearly;
-	}
+        return this.calcRoiYearly;
+    }
 
-	public float calculateMonthlyROI() {
-		int numDaysForAccount = getNumDaysInScenario();
-		double totalProfitLoss = getTotalProfitAndLoss();
-		double longTotalProfitLoss = getLongProfitAndLoss();
-		double shortTotalProfitLoss = getShortProfitAndLoss();
+    public float calculateMonthlyROI() {
+        int numDaysForAccount = getNumDaysInScenario();
+        double totalProfitLoss = getTotalProfitAndLoss();
+        double longTotalProfitLoss = getLongProfitAndLoss();
+        double shortTotalProfitLoss = getShortProfitAndLoss();
 
-		this.calcRoiMonthly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_MONTH, numDaysForAccount, totalProfitLoss);
-		this.longCalcRoiMonthly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, numDaysForAccount, longTotalProfitLoss);
-		this.shortCalcRoiMonthly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, numDaysForAccount, shortTotalProfitLoss);
-		return this.calcRoiMonthly;
-	}
+        this.calcRoiMonthly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_MONTH, numDaysForAccount, totalProfitLoss);
+        this.longCalcRoiMonthly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, numDaysForAccount, longTotalProfitLoss);
+        this.shortCalcRoiMonthly = MoneyCalculatorService.calcROI(accountDailyList, accountType, GmConstants.AVG_NUM_CALENDAR_DAYS_PER_YEAR, numDaysForAccount, shortTotalProfitLoss);
+        return this.calcRoiMonthly;
+    }
 
-	public float calcPercentGrowth(double numDaysPerPeriod) {
-		float returnVal = 0;
+    public float calcPercentGrowth(double numDaysPerPeriod) {
+        float returnVal = 0;
 
-		if ((accountDailyList != null) && (accountDailyList.size() > 1)) {
-			// Estimate the number of calendar days since the first Account Daily item and the last
-			AccountDailyDto openBalancesDaily = accountDailyList.get(0); // This record is the previous day's open.
-			AccountDailyDto firstDaily = null;
-			if (accountDailyList.size() == 1)
-				firstDaily = accountDailyList.get(0); // Get the second record, the first one is our open balance record(yesterday)
-			else
-				firstDaily = accountDailyList.get(1); // But this is the first date of user search.
-			AccountDailyDto lastDaily = accountDailyList.get(accountDailyList.size() - 1);
+        if ((accountDailyList != null) && (accountDailyList.size() > 1)) {
+            // Estimate the number of calendar days since the first Account Daily item and the last
+            AccountDailyDto openBalancesDaily = accountDailyList.get(0); // This record is the previous day's open.
+            AccountDailyDto firstDaily = null;
+            if (accountDailyList.size() == 1)
+                firstDaily = accountDailyList.get(0); // Get the second record, the first one is our open balance record(yesterday)
+            else
+                firstDaily = accountDailyList.get(1); // But this is the first date of user search.
+            AccountDailyDto lastDaily = accountDailyList.get(accountDailyList.size() - 1);
 
-			// Don't include the open balance record when determining how many days this calculation is for.
-			long lastEpochSecond = lastDaily.getThisDate().atZone(ZoneOffset.UTC).toEpochSecond();
-			long firstEpochSecond = firstDaily.getThisDate().atZone(ZoneOffset.UTC).toEpochSecond();
+            // Don't include the open balance record when determining how many days this calculation is for.
+            long lastEpochSecond = lastDaily.getThisDate().atZone(ZoneOffset.UTC).toEpochSecond();
+            long firstEpochSecond = firstDaily.getThisDate().atZone(ZoneOffset.UTC).toEpochSecond();
 
-			long millisecondDifference = (lastEpochSecond * 1000) - (firstEpochSecond * 1000);
-			long numCalendarDays = millisecondDifference / GmConstants.NUM_MILLISECONDS_IN_DAY;
-			double numYearsDecimal = (double) numCalendarDays / numDaysPerPeriod;
+            long millisecondDifference = (lastEpochSecond * 1000) - (firstEpochSecond * 1000);
+            long numCalendarDays = millisecondDifference / GmConstants.NUM_MILLISECONDS_IN_DAY;
+            double numYearsDecimal = (double) numCalendarDays / numDaysPerPeriod;
 
-			// Get the total growth from both the short and long positions
-			double equityDifference = 0;
-			double percentOfOriginalEquity = 0;
+            // Get the total growth from both the short and long positions
+            double equityDifference = 0;
+            double percentOfOriginalEquity = 0;
 
-			equityDifference = lastDaily.getGrandTotalEquity() - openBalancesDaily.getGrandTotalEquity();
-			percentOfOriginalEquity = equityDifference / openBalancesDaily.getGrandTotalEquity();
+            equityDifference = lastDaily.getGrandTotalEquity() - openBalancesDaily.getGrandTotalEquity();
+            percentOfOriginalEquity = equityDifference / openBalancesDaily.getGrandTotalEquity();
 
-			// Now divide by the fractional num years. Multiply by 100 to turn into a display percentage and not fractional percentage.
-			returnVal = (float) (percentOfOriginalEquity / numYearsDecimal) * 100;
-		}
-		return returnVal;
-	}
+            // Now divide by the fractional num years. Multiply by 100 to turn into a display percentage and not fractional percentage.
+            returnVal = (float) (percentOfOriginalEquity / numYearsDecimal) * 100;
+        }
+        return returnVal;
+    }
 
 //	public float calcTotalSuccessPositions() {
 //		totalNumPositionsLong = 0;

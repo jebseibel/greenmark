@@ -15,52 +15,52 @@ import java.util.Optional;
  * @author  Monte Seibel
  * @version 7.5
  * @formatter:on
-**/
+ **/
 
 public enum RejectedTypeEnum {
-	// @formatter:off
+    // @formatter:off
 	PERMANENT("Bad Data", 1), 
 	AGING("Aging", 2), 
 	DISMISSABLE("Dismissable", 3),
 	REJECTED_BY_USER("Rejected by User", 4);
 	// @formatter:on
 
-	private final String name;
-	private final int id;
+    private final String name;
+    private final int id;
 
-	RejectedTypeEnum(String name, int id) {
-		this.name = name;
-		this.id = id;
-	}
+    RejectedTypeEnum(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public static String[] getAllNames() {
+        List<String> nameList = new ArrayList<>();
+        nameList.add(PERMANENT.getName());
+        nameList.add(AGING.getName());
+        nameList.add(DISMISSABLE.getName());
+        nameList.add(REJECTED_BY_USER.getName());
 
-	public int getId() {
-		return id;
-	}
+        String[] returnVal = new String[nameList.size()];
+        return nameList.toArray(returnVal);
+    }
 
-	public String getIdString() {
-		return ((Integer) id).toString();
-	}
+    public static Optional<RejectedTypeEnum> getByName(String value) {
+        return Arrays.stream(RejectedTypeEnum.values()).filter(accStatus -> accStatus.getName().equals(value)).findFirst();
+    }
 
-	public static String[] getAllNames() {
-		List<String> nameList = new ArrayList<>();
-		nameList.add(PERMANENT.getName());
-		nameList.add(AGING.getName());
-		nameList.add(DISMISSABLE.getName());
-		nameList.add(REJECTED_BY_USER.getName());
+    public static Optional<RejectedTypeEnum> getById(int value) {
+        return Arrays.stream(RejectedTypeEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
+    }
 
-		String[] returnVal = new String[nameList.size()];
-		return nameList.toArray(returnVal);
-	}
+    public String getName() {
+        return name;
+    }
 
-	public static Optional<RejectedTypeEnum> getByName(String value) {
-		return Arrays.stream(RejectedTypeEnum.values()).filter(accStatus -> accStatus.getName().equals(value)).findFirst();
-	}
+    public int getId() {
+        return id;
+    }
 
-	public static Optional<RejectedTypeEnum> getById(int value) {
-		return Arrays.stream(RejectedTypeEnum.values()).filter(accStatus -> accStatus.getId() == value).findFirst();
-	}
+    public String getIdString() {
+        return ((Integer) id).toString();
+    }
 }

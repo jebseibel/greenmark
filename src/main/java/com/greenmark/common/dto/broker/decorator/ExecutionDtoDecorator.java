@@ -1,10 +1,10 @@
 package com.greenmark.common.dto.broker.decorator;
 
-import java.io.Serializable;
-
 import com.greenmark.common.dto.broker.ExecutionDto;
 import com.greenmark.utils.UTDatetime;
 import com.greenmark.utils.UTFormatter;
+
+import java.io.Serializable;
 
 /**
  * @formatter:off
@@ -21,55 +21,55 @@ import com.greenmark.utils.UTFormatter;
  */
 
 public class ExecutionDtoDecorator extends ExecutionDto implements Serializable {
-	public static final String CLASSNAME = "ExecutionDtoDecorator";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "ExecutionDtoDecorator";
+    private static final long serialVersionUID = 1L;
 
-	public ExecutionDtoDecorator() {
-		super();
-	}
+    public ExecutionDtoDecorator() {
+        super();
+    }
 
-	public ExecutionDtoDecorator(String xmldata) {
-		super(xmldata);
-	}
+    public ExecutionDtoDecorator(String xmldata) {
+        super(xmldata);
+    }
 
-	public String getExecutionDateDisplay() {
-		if (executionDate == null) {
-			return "";
-		} else
-			return UTDatetime.toString(executionDate);
-	}
+    public String getExecutionDateDisplay() {
+        if (executionDate == null) {
+            return "";
+        } else
+            return UTDatetime.toString(executionDate);
+    }
 
-	public String formatPrice() {
-		String returnString = "N/A";
+    public String formatPrice() {
+        String returnString = "N/A";
 
-		try {
-			returnString = UTFormatter.formatPrice(getExecutedPrice());
-		} catch (Exception ex) {
-			System.out.println("Caught exception in CLASS: " + CLASSNAME + ".formatPrice(), message: [" + ex.getMessage() + "]");
-		}
-		// 
-		return returnString;
+        try {
+            returnString = UTFormatter.formatPrice(getExecutedPrice());
+        } catch (Exception ex) {
+            System.out.println("Caught exception in CLASS: " + CLASSNAME + ".formatPrice(), message: [" + ex.getMessage() + "]");
+        }
+        //
+        return returnString;
 
-	}
+    }
 
-	public String formatActive() {
-		if (active == 1)
-			return "ACTIVE";
-		else
-			return "INACTIVE";
-	}
+    public String formatActive() {
+        if (active == 1)
+            return "ACTIVE";
+        else
+            return "INACTIVE";
+    }
 
-	public String dbSummary() {
+    public String dbSummary() {
         String stb = " > > " + CLASSNAME + " :: " +
                 "id [" + id + "] " +
                 "orderId [" + orderId + "] " +
                 "exchangeId [" + exchangeId + "] " +
                 "externalECN [" + externalECN + "] " +
                 "active [" + active + "] ";
-		return stb;
-	}
+        return stb;
+    }
 
-	public String toString() {
+    public String toString() {
         String stb = "      " +
                 id +
                 "    " +
@@ -79,14 +79,14 @@ public class ExecutionDtoDecorator extends ExecutionDto implements Serializable 
                 "      " +
                 UTDatetime.toString(executionDate) +
                 "         ";
-		return stb;
-	}
+        return stb;
+    }
 
-	public String toString(String prefix) {
-		String formattedDate = "";
-		if (executionDate != null) {
-			formattedDate = UTDatetime.toString(executionDate);
-		}
+    public String toString(String prefix) {
+        String formattedDate = "";
+        if (executionDate != null) {
+            formattedDate = UTDatetime.toString(executionDate);
+        }
 
         String stb = "\n" +
                 prefix + "EXECUTION --------------------------------" + "\n" +
@@ -97,6 +97,6 @@ public class ExecutionDtoDecorator extends ExecutionDto implements Serializable 
                 prefix + "executedPrice              [" + this.executedPrice + "]" + "\n" +
                 prefix + "externalSystemId   [" + this.externalSystemId + "]" + "\n";
 
-		return stb;
-	}
+        return stb;
+    }
 }

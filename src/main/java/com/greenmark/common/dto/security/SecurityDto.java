@@ -21,26 +21,26 @@ import com.greenmark.common.GmConstantsBroker;
  */
 
 public class SecurityDto extends SecurityBaseDto implements Serializable {
-	public static final String CLASSNAME = "SecurityDto";
-	private static final long serialVersionUID = 1L;
+    public static final String CLASSNAME = "SecurityDto";
+    private static final long serialVersionUID = 1L;
 
-	protected long securityId = 0; // set to zero to find insert errors
+    protected long securityId = 0; // set to zero to find insert errors
 
-	protected int longOrShort = GmConstants.LONG_SECURITY;
-	protected int stockType = GmConstants.TYPE_CRYPTO;
-	protected int buyOrSell = GmConstantsBroker.TYPE_BUY;
+    protected int longOrShort = GmConstants.LONG_SECURITY;
+    protected int stockType = GmConstants.TYPE_CRYPTO;
+    protected int buyOrSell = GmConstantsBroker.TYPE_BUY;
 
-	protected int numPeriodsInBucket = 0;
+    protected int numPeriodsInBucket = 0;
 
-	public SecurityDto() {
-	}
+    public SecurityDto() {
+    }
 
-	public SecurityDto(String displaySymbol, String dbQuerySymbol, int longOrShort, int stockType) {
-		super(displaySymbol, dbQuerySymbol);
+    public SecurityDto(String displaySymbol, String dbQuerySymbol, int longOrShort, int stockType) {
+        super(displaySymbol, dbQuerySymbol);
 
-		this.longOrShort = longOrShort;
-		this.stockType = stockType;
-	}
+        this.longOrShort = longOrShort;
+        this.stockType = stockType;
+    }
 
 //	// ------------------------------------------------ XML SAVE/RESTORE ---------------------------------------------------
 //	public SecurityDto(String xmldata) {
@@ -78,44 +78,44 @@ public class SecurityDto extends SecurityBaseDto implements Serializable {
 //		return stb;
 //	}
 
-	// ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
-	public long getSecurityId() {
-		return securityId;
-	}
+    // ------------------------------------------------ SETTERS/GETTERS ---------------------------------------------------
+    public long getSecurityId() {
+        return securityId;
+    }
 
-	public void setSecurityId(long securityId) {
-		this.securityId = securityId;
-	}
+    public void setSecurityId(long securityId) {
+        this.securityId = securityId;
+    }
 
-	public int getLongOrShort() {
-		return longOrShort;
-	}
+    public int getLongOrShort() {
+        return longOrShort;
+    }
 
-	public void setLongOrShort(int longOrShort) {
-		this.longOrShort = longOrShort;
-	}
+    public void setLongOrShort(int longOrShort) {
+        this.longOrShort = longOrShort;
+    }
 
-	public int getStockType() {
-		return stockType;
-	}
+    public int getStockType() {
+        return stockType;
+    }
 
-	public void setStockType(int stockType) {
-		this.stockType = stockType;
-	}
+    public void setStockType(int stockType) {
+        this.stockType = stockType;
+    }
 
-	public int getBuyOrSell() {
-		return buyOrSell;
-	}
+    public int getBuyOrSell() {
+        return buyOrSell;
+    }
 
-	public void setBuyOrSell(int buyOrSell) {
-		this.buyOrSell = buyOrSell;
-	}
+    public void setBuyOrSell(int buyOrSell) {
+        this.buyOrSell = buyOrSell;
+    }
 
-	public int getNumPeriodsInBucket() {
-		return numPeriodsInBucket;
-	}
+    public int getNumPeriodsInBucket() {
+        return numPeriodsInBucket;
+    }
 
-	public void setNumPeriodsInBucket(int numPeriodsInBucket) {
-		this.numPeriodsInBucket = numPeriodsInBucket;
-	}
+    public void setNumPeriodsInBucket(int numPeriodsInBucket) {
+        this.numPeriodsInBucket = numPeriodsInBucket;
+    }
 }

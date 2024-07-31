@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.AccountDb;
+import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.AccountEntity;
 import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Service
 public class AccountDbService extends BasicDbService {
 
-    private AccountRepository repository;
+    private final AccountRepository repository;
 
     public AccountDbService(AccountRepository repository) {
         super("Account");
@@ -27,8 +27,8 @@ public class AccountDbService extends BasicDbService {
     /**
      * Create a record with name and description
      *
-     * @param extid - the extid to use
-     * @param name - value for name
+     * @param extid       - the extid to use
+     * @param name        - value for name
      * @param description - value for description
      * @return
      * @throws DataIntegrityViolationException
@@ -68,8 +68,8 @@ public class AccountDbService extends BasicDbService {
     /**
      * Update the Account name and description
      *
-     * @param extid - the extid to use
-     * @param name - value for name
+     * @param extid       - the extid to use
+     * @param name        - value for name
      * @param description - value for description
      * @return
      */
@@ -93,6 +93,7 @@ public class AccountDbService extends BasicDbService {
 
     /**
      * Delete by Extid
+     *
      * @param extid - to delete
      * @return boolean
      * @throws AccountDeleteFailureException
@@ -134,9 +135,11 @@ public class AccountDbService extends BasicDbService {
     // ////////////////////////////////////////////////////////
     // CHECK METHODS
     // ////////////////////////////////////////////////////////
+
     /**
      * Checks if the retrieval of Account failed elses throw an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws AccountRetrievalFailureException
      */
@@ -148,7 +151,8 @@ public class AccountDbService extends BasicDbService {
 
     /**
      * Checks if Account was created else throws an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws AccountUpdateFailureException
      */
@@ -160,7 +164,8 @@ public class AccountDbService extends BasicDbService {
 
     /**
      * Checks if Account was deleted else throws an exception
-     * @param record - if null, throw an exception
+     *
+     * @param record  - if null, throw an exception
      * @param message
      * @throws AccountDeleteFailureException
      */
@@ -172,7 +177,8 @@ public class AccountDbService extends BasicDbService {
 
     /**
      * Checks if Account already exists
-     * @param extid - if exists throw exception
+     *
+     * @param extid   - if exists throw exception
      * @param message
      * @throws AccountCreateFailureException
      */
@@ -182,7 +188,6 @@ public class AccountDbService extends BasicDbService {
             throw new AccountCreateFailureException(message);
         }
     }
-
 
 
 }
