@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id:  1720710223789-1
+      id:  init
       author:  jeb
       labels: create_database
       changes:
