@@ -36,16 +36,28 @@ import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConfigurationProperties(prefix = "finnhub")
 public class FinnhubClient {
 
-	private CloseableHttpClient httpClient = HttpClients.createDefault();
+//	@Value("${fintoken}")
 	private String token;
+
+	@Value("${finnhub.token}")
+	private String tokenz;
+
+	@Value("${finnhub.hello}")
+	private String hello;
+
+	private CloseableHttpClient httpClient = HttpClients.createDefault();
 	private Gson gson;
 
 	public FinnhubClient() {
+		this.gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter().nullSafe()).create();
 	}
 
 	public FinnhubClient(String token) {
@@ -56,6 +68,14 @@ public class FinnhubClient {
 	public FinnhubClient(String token, Gson gson) {
 		this.token = token;
 		this.gson = gson;
+	}
+
+	public String getTokenz() {
+		return tokenz;
+	}
+
+	public void setTokenz(String tokenz) {
+		this.tokenz = tokenz;
 	}
 
 	public String getToken() {
@@ -93,6 +113,9 @@ public class FinnhubClient {
 		ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.QUOTE.url() + "?token=" + token + "&symbol=" + symbol)
 				.build();
 
+		System.out.println("token="+token);
+		System.out.println("tokenz="+tokenz);
+		System.out.println("hello="+hello);
 		String result = null;
 		try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
 			result = EntityUtils.toString(response.getEntity());

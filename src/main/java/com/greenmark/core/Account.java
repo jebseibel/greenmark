@@ -1,7 +1,6 @@
-package com.greenmark.account;
+package com.greenmark.core;
 
-import com.greenmark.core.Market;
-import com.greenmark.core.Scenario;
+import com.greenmark.account.BrokerAccount;
 import com.greenmark.common.core.Labels;
 import com.greenmark.utils.UTCalendarTime;
 import com.greenmark.utils.UTXmlUtils;

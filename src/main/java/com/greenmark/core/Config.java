@@ -1,6 +1,5 @@
 package com.greenmark.core;
 
-import com.greenmark.account.Account;
 import com.greenmark.model.Model;
 import com.greenmark.utils.*;
 import com.greenmark.utils.dv.DVDatavault;
@@ -725,6 +724,7 @@ public class Config
 		hashModel = new Hashtable(200);
 		hashConfig = new Hashtable(200);
 	}
+
 //	public static final void initMarketTrends( )
 //	{
 //		//if the current config xml document is configured with MKTD, set it on.

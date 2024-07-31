@@ -35,13 +35,22 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = FinnhubClient.class)
 public class FinnhubClientTest {
 
-    @Value("${finnhub.token}")
+//    @Value("${finnhub.token}")
     private String token;
+
+    @Test
+    void testPropertyInjection() throws ParseException, IOException {
+        FinnhubClient client = new FinnhubClient();
+        Quote quote = client.quote("TSLA");
+        assertNotNull(quote.getC());
+        assertNotNull(quote);
+    }
 
     @Test
     void requestQuote() throws ParseException, IOException {
     	FinnhubClient client = new FinnhubClient(token);
         Quote quote = client.quote("TSLA");
+        assertNotNull(quote.getC());
         assertNotNull(quote);
     }
 
