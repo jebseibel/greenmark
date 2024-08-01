@@ -1,0 +1,11 @@
+databaseChangeLog:
+  -  changeSet:
+       id:  sqlFile-example
+       author:  jeb
+       changes:
+         -  sqlFile:
+              dbms:  'mysql'
+              endDelimiter:  \nGO
+              splitStatements:  true
+              path:  db/changelog/changes/sql/load.sql
+              stripComments:  true

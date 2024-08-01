@@ -244,5 +244,3 @@ databaseChangeLog:
               - column:
                   name: active
                   type: int
-
-  INSERT INTO sql_table (stringValue, numericValue, booleanValue, nullExample) VALUES ('Text value', 123, true, null);

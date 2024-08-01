@@ -1,0 +1,1 @@
+INSERT INTO greenmark.stock(id,extid,name,description,created_at,modified_at,deleted_at,active)VALUES(1,"extid1","name1","description","2024-08-01 11:04:57",null,null,1);
