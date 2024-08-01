@@ -132,6 +132,32 @@ public class StockDbService extends BasicDbService {
         return StockMapper.toDb(record);
     }
 
+    public void loadOnStartup(@NonNull String extid, String name, String description) throws StockRetrievalFailureException, StockUpdateFailureException {
+        StockEntity record = repository.findByExtid(extid);
+        if (record == null) {
+            log.info("Already exists stock ["+name+"]");
+            return;
+        }
+
+        try {
+            record = new StockEntity();
+            record.setExtid(extid);
+            record.setName(name);
+            record.setDescription(description);
+            record.setCreatedAt(LocalDateTime.now());
+            record.setActive(ActiveEnum.ACTIVE.value);
+            System.out.println(record);
+
+            repository.save(record);
+            log.info("Success creating stock ["+name+"]");
+            return;
+        } catch (Exception e) {
+            log.info("Failure creating stock ["+name+"]");
+            return;
+        }
+
+    }
+
     // ////////////////////////////////////////////////////////
     // CHECK METHODS
     // ////////////////////////////////////////////////////////
