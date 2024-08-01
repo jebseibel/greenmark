@@ -2,7 +2,7 @@ package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.BucketDb;
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.entity.BucketEntity;
+import com.greenmark.database.db.entity.Bucket;
 import com.greenmark.database.db.mapper.BucketMapper;
 import com.greenmark.database.db.repository.BucketRepository;
 import com.greenmark.database.exceptions.*;
@@ -39,7 +39,7 @@ public class BucketDbService extends BasicDbService {
         checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
 
         try {
-            BucketEntity record = new BucketEntity();
+            Bucket record = new Bucket();
             record.setExtid(extid);
             record.setName(name);
             record.setDescription(description);
@@ -47,7 +47,7 @@ public class BucketDbService extends BasicDbService {
             record.setActive(ActiveEnum.ACTIVE.value);
             System.out.println(record);
 
-            BucketEntity saved = repository.save(record);
+            Bucket saved = repository.save(record);
             log.debug(getCreatedMessage(extid));
             return BucketMapper.toDb(saved);
         } catch (Exception e) {
@@ -74,13 +74,13 @@ public class BucketDbService extends BasicDbService {
      * @return
      */
     public BucketDb update(@NonNull String extid, String name, String description) throws BucketRetrievalFailureException, BucketUpdateFailureException {
-        BucketEntity record = repository.findByExtid(extid);
+        Bucket record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         record.setName(name);
         record.setDescription(description);
         record.setModifiedAt(LocalDateTime.now());
-        BucketEntity saved = repository.save(record);
+        Bucket saved = repository.save(record);
 
         if (saved == null) {
             throw new BucketUpdateFailureException("Bucket with extid " + extid + " not saved");
@@ -100,7 +100,7 @@ public class BucketDbService extends BasicDbService {
      * @throws BucketRetrievalFailureException
      */
     public boolean delete(@NonNull String extid) throws BucketDeleteFailureException, BucketRetrievalFailureException {
-        BucketEntity record = repository.findByExtid(extid);
+        Bucket record = repository.findByExtid(extid);
 
         // error if the record isn't there
         checkNullRecord(record, getFoundFailureMessage(extid));
@@ -108,7 +108,7 @@ public class BucketDbService extends BasicDbService {
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        BucketEntity saved = repository.save(record);
+        Bucket saved = repository.save(record);
 
         // error delete failed
         checkDeletedFailure(saved, getDeletedFailureMessage(extid));
@@ -125,7 +125,7 @@ public class BucketDbService extends BasicDbService {
      * @return boolean
      */
     public BucketDb findByExtid(@NonNull String extid) throws BucketRetrievalFailureException {
-        BucketEntity record = repository.findByExtid(extid);
+        Bucket record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         log.info(getFoundMessage(extid));
@@ -143,7 +143,7 @@ public class BucketDbService extends BasicDbService {
      * @param message
      * @throws BucketRetrievalFailureException
      */
-    private void checkNullRecord(BucketEntity record, String message) throws BucketRetrievalFailureException {
+    private void checkNullRecord(Bucket record, String message) throws BucketRetrievalFailureException {
         if (record == null) {
             throw new BucketRetrievalFailureException(message);
         }
@@ -156,7 +156,7 @@ public class BucketDbService extends BasicDbService {
      * @param message
      * @throws BucketUpdateFailureException
      */
-    private void checkUpdatedFailure(BucketEntity record, String message) throws BucketUpdateFailureException {
+    private void checkUpdatedFailure(Bucket record, String message) throws BucketUpdateFailureException {
         if (record == null) {
             throw new BucketUpdateFailureException(message);
         }
@@ -169,7 +169,7 @@ public class BucketDbService extends BasicDbService {
      * @param message
      * @throws BucketDeleteFailureException
      */
-    private void checkDeletedFailure(BucketEntity record, String message) throws BucketDeleteFailureException {
+    private void checkDeletedFailure(Bucket record, String message) throws BucketDeleteFailureException {
         if (record == null) {
             throw new BucketDeleteFailureException(message);
         }
@@ -183,7 +183,7 @@ public class BucketDbService extends BasicDbService {
      * @throws BucketCreateFailureException
      */
     private void checkCreatedAlready(String extid, String message) throws BucketCreateFailureException {
-        BucketEntity record = repository.findByExtid(extid);
+        Bucket record = repository.findByExtid(extid);
         if (record != null) {
             throw new BucketCreateFailureException(message);
         }

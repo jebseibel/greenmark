@@ -1,12 +1,12 @@
 package com.greenmark.database.db.repository;
 
-import com.greenmark.database.db.entity.FollowEntity;
+import com.greenmark.database.db.entity.Follow;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FollowRepository extends CrudRepository<FollowEntity, Integer> {
-    FollowEntity findByName(String name);
+public interface FollowRepository extends CrudRepository<Follow, Integer> {
+    Follow findByName(String name);
 
-    FollowEntity findByExtid(String extid);
+    Follow findByExtid(String extid);
 }

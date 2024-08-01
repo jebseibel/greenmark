@@ -22,19 +22,21 @@ class StockDbServiceTest {
     class CreateTests {
 
         String random = DomainBuilder.randomPositiveString();
+        String symbol = DomainBuilder.getSymbolRandom();
         String name = DomainBuilder.getNameRandom(random);
-        String description = DomainBuilder.getNameRandom(random);
+
 
         @Test
         void created() throws Exception {
             // test
             String extid = DomainBuilder.getUUID();
-            StockDb result = service.create(extid, name, description);
+            System.out.println(symbol);
+            StockDb result = service.create(extid, symbol, name);
 
             // validate
             assertNotNull(result);
             assertEquals(result.getName(), name);
-            assertEquals(result.getDescription(), description);
+            assertEquals(result.getSymbol(), symbol);
         }
 
         @Test
@@ -42,7 +44,7 @@ class StockDbServiceTest {
             // test
             try {
                 String extid = DomainBuilder.getStringTestUUID();
-                service.create(extid, name, description);
+                service.create(extid, symbol, name);
                 fail();
             }
             catch (StockCreateFailureException e) {
@@ -61,27 +63,27 @@ class StockDbServiceTest {
         String extid;
         String random = DomainBuilder.randomPositiveString();
         String name = DomainBuilder.getNameRandom(random);
-        String description = DomainBuilder.getNameRandom(random);
+        String symbol = DomainBuilder.getSymbolRandom();
 
         @BeforeEach
         void beforeEach() throws StockCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
-            record = service.create(extid, name, description);
+            record = service.create(extid, symbol, name);
         }
 
         @Test
         void updated() throws StockUpdateFailureException, StockRetrievalFailureException {
             String newName = DomainBuilder.getNameRandom();
-            String newDescription = DomainBuilder.getNameRandom();
+            String newSymbol = DomainBuilder.getSymbolRandom();
 
             //execute
-            StockDb result = service.update(extid, newName, newDescription);
+            StockDb result = service.update(extid, newSymbol, newName);
 
             // validate
             assertNotNull(result);
             assertEquals(result.getExtid(), extid);
             assertEquals(result.getName(), newName);
-            assertEquals(result.getDescription(), newDescription);
+            assertEquals(result.getSymbol(), newSymbol);
         }
 
         @Test
@@ -89,7 +91,7 @@ class StockDbServiceTest {
             // test
             try {
                 String badExtid = UUID.randomUUID().toString();
-                service.update(badExtid, name, description);
+                service.update(badExtid, symbol, name);
                 fail();
             }
             catch (StockRetrievalFailureException e) {
@@ -107,13 +109,14 @@ class StockDbServiceTest {
         StockDb record;
         String extid;
         String random = DomainBuilder.randomPositiveString();
+        String symbol = DomainBuilder.getSymbolRandom();
         String name = DomainBuilder.getNameRandom(random);
-        String description = DomainBuilder.getNameRandom(random);
+
 
         @BeforeEach
         void beforeEach() throws StockCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
-            record = service.create(extid, name, description);
+            record = service.create(extid, symbol, name);
         }
 
         @Test
@@ -148,13 +151,13 @@ class StockDbServiceTest {
         StockDb record;
         String extid;
         String random = DomainBuilder.randomPositiveString();
+        String symbol = DomainBuilder.getSymbolRandom();
         String name = DomainBuilder.getNameRandom(random);
-        String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
         void beforeEach() throws StockCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
-            record = service.create(extid, name, description);
+            record = service.create(extid, symbol, name);
         }
 
         @Test

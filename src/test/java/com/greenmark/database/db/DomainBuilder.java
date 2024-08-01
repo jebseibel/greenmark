@@ -4,6 +4,7 @@ import com.greenmark.common.database.domain.*;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.*;
 import com.greenmark.database.db.mapper.*;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -16,22 +17,22 @@ public class DomainBuilder
 
     // ///////////////////////////////////////////////////////////////////
     public static AccountDb getAccountDb() {
-        AccountEntity item = getAccount(null, null);
+        Account item = getAccount(null, null);
         return AccountMapper.toDb(item);
     }
-    public static AccountEntity getAccount() {
+    public static Account getAccount() {
         return getAccount(null, null);
     }
-    public static AccountEntity getAccount(String name) {
+    public static Account getAccount(String name) {
         return getAccount(name, null);
     }
-    public static AccountEntity getAccount(
+    public static Account getAccount(
             String thisName,
             String thisDescription
     ) {
 
         String random = getNameRandom();
-        AccountEntity item = new AccountEntity();
+        Account item = new Account();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom(random));
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom(random));
@@ -54,20 +55,20 @@ public class DomainBuilder
 
     // //////////////////////////////////////////////////////////////////
     public static BucketDb getBucketDb() {
-        BucketEntity item = getBucket(null, null);
+        Bucket item = getBucket(null, null);
         return BucketMapper.toDb(item);
     }    
-    public static BucketEntity getBucket() {
+    public static Bucket getBucket() {
         return getBucket(null, null);
     }
-    public static BucketEntity getBucket(String name) {
+    public static Bucket getBucket(String name) {
         return getBucket(name, null);
     }
-    public static BucketEntity getBucket(
+    public static Bucket getBucket(
             String thisName,
             String thisDescription
     ) {
-        BucketEntity item = new BucketEntity();
+        Bucket item = new Bucket();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom());
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom());
@@ -80,16 +81,16 @@ public class DomainBuilder
 
     // //////////////////////////////////////////////////////////////////
     public static FollowDb getFollowDb() {
-        FollowEntity item = getFollow(null, null);
+        Follow item = getFollow(null, null);
         return FollowMapper.toDb(item);
     }
-    public static FollowEntity getFollow() { return getFollow(null, null); }
-    public static FollowEntity getFollow(String name) { return getFollow(name, null);  }
-    public static FollowEntity getFollow(
+    public static Follow getFollow() { return getFollow(null, null); }
+    public static Follow getFollow(String name) { return getFollow(name, null);  }
+    public static Follow getFollow(
             String thisName,
             String thisDescription
     ) {
-        FollowEntity item = new FollowEntity();
+        Follow item = new Follow();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom());
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom());
@@ -102,16 +103,16 @@ public class DomainBuilder
 
     // //////////////////////////////////////////////////////////////////
     public static ScenarioDb getScenarioDb() {
-        ScenarioEntity item = getScenario(null, null);
+        Scenario item = getScenario(null, null);
         return ScenarioMapper.toDb(item);
     }
-    public static ScenarioEntity getScenario() { return getScenario(null, null); }
-    public static ScenarioEntity getScenario(String name) { return getScenario(name, null);  }
-    public static ScenarioEntity getScenario(
+    public static Scenario getScenario() { return getScenario(null, null); }
+    public static Scenario getScenario(String name) { return getScenario(name, null);  }
+    public static Scenario getScenario(
             String thisName,
             String thisDescription
     ) {
-        ScenarioEntity item = new ScenarioEntity();
+        Scenario item = new Scenario();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom());
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom());
@@ -124,25 +125,23 @@ public class DomainBuilder
 
     // //////////////////////////////////////////////////////////////////
     public static StockDb getStockDb() {
-        StockEntity item = getStock(null, null);
+        Stock item = getStock(null, null);
         return StockMapper.toDb(item);
     }
-    public static StockEntity getStock() {
+    public static Stock getStock() {
         return getStock(null, null);
     }
-    public static StockEntity getStock(String name) {
+    public static Stock getStock(String name) {
         return getStock(name, null);
     }
-    public static StockEntity getStock(
+    public static Stock getStock(
             String thisName,
-            String thisDescription
+            String thisSymbol
     ) {
-        StockEntity item = new StockEntity();
+        Stock item = new Stock();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom());
-        item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom());
-//        item.setSymbol( thisSymbol != null ? thisSymbol : "Symbol_" + randomPositiveString());
-//        item.setIgnore( 1);
+        item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
         item.setActive(ActiveEnum.ACTIVE.value);
         item.setCreatedAt(LocalDateTime.now());
         item.setModifiedAt(null);
@@ -162,7 +161,10 @@ public class DomainBuilder
     public static String getNameRandom() {
         return NAME + randomPositiveString();
     }
-    
+    public static String getSymbolRandom() {
+        return RandomStringUtils.random(7, true, false);
+    }
+
     public static String getNameRandom(String random) {
         return NAME + random;
     }

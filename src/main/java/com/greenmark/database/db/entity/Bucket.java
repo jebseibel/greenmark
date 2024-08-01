@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "bucket")
-public class BucketEntity {
+public class Bucket {
 
     @Id
     @Column(name = "id", nullable = false)

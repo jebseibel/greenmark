@@ -3,6 +3,7 @@ package com.greenmark;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,10 +15,14 @@ public class GreenmarkApplication implements CommandLineRunner {
     @Autowired
     LoadStocks loadStocks;
 
+    @Value("${load}")
+    boolean load;
+
     @PostConstruct
     public void init(){
-        System.out.println(loadStocks.load());
-        loadStocks.load();
+//        System.out.println(loadStocks.load());
+//        if (load)
+//        loadStocks.load();
         System.out.println("Finished loading stocks");
     }
 

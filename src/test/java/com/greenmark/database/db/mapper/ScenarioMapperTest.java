@@ -2,7 +2,7 @@ package com.greenmark.database.db.mapper;
 
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.ScenarioDb;
-import com.greenmark.database.db.entity.ScenarioEntity;
+import com.greenmark.database.db.entity.Scenario;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,7 +11,7 @@ class ScenarioMapperTest {
 
     @Test
     void testToDb() {
-        ScenarioEntity item = DomainBuilder.getScenario();
+        Scenario item = DomainBuilder.getScenario();
         ScenarioDb itemDb = ScenarioMapper.toDb(item);
 
         //test

@@ -1,7 +1,7 @@
 package com.greenmark.database.db.repository;
 
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.entity.StockEntity;
+import com.greenmark.database.db.entity.Stock;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ class StockRepositoryTest {
 
         @Test
         void create() {
-            StockEntity item = DomainBuilder.getStock();
+            Stock item = DomainBuilder.getStock();
             assertNull(item.getId());
-            StockEntity result = repository.save(item);
+            Stock result = repository.save(item);
 
             //test
             assertNotNull(result);
@@ -37,8 +37,8 @@ class StockRepositoryTest {
         @Test
         void createUniqueName() {
             String name = "notUnique_"+DomainBuilder.randomPositiveString();
-            StockEntity item1 = DomainBuilder.getStock(name);
-            StockEntity item2 = DomainBuilder.getStock(name);
+            Stock item1 = DomainBuilder.getStock(name);
+            Stock item2 = DomainBuilder.getStock(name);
 
             try {
                 repository.save(item1);
@@ -53,33 +53,33 @@ class StockRepositoryTest {
 
         @Test
         void update() {
-            StockEntity item = DomainBuilder.getStock();
+            Stock item = DomainBuilder.getStock();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
-            StockEntity record = repository.save(item);
+            Stock record = repository.save(item);
 
             //now update
-            String changedDescription = "description_update";
-            record.setDescription(changedDescription);
+            String changedSymbol = DomainBuilder.getSymbolRandom();
+            record.setSymbol(changedSymbol);
             record.setModifiedAt(LocalDateTime.now());
-            StockEntity resultUpdate = repository.save(record);
+            Stock resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
-            assertEquals(resultUpdate.getDescription(), changedDescription);
+            assertEquals(resultUpdate.getSymbol(), changedSymbol);
             assertNotNull(resultUpdate.getModifiedAt());
         }
 
         @Test
         void delete() {
-            StockEntity item = DomainBuilder.getStock();
+            Stock item = DomainBuilder.getStock();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
-            StockEntity record = repository.save(item);
+            Stock record = repository.save(item);
 
             //now update
             record.setDeletedAt(LocalDateTime.now());
-            StockEntity resultUpdate = repository.save(record);
+            Stock resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -93,9 +93,9 @@ class StockRepositoryTest {
         @Test
         void findById() {
             String name = "name"+DomainBuilder.randomPositiveString();
-            StockEntity record = DomainBuilder.getStock(name);
-            StockEntity item = repository.save(record);
-            StockEntity result = repository.findById(item.getId()).get();
+            Stock record = DomainBuilder.getStock(name);
+            Stock item = repository.save(record);
+            Stock result = repository.findById(item.getId()).get();
 
             //test
             assertNotNull(result);
@@ -105,11 +105,11 @@ class StockRepositoryTest {
         @Test
         void findByExtid() {
             String extid = UUID.randomUUID().toString();
-            StockEntity record = DomainBuilder.getStock();
+            Stock record = DomainBuilder.getStock();
             record.setExtid(extid);
 
             repository.save(record);
-            StockEntity result = repository.findByExtid(extid);
+            Stock result = repository.findByExtid(extid);
 
             //test
             assertNotNull(result);
@@ -119,10 +119,10 @@ class StockRepositoryTest {
         @Test
         void findByName() {
             String name = "name"+DomainBuilder.randomPositiveString();
-            StockEntity record = DomainBuilder.getStock(name);
+            Stock record = DomainBuilder.getStock(name);
 
             repository.save(record);
-            StockEntity result = repository.findByName(name);
+            Stock result = repository.findByName(name);
 
             //test
             assertNotNull(result);

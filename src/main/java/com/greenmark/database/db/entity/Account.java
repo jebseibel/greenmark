@@ -1,14 +1,17 @@
 package com.greenmark.database.db.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "follow")
-public class FollowEntity {
+@Table(name = "account")
+public class Account implements Serializable {
+    private static final long serialVersionUID = 330515747211210728L;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -23,6 +26,9 @@ public class FollowEntity {
 
     @Column(name = "description", length = 128, nullable = false)
     private String description;
+//
+//    @Column(name = "account_type")
+//    private Integer accountType;
 
     /**
      * BASE FIELDS

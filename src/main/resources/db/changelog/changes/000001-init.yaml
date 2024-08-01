@@ -220,16 +220,17 @@ databaseChangeLog:
                   constraints:
                     nullable:  false
               - column:
-                  name: name
-                  type: varchar(64)
+                  name: symbol
+                  type: varchar(8)
                   constraints:
                     nullable:  false
                     unique: true
               - column:
-                  name: description
-                  type: varchar(128)
+                  name: name
+                  type: varchar(64)
                   constraints:
                     nullable: false
+                    unique: true
               - column:
                   name: created_at
                   type: datetime

@@ -2,7 +2,7 @@ package com.greenmark.database.db.mapper;
 
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.AccountDb;
-import com.greenmark.database.db.entity.AccountEntity;
+import com.greenmark.database.db.entity.Account;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +11,7 @@ class AccountMapperTest {
 
     @Test
     void testToDb() {
-        AccountEntity item = DomainBuilder.getAccount();
+        Account item = DomainBuilder.getAccount();
         AccountDb itemDb = AccountMapper.toDb(item);
 
         //test

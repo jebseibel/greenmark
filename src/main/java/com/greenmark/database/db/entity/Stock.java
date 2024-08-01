@@ -1,6 +1,5 @@
 package com.greenmark.database.db.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,9 +8,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "account")
-public class AccountEntity implements Serializable {
-    private static final long serialVersionUID = 330515747211210728L;
+@Table(name = "stock")
+public class Stock implements Serializable {
+    private static final long serialVersionUID = -3779377594651740105L;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -21,14 +20,11 @@ public class AccountEntity implements Serializable {
     @Column(name = "extid", length = 36, nullable = false, unique = true)
     private String extid;
 
-    @Column(name = "name", length = 64, nullable = false, unique = true)
-    private String name;
+    @Column(name = "symbol", length = 8, nullable = false, unique = true)
+    private String symbol;
 
-    @Column(name = "description", length = 128, nullable = false)
-    private String description;
-//
-//    @Column(name = "account_type")
-//    private Integer accountType;
+    @Column(name = "name", length = 64, nullable = false)
+    private String name;
 
     /**
      * BASE FIELDS
