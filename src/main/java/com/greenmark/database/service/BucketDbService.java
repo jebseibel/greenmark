@@ -33,7 +33,7 @@ public class BucketDbService extends BasicDbService {
      * @return
      * @throws DataIntegrityViolationException
      */
-    public BucketDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws BucketCreateFailureException, DatabaseAccessException {
+    public BucketDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
 
         //look for already created
         checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
@@ -54,10 +54,10 @@ public class BucketDbService extends BasicDbService {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
                     log.info(getCreatedFailureMessage(extid));
-                    throw new BucketCreateFailureException("DataIntegrityViolationException" + e.getMessage());
+                    throw new DatabaseCreateFailureException("DataIntegrityViolationException" + e.getMessage());
                 case "ConstraintViolationException ":
                     log.info(getCreatedFailureMessage(extid));
-                    throw new BucketCreateFailureException("ConstraintViolationException" + e.getMessage());
+                    throw new DatabaseCreateFailureException("ConstraintViolationException" + e.getMessage());
                 default:
                     log.info(getDbAccessMessage(extid));
                     throw new DatabaseAccessException("DatabaseAccessException" + e.getMessage());
@@ -73,7 +73,7 @@ public class BucketDbService extends BasicDbService {
      * @param description - value for description
      * @return
      */
-    public BucketDb update(@NonNull String extid, String name, String description) throws BucketRetrievalFailureException, BucketUpdateFailureException {
+    public BucketDb update(@NonNull String extid, String name, String description) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
         Bucket record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
@@ -83,7 +83,7 @@ public class BucketDbService extends BasicDbService {
         Bucket saved = repository.save(record);
 
         if (saved == null) {
-            throw new BucketUpdateFailureException("Bucket with extid " + extid + " not saved");
+            throw new DatabaseUpdateFailureException("Bucket with extid " + extid + " not saved");
         }
         checkUpdatedFailure(saved, getUpdatedFailureMessage(extid));
 
@@ -96,10 +96,10 @@ public class BucketDbService extends BasicDbService {
      *
      * @param extid - to delete
      * @return boolean
-     * @throws BucketDeleteFailureException
-     * @throws BucketRetrievalFailureException
+     * @throws DatabaseDeleteFailureException
+     * @throws DatabaseRetrievalFailureException
      */
-    public boolean delete(@NonNull String extid) throws BucketDeleteFailureException, BucketRetrievalFailureException {
+    public boolean delete(@NonNull String extid) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
         Bucket record = repository.findByExtid(extid);
 
         // error if the record isn't there
@@ -124,7 +124,7 @@ public class BucketDbService extends BasicDbService {
      * @param extid - to find
      * @return boolean
      */
-    public BucketDb findByExtid(@NonNull String extid) throws BucketRetrievalFailureException {
+    public BucketDb findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
         Bucket record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
@@ -141,11 +141,11 @@ public class BucketDbService extends BasicDbService {
      *
      * @param record  - if null, throw an exception
      * @param message
-     * @throws BucketRetrievalFailureException
+     * @throws DatabaseRetrievalFailureException
      */
-    private void checkNullRecord(Bucket record, String message) throws BucketRetrievalFailureException {
+    private void checkNullRecord(Bucket record, String message) throws DatabaseRetrievalFailureException {
         if (record == null) {
-            throw new BucketRetrievalFailureException(message);
+            throw new DatabaseRetrievalFailureException(message);
         }
     }
 
@@ -154,11 +154,11 @@ public class BucketDbService extends BasicDbService {
      *
      * @param record  - if null, throw an exception
      * @param message
-     * @throws BucketUpdateFailureException
+     * @throws DatabaseUpdateFailureException
      */
-    private void checkUpdatedFailure(Bucket record, String message) throws BucketUpdateFailureException {
+    private void checkUpdatedFailure(Bucket record, String message) throws DatabaseUpdateFailureException {
         if (record == null) {
-            throw new BucketUpdateFailureException(message);
+            throw new DatabaseUpdateFailureException(message);
         }
     }
 
@@ -167,11 +167,11 @@ public class BucketDbService extends BasicDbService {
      *
      * @param record  - if null, throw an exception
      * @param message
-     * @throws BucketDeleteFailureException
+     * @throws DatabaseDeleteFailureException
      */
-    private void checkDeletedFailure(Bucket record, String message) throws BucketDeleteFailureException {
+    private void checkDeletedFailure(Bucket record, String message) throws DatabaseDeleteFailureException {
         if (record == null) {
-            throw new BucketDeleteFailureException(message);
+            throw new DatabaseDeleteFailureException(message);
         }
     }
 
@@ -180,12 +180,12 @@ public class BucketDbService extends BasicDbService {
      *
      * @param extid   - if exists throw exception
      * @param message
-     * @throws BucketCreateFailureException
+     * @throws DatabaseCreateFailureException
      */
-    private void checkCreatedAlready(String extid, String message) throws BucketCreateFailureException {
+    private void checkCreatedAlready(String extid, String message) throws DatabaseCreateFailureException {
         Bucket record = repository.findByExtid(extid);
         if (record != null) {
-            throw new BucketCreateFailureException(message);
+            throw new DatabaseCreateFailureException(message);
         }
     }
 

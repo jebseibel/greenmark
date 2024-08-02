@@ -45,7 +45,7 @@ class ScenarioDbServiceTest {
                 service.create(extid, name, description);
                 fail();
             }
-            catch (ScenarioCreateFailureException e) {
+            catch (DatabaseCreateFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -64,13 +64,13 @@ class ScenarioDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws ScenarioCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void updated() throws ScenarioUpdateFailureException, ScenarioRetrievalFailureException {
+        void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException {
             String newName = DomainBuilder.getNameRandom();
             String newDescription = DomainBuilder.getNameRandom();
 
@@ -92,7 +92,7 @@ class ScenarioDbServiceTest {
                 service.update(badExtid, name, description);
                 fail();
             }
-            catch (ScenarioRetrievalFailureException e) {
+            catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -111,13 +111,13 @@ class ScenarioDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws ScenarioCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void findByExtid() throws ScenarioRetrievalFailureException {
+        void findByExtid() throws DatabaseRetrievalFailureException {
             // test
             ScenarioDb result = service.findByExtid(extid);
 
@@ -133,7 +133,7 @@ class ScenarioDbServiceTest {
                 String badExtid = UUID.randomUUID().toString();
                 service.findByExtid(badExtid);
                 fail();
-            } catch (ScenarioRetrievalFailureException e) {
+            } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -152,13 +152,13 @@ class ScenarioDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws ScenarioCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void deleted() throws ScenarioRetrievalFailureException, ScenarioDeleteFailureException {
+        void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
             //execute
             boolean result = service.delete(extid);
 
@@ -167,14 +167,14 @@ class ScenarioDbServiceTest {
         }
 
         @Test
-        void updatedBadExtid() throws ScenarioDeleteFailureException {
+        void updatedBadExtid() throws DatabaseDeleteFailureException {
             // test
             try {
                 String badExtid = UUID.randomUUID().toString();
                 service.delete(badExtid);
                 fail();
             }
-            catch (ScenarioRetrievalFailureException e) {
+            catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
         }

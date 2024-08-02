@@ -47,7 +47,7 @@ class StockDbServiceTest {
                 service.create(extid, symbol, name);
                 fail();
             }
-            catch (StockCreateFailureException e) {
+            catch (DatabaseCreateFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -66,13 +66,13 @@ class StockDbServiceTest {
         String symbol = DomainBuilder.getSymbolRandom();
 
         @BeforeEach
-        void beforeEach() throws StockCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, symbol, name);
         }
 
         @Test
-        void updated() throws StockUpdateFailureException, StockRetrievalFailureException {
+        void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException {
             String newName = DomainBuilder.getNameRandom();
             String newSymbol = DomainBuilder.getSymbolRandom();
 
@@ -94,7 +94,7 @@ class StockDbServiceTest {
                 service.update(badExtid, symbol, name);
                 fail();
             }
-            catch (StockRetrievalFailureException e) {
+            catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -114,13 +114,13 @@ class StockDbServiceTest {
 
 
         @BeforeEach
-        void beforeEach() throws StockCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, symbol, name);
         }
 
         @Test
-        void findByExtid() throws StockRetrievalFailureException {
+        void findByExtid() throws DatabaseRetrievalFailureException {
             // test
             StockDb result = service.findByExtid(extid);
 
@@ -136,7 +136,7 @@ class StockDbServiceTest {
                 String badExtid = UUID.randomUUID().toString();
                 service.findByExtid(badExtid);
                 fail();
-            } catch (StockRetrievalFailureException e) {
+            } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -155,13 +155,13 @@ class StockDbServiceTest {
         String name = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws StockCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, symbol, name);
         }
 
         @Test
-        void deleted() throws StockRetrievalFailureException, StockDeleteFailureException {
+        void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
             //execute
             boolean result = service.delete(extid);
 
@@ -170,14 +170,14 @@ class StockDbServiceTest {
         }
 
         @Test
-        void updatedBadExtid() throws StockDeleteFailureException {
+        void updatedBadExtid() throws DatabaseDeleteFailureException {
             // test
             try {
                 String badExtid = UUID.randomUUID().toString();
                 service.delete(badExtid);
                 fail();
             }
-            catch (StockRetrievalFailureException e) {
+            catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
         }

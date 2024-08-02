@@ -45,7 +45,7 @@ class BucketDbServiceTest {
                 service.create(extid, name, description);
                 fail();
             }
-            catch (BucketCreateFailureException e) {
+            catch (DatabaseCreateFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -64,13 +64,13 @@ class BucketDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws BucketCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void updated() throws BucketUpdateFailureException, BucketRetrievalFailureException {
+        void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException {
             String newName = DomainBuilder.getNameRandom();
             String newDescription = DomainBuilder.getNameRandom();
 
@@ -92,7 +92,7 @@ class BucketDbServiceTest {
                 service.update(badExtid, name, description);
                 fail();
             }
-            catch (BucketRetrievalFailureException e) {
+            catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -111,13 +111,13 @@ class BucketDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws BucketCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void findByExtid() throws BucketRetrievalFailureException {
+        void findByExtid() throws DatabaseRetrievalFailureException {
             // test
             BucketDb result = service.findByExtid(extid);
 
@@ -133,7 +133,7 @@ class BucketDbServiceTest {
                 String badExtid = UUID.randomUUID().toString();
                 service.findByExtid(badExtid);
                 fail();
-            } catch (BucketRetrievalFailureException e) {
+            } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -152,13 +152,13 @@ class BucketDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws BucketCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void deleted() throws BucketRetrievalFailureException, BucketDeleteFailureException {
+        void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
             //execute
             boolean result = service.delete(extid);
 
@@ -167,14 +167,14 @@ class BucketDbServiceTest {
         }
 
         @Test
-        void updatedBadExtid() throws BucketDeleteFailureException {
+        void updatedBadExtid() throws DatabaseDeleteFailureException {
             // test
             try {
                 String badExtid = UUID.randomUUID().toString();
                 service.delete(badExtid);
                 fail();
             }
-            catch (BucketRetrievalFailureException e) {
+            catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
         }

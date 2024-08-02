@@ -33,7 +33,7 @@ public class AccountDbService extends BasicDbService {
      * @return
      * @throws DataIntegrityViolationException
      */
-    public AccountDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws AccountCreateFailureException, DatabaseAccessException {
+    public AccountDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
 
         //look for already created
         checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
@@ -54,10 +54,10 @@ public class AccountDbService extends BasicDbService {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
                     log.info(getCreatedFailureMessage(extid));
-                    throw new AccountCreateFailureException("DataIntegrityViolationException" + e.getMessage());
+                    throw new DatabaseCreateFailureException("DataIntegrityViolationException" + e.getMessage());
                 case "ConstraintViolationException ":
                     log.info(getCreatedFailureMessage(extid));
-                    throw new AccountCreateFailureException("ConstraintViolationException" + e.getMessage());
+                    throw new DatabaseCreateFailureException("ConstraintViolationException" + e.getMessage());
                 default:
                     log.info(getDbAccessMessage(extid));
                     throw new DatabaseAccessException("DatabaseAccessException" + e.getMessage());
@@ -73,7 +73,7 @@ public class AccountDbService extends BasicDbService {
      * @param description - value for description
      * @return
      */
-    public AccountDb update(@NonNull String extid, String name, String description) throws AccountRetrievalFailureException, AccountUpdateFailureException {
+    public AccountDb update(@NonNull String extid, String name, String description) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
         Account record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
@@ -83,7 +83,7 @@ public class AccountDbService extends BasicDbService {
         Account saved = repository.save(record);
 
         if (saved == null) {
-            throw new AccountUpdateFailureException("Account with extid " + extid + " not saved");
+            throw new DatabaseUpdateFailureException("Account with extid " + extid + " not saved");
         }
         checkUpdatedFailure(saved, getUpdatedFailureMessage(extid));
 
@@ -96,10 +96,10 @@ public class AccountDbService extends BasicDbService {
      *
      * @param extid - to delete
      * @return boolean
-     * @throws AccountDeleteFailureException
-     * @throws AccountRetrievalFailureException
+     * @throws DatabaseDeleteFailureException
+     * @throws DatabaseRetrievalFailureException
      */
-    public boolean delete(@NonNull String extid) throws AccountDeleteFailureException, AccountRetrievalFailureException {
+    public boolean delete(@NonNull String extid) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
         Account record = repository.findByExtid(extid);
 
         // error if the record isn't there
@@ -124,7 +124,7 @@ public class AccountDbService extends BasicDbService {
      * @param extid - to find
      * @return boolean
      */
-    public AccountDb findByExtid(@NonNull String extid) throws AccountRetrievalFailureException {
+    public AccountDb findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
         Account record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
@@ -141,11 +141,11 @@ public class AccountDbService extends BasicDbService {
      *
      * @param record  - if null, throw an exception
      * @param message
-     * @throws AccountRetrievalFailureException
+     * @throws DatabaseRetrievalFailureException
      */
-    private void checkNullRecord(Account record, String message) throws AccountRetrievalFailureException {
+    private void checkNullRecord(Account record, String message) throws DatabaseRetrievalFailureException {
         if (record == null) {
-            throw new AccountRetrievalFailureException(message);
+            throw new DatabaseRetrievalFailureException(message);
         }
     }
 
@@ -154,11 +154,11 @@ public class AccountDbService extends BasicDbService {
      *
      * @param record  - if null, throw an exception
      * @param message
-     * @throws AccountUpdateFailureException
+     * @throws DatabaseUpdateFailureException
      */
-    private void checkUpdatedFailure(Account record, String message) throws AccountUpdateFailureException {
+    private void checkUpdatedFailure(Account record, String message) throws DatabaseUpdateFailureException {
         if (record == null) {
-            throw new AccountUpdateFailureException(message);
+            throw new DatabaseUpdateFailureException(message);
         }
     }
 
@@ -167,11 +167,11 @@ public class AccountDbService extends BasicDbService {
      *
      * @param record  - if null, throw an exception
      * @param message
-     * @throws AccountDeleteFailureException
+     * @throws DatabaseDeleteFailureException
      */
-    private void checkDeletedFailure(Account record, String message) throws AccountDeleteFailureException {
+    private void checkDeletedFailure(Account record, String message) throws DatabaseDeleteFailureException {
         if (record == null) {
-            throw new AccountDeleteFailureException(message);
+            throw new DatabaseDeleteFailureException(message);
         }
     }
 
@@ -180,12 +180,12 @@ public class AccountDbService extends BasicDbService {
      *
      * @param extid   - if exists throw exception
      * @param message
-     * @throws AccountCreateFailureException
+     * @throws DatabaseCreateFailureException
      */
-    private void checkCreatedAlready(String extid, String message) throws AccountCreateFailureException {
+    private void checkCreatedAlready(String extid, String message) throws DatabaseCreateFailureException {
         Account record = repository.findByExtid(extid);
         if (record != null) {
-            throw new AccountCreateFailureException(message);
+            throw new DatabaseCreateFailureException(message);
         }
     }
 

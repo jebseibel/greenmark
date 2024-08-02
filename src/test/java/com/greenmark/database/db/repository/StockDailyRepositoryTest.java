@@ -1,7 +1,7 @@
 package com.greenmark.database.db.repository;
 
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.entity.StockNightly;
+import com.greenmark.database.db.entity.StockDaily;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class StockNightlyRepositoryTest {
+class StockDailyRepositoryTest {
 
     @Autowired
-    private StockNightlyRepository repository;
+    private StockDailyRepository repository;
 
     @BeforeEach
     void setUp() {
@@ -33,9 +33,9 @@ class StockNightlyRepositoryTest {
 
         @Test
         void create() {
-            StockNightly item = DomainBuilder.getStockNightly();
+            StockDaily item = DomainBuilder.getStockNightly();
             assertNull(item.getId());
-            StockNightly result = repository.save(item);
+            StockDaily result = repository.save(item);
 
             //test
             assertNotNull(result);
@@ -46,8 +46,8 @@ class StockNightlyRepositoryTest {
         @Test
         void createUniqueName() {
             String symbol = DomainBuilder.getSymbolRandom();
-            StockNightly item1 = DomainBuilder.getStockNightly(symbol);
-            StockNightly item2 = DomainBuilder.getStockNightly(symbol);
+            StockDaily item1 = DomainBuilder.getStockNightly(symbol);
+            StockDaily item2 = DomainBuilder.getStockNightly(symbol);
 
             try {
                 repository.save(item1);
@@ -62,16 +62,16 @@ class StockNightlyRepositoryTest {
 
         @Test
         void update() {
-            StockNightly item = DomainBuilder.getStockNightly();
+            StockDaily item = DomainBuilder.getStockNightly();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
-            StockNightly record = repository.save(item);
+            StockDaily record = repository.save(item);
 
             //now update
             String changedSymbol = DomainBuilder.getSymbolRandom();
             record.setSymbol(changedSymbol);
             record.setModifiedAt(LocalDateTime.now());
-            StockNightly resultUpdate = repository.save(record);
+            StockDaily resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -81,14 +81,14 @@ class StockNightlyRepositoryTest {
 
         @Test
         void delete() {
-            StockNightly item = DomainBuilder.getStockNightly();
+            StockDaily item = DomainBuilder.getStockNightly();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
-            StockNightly record = repository.save(item);
+            StockDaily record = repository.save(item);
 
             //now update
             record.setDeletedAt(LocalDateTime.now());
-            StockNightly resultUpdate = repository.save(record);
+            StockDaily resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -102,9 +102,9 @@ class StockNightlyRepositoryTest {
         @Test
         void findById() {
             String symbol = DomainBuilder.getSymbolRandom();
-            StockNightly record = DomainBuilder.getStockNightly(symbol);
-            StockNightly item = repository.save(record);
-            StockNightly result = repository.findById(item.getId()).get();
+            StockDaily record = DomainBuilder.getStockNightly(symbol);
+            StockDaily item = repository.save(record);
+            StockDaily result = repository.findById(item.getId()).get();
 
             //test
             assertNotNull(result);
@@ -115,10 +115,10 @@ class StockNightlyRepositoryTest {
         @Test
         void findBySymbol() {
             String symbol = DomainBuilder.getSymbolRandom();
-            StockNightly record = DomainBuilder.getStockNightly(symbol);
+            StockDaily record = DomainBuilder.getStockNightly(symbol);
 
             repository.save(record);
-            StockNightly result = repository.findBySymbol(symbol);
+            StockDaily result = repository.findBySymbol(symbol);
 
             //test
             assertNotNull(result);

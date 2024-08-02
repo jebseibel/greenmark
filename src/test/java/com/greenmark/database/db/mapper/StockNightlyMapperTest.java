@@ -1,9 +1,9 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.StockNightlyDb;
+import com.greenmark.common.database.domain.StockDailyDb;
 
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.entity.StockNightly;
+import com.greenmark.database.db.entity.StockDaily;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,8 +12,8 @@ class StockNightlyMapperTest {
 
     @Test
     void testToDb() {
-        StockNightly item = DomainBuilder.getStockNightly();
-        StockNightlyDb itemDb = StockNightlyMapper.toDb(item);
+        StockDaily item = DomainBuilder.getStockNightly();
+        StockDailyDb itemDb = StockDailyMapper.toDb(item);
 
         //test
         assertEquals(item.getSymbol(), itemDb.getSymbol());

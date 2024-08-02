@@ -33,7 +33,7 @@ public class ScenarioDbService extends BasicDbService {
      * @return
      * @throws DataIntegrityViolationException
      */
-    public ScenarioDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws ScenarioCreateFailureException, DatabaseAccessException {
+    public ScenarioDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
 
         //look for already created
         checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
@@ -54,10 +54,10 @@ public class ScenarioDbService extends BasicDbService {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
                     log.info(getCreatedFailureMessage(extid));
-                    throw new ScenarioCreateFailureException("DataIntegrityViolationException" + e.getMessage());
+                    throw new DatabaseCreateFailureException("DataIntegrityViolationException" + e.getMessage());
                 case "ConstraintViolationException ":
                     log.info(getCreatedFailureMessage(extid));
-                    throw new ScenarioCreateFailureException("ConstraintViolationException" + e.getMessage());
+                    throw new DatabaseCreateFailureException("ConstraintViolationException" + e.getMessage());
                 default:
                     log.info(getDbAccessMessage(extid));
                     throw new DatabaseAccessException("DatabaseAccessException" + e.getMessage());
@@ -73,7 +73,7 @@ public class ScenarioDbService extends BasicDbService {
      * @param description - value for description
      * @return
      */
-    public ScenarioDb update(@NonNull String extid, String name, String description) throws ScenarioRetrievalFailureException, ScenarioUpdateFailureException {
+    public ScenarioDb update(@NonNull String extid, String name, String description) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
         Scenario record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
@@ -83,7 +83,7 @@ public class ScenarioDbService extends BasicDbService {
         Scenario saved = repository.save(record);
 
         if (saved == null) {
-            throw new ScenarioUpdateFailureException("Scenario with extid " + extid + " not saved");
+            throw new DatabaseUpdateFailureException("Scenario with extid " + extid + " not saved");
         }
         checkUpdatedFailure(saved, getUpdatedFailureMessage(extid));
 
@@ -96,10 +96,10 @@ public class ScenarioDbService extends BasicDbService {
      *
      * @param extid - to delete
      * @return boolean
-     * @throws ScenarioDeleteFailureException
-     * @throws ScenarioRetrievalFailureException
+     * @throws DatabaseDeleteFailureException
+     * @throws DatabaseRetrievalFailureException
      */
-    public boolean delete(@NonNull String extid) throws ScenarioDeleteFailureException, ScenarioRetrievalFailureException {
+    public boolean delete(@NonNull String extid) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
         Scenario record = repository.findByExtid(extid);
 
         // error if the record isn't there
@@ -124,7 +124,7 @@ public class ScenarioDbService extends BasicDbService {
      * @param extid - to find
      * @return boolean
      */
-    public ScenarioDb findByExtid(@NonNull String extid) throws ScenarioRetrievalFailureException {
+    public ScenarioDb findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
         Scenario record = repository.findByExtid(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
@@ -141,11 +141,11 @@ public class ScenarioDbService extends BasicDbService {
      *
      * @param record  - if null, throw an exception
      * @param message
-     * @throws ScenarioRetrievalFailureException
+     * @throws DatabaseRetrievalFailureException
      */
-    private void checkNullRecord(Scenario record, String message) throws ScenarioRetrievalFailureException {
+    private void checkNullRecord(Scenario record, String message) throws DatabaseRetrievalFailureException {
         if (record == null) {
-            throw new ScenarioRetrievalFailureException(message);
+            throw new DatabaseRetrievalFailureException(message);
         }
     }
 
@@ -154,11 +154,11 @@ public class ScenarioDbService extends BasicDbService {
      *
      * @param record  - if null, throw an exception
      * @param message
-     * @throws ScenarioUpdateFailureException
+     * @throws DatabaseUpdateFailureException
      */
-    private void checkUpdatedFailure(Scenario record, String message) throws ScenarioUpdateFailureException {
+    private void checkUpdatedFailure(Scenario record, String message) throws DatabaseUpdateFailureException {
         if (record == null) {
-            throw new ScenarioUpdateFailureException(message);
+            throw new DatabaseUpdateFailureException(message);
         }
     }
 
@@ -167,11 +167,11 @@ public class ScenarioDbService extends BasicDbService {
      *
      * @param record  - if null, throw an exception
      * @param message
-     * @throws ScenarioDeleteFailureException
+     * @throws DatabaseDeleteFailureException
      */
-    private void checkDeletedFailure(Scenario record, String message) throws ScenarioDeleteFailureException {
+    private void checkDeletedFailure(Scenario record, String message) throws DatabaseDeleteFailureException {
         if (record == null) {
-            throw new ScenarioDeleteFailureException(message);
+            throw new DatabaseDeleteFailureException(message);
         }
     }
 
@@ -180,12 +180,12 @@ public class ScenarioDbService extends BasicDbService {
      *
      * @param extid   - if exists throw exception
      * @param message
-     * @throws ScenarioCreateFailureException
+     * @throws DatabaseCreateFailureException
      */
-    private void checkCreatedAlready(String extid, String message) throws ScenarioCreateFailureException {
+    private void checkCreatedAlready(String extid, String message) throws DatabaseCreateFailureException {
         Scenario record = repository.findByExtid(extid);
         if (record != null) {
-            throw new ScenarioCreateFailureException(message);
+            throw new DatabaseCreateFailureException(message);
         }
     }
 

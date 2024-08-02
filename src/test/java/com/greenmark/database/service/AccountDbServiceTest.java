@@ -45,7 +45,7 @@ class AccountDbServiceTest {
                 service.create(extid, name, description);
                 fail();
             }
-            catch (AccountCreateFailureException e) {
+            catch (DatabaseCreateFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -64,13 +64,13 @@ class AccountDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws AccountCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void updated() throws AccountUpdateFailureException, AccountRetrievalFailureException {
+        void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException {
             String newName = DomainBuilder.getNameRandom();
             String newDescription = DomainBuilder.getNameRandom();
 
@@ -92,7 +92,7 @@ class AccountDbServiceTest {
                 service.update(badExtid, name, description);
                 fail();
             }
-            catch (AccountRetrievalFailureException e) {
+            catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -111,13 +111,13 @@ class AccountDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws AccountCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void findByExtid() throws AccountRetrievalFailureException {
+        void findByExtid() throws DatabaseRetrievalFailureException {
             // test
             AccountDb result = service.findByExtid(extid);
 
@@ -133,7 +133,7 @@ class AccountDbServiceTest {
                 String badExtid = UUID.randomUUID().toString();
                 service.findByExtid(badExtid);
                 fail();
-            } catch (AccountRetrievalFailureException e) {
+            } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -152,13 +152,13 @@ class AccountDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws AccountCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void deleted() throws AccountRetrievalFailureException, AccountDeleteFailureException {
+        void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
             //execute
             boolean result = service.delete(extid);
 
@@ -167,14 +167,14 @@ class AccountDbServiceTest {
         }
 
         @Test
-        void updatedBadExtid() throws AccountDeleteFailureException {
+        void updatedBadExtid() throws DatabaseDeleteFailureException {
             // test
             try {
                 String badExtid = UUID.randomUUID().toString();
                 service.delete(badExtid);
                 fail();
             }
-            catch (AccountRetrievalFailureException e) {
+            catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
         }

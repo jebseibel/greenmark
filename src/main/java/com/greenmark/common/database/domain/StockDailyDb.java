@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class StockNightlyDb {
+public class StockDailyDb {
     private String symbol;
     private Float open;
     private Float close;

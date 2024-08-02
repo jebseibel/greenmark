@@ -1,10 +1,10 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.FollowDb;
+import com.greenmark.common.database.domain.StockDailyDb;
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.entity.Follow;
-import com.greenmark.database.db.mapper.FollowMapper;
-import com.greenmark.database.db.repository.FollowRepository;
+import com.greenmark.database.db.entity.StockDaily;
+import com.greenmark.database.db.mapper.StockDailyMapper;
+import com.greenmark.database.db.repository.StockDailyRepository;
 import com.greenmark.database.exceptions.*;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -15,80 +15,74 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-public class FollowDbService extends BasicDbService {
+public class StockDailyDbService extends BasicDbService {
 
-    private final FollowRepository repository;
+    private final StockDailyRepository repository;
 
-    public FollowDbService(FollowRepository repository) {
-        super("Follow");
+    public StockDailyDbService(StockDailyRepository repository) {
+        super("StockDaily");
         this.repository = repository;
     }
 
     /**
      * Create a record with name and description
      *
-     * @param extid       - the extid to use
-     * @param name        - value for name
-     * @param description - value for description
+     * @param symbol - value for symbol
      * @return
      * @throws DataIntegrityViolationException
      */
-    public FollowDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
+    public StockDailyDb create(@NonNull String symbol) throws DatabaseCreateFailureException, DatabaseAccessException {
 
         //look for already created
-        checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
+        checkCreatedAlready(symbol, getCreatedAlreadyMessage(symbol));
 
         try {
-            Follow record = new Follow();
-            record.setExtid(extid);
-            record.setName(name);
-            record.setDescription(description);
+            StockDaily record = new StockDaily();
+            record.setSymbol(symbol);
             record.setCreatedAt(LocalDateTime.now());
             record.setActive(ActiveEnum.ACTIVE.value);
             System.out.println(record);
 
-            Follow saved = repository.save(record);
-            log.debug(getCreatedMessage(extid));
-            return FollowMapper.toDb(saved);
+            StockDaily saved = repository.save(record);
+            log.debug(getCreatedMessage(symbol));
+            return StockDailyMapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
-                    log.info(getCreatedFailureMessage(extid));
+                    log.info(getCreatedFailureMessage(symbol));
                     throw new DatabaseCreateFailureException("DataIntegrityViolationException" + e.getMessage());
                 case "ConstraintViolationException ":
-                    log.info(getCreatedFailureMessage(extid));
+                    log.info(getCreatedFailureMessage(symbol));
                     throw new DatabaseCreateFailureException("ConstraintViolationException" + e.getMessage());
                 default:
-                    log.info(getDbAccessMessage(extid));
+                    log.info(getDbAccessMessage(symbol));
                     throw new DatabaseAccessException("DatabaseAccessException" + e.getMessage());
             }
         }
     }
 
     /**
-     * Update the Follow name and description
+     * Update the StockDaily name and description
      *
-     * @param extid       - the extid to use
-     * @param name        - value for name
-     * @param description - value for description
+     * @param symbol - the symbol to use
+     *
      * @return
      */
-    public FollowDb update(@NonNull String extid, String name, String description) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
-        Follow record = repository.findByExtid(extid);
-        checkNullRecord(record, getFoundFailureMessage(extid));
+    public StockDailyDb update(@NonNull String symbol) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
+        StockDaily record = repository.findBySymbol(symbol);
+        checkNullRecord(record, getFoundFailureMessage(symbol));
 
-        record.setName(name);
-        record.setDescription(description);
+        record.setSymbol(symbol);
         record.setModifiedAt(LocalDateTime.now());
-        Follow saved = repository.save(record);
+        StockDaily saved = repository.save(record);
 
         if (saved == null) {
-            throw new DatabaseUpdateFailureException("Follow with extid " + extid + " not saved");
+            throw new DatabaseUpdateFailureException("StockDaily with extid " + symbol + " not saved");
         }
-        checkUpdatedFailure(saved, getUpdatedFailureMessage(extid));
+        checkUpdatedFailure(saved, getUpdatedFailureMessage(symbol));
 
-        log.info(getUpdatedMessage(extid));
-        return FollowMapper.toDb(saved);
+        log.info(getUpdatedMessage(symbol));
+        return StockDailyMapper.toDb(saved);
     }
 
     /**
@@ -100,7 +94,7 @@ public class FollowDbService extends BasicDbService {
      * @throws DatabaseRetrievalFailureException
      */
     public boolean delete(@NonNull String extid) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
-        Follow record = repository.findByExtid(extid);
+        StockDaily record = repository.findBySymbol(extid);
 
         // error if the record isn't there
         checkNullRecord(record, getFoundFailureMessage(extid));
@@ -108,7 +102,7 @@ public class FollowDbService extends BasicDbService {
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        Follow saved = repository.save(record);
+        StockDaily saved = repository.save(record);
 
         // error delete failed
         checkDeletedFailure(saved, getDeletedFailureMessage(extid));
@@ -119,17 +113,17 @@ public class FollowDbService extends BasicDbService {
     }
 
     /**
-     * Find Follow
+     * Find StockDaily
      *
      * @param extid - to find
      * @return boolean
      */
-    public FollowDb findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
-        Follow record = repository.findByExtid(extid);
+    public StockDailyDb findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
+        StockDaily record = repository.findBySymbol(extid);
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         log.info(getFoundMessage(extid));
-        return FollowMapper.toDb(record);
+        return StockDailyMapper.toDb(record);
     }
 
     // ////////////////////////////////////////////////////////
@@ -137,57 +131,55 @@ public class FollowDbService extends BasicDbService {
     // ////////////////////////////////////////////////////////
 
     /**
-     * Checks if the retrieval of Follow failed elses throw an exception
+     * Checks if the retrieval of StockDaily failed elses throw an exception
      *
      * @param record  - if null, throw an exception
      * @param message
      * @throws DatabaseRetrievalFailureException
      */
-    private void checkNullRecord(Follow record, String message) throws DatabaseRetrievalFailureException {
+    private void checkNullRecord(StockDaily record, String message) throws DatabaseRetrievalFailureException {
         if (record == null) {
             throw new DatabaseRetrievalFailureException(message);
         }
     }
 
     /**
-     * Checks if Follow was created else throws an exception
+     * Checks if StockDaily was created else throws an exception
      *
      * @param record  - if null, throw an exception
      * @param message
      * @throws DatabaseUpdateFailureException
      */
-    private void checkUpdatedFailure(Follow record, String message) throws DatabaseUpdateFailureException {
+    private void checkUpdatedFailure(StockDaily record, String message) throws DatabaseUpdateFailureException {
         if (record == null) {
             throw new DatabaseUpdateFailureException(message);
         }
     }
 
     /**
-     * Checks if Follow was deleted else throws an exception
+     * Checks if StockDaily was deleted else throws an exception
      *
      * @param record  - if null, throw an exception
      * @param message
-     * @throws DatabaseDeleteFailureException
+     * @throws StockDeleteFailureException
      */
-    private void checkDeletedFailure(Follow record, String message) throws DatabaseDeleteFailureException {
+    private void checkDeletedFailure(StockDaily record, String message) throws DatabaseDeleteFailureException {
         if (record == null) {
             throw new DatabaseDeleteFailureException(message);
         }
     }
 
     /**
-     * Checks if Follow already exists
+     * Checks if StockDaily already exists
      *
      * @param extid   - if exists throw exception
      * @param message
      * @throws DatabaseCreateFailureException
      */
-    private void checkCreatedAlready(String extid, String message) throws DatabaseCreateFailureException {
-        Follow record = repository.findByExtid(extid);
+    private void checkCreatedAlready(String symbol, String message) throws DatabaseCreateFailureException {
+        StockDaily record = repository.findBySymbol(symbol);
         if (record != null) {
             throw new DatabaseCreateFailureException(message);
         }
     }
-
-
 }

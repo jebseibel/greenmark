@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "stock_nightly")
-public class StockNightly implements Serializable {
+@Table(name = "stock_daily")
+public class StockDaily implements Serializable {
     private static final long serialVersionUID = -3779377594651740105L;
 
     @Id

@@ -45,7 +45,7 @@ class FollowDbServiceTest {
                 service.create(extid, name, description);
                 fail();
             }
-            catch (FollowCreateFailureException e) {
+            catch (DatabaseCreateFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -64,13 +64,13 @@ class FollowDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws FollowCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void updated() throws FollowUpdateFailureException, FollowRetrievalFailureException {
+        void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException {
             String newName = DomainBuilder.getNameRandom();
             String newDescription = DomainBuilder.getNameRandom();
 
@@ -92,7 +92,7 @@ class FollowDbServiceTest {
                 service.update(badExtid, name, description);
                 fail();
             }
-            catch (FollowRetrievalFailureException e) {
+            catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -111,13 +111,13 @@ class FollowDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws FollowCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void findByExtid() throws FollowRetrievalFailureException {
+        void findByExtid() throws DatabaseRetrievalFailureException {
             // test
             FollowDb result = service.findByExtid(extid);
 
@@ -133,7 +133,7 @@ class FollowDbServiceTest {
                 String badExtid = UUID.randomUUID().toString();
                 service.findByExtid(badExtid);
                 fail();
-            } catch (FollowRetrievalFailureException e) {
+            } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
             catch (Exception e) {
@@ -152,13 +152,13 @@ class FollowDbServiceTest {
         String description = DomainBuilder.getNameRandom(random);
 
         @BeforeEach
-        void beforeEach() throws FollowCreateFailureException, DatabaseAccessException {
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             extid = DomainBuilder.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
-        void deleted() throws FollowRetrievalFailureException, FollowDeleteFailureException {
+        void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
             //execute
             boolean result = service.delete(extid);
 
@@ -167,14 +167,14 @@ class FollowDbServiceTest {
         }
 
         @Test
-        void updatedBadExtid() throws FollowDeleteFailureException {
+        void updatedBadExtid() throws DatabaseDeleteFailureException {
             // test
             try {
                 String badExtid = UUID.randomUUID().toString();
                 service.delete(badExtid);
                 fail();
             }
-            catch (FollowRetrievalFailureException e) {
+            catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
         }

@@ -151,19 +151,19 @@ public class DomainBuilder
     }
 
     // //////////////////////////////////////////////////////////////////
-    public static StockNightlyDb getStockNightlyDb() {
-        StockNightly item = getStockNightly(null);
-        return StockNightlyMapper.toDb(item);
+    public static StockDailyDb getStockNightlyDb() {
+        StockDaily item = getStockNightly(null);
+        return StockDailyMapper.toDb(item);
     }
 
-    public static StockNightly getStockNightly() {
+    public static StockDaily getStockNightly() {
         return getStockNightly(null);
     }
 
-    public static StockNightly getStockNightly(
+    public static StockDaily getStockNightly(
             String thisSymbol
     ) {
-        StockNightly item = new StockNightly();
+        StockDaily item = new StockDaily();
         item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
         item.setOpen(randomPositiveFloat());
         item.setClose(randomPositiveFloat());
