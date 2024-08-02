@@ -232,6 +232,71 @@ databaseChangeLog:
                     nullable: false
                     unique: true
               - column:
+                  name: ready
+                  type: int
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modified_at
+                  type: datetime
+              - column:
+                  name: deleted_at
+                  type: datetime
+              - column:
+                  name: active
+                  type: int
+        - createTable:
+            tableName: stock_nightly
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: symbol
+                  type: varchar(8)
+                  constraints:
+                    nullable:  false
+                    unique: true
+              - column:
+                  name: open
+                  type: float
+                  constraints:
+                    nullable:  false
+              - column:
+                  name: close
+                  type: float
+                  constraints:
+                    nullable:  false
+              - column:
+                  name: high
+                  type: float
+                  constraints:
+                    nullable:  false
+              - column:
+                  name: low
+                  type: float
+                  constraints:
+                    nullable:  false
+              - column:
+                  name: macd
+                  type: float
+              - column:
+                  name: stochk
+                  type: float
+              - column:
+                  name: volume
+                  type: long
+              - column:
+                  name: ready
+                  type: int
+              - column:
                   name: created_at
                   type: datetime
                   constraints:

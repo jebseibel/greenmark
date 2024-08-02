@@ -43,6 +43,7 @@ public class StockDbService extends BasicDbService {
             record.setExtid(extid);
             record.setSymbol(symbol);
             record.setName(name);
+            record.setReady(ActiveEnum.ACTIVE.value);
             record.setCreatedAt(LocalDateTime.now());
             record.setActive(ActiveEnum.ACTIVE.value);
             System.out.println(record);

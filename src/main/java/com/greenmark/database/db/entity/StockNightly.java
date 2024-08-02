@@ -2,15 +2,14 @@ package com.greenmark.database.db.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "stock")
-public class Stock implements Serializable {
+@Table(name = "stock_nightly")
+public class StockNightly implements Serializable {
     private static final long serialVersionUID = -3779377594651740105L;
 
     @Id
@@ -18,17 +17,29 @@ public class Stock implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "extid", length = 36, nullable = false, unique = true)
-    private String extid;
-
-    @Column(name = "symbol", length = 8, nullable = false, unique = true)
+    @Column(name = "symbol", length = 8, nullable = false)
     private String symbol;
 
-    @Column(name = "name", length = 64, nullable = false)
-    private String name;
+    @Column(name = "open", nullable = false)
+    private Float open;
 
-    @Column(name = "ready", columnDefinition = "integer default 1")
-    private Integer ready;
+    @Column(name = "close", nullable = false)
+    private Float close;
+
+    @Column(name = "high", nullable = false)
+    private Float high;
+
+    @Column(name = "low", nullable = false)
+    private Float low;
+
+    @Column(name = "volume")
+    private Long volume;
+
+    @Column(name = "macd")
+    private Float macd;
+
+    @Column(name = "stochk")
+    private Float stochk;
 
     /**
      * BASE FIELDS

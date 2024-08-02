@@ -142,10 +142,40 @@ public class DomainBuilder
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom());
         item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
+        item.setReady(1);
         item.setActive(ActiveEnum.ACTIVE.value);
         item.setCreatedAt(LocalDateTime.now());
         item.setModifiedAt(null);
         item.setDeletedAt(null);
+        return item;
+    }
+
+    // //////////////////////////////////////////////////////////////////
+    public static StockNightlyDb getStockNightlyDb() {
+        StockNightly item = getStockNightly(null);
+        return StockNightlyMapper.toDb(item);
+    }
+
+    public static StockNightly getStockNightly() {
+        return getStockNightly(null);
+    }
+
+    public static StockNightly getStockNightly(
+            String thisSymbol
+    ) {
+        StockNightly item = new StockNightly();
+        item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
+        item.setOpen(randomPositiveFloat());
+        item.setClose(randomPositiveFloat());
+        item.setHigh(randomPositiveFloat());
+        item.setLow(randomPositiveFloat());
+        item.setVolume(randomPositiveLong());
+        item.setMacd(randomPositiveFloat());
+        item.setStochk(randomPositiveFloat());
+        item.setActive(ActiveEnum.ACTIVE.value);
+        item.setCreatedAt(LocalDateTime.now());
+        item.setModifiedAt(null);
+
         return item;
     }
 
@@ -180,6 +210,12 @@ public class DomainBuilder
     public static String randomPositiveString()  {
         return String.valueOf(new Random().nextInt());
     }
+
+    public static float randomPositiveFloat()  {
+        return new Random().nextFloat();
+    }
+
+    public static long randomPositiveLong()  { return new Random().nextLong(); }
 
     public static int randomPositiveInt()  {
         return new Random().nextInt();

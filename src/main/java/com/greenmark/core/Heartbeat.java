@@ -1,12 +1,12 @@
 package com.greenmark.core;
 
-import com.greenmark.common.core.Labels;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Hashtable;
 
 ////////////////////////////////////////////////////////////////////////////////
 // START CLASS: Heartbeat
@@ -434,4 +434,380 @@ public class Heartbeat
  return sHour + delim + sMinute + delim + sSecond;
  }
  **/
+    public static class Labels {
+        /**
+         * This is the class name.
+         */
+        public static final String CLASSNAME = "Labels";
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // PUBLIC CONSTANTS
+    ////////////////////////////////////////////////////////////////////////////////
+
+        //   public static final long MILLISECONDS = 1000;
+    //
+        public static final long SECOND = 1000;
+        //
+        public static final long MINUTE = 60 * SECOND;
+        public static final long HOUR = 60 * MINUTE;
+        public static final long DAY = 24 * HOUR;
+
+        /**
+         * 1 minute update cycle
+         */
+        public static final int TYPE_MONTHLY = 7;
+        public static final int TYPE_WEEKLY = 6;
+        public static final int TYPE_DAILY = 1;
+        public static final int TYPE_MINUTE60 = 2;
+        public static final int TYPE_MINUTE15 = 3;
+        public static final int TYPE_MINUTE05 = 4;
+        public static final int TYPE_MINUTE01 = 5;
+
+        public static final String STR_TYPE_MONTHLY = "MONTHLY";
+        public static final String STR_TYPE_WEEKLY = "WEEKLY";
+        public static final String STR_TYPE_DAILY = "DAILY";
+        public static final String STR_TYPE_MINUTE60 = "MINUTE60";
+        public static final String STR_TYPE_MINUTE15 = "MINUTE15";
+        public static final String STR_TYPE_MINUTE05 = "MINUTE05";
+        public static final String STR_TYPE_MINUTE01 = "MINUTE01";
+
+        public static final String CHART_STR_TYPE_DAILY = "daily";
+        public static final String CHART_STR_TYPE_MINUTE60 = "sixtyminute";
+        public static final String CHART_STR_TYPE_MINUTE15 = "fifteenminute";
+        public static final String CHART_STR_TYPE_MINUTE05 = "fiveminute";
+        public static final String CHART_STR_TYPE_MINUTE01 = "oneminute";
+
+        public static final int TYPE_BUY = 1;
+        public static final int TYPE_SELL = 2;
+
+        public final static int BKGND_R = 193;
+        public final static int BKGND_G = 211;
+        public final static int BKGND_B = 189;
+
+        public static final int OBJECT_ACTIVE = 1;
+        public static final int OBJECT_INACTIVE = 0;
+
+        public static final int IS_TRUE = 1;
+        public static final int IS_FALSE = 0;
+
+        public static final String STR_TRUE = "1";
+        public static final String STR_FALSE = "0";
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // CONSTRUCTORS
+    ////////////////////////////////////////////////////////////////////////////////
+
+        /**
+         * Static object, Can't call
+         */
+        private Labels() {
+        }
+
+        public static final String getLabelForTimeValue(int value) {
+            switch (value) {
+                case TYPE_DAILY:
+                    return Labels.STR_TYPE_DAILY;
+                case TYPE_MINUTE60:
+                    return Labels.STR_TYPE_MINUTE60;
+                case TYPE_MINUTE15:
+                    return Labels.STR_TYPE_MINUTE15;
+                case TYPE_MINUTE05:
+                    return Labels.STR_TYPE_MINUTE05;
+                case TYPE_MINUTE01:
+                    return Labels.STR_TYPE_MINUTE01;
+                case TYPE_WEEKLY:
+                    return Labels.STR_TYPE_WEEKLY;
+                case TYPE_MONTHLY:
+                    return Labels.STR_TYPE_MONTHLY;
+            }
+            return "";
+        }
+
+        public static final int getTimeValueForLabels(String timevalue) {
+            //order in the frequency they are called
+            if (timevalue.equals(Labels.STR_TYPE_MINUTE05)) {
+                return TYPE_MINUTE05;
+            } else if (timevalue.equals(Labels.STR_TYPE_MINUTE15)) {
+                return TYPE_MINUTE15;
+            } else if (timevalue.equals(Labels.STR_TYPE_MINUTE60)) {
+                return TYPE_MINUTE60;
+            } else if (timevalue.equals(Labels.STR_TYPE_DAILY)) {
+                return TYPE_DAILY;
+            }
+
+            ////////////////////////////////////////
+            else if (timevalue.equals(Labels.STR_TYPE_MINUTE01)) {
+                return TYPE_MINUTE01;
+            } else if (timevalue.equals(Labels.STR_TYPE_WEEKLY)) {
+                return TYPE_WEEKLY;
+            } else if (timevalue.equals(Labels.STR_TYPE_MONTHLY)) {
+                return TYPE_MONTHLY;
+            }
+
+            return -1;
+        }
+
+
+    }
+
+    /**
+     * @formatter:off
+     * <p>Copyright: Copyright (c) 2021</p>
+     * <p>Company: Greenman Financial Services, Inc.</p>
+     *
+     * <p>Title: Timeslice</p>
+     * <p>Description: This class is responsible for processing all timeslice data for a security.
+     * Its main goal is to act as the center point for retrieving and processing
+     * data.<p>
+     *
+     *
+     * @author Monte Seibel
+     * @version 7.0
+     * @formatter:on
+     */
+
+    public static class Timeslice {
+        public static final String CLASSNAME = "Timeslice";
+
+        /**
+         * The label constant for a stock timeslice's "date"
+         */
+        public static final String DATE = "date";
+
+        /**
+         * The label constant for a stock timeslice's "time"
+         */
+        public static final String TIME = "time";
+
+        /**
+         * The label constant for a stock timeslice's open executedPrice
+         */
+        public static final String OPEN = "open";
+
+        /**
+         * The label constant for a stock timeslice's high executedPrice
+         */
+        public static final String HIGH = "high";
+
+        /**
+         * The label constant for a stock timeslice's low executedPrice
+         */
+        public static final String LOW = "low";
+
+        /**
+         * The label constant for a stock timeslice's close executedPrice
+         */
+        public static final String CLOSE = "close";
+
+        /**
+         * The label constant for a stock timeslice's volume
+         */
+        public static final String VOLUME = "volume";
+
+        // class properties
+        Hashtable data;
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // Constructors
+        ////////////////////////////////////////////////////////////////////////////////
+        public Timeslice() {
+            this.data = new Hashtable();
+        }
+
+        /**
+         * Creates a new instance of a timeslice. This constructor is as simple as it gets. There is no pre-processing of any values.
+         *
+         * @param data
+         */
+        public Timeslice(Hashtable data) {
+            this.data = data;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
+        // Public Methods
+        ////////////////////////////////////////////////////////////////////////////////
+
+        /**
+         * @param label
+         * @return
+         */
+        public final String getData(String label) {
+            if (this.data.containsKey(label)) {
+                return ((String) this.data.get(label));
+            }
+            return ("");
+        }
+
+        public final boolean isValid60MinSummary() {
+            return (getHigh() != 0.0) && (getLow() != 10000.0) && (getOpen() != 0.0);
+        }
+
+        public final float getHigh() {
+            if (this.data.containsKey(Timeslice.HIGH)) {
+                String strHigh = (String) this.data.get(Timeslice.HIGH);
+                return Float.parseFloat(strHigh);
+            }
+            return (0);
+        }
+
+        public final float getLow() {
+            if (this.data.containsKey(Timeslice.LOW)) {
+                String strLow = (String) this.data.get(Timeslice.LOW);
+                return Float.parseFloat(strLow);
+            }
+            return (0);
+        }
+
+        public final float getOpen() {
+            if (this.data.containsKey(Timeslice.OPEN)) {
+                String strOpen = (String) this.data.get(Timeslice.OPEN);
+                return Float.parseFloat(strOpen);
+            }
+            return (0);
+        }
+
+        public final float getClose() {
+            if (this.data.containsKey(Timeslice.CLOSE)) {
+                String strClose = (String) this.data.get(Timeslice.CLOSE);
+                return Float.parseFloat(strClose);
+            }
+            return (0);
+        }
+
+        public final float getVolume() {
+            if (this.data.containsKey(Timeslice.VOLUME)) {
+                String strVolume = (String) this.data.get(Timeslice.VOLUME);
+                return Float.parseFloat(strVolume);
+            }
+            return (0);
+        }
+
+        /**
+         * @param label
+         * @param value
+         */
+        public final void setData(String label, String value) {
+            this.data.put(label, value);
+        }
+
+        /**
+         * Appends and item of data to the stock's timeslice.
+         *
+         * @param label - the label for the data.
+         * @param value = the value of the data.
+         * @return
+         */
+        public final boolean appendData(String label, String value) {
+            try {
+                this.data.put(label, value);
+                return (true);
+            } catch (Throwable t) {
+                return (false);
+            }
+        }
+
+        /**
+         * Retrieve the time for this timeslice.
+         *
+         * @return the time.
+         */
+        public final String getTime() {
+            // We actually parse the Time off the DATE key. Which we set on create with the datetime.
+            if (this.data.containsKey(DATE)) {
+                String datetime = (String) this.data.get(DATE);
+                // int spacePosition = datetime.lastIndexOf(" ", 12);
+                // String date = datetime.substring(datetime.lastIndexOf(" ", 12) + 1, datetime.length() );
+                return (datetime.substring(datetime.lastIndexOf(" ", 12) + 1));
+            }
+
+            return ("");
+        }
+
+        // This method returns the Hour out of this Timeslice's datetime
+        public final String getTimeHour() {
+            // We actually parse the Time off the DATE key. Which we set on create with the datetime.
+            if (this.data.containsKey(DATE)) {
+                String datetime = (String) this.data.get(DATE);
+                // int spacePosition = datetime.lastIndexOf(" ", 12);
+                String time = datetime.substring(datetime.lastIndexOf(" ", 12) + 1);
+                // int colonPosition = time.indexOf(':');
+                // String hour = time.substring ( 0, time.indexOf(':') );
+
+                return (time.substring(0, time.indexOf(':')));
+            }
+
+            return ("");
+        }
+
+        // This method returns the Minute out of this Timeslice's datetime
+        public final String getTimeMinute() {
+            // We actually parse the Time off the DATE key. Which we set on create with the datetime.
+            if (this.data.containsKey(DATE)) {
+                String datetime = (String) this.data.get(DATE);
+                // int spacePosition = datetime.lastIndexOf(" ", 12);
+                String time = datetime.substring(datetime.lastIndexOf(" ", 12) + 1);
+                int firstColonPos = time.indexOf(':');
+                // int secondColonPos = time.indexOf(':', firstColonPos + 1);
+                // String minute = time.substring (firstColonPos + 1, time.indexOf(':', firstColonPos + 1) );
+
+                return (time.substring(firstColonPos + 1, time.indexOf(':', firstColonPos + 1)));
+            }
+
+            return ("");
+        }
+
+        // This method returns the Hour and Minute out of this Timeslice's datetime: HH:MM
+        public final String getTimeHourMinute() {
+            // We actually parse the Time off the DATE key. Which we set on create with the datetime.
+            if (this.data.containsKey(DATE)) {
+                String datetime = (String) this.data.get(DATE);
+                // int spacePosition = datetime.lastIndexOf(" ", 12);
+                String time = datetime.substring(datetime.lastIndexOf(" ", 12) + 1);
+                int firstColonPos = time.indexOf(':');
+                // int secondColonPos = time.indexOf(':', firstColonPos + 1);
+                // String minute = time.substring (firstColonPos + 1, time.indexOf(':', firstColonPos + 1) );
+
+                return (time.substring(0, time.indexOf(':', firstColonPos + 1)));
+            }
+
+            return ("");
+        }
+
+        /**
+         * Retrieve the date for this timeslice.
+         *
+         * @return the date.
+         */
+        public final String getDate() {
+            if (this.data.containsKey(DATE)) {
+                String datetime = (String) this.data.get(DATE);
+                // int spacePosition = datetime.lastIndexOf(" ", 12);
+                // String date = datetime.substring(0,datetime.lastIndexOf(" ", 12));
+                return (datetime.substring(0, datetime.lastIndexOf(" ", 12)));
+            }
+            return ("");
+        }
+
+        public final String getDatetime() {
+            if (this.data.containsKey(DATE)) {
+                return ((String) this.data.get(DATE));
+            }
+            return ("");
+        }
+
+        /**
+         * Returns a string representation of this object.
+         *
+         * @return String
+         */
+        public String toString() {
+            String date = (String) this.data.get(Timeslice.DATE);
+            String high = (String) this.data.get(Timeslice.HIGH);
+            String low = (String) this.data.get(Timeslice.LOW);
+            String open = (String) this.data.get(Timeslice.OPEN);
+            String close = (String) this.data.get(Timeslice.CLOSE);
+
+            return ("Stock Timeslice: " + " datetime: " + date + ", high: " + high + ", low: " + low + ", open: " + open + ", close: " + close + ";");
+        }
+    }
 }

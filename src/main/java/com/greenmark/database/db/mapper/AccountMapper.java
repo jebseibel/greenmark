@@ -5,11 +5,11 @@ import com.greenmark.database.db.entity.Account;
 import org.modelmapper.ModelMapper;
 
 public class AccountMapper {
-    public static AccountDb toDb(Account account) {
-        return new ModelMapper().map(account, AccountDb.class);
+    public static AccountDb toDb(Account item) {
+        return new ModelMapper().map(item, AccountDb.class);
     }
 
-    public static Account toEntity(AccountDb accountDb) {
-        return new ModelMapper().map(accountDb, Account.class);
+    public static Account toEntity(AccountDb itemDb) {
+        return new ModelMapper().map(itemDb, Account.class);
     }
 }

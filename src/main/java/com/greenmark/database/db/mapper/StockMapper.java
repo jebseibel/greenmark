@@ -9,7 +9,7 @@ public class StockMapper {
         return new ModelMapper().map(stock, StockDb.class);
     }
 
-    public static Stock toEntity(StockDb accountDb) {
-        return new ModelMapper().map(accountDb, Stock.class);
+    public static Stock toEntity(StockDb itemDb) {
+        return new ModelMapper().map(itemDb, Stock.class);
     }
 }
