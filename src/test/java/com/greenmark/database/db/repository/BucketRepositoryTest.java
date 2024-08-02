@@ -39,7 +39,7 @@ class BucketRepositoryTest {
 
         @Test
         void createUniqueName() {
-            String name = "notUnique_"+DomainBuilder.randomPositiveString();
+            String name = "notUnique_"+DomainBuilder.randomString();
             Bucket item1 = DomainBuilder.getBucket(name);
             Bucket item2 = DomainBuilder.getBucket(name);
 
@@ -95,7 +95,7 @@ class BucketRepositoryTest {
 
         @Test
         void findById() {
-            String name = "name"+DomainBuilder.randomPositiveString();
+            String name = "name"+DomainBuilder.randomString();
             Bucket record = DomainBuilder.getBucket(name);
             Bucket item = repository.save(record);
             Bucket result = repository.findById(item.getId()).get();
@@ -121,7 +121,7 @@ class BucketRepositoryTest {
 
         @Test
         void findByName() {
-            String name = "name"+DomainBuilder.randomPositiveString();
+            String name = "name"+DomainBuilder.randomString();
             Bucket record = DomainBuilder.getBucket(name);
 
             repository.save(record);

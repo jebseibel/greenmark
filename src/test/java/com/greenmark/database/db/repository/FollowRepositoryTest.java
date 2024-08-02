@@ -36,7 +36,7 @@ class FollowRepositoryTest {
 
         @Test
         void createUniqueName() {
-            String name = "notUnique_"+DomainBuilder.randomPositiveString();
+            String name = "notUnique_"+DomainBuilder.randomString();
             Follow item1 = DomainBuilder.getFollow(name);
             Follow item2 = DomainBuilder.getFollow(name);
 
@@ -92,7 +92,7 @@ class FollowRepositoryTest {
 
         @Test
         void findById() {
-            String name = "name"+DomainBuilder.randomPositiveString();
+            String name = "name"+DomainBuilder.randomString();
             Follow record = DomainBuilder.getFollow(name);
             Follow item = repository.save(record);
             Follow result = repository.findById(item.getId()).get();
@@ -118,7 +118,7 @@ class FollowRepositoryTest {
 
         @Test
         void findByName() {
-            String name = "name"+DomainBuilder.randomPositiveString();
+            String name = "name"+DomainBuilder.randomString();
             Follow record = DomainBuilder.getFollow(name);
 
             repository.save(record);

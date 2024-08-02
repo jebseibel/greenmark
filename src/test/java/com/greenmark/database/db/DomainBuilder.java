@@ -54,6 +54,32 @@ public class DomainBuilder
 //        .build();
 
     // //////////////////////////////////////////////////////////////////
+    public static BucketMinute60 getBucketMinute60() {
+        String symbol = getSymbolRandom();
+        return getBucketMinute60(symbol);
+    }
+    public static BucketMinute60 getBucketMinute60(
+            String thisSymbol
+    ) {
+        BucketMinute60 item = new BucketMinute60();
+        item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
+        item.setCurrent(randomFloat());
+        item.setOpen(randomFloat());
+        item.setHigh(randomFloat());
+        item.setLow(randomFloat());
+        item.setClose(randomFloat());
+        item.setChanged(randomFloat());
+        item.setChangedPercent(randomFloat());
+        item.setMacd(randomFloat());
+        item.setStochk(randomFloat());
+        item.setActive(ActiveEnum.ACTIVE.value);
+        item.setCreatedAt(LocalDateTime.now());
+        item.setModifiedAt(null);
+        item.setDeletedAt(null);
+        return item;
+    }
+
+    // //////////////////////////////////////////////////////////////////
     public static BucketDb getBucketDb() {
         Bucket item = getBucket(null, null);
         return BucketMapper.toDb(item);
@@ -165,13 +191,13 @@ public class DomainBuilder
     ) {
         StockDaily item = new StockDaily();
         item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
-        item.setOpen(randomPositiveFloat());
-        item.setClose(randomPositiveFloat());
-        item.setHigh(randomPositiveFloat());
-        item.setLow(randomPositiveFloat());
-        item.setVolume(randomPositiveLong());
-        item.setMacd(randomPositiveFloat());
-        item.setStochk(randomPositiveFloat());
+        item.setOpen(randomFloat());
+        item.setClose(randomFloat());
+        item.setHigh(randomFloat());
+        item.setLow(randomFloat());
+        item.setVolume(randomLong());
+        item.setMacd(randomFloat());
+        item.setStochk(randomFloat());
         item.setActive(ActiveEnum.ACTIVE.value);
         item.setCreatedAt(LocalDateTime.now());
         item.setModifiedAt(null);
@@ -181,7 +207,7 @@ public class DomainBuilder
 
     // //////////////////////////////////////////////////////////////////
     public static String getDescriptionRandom() {
-        return DESCRIPTION + randomPositiveString();
+        return DESCRIPTION + randomString();
     }
 
     public static String getDescriptionRandom(String random) {
@@ -189,7 +215,7 @@ public class DomainBuilder
     }
 
     public static String getNameRandom() {
-        return NAME + randomPositiveString();
+        return NAME + randomString();
     }
     public static String getSymbolRandom() {
         return RandomStringUtils.random(7, true, false);
@@ -207,15 +233,15 @@ public class DomainBuilder
         return "123456789012345678901234567890123456789012345678901234567890";
     }
 
-    public static String randomPositiveString()  {
+    public static String randomString()  {
         return String.valueOf(new Random().nextInt());
     }
 
-    public static float randomPositiveFloat()  {
+    public static float randomFloat()  {
         return new Random().nextFloat();
     }
 
-    public static long randomPositiveLong()  { return new Random().nextLong(); }
+    public static long randomLong()  { return new Random().nextLong(); }
 
     public static int randomPositiveInt()  {
         return new Random().nextInt();

@@ -21,7 +21,7 @@ class ScenarioDbServiceTest {
     @Nested
     class CreateTests {
 
-        String random = DomainBuilder.randomPositiveString();
+        String random = DomainBuilder.randomString();
         String name = DomainBuilder.getNameRandom(random);
         String description = DomainBuilder.getNameRandom(random);
 
@@ -59,7 +59,7 @@ class ScenarioDbServiceTest {
 
         ScenarioDb record;
         String extid;
-        String random = DomainBuilder.randomPositiveString();
+        String random = DomainBuilder.randomString();
         String name = DomainBuilder.getNameRandom(random);
         String description = DomainBuilder.getNameRandom(random);
 
@@ -106,7 +106,7 @@ class ScenarioDbServiceTest {
 
         ScenarioDb record;
         String extid;
-        String random = DomainBuilder.randomPositiveString();
+        String random = DomainBuilder.randomString();
         String name = DomainBuilder.getNameRandom(random);
         String description = DomainBuilder.getNameRandom(random);
 
@@ -147,7 +147,7 @@ class ScenarioDbServiceTest {
 
         ScenarioDb record;
         String extid;
-        String random = DomainBuilder.randomPositiveString();
+        String random = DomainBuilder.randomString();
         String name = DomainBuilder.getNameRandom(random);
         String description = DomainBuilder.getNameRandom(random);
 

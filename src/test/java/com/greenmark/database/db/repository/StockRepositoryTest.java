@@ -36,7 +36,7 @@ class StockRepositoryTest {
 
         @Test
         void createUniqueName() {
-            String name = "notUnique_"+DomainBuilder.randomPositiveString();
+            String name = "notUnique_"+DomainBuilder.randomString();
             Stock item1 = DomainBuilder.getStock(name);
             Stock item2 = DomainBuilder.getStock(name);
 
@@ -92,7 +92,7 @@ class StockRepositoryTest {
 
         @Test
         void findById() {
-            String name = "name"+DomainBuilder.randomPositiveString();
+            String name = "name"+DomainBuilder.randomString();
             Stock record = DomainBuilder.getStock(name);
             Stock item = repository.save(record);
             Stock result = repository.findById(item.getId()).get();
@@ -118,7 +118,7 @@ class StockRepositoryTest {
 
         @Test
         void findByName() {
-            String name = "name"+DomainBuilder.randomPositiveString();
+            String name = "name"+DomainBuilder.randomString();
             Stock record = DomainBuilder.getStock(name);
 
             repository.save(record);

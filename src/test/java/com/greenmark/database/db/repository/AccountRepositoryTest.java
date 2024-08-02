@@ -46,7 +46,7 @@ class AccountRepositoryTest {
 
         @Test
         void createUniqueName() {
-            String name = "notUnique_"+DomainBuilder.randomPositiveString();
+            String name = "notUnique_"+DomainBuilder.randomString();
             Account item1 = DomainBuilder.getAccount(name);
             Account item2 = DomainBuilder.getAccount(name);
             
@@ -102,7 +102,7 @@ class AccountRepositoryTest {
 
         @Test
         void findById() {
-            String name = "name"+DomainBuilder.randomPositiveString();
+            String name = "name"+DomainBuilder.randomString();
             Account record = DomainBuilder.getAccount(name);
             Account item = repository.save(record);
             Account result = repository.findById(item.getId()).get();
@@ -128,7 +128,7 @@ class AccountRepositoryTest {
 
         @Test
         void findByName() {
-            String name = "name"+DomainBuilder.randomPositiveString();
+            String name = "name"+DomainBuilder.randomString();
             Account record = DomainBuilder.getAccount(name);
 
             repository.save(record);

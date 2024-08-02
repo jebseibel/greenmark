@@ -21,7 +21,7 @@ class StockDbServiceTest {
     @Nested
     class CreateTests {
 
-        String random = DomainBuilder.randomPositiveString();
+        String random = DomainBuilder.randomString();
         String symbol = DomainBuilder.getSymbolRandom();
         String name = DomainBuilder.getNameRandom(random);
 
@@ -61,7 +61,7 @@ class StockDbServiceTest {
 
         StockDb record;
         String extid;
-        String random = DomainBuilder.randomPositiveString();
+        String random = DomainBuilder.randomString();
         String name = DomainBuilder.getNameRandom(random);
         String symbol = DomainBuilder.getSymbolRandom();
 
@@ -108,7 +108,7 @@ class StockDbServiceTest {
 
         StockDb record;
         String extid;
-        String random = DomainBuilder.randomPositiveString();
+        String random = DomainBuilder.randomString();
         String symbol = DomainBuilder.getSymbolRandom();
         String name = DomainBuilder.getNameRandom(random);
 
@@ -150,7 +150,7 @@ class StockDbServiceTest {
 
         StockDb record;
         String extid;
-        String random = DomainBuilder.randomPositiveString();
+        String random = DomainBuilder.randomString();
         String symbol = DomainBuilder.getSymbolRandom();
         String name = DomainBuilder.getNameRandom(random);
 

@@ -125,6 +125,63 @@ databaseChangeLog:
                   name: active
                   type: int
         - createTable:
+            tableName: bucket_minute60
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: symbol
+                  type: varchar(8)
+                  constraints:
+                    nullable:  false
+                    unique: true
+              - column:
+                  name: current
+                  type: float
+              - column:
+                  name: high
+                  type: float
+              - column:
+                  name: low
+                  type: float
+              - column:
+                  name: open
+                  type: float
+              - column:
+                  name: close
+                  type: float
+              - column:
+                  name: macd
+                  type: float
+              - column:
+                  name: changed
+                  type: float
+              - column:
+                  name: changed_percent
+                  type: float
+              - column:
+                  name: stochk
+                  type: float
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modified_at
+                  type: datetime
+              - column:
+                  name: deleted_at
+                  type: datetime
+              - column:
+                  name: active
+                  type: int
+        - createTable:
             tableName: follow
             columns:
               - column:
