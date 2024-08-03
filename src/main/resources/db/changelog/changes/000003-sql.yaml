@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: loadData-example
+      author: liquibase-docs
+      changes:
+        - loadData:
+            catalogName: greenmark
+            columns:
+              - column:
+                  header: id
+                  name: extid
+                  type: STRING
+              - column:
+                  header: extid
+                  name: extid
+                  type: STRING
+              - column:
+                  header: symbol
+                  name: symbol
+                  type: STRING
+              - column:
+                  header: name
+                  name: name
+                  type: STRING
+            commentLineStartsWith: //
+            encoding: UTF-8
+            file: sql/stocks.csv
+            quotchar: ''''
+            relativeToChangelogFile: true
+            schemaName: greenmark
+            separator: ,
+            tableName: spaz
+            usePreparedStatements: true

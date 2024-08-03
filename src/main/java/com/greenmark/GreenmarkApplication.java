@@ -22,7 +22,7 @@ public class GreenmarkApplication implements CommandLineRunner {
     public void init(){
 //        System.out.println(loadStocks.load());
 //        if (load)
-//        loadStocks.load();
+        loadStocks.load();
         System.out.println("Finished loading stocks");
     }
 

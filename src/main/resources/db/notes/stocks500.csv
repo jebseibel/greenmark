@@ -1,0 +1,504 @@
+extid,symbol,name
+e78bbaa9-f3e1-4465-b8cd-103099d6c47a,MMM,3M
+6e074f41-b1ca-431d-aae2-cf8dfb57cb41,AOS,A. O. Smith
+ce68c538-4d73-4261-a7c6-56176ecf8c26,ABT,Abbott
+3ed4a7c1-efd7-4587-b9b2-d16f2fe6cf39,ABBV,AbbVie
+02dd2cbb-7bb8-413a-b558-b58cb8d9dc5c,ACN,Accenture
+e8a39479-d16e-4e7e-9a7d-f05d84ff716b,ADBE,Adobe Inc.
+eeee7ef6-4c26-4d5a-afd8-690fa9355299,AMD,Advanced Micro Devices
+aaef2c6b-c443-49a7-b48b-a28dd37159d6,AES,AES Corporation
+46f279b7-7bbc-4db5-84df-8927a96370a7,AFL,Aflac
+1afd57f6-3fdd-40ce-8567-8f502ad33ad3,A,Agilent Technologies
+d4205d13-6dca-4ce3-974c-3648584c25b4,APD,Air Products and Chemicals
+74cb5776-6c47-4d62-9852-7de7cb62a91a,ABNB,Airbnb
+c1899f1a-7712-46a6-b6d0-c90c3af7d571,AKAM,Akamai
+14b12280-6ac6-4777-89c0-9898566834da,ALB,Albemarle Corporation
+4913f5ff-5f5a-45f4-b81e-f4e2b0c72fa2,ARE,Alexandria Real Estate Equities
+24be9fdd-43dd-4da5-9e38-b2f30feea99d,ALGN,Align Technology
+1f834f96-85c2-4415-b65f-7515b0c2d69e,ALLE,Allegion
+6220bd0f-ad01-4076-bd90-0e6e79ba839c,LNT,Alliant Energy
+9a6da401-099d-4737-bd7c-b5870b1e0b5b,ALL,Allstate
+b27c872e-8d71-40a9-8534-611358e5ae0a,GOOGL,Alphabet Inc. (Class A)
+99d4e7f3-313e-4293-a793-82e23338958e,GOOG,Alphabet Inc. (Class C)
+97beaf2c-0df3-4ffb-9593-e2ffe6d24893,MO,Altria
+2365c334-f116-4e38-a0fb-603877264f28,AMZN,Amazon
+22c80eb0-8f35-4579-9722-84b9ec680f5a,AMCR,Amcor
+89c3a01c-b0b2-4b8f-8a50-f4f3bb2d441f,AEE,Ameren
+90bce5a7-563b-4a52-b890-6b3a1bbd4b6b,AAL,American Airlines Group
+5fcbde8f-1ae9-41b7-aeaf-3f9f8e5573ca,AEP,American Electric Power
+c3ff2f29-a977-4427-89de-acb5282b17f7,AXP,American Express
+6720deae-cf61-480d-b018-8a10a3b3f8e0,AIG,American International Group
+828f52a5-4bdb-4ada-a636-67d5ea6e5c57,AMT,American Tower
+aab43437-4ddf-4ca0-9339-616438479774,AWK,American Water Works
+341a87f3-14f9-4015-9ca1-64f94e5205d9,AMP,Ameriprise Financial
+563f8bd1-9b38-4fe6-8c96-c0eafeaedeef,AME,Ametek
+7233e70f-3045-47f0-875f-06bd553e29a5,AMGN,Amgen
+efb1e83a-f30d-4417-8a67-61df6446cea4,APH,Amphenol
+774444db-fde3-4b91-9d4c-9e06fbbdbf8a,ADI,Analog Devices
+f55fca3e-886d-443a-85ff-cefed757d0cc,ANSS,Ansys
+57dc5f43-edca-43bd-ab20-0f36d4b60417,AON,Aon
+6344dae1-83e7-4e3d-a8ce-ef463a9f2a9d,APA,APA Corporation
+883d4b9b-498b-4b32-9a0a-c8a63ee34604,AAPL,Apple Inc.
+8f45a214-27b0-4eee-9128-d41afaa2771f,AMAT,Applied Materials
+4763ea8e-313f-4998-95cb-de2379e72d20,APTV,Aptiv
+43193bce-1e57-4563-ba17-cb78f82fc5fb,ACGL,Arch Capital Group
+d1d55b3f-edbd-4e4a-ae86-4d848d25f50e,ADM,Archer-Daniels-Midland
+f183db60-bf45-4c64-aabd-d0158a2e5830,ANET,Arista Networks
+a55a2c23-2ed7-498a-a84e-a1218feac565,AJG,Arthur J. Gallagher & Co.
+20433d50-b808-48e3-a35e-3cd529ff2896,AIZ,Assurant
+8f883b3e-ad5f-40ab-bee3-871bc6e60271,T,AT&T
+93152fde-9e4e-4766-b25e-bd88dba234f0,ATO,Atmos Energy
+07f85821-8cb1-463b-944b-6d2d251de42a,ADSK,Autodesk
+8c33dae8-2dfc-410a-b314-7d56bba7e33e,ADP,Automatic Data Processing
+55f0ab9a-bf7c-4d24-88b8-aaefb693e17b,AZO,AutoZone
+f4a638c1-577c-40c0-afd8-4fd2477739d8,AVB,AvalonBay Communities
+b91dc311-4faf-454d-a37c-d5c46f59613a,AVY,Avery Dennison
+0ee0020c-2dd4-499f-a92b-1acde990489b,AXON,Axon Enterprise
+b4f818dd-7ec6-413d-9bf7-c746fd568abe,BKR,Baker Hughes
+fc5da2b5-fc75-4879-886b-6afa726850f7,BALL,Ball Corporation
+1a82269e-fc3f-4d89-ae1f-bc09babde11e,BAC,Bank of America
+15a62140-9655-4b2b-a68d-f6c87e4dcc6b,BK,Bank of New York Mellon
+acbf6946-72a4-45f2-b707-56d510b4a175,BBWI,"Bath & Body Works, Inc."
+a8651197-0b3a-4cf9-93c6-f4da24135e1e,BAX,Baxter International
+f3da6651-6a1f-4d08-ab7e-736ea75a5447,BDX,Becton Dickinson
+bfaabdde-c48a-4fd6-aa67-cdd0e4ec9c7d,BRK.B,Berkshire Hathaway
+c1f16428-083d-4eb0-8213-a6d899741f16,BBY,Best Buy
+11b59a4d-f1e0-45e7-a221-ed5ad2b7b85d,BIO,Bio-Rad
+24448034-e9ad-4313-8af6-91427d36a095,TECH,Bio-Techne
+21378853-ee93-4b33-a85c-a97e00506a67,BIIB,Biogen
+f784e883-7e2f-4f63-8be8-ddf8fba38e4b,BLK,BlackRock
+d425c5d9-5dd9-470a-9ee2-f93338bf400b,BX,Blackstone
+ae2ad440-f44a-4285-bdbb-ab75ccb33f4d,BA,Boeing
+c00afe62-6902-4a58-9733-2caba7003815,BKNG,Booking Holdings
+785731d9-9db9-418f-be3d-098b8e765693,BWA,BorgWarner
+4f02bf52-c624-4c18-94d7-c241c962c30d,BSX,Boston Scientific
+5a3cc8a2-1656-4e05-a53d-d1ea15e6b7b7,BMY,Bristol Myers Squibb
+68af53aa-cf69-4620-bcf5-21fa08768e2d,AVGO,Broadcom Inc.
+db4f107d-675f-4e87-8307-b7f2d1f26d65,BR,Broadridge Financial Solutions
+0cfb098b-32f7-4086-af52-56233ee95d47,BRO,Brown & Brown
+fac27d79-7c1d-4742-8664-9556c2af9740,BF.B,Brown–Forman
+c0ea386b-a384-4631-9e8e-f2c3c65976ab,BLDR,Builders FirstSource
+483412c1-5904-451c-af88-0b66a5b485bf,BG,Bunge Global SA
+33eb8f87-e8c7-4e7e-9c27-681ad14208be,BXP,"BXP, Inc."
+a6aba29d-7892-4b43-a0d7-1484b2379950,CDNS,Cadence Design Systems
+f4bcec4b-ecc5-40b0-8fb4-09eed9d62f89,CZR,Caesars Entertainment
+bc03c6b7-e3a8-4af8-9dc9-844e0cf57bee,CPT,Camden Property Trust
+03652c94-b19f-4c94-8c71-ecc8b9efc48f,CPB,Campbell Soup Company
+04f85cb1-14e8-4894-b13e-5cc3c494600e,COF,Capital One
+f5d287b8-c328-4f38-81a7-c85608aa52fb,CAH,Cardinal Health
+b21aac84-87de-4d51-9b42-1d703a193156,KMX,CarMax
+f57ddd0e-56e6-4999-8526-a855a117520a,CCL,Carnival
+6e6c01f5-d218-4741-99ff-1d6285e01b15,CARR,Carrier Global
+7898000c-48a2-4fbc-8694-a97411edeb92,CTLT,Catalent
+2d8e8349-0375-42a9-8604-ea79b77de5f7,CAT,Caterpillar Inc.
+c1cd4fc1-b95f-45ad-a301-1fa1a315666a,CBOE,Cboe Global Markets
+aa024177-c806-4828-b216-cacaa78e14be,CBRE,CBRE Group
+ad54c4f9-75d4-48f0-8906-75c417a60eec,CDW,CDW
+2d4c983c-e3b1-401a-8754-e026a0d1dbca,CE,Celanese
+87100d45-3079-40c2-98d9-5da8fc3168e2,COR,Cencora
+7803de59-b99c-426f-a43b-bcf2e14ca354,CNC,Centene Corporation
+bee33a3c-30e8-4dbc-b3a1-a70b87c891ab,CNP,CenterPoint Energy
+a48cff0b-1cb8-4efc-a31e-619015b9728f,CF,CF Industries
+a94dd21e-af98-40db-bbff-e5644eddd98b,CHRW,CH Robinson
+9b5958fc-bf9c-44f8-99d6-78193535e319,CRL,Charles River Laboratories
+2ea50289-67e8-48dd-9498-13819fa77658,SCHW,Charles Schwab Corporation
+6cd69ea0-e1a0-487e-ba7d-90e958e1b56d,CHTR,Charter Communications
+d6eba53c-d360-4c3a-b515-57a2d8acadf5,CVX,Chevron Corporation
+5ff702b4-c88e-4c6f-8cda-ff6e8a2b2414,CMG,Chipotle Mexican Grill
+f8fa6199-bf29-458b-8419-9d826669123d,CB,Chubb Limited
+e755c8bf-ffcf-4c84-86f5-4dd480ebf031,CHD,Church & Dwight
+c7953718-ac63-4095-842c-99f163281bae,CI,Cigna
+5661c2cc-9a8e-4b81-855c-e33bb85a0bee,CINF,Cincinnati Financial
+8ab65309-aa7d-4f90-b646-d04b1c306cbb,CTAS,Cintas
+095fa777-f594-422f-9de4-6e7d13493877,CSCO,Cisco
+e15ef126-3c22-42e8-92fd-3402e57db6c2,C,Citigroup
+3bb97aa6-05dc-4adc-906e-89283687c6a7,CFG,Citizens Financial Group
+0496272d-ad7b-442e-a6c1-f376ccdf7d6a,CLX,Clorox
+6d20653e-c6f4-403c-ad43-7f7c9b2cfd8e,CME,CME Group
+883150fe-a43c-4026-93fd-a7cb85cf2d2c,CMS,CMS Energy
+8535f3e3-d265-4be1-b9ee-26e4f7b98e37,KO,Coca-Cola Company (The)
+6715bd60-cad8-417c-b4d1-bec2339522d9,CTSH,Cognizant
+eea866dc-dff2-4917-87f2-0123e46a245b,CL,Colgate-Palmolive
+a1aaebe2-e526-4e43-b81c-70b978f04b88,CMCSA,Comcast
+9781b96d-a81b-4761-8a55-6b39b0e96204,CAG,Conagra Brands
+6b865036-2b92-496e-a70e-a98cd80404d8,COP,ConocoPhillips
+66d1a4a9-0746-4c61-b66d-4b3204d1f2a7,ED,Consolidated Edison
+98e49fc6-fafb-4019-8020-de4a758768a3,STZ,Constellation Brands
+a4feb632-e864-47d2-b488-b6cbde29dbeb,CEG,Constellation Energy
+d1192f78-1ec9-49fd-a467-5f77ed2cd567,COO,Cooper Companies (The)
+51e20384-d72e-4c57-88bf-3e7238251f12,CPRT,Copart
+7ab20969-2be0-4535-9f74-d347e6db267d,GLW,Corning Inc.
+9e016743-1e80-4b83-8256-f99a9f11e7ec,CPAY,Corpay
+6e465028-7f18-4fed-b2ee-6d29c6170ba5,CTVA,Corteva
+746302a9-815a-40ec-8254-e56f1eb98338,CSGP,CoStar Group
+d216ac9a-d927-4950-b838-145f79e020c0,COST,Costco
+fe28a0ac-b901-460e-97a7-5801f3c01079,CTRA,Coterra
+c9cdb321-c7b0-415f-97f1-8252dea5f273,CRWD,CrowdStrike
+d9e17191-33eb-4af3-a8f2-57f03cf0b7db,CCI,Crown Castle
+e4cdddd7-1666-42ac-ba38-0ee43f9c3c85,CSX,CSX
+3fcbf4e4-45ce-4a79-806e-36c7343fb7b6,CMI,Cummins
+55754101-3ce0-4172-baab-9787d3c3004e,CVS,CVS Health
+e2906abe-f961-4998-8cb9-32007a00460e,DHR,Danaher Corporation
+55e78d42-5386-4e7b-ab2e-95219081c5d5,DRI,Darden Restaurants
+02e3b236-63b5-4c6e-b6c8-edccac4f0433,DVA,DaVita Inc.
+0ba25d39-108e-42d8-aa45-1ecd52e55769,DAY,Dayforce
+483f0c71-d4af-4f30-93ed-e92def25b844,DECK,Deckers Brands
+96131d9a-31f4-420f-b6c1-19e09b181f89,DE,Deere & Company
+e046197e-de64-447e-9912-e5d1abd7ccc9,DAL,Delta Air Lines
+392a6416-a700-4f3f-978c-e69b71cbd1c6,DVN,Devon Energy
+d4c01c04-1da3-413d-bd9e-f6a7af82a9dc,DXCM,Dexcom
+eadc826d-22dd-4bbf-9901-0147f090f151,FANG,Diamondback Energy
+2adef1b7-3994-4c2f-a5d1-0e8829519e18,DLR,Digital Realty
+5c19a219-d8f7-428d-8466-d140c77d139d,DFS,Discover Financial
+83dbf34c-64b1-4542-a2c3-2485c50544a6,DG,Dollar General
+2e4e079b-ecec-4a0f-aa72-6ac640f92428,DLTR,Dollar Tree
+1e7050fc-d303-46b0-9164-172c4ac5d16d,D,Dominion Energy
+030372b5-eea4-4523-b8ee-d07136fc6b49,DPZ,Domino's
+e63d935d-e053-47a7-b402-0183c6316e0a,DOV,Dover Corporation
+7549e9f4-4ee5-4a3e-afaf-4ded87589737,DOW,Dow Inc.
+2973d271-0251-4c42-9f6d-88497576d731,DHI,DR Horton
+022bd778-dd63-49ac-b2b2-5cadef9b6820,DTE,DTE Energy
+46c679f5-ccec-45a9-b865-0cbb4c567dc1,DUK,Duke Energy
+bd190bb7-e673-45e9-8f95-0be3ee251cfc,DD,DuPont
+d5d7f513-adab-44df-ae6d-61d8cb3af847,EMN,Eastman Chemical Company
+c9f52d2c-3723-452d-9ef8-d8ba1d239ea9,ETN,Eaton Corporation
+889b84ca-dd1a-4cc4-99e6-5db9648a70f4,EBAY,eBay
+527260c0-f35e-40c1-ab09-6d6c62d2ec3e,ECL,Ecolab
+27b11436-dade-499b-84d2-c47152e1ad94,EIX,Edison International
+3fd313c0-6e38-4edf-b471-b732cb8b3bec,EW,Edwards Lifesciences
+46f96bc0-daa1-408f-aafc-180a45d9ed45,EA,Electronic Arts
+15a3d6e6-62bc-457c-b6ec-531d93feba12,ELV,Elevance Health
+ae578f52-fa91-49c9-8229-e2ff5a646cd9,EMR,Emerson Electric
+27418780-747a-4f5b-9e25-2dbd305bf737,ENPH,Enphase
+12c2068d-a84b-4491-9b57-8c87307627d2,ETR,Entergy
+6875bd9a-bf1e-4679-a695-5300ff8183e1,EOG,EOG Resources
+4fc88723-fcc0-43b1-880a-38a646fc9f27,EPAM,EPAM Systems
+6bda41c0-3a91-4fd8-8885-db77f1843001,EQT,EQT Corporation
+eaac8f79-0029-47c9-b7b8-94ac49885ed1,EFX,Equifax
+b29d8dba-e05f-4e70-9694-d30c371cf1d3,EQIX,Equinix
+869f88ea-92cb-4e2f-b81b-aaa9f1d7af23,EQR,Equity Residential
+6ff9030f-315b-4f11-94b0-5fe78591b565,ESS,Essex Property Trust
+625ea099-28c2-41f1-b53e-b23d65aaa21d,EL,Estée Lauder Companies (The)
+d97e94fe-8607-4853-b487-6ee4f0c4d920,ETSY,Etsy
+d85a42e9-f808-4eed-9cd2-a931d6347fbd,EG,Everest Re
+c283bdff-2d2b-45b8-917a-0e2f0f2bfc82,EVRG,Evergy
+47172e5b-4da0-4c2f-9bd4-88d6cb602472,ES,Eversource
+4f155da0-cf56-48a6-a517-738320f17e5b,EXC,Exelon
+ad1f500d-dd83-48ac-9d51-2122f8d575fe,EXPE,Expedia Group
+a595ffac-4c94-4c0d-9ce3-aed316f3d74d,EXPD,Expeditors International
+3fb6bf2a-92bb-4942-9331-a1e97e1e022e,EXR,Extra Space Storage
+0f3e6eac-f75a-4aec-869c-eff4b2fa8710,XOM,ExxonMobil
+dce3cb00-e44b-4a7e-9c6c-78969dc2fe54,FFIV,"F5, Inc."
+95ea172e-25ed-462b-9f01-ce78c9db387d,FDS,FactSet
+7cd524e0-07bb-4ee2-955b-b42eea7d5d3d,FICO,Fair Isaac
+73485ec3-5463-4871-99f5-21911464c570,FAST,Fastenal
+28ff8440-d737-4e3b-8541-3cfc02212f6e,FRT,Federal Realty
+c65dd310-6785-4f5f-9b51-81a1adcc3b3f,FDX,FedEx
+74450248-f262-4746-82e8-e3dacf0cfd73,FIS,Fidelity National Information Services
+f52971ca-5b1c-4f5e-b855-a5fa45ae7cd6,FITB,Fifth Third Bank
+5504e151-d9d9-4fba-9112-fb175599007f,FSLR,First Solar
+e6ee6020-cf3b-4120-b614-b0b563454862,FE,FirstEnergy
+31cefa50-4f19-4eb3-8644-4802cf0c913a,FI,Fiserv
+6824f6f9-5216-453a-8541-12ce09db28a0,FMC,FMC Corporation
+65a1a925-6683-4d2a-9483-90f49190587b,F,Ford Motor Company
+8ddab597-2f57-41bf-830f-527ca98cda7a,FTNT,Fortinet
+063084bb-ec94-486d-a6ad-f59c9fbb6309,FTV,Fortive
+9fc95ce5-76ed-4481-ac50-59e3d3d09da9,FOXA,Fox Corporation (Class A)
+82db15ad-a89c-4d3d-a961-d6c9c81c4c67,FOX,Fox Corporation (Class B)
+d727ebe9-fd3c-473e-8948-fef158babf80,BEN,Franklin Templeton
+23a7e61e-cde9-4b5d-b400-a01adca863b3,FCX,Freeport-McMoRan
+ad6c4100-6e3d-480b-88ff-027bf391f945,GRMN,Garmin
+f3897a44-36e1-4604-a752-91b7ca9700ae,IT,Gartner
+dfb8e071-0181-40e7-9baf-6b010a44041a,GE,GE Aerospace
+e2c0065a-537d-4524-9e8b-f921715fb14b,GEHC,GE HealthCare
+e07fa2b3-30e9-4d97-9100-0a27232c563e,GEV,GE Vernova
+0e8f873f-7cb1-4975-a704-f30ae59c9705,GEN,Gen Digital
+2fcd1197-415e-4de5-8d33-aceac0e63393,GNRC,Generac
+09747a4b-e84b-43e8-8d97-58756d54fdd9,GD,General Dynamics
+af2caec6-c7fc-46fe-94d3-ec3ca622ff1c,GIS,General Mills
+07cdeeb2-de5e-4b69-b202-70e656a896af,GM,General Motors
+6362b6db-e0ad-4c30-8a75-6ce9da757b64,GPC,Genuine Parts Company
+b99d45b1-57c0-41bc-a0c9-ac90c7cad572,GILD,Gilead Sciences
+c8207dc1-b155-4561-9099-4303d22c89d8,GPN,Global Payments
+1bee7210-8919-4bdf-9e84-c6650a8c396c,GL,Globe Life
+d041ed34-844f-45d5-8efd-9e62daedd74d,GDDY,GoDaddy
+b683f98b-1231-4f4b-b12c-252c59161664,GS,Goldman Sachs
+e52cc903-9c7e-420d-ad17-0555ebf08878,HAL,Halliburton
+adc82893-5a3f-412e-8ec9-8be6efe29e03,HIG,Hartford (The)
+6a97a666-ad46-43c0-863a-047ee109e25f,HAS,Hasbro
+3357f105-1929-41bf-89e1-efa6c6e5f9d1,HCA,HCA Healthcare
+b86871ed-3c44-4ee9-b1cc-11e58c02a2cb,DOC,Healthpeak
+2a7a069a-9743-42a6-9c86-8810f7412e2a,HSIC,Henry Schein
+4f4cb923-b7de-49b1-8e72-401013c89325,HSY,Hershey's
+1e6452cb-644e-49ff-b0d0-6e58147fb4a9,HES,Hess Corporation
+3392485a-9d40-4efa-aae6-4bd2230392a5,HPE,Hewlett Packard Enterprise
+3a6c0769-e0bf-4ec8-9575-b02fca144098,HLT,Hilton Worldwide
+32733226-ed2e-49c4-b543-15246ffc8ecd,HOLX,Hologic
+10c32a41-4ac3-47c9-a1c7-fb35dd0658fb,HD,Home Depot (The)
+b56c9950-44ae-41e0-9d2b-ad1871bfa1cf,HON,Honeywell
+3c1cf358-9a5c-40fc-a8f7-6c3903d8c9b0,HRL,Hormel Foods
+1a1b4b6e-d462-4d02-ad59-92b8badde59a,HST,Host Hotels & Resorts
+688db86d-2cfd-430c-a358-76d403f05f73,HWM,Howmet Aerospace
+30b463c8-de43-4667-96de-ebce650af202,HPQ,HP Inc.
+124f9e05-5d2d-485e-b843-1e55df2a5e9f,HUBB,Hubbell Incorporated
+d9a66191-830c-4f70-98c3-05dfea2c1716,HUM,Humana
+59c0a53c-98e5-482d-b3fd-2c1934a0ce9e,HBAN,Huntington Bancshares
+9bedc75d-5a5c-400a-9b76-6fca5c549acc,HII,Huntington Ingalls Industries
+54a3b4c9-4036-4a5c-bf0b-e56545d484a8,IBM,IBM
+c83c9c90-7e10-4e80-97e2-36ad4ccc5526,IEX,IDEX Corporation
+9f3239ca-e1b9-4477-9e98-e0509ef9c0e0,IDXX,Idexx Laboratories
+e4ef1a6d-2081-4a00-9509-0a243abe4b27,ITW,Illinois Tool Works
+e449b6d2-8828-48b2-b37a-d27953386fe9,INCY,Incyte
+d12d104c-1fd7-4e12-bd65-ac57043af5a1,IR,Ingersoll Rand
+248c3854-2246-4153-81c1-4295820c78c6,PODD,Insulet Corporation
+b7eb76a3-0e58-4574-a3b9-5ce1e304e9fd,INTC,Intel
+6275f7fe-bf0e-4cc7-b4cf-afa516ecd669,ICE,Intercontinental Exchange
+81fac450-47e1-48c3-8a17-55d98aa31002,IFF,International Flavors & Fragrances
+4a1d55da-6363-437f-9f93-bec6027b81f9,IP,International Paper
+30492aec-2024-4644-8af3-ceae5be9690b,IPG,Interpublic Group of Companies (The)
+307cbfa5-b979-41b7-beec-d25c7a513a83,INTU,Intuit
+8447960e-84f2-43c8-96cb-7d64cfed2048,ISRG,Intuitive Surgical
+64044ae3-9fb9-4add-b928-3a23a0eab8c7,IVZ,Invesco
+58733c86-a550-44ca-8abe-d15b41390a4b,INVH,Invitation Homes
+d083ded1-8766-46ae-bcbd-181f711092e7,IQV,IQVIA
+38d5e580-d9bf-4052-8087-29941be818fa,IRM,Iron Mountain
+fa849e53-78ee-4c64-96a9-42668991f9b0,JBHT,J.B. Hunt
+ef8947a1-99ab-42f8-8da4-a3b2233c1208,JBL,Jabil
+37c61bf3-1dba-4978-9c50-9a77dfff1b82,JKHY,Jack Henry & Associates
+f8cbdc0a-f275-4cf2-872f-635773f4ef0b,J,Jacobs Solutions
+bcab7c68-1806-4216-8ee1-69168d5b8f38,JNJ,Johnson & Johnson
+4f3523b0-d184-423a-b376-aa23510d9678,JCI,Johnson Controls
+87253ddb-3d96-4254-a3a4-83fde338844d,JPM,JPMorgan Chase
+c41ea888-61ad-4a79-93a2-30ddd93668dd,JNPR,Juniper Networks
+679ee8d0-b705-43c7-8144-56225e86be10,K,Kellanova
+2b1e53fb-e83b-4c35-80c1-3e3a41371c65,KVUE,Kenvue
+06eb7105-e48d-4ad0-9732-7783f3a2e3a1,KDP,Keurig Dr Pepper
+35628d70-6ba8-43a2-a681-23722adb9cbf,KEY,KeyCorp
+186cf40c-c5f0-4391-8edb-d0445d9a105e,KEYS,Keysight
+46eddd5d-0bea-481b-b8be-4e5b017f8a99,KMB,Kimberly-Clark
+3a3c99bf-ec1b-4a6e-a042-62e39384fc1a,KIM,Kimco Realty
+a0e532fd-0469-4fd4-be27-8f365cbd13e8,KMI,Kinder Morgan
+47cd3b33-056b-4768-ab77-96480a4be6e6,KKR,KKR
+eef4bcdf-7f65-4270-88bc-68c37ca066ac,KLAC,KLA Corporation
+aa894ff5-162a-4cdb-9c9c-d9b3ff8d9645,KHC,Kraft Heinz
+b63a2e0a-8f5a-43e5-8bcb-2af67507e79d,KR,Kroger
+1c1a4304-fdab-444f-9b6d-10fa02634ec3,LHX,L3Harris
+c38d0054-31b6-49af-afa6-768c805b5462,LH,LabCorp
+caafdda2-1f95-47a4-a358-8b12fed45e1f,LRCX,Lam Research
+79c20bf9-e964-4ac6-b897-a6b2045518bc,LW,Lamb Weston
+24bd86a0-32f5-4bf5-9e98-d519e88066a0,LVS,Las Vegas Sands
+4d484b27-6055-4a11-b612-838999bd300a,LDOS,Leidos
+4236d9f0-6530-42c9-a5db-5401db76c101,LEN,Lennar
+f138ffe4-b1a1-4b87-97d6-8f6a88365e21,LLY,Lilly (Eli)
+b73aa823-48b3-4ffe-9f62-394006871c52,LIN,Linde plc
+085448b3-140e-467c-bc01-a932745410e1,LYV,Live Nation Entertainment
+2444cae8-8106-4f79-b498-68562a32ef19,LKQ,LKQ Corporation
+9ed608d1-233b-44b7-af6b-0523bdbb81c3,LMT,Lockheed Martin
+b651578c-8c0d-464e-99ab-53c07a83de4a,L,Loews Corporation
+7221105d-e9e1-46d3-a311-5d2d82da3b5d,LOW,Lowe's
+9782bb22-f8e6-45aa-91e5-988b7024efbc,LULU,Lululemon Athletica
+0c2c9a38-0754-4344-8695-fa21892701f1,LYB,LyondellBasell
+27ca45fa-cf26-4b8e-a405-7fda600016e4,MTB,M&T Bank
+431542f0-e829-4596-8f76-279588108024,MRO,Marathon Oil
+c723958b-10e9-4906-83e1-ba4f7ac77b5e,MPC,Marathon Petroleum
+5408bc11-b412-48ee-90f6-adfa6e770805,MKTX,MarketAxess
+f9a417e0-160e-4e44-8464-6b28f7617c8d,MAR,Marriott International
+3941bcd3-0ae3-42fc-b078-2e296f42c403,MMC,Marsh McLennan
+e1be3024-8bc7-4753-93bf-41c1e1172e62,MLM,Martin Marietta Materials
+30d05017-5581-429c-a8f1-ccf4695c6e64,MAS,Masco
+b64533ca-b8b3-44e5-a809-b7e541186294,MA,Mastercard
+e04ef3eb-5f3b-4f6e-bd29-61a8324bed3f,MTCH,Match Group
+54c31463-eff6-45cd-a3a5-f1610e9a5990,MKC,McCormick & Company
+46dab5c6-7bc1-44b9-bd6c-7ddac77964a9,MCD,McDonald's
+6d0b57eb-7391-4d39-87e2-fb4244d843d7,MCK,McKesson Corporation
+ae441dbf-ab27-4058-9639-14b97c19f1c0,MDT,Medtronic
+b2d2890d-7086-4f82-a018-4a1b32107c8e,MRK,Merck & Co.
+3f661f73-cc0d-434d-bc2f-fa31f8f4cd43,META,Meta Platforms
+7d612a47-1434-4875-bcc8-7ae54e3d3ad9,MET,MetLife
+c9f73612-e415-4c42-a038-0771e9b9b538,MTD,Mettler Toledo
+885958ca-7589-46ab-9fb0-19ce59b7285c,MGM,MGM Resorts
+03812a9d-c225-4160-ba37-f7819080effc,MCHP,Microchip Technology
+fd633bed-977d-4f63-8fd6-62263b4aaa93,MU,Micron Technology
+ce31887e-29f8-4eea-bc30-76bff3e6d724,MSFT,Microsoft
+3c4a3aaa-6abf-4e44-8f17-9c32a47b736c,MAA,Mid-America Apartment Communities
+e3c4438f-37c1-4f27-858e-0772f3cbdf88,MRNA,Moderna
+a6437f89-0929-481c-8ce2-db806499c287,MHK,Mohawk Industries
+efe0b4ce-ac8f-451e-b019-2df4a5abbfeb,MOH,Molina Healthcare
+23d72f69-d266-4fba-a5d0-c397812dbebc,TAP,Molson Coors Beverage Company
+adeeeca2-0918-406d-8f42-0e862fa4addd,MDLZ,Mondelez International
+b1627710-9776-4b5d-ad3b-d3dcd53bc394,MPWR,Monolithic Power Systems
+99f78ff6-7772-477d-98d3-33065a7f9990,MNST,Monster Beverage
+04e46981-5d91-4ff6-b64c-46825ab5d6da,MCO,Moody's Corporation
+1c132a23-ab1a-4280-8b1b-86dc9eec2636,MS,Morgan Stanley
+887a9710-0158-4296-a1a4-4d7940fdcd33,MOS,Mosaic Company (The)
+3d16602d-2fa9-490c-ad2f-9805b28df386,MSI,Motorola Solutions
+87d07fa2-10d6-421e-90c5-2c74db60176b,MSCI,MSCI
+d5902216-e958-4e6b-8ecc-055f5ab018f6,NDAQ,"Nasdaq, Inc."
+f5851d46-6c99-4b13-b025-37bd9e86cacb,NTAP,NetApp
+c5cf42fe-3d34-4cdb-bc11-f604e8798857,NFLX,Netflix
+e0fb4015-c7a0-4c9d-9b27-aea7cd5ecd0a,NEM,Newmont
+329b0a2c-ce58-401f-a678-bd5b5bbe8cb3,NWSA,News Corp (Class A)
+09b9a092-fa5a-483a-b783-02459fb12457,NWS,News Corp (Class B)
+973daf3c-6001-4c15-82d5-dac21e41964b,NEE,NextEra Energy
+09411c21-f6f3-4742-a7c1-1cc9b909d769,NKE,"Nike, Inc."
+d7d947eb-b0ca-448a-a943-9330264ab5c9,NI,NiSource
+3a5f2093-e0dc-4134-8c41-9ff621364df1,NDSN,Nordson Corporation
+664c0d5d-37ca-460a-b75c-2fc753eb96da,NSC,Norfolk Southern Railway
+149b5ddf-2936-4dce-9ffd-8aefeb268b83,NTRS,Northern Trust
+a3ea274f-652e-415a-9ce3-f65a72605b3c,NOC,Northrop Grumman
+c16b47d7-5549-43e7-8f8c-1ea07e2da08f,NCLH,Norwegian Cruise Line Holdings
+5c6c3e09-c14e-48f5-b7c5-7fa0f76aa153,NRG,NRG Energy
+5385c929-9a51-4512-b644-97b51a944f7c,NUE,Nucor
+0c903456-5e2a-4903-8352-096fc1674bd2,NVDA,Nvidia
+ce7f323b-b9a6-4eaa-b563-b1979142c357,NVR,"NVR, Inc."
+ec57848d-5cee-4dad-a88d-0a3d2edffec9,NXPI,NXP Semiconductors
+b82e2a09-cd45-4f9a-aae4-c077cf10fe38,ORLY,O'Reilly Auto Parts
+e11079e0-34f7-43ab-ba39-05b0081218e8,OXY,Occidental Petroleum
+64069e29-e2ef-4668-bdef-e46fc1e25895,ODFL,Old Dominion
+6891b87f-9928-4224-9b16-2fa069ba8a75,OMC,Omnicom Group
+a9d9c851-5150-4749-a767-693ca2bcc200,ON,ON Semiconductor
+24a89dd6-b371-44a6-bb75-600a1ef28aa4,OKE,ONEOK
+6426fb52-4248-4ec1-9818-6318df79dce1,ORCL,Oracle Corporation
+80f6aee7-e49e-44dc-b8ce-105cbc330ea9,OTIS,Otis Worldwide
+26e2b764-c8b0-438c-acc0-08c7858b6f9c,PCAR,Paccar
+1491d5bd-d86b-4e13-a80f-69c969cf9be3,PKG,Packaging Corporation of America
+ccb7b657-4316-44fa-b93d-4e000099f584,PANW,Palo Alto Networks
+540e71ce-497f-4d9c-9d20-d6a4c772aac7,PARA,Paramount Global
+856f8004-f60c-4385-9a58-0683dc6ad047,PH,Parker Hannifin
+99df2dce-4aae-4510-93b0-300ec82d9e3a,PAYX,Paychex
+622e696e-c836-4e3a-a153-a6d599ab9286,PAYC,Paycom
+b5043002-c97b-4b74-a908-e40c17afb4e9,PYPL,PayPal
+23143143-9566-4790-b0ad-a88536301e63,PNR,Pentair
+840d8614-39c9-4032-9aa0-871685af0f71,PEP,PepsiCo
+6957d781-99e0-4abf-9bc1-859e5b9feec8,PFE,Pfizer
+c00af3f5-c5fd-4b79-96c4-b405cc8930ed,PCG,PG&E Corporation
+3c2468dc-5406-485a-9b50-bf0ce238db06,PM,Philip Morris International
+0220d5b7-76ef-410e-a22b-a79530fabb5c,PSX,Phillips 66
+345042fc-b93c-4779-a3e0-b6a5b35ea302,PNW,Pinnacle West
+a356397b-a758-4823-bf01-34ce0835fb76,PNC,PNC Financial Services
+a269047f-8c04-474d-9ff7-c39f9bc1d698,POOL,Pool Corporation
+c8014863-895c-4c99-84e1-ba2c29341aad,PPG,PPG Industries
+8c72b0b8-4d23-4792-ac0a-d2d8e21d2e91,PPL,PPL Corporation
+b749383b-d0d5-470d-a3b8-422f02c47fd0,PFG,Principal Financial Group
+6e572370-0d4a-4e40-8664-d1175e62bece,PG,Procter & Gamble
+69f330e9-c86b-48f4-9aa5-e7c33e55cfac,PGR,Progressive Corporation
+8fba282d-9c1f-4055-afe3-492a8ef140f6,PLD,Prologis
+76e2718c-2733-471a-a4a8-c251afe0e206,PRU,Prudential Financial
+b4cb9ef1-0f56-4a21-870c-442ebcc9d9f5,PEG,Public Service Enterprise Group
+c3db010f-bd5c-485d-8c50-cfa707f2b192,PTC,PTC
+36e07e52-c938-41e0-b032-301f5006e8de,PSA,Public Storage
+a2de7fab-4108-409f-87ad-3bc71eb715f9,PHM,PulteGroup
+7bc16d00-7b1e-4e11-b8cc-043d1c0cb9b8,QRVO,Qorvo
+97061ba4-768d-40e7-8cd3-79876d03122d,PWR,Quanta Services
+d9722348-d631-4038-a632-cb7506944b3d,QCOM,Qualcomm
+f0bda13e-b0c6-44f2-877d-36382b21328f,DGX,Quest Diagnostics
+81bd263d-bd31-4233-9cab-e99d712b00aa,RL,Ralph Lauren Corporation
+f6e50d14-925c-43e9-a7ec-30e3831c8383,RJF,Raymond James
+5cb8a818-b0cd-41d9-8448-708ba670feb4,RTX,RTX Corporation
+fa93a729-f3f3-4e1c-9f9e-9e51a2cb6840,O,Realty Income
+f68551ce-2869-4af6-a990-0c0914175a26,REG,Regency Centers
+237def46-e4c8-4287-a139-d2fcc68002c6,REGN,Regeneron
+a0791214-233c-45ab-8a3b-6cbed8959e4a,RF,Regions Financial Corporation
+d5e4450e-76ad-45e2-b426-6af6f81d159e,RSG,Republic Services
+7b23d3a1-d012-415b-81d7-328eca3959e4,RMD,ResMed
+8dab70db-8e18-4607-a737-5898a4cf175e,RVTY,Revvity
+81152a16-a4fa-4c40-9d9e-5b401e222c29,ROK,Rockwell Automation
+9ece5a25-0516-4df5-bf7d-b6a2e3308061,ROL,"Rollins, Inc."
+f6fdbba3-b975-4edc-a97f-e2cd72d741c1,ROP,Roper Technologies
+cf912d0f-db8e-4998-8fc8-91aace24374e,ROST,Ross Stores
+69969a51-98c6-49fd-a10c-641a822340dd,RCL,Royal Caribbean Group
+506426fd-e5bd-4f5b-a7f6-7985462f6497,SPGI,S&P Global
+99d320ef-527a-4c66-a547-c5f5a55ad43d,CRM,Salesforce
+66d5cbe2-3eea-42e3-8213-1427cc8e3a3a,SBAC,SBA Communications
+245f655e-c9bb-4a71-a2f3-6eb79e9fec26,SLB,Schlumberger
+dcd14ff7-2035-49fa-aca1-635a6eea4334,STX,Seagate Technology
+374f7617-99c5-4255-8255-08e7a1b0b2bc,SRE,Sempra Energy
+d35d4628-0aa1-4e87-818e-08cf7eb900e3,NOW,ServiceNow
+7f24f883-ca30-420c-b6b0-716c8ac2ee7f,SHW,Sherwin-Williams
+c45b07c5-3bed-4884-9474-1b132c24c833,SPG,Simon Property Group
+1df31740-30c2-48e3-9d65-408030595dd0,SWKS,Skyworks Solutions
+1bd4b61a-07c9-4eea-93d7-6a4e66e8051c,SJM,J.M. Smucker Company (The)
+0b00741a-6963-4971-96a7-03118a94aff8,SW,Smurfit WestRock
+290c53ef-6d9c-4c48-8bba-7b8779b0b28b,SNA,Snap-on
+d1a31249-96a1-4692-9a0a-3b27a364504a,SOLV,Solventum
+5b893da7-6f0f-4ae4-9adb-e75b486c21b2,SO,Southern Company
+442d08a5-e712-49ce-b1b4-e719292ff0cf,LUV,Southwest Airlines
+370cae00-25c3-4b3b-a886-7869d7e033a6,SWK,Stanley Black & Decker
+89b9ba56-75d4-4092-90bf-53ea0ca62b58,SBUX,Starbucks
+26bca741-9a0a-401d-b3e9-ff5498af1a06,STT,State Street Corporation
+4fd052eb-1797-47a1-8765-4c0b8159a7f9,STLD,Steel Dynamics
+350322a4-0b4f-400d-8ce8-e40574ce05c5,STE,Steris
+5ffde684-f82d-4ceb-bc66-9c3cbd3d30aa,SYK,Stryker Corporation
+f2b255bc-f505-4362-9c79-67ff1ace9253,SMCI,Supermicro
+0780056f-ec14-48f2-9016-f4f9798ddfd5,SYF,Synchrony Financial
+9f67601e-7d4d-4864-8afb-c1114967a390,SNPS,Synopsys
+4a47616f-060c-4f2c-a4cb-f90771cb3c71,SYY,Sysco
+74f2333a-573a-48d0-86f1-7e8c214ed0ff,TMUS,T-Mobile US
+ae8ec891-a6e0-416b-8242-e302a2b958ed,TROW,T. Rowe Price
+4e3ac227-9334-4f73-8a08-5c04b5db5146,TTWO,Take-Two Interactive
+705aa5c1-cf99-4421-92f8-818a9d970cb4,TPR,"Tapestry, Inc."
+83afe1a7-7b25-42a0-97d7-375b92e5ad77,TRGP,Targa Resources
+0f4a8e09-4df2-4ac3-9054-55004c0db991,TGT,Target Corporation
+e7ce7931-e8b7-4041-8e50-8fd3843c7a27,TEL,TE Connectivity
+e71d2356-c477-40c7-b284-66f89e51ce26,TDY,Teledyne Technologies
+7923b945-fbaf-4d8d-825c-d6611d7878c4,TFX,Teleflex
+8f4d960f-23a3-402e-b80a-c88b5ee2a35c,TER,Teradyne
+e0c73665-6070-48c2-a573-132e04577f90,TSLA,"Tesla, Inc."
+10cf30ad-28fa-4417-81d4-c3433a35672f,TXN,Texas Instruments
+5937d495-6c0f-4a4b-bf84-be15133aa1f2,TXT,Textron
+4b920843-2fa3-4193-9f0c-8ea364df268e,TMO,Thermo Fisher Scientific
+805c2437-ef44-435f-8fa6-fc44bf5fb114,TJX,TJX Companies
+6597ba74-8325-4371-aace-b820e966ddf7,TSCO,Tractor Supply
+db2d78d5-c8c1-428a-bb53-3d1be88ab316,TT,Trane Technologies
+27406661-c0a4-4165-b1c9-ac1bf8afd793,TDG,TransDigm Group
+9a72a1f8-7aa8-4dfe-9283-48589eef3c70,TRV,Travelers Companies (The)
+7d62524d-86fa-4ac2-bec3-381ab911d6ab,TRMB,Trimble Inc.
+1581456d-4b6c-43cb-85e4-387065e4bf0f,TFC,Truist
+c8a71eed-c437-4a89-b217-1102aadb3158,TYL,Tyler Technologies
+b1e2970f-ab59-4128-934f-5f5e1efecb18,TSN,Tyson Foods
+8cd3bc05-445e-42b7-9a72-7a09284f2b74,USB,U.S. Bank
+3aeab020-669d-422a-9fb1-75318e15e204,UBER,Uber
+c3d50f56-5691-4c61-b0a3-6fc002e61935,UDR,"UDR, Inc."
+19b3cf66-9bef-4fe5-bb35-81618d2c0921,ULTA,Ulta Beauty
+39847e50-20aa-4548-aa16-b20509fabbe3,UNP,Union Pacific Corporation
+c8afab4f-6c7d-44be-84e9-d57dc95d835c,UAL,United Airlines Holdings
+962744b7-d51f-44db-ab52-cd30af69e5e4,UPS,United Parcel Service
+b734489c-eec1-4cd7-a183-56faf08e6757,URI,United Rentals
+18e193cd-6855-4d3d-ac22-3bcad3e2434a,UNH,UnitedHealth Group
+13568ac4-3f74-4b78-8b7d-3002c0dcc670,UHS,Universal Health Services
+477ddfd5-de5e-4906-a9b9-2854b8a7fba9,VLO,Valero Energy
+48cee0ab-e4a7-460c-a257-212110164f3b,VTR,Ventas
+14b08b4a-8355-46e0-891b-54b4a0751c75,VLTO,Veralto
+f279fef0-a9fd-4526-a4a0-a3796f7fc703,VRSN,Verisign
+2588346e-60a4-48ff-859e-9579d649e1f1,VRSK,Verisk
+bed94c55-00d8-45fd-94ba-676205fc1e75,VZ,Verizon
+d2a71e73-1b49-4490-8386-8f5342ca20ba,VRTX,Vertex Pharmaceuticals
+f279e9ec-a869-4e8f-ad25-4969d267652a,VTRS,Viatris
+12f2ab9c-9b45-417e-a8e9-5ba4c67699c7,VICI,Vici Properties
+1ee3160f-1d06-4ad4-9ce5-7691e8294223,V,Visa Inc.
+3130d285-f59e-4603-9f69-e34b78673b03,VST,Vistra
+2c3dc02d-3d60-4ae4-9aa8-fa4a9fd9ac25,VMC,Vulcan Materials Company
+f68a8675-d5f5-4217-8052-87fbc4d1e17b,WRB,W. R. Berkley Corporation
+7848c644-d4d2-4cb0-899e-487d2976c9c2,GWW,W. W. Grainger
+013d3cd8-35b1-4847-8fdd-205ecb0eeea4,WAB,Wabtec
+9f9dae5d-9053-42fc-9576-00f603747cd3,WBA,Walgreens Boots Alliance
+42615d65-fd7b-4092-a248-450dfbe0854a,WMT,Walmart
+b1388d5f-afeb-4f93-b8ae-898e935fc963,DIS,Walt Disney Company (The)
+a331999d-0b08-4d79-87dc-60593ec1c584,WBD,Warner Bros. Discovery
+167ddf00-0c2b-4542-a56a-36e933c7aed4,WM,Waste Management
+4221640b-4f3c-4b00-89e2-9fe41379477a,WAT,Waters Corporation
+ff2df486-a4ef-4c4e-aa7b-4f84dc2111cc,WEC,WEC Energy Group
+04f84e11-e251-4bac-82be-0e33932abcb8,WFC,Wells Fargo
+af547375-e1b9-4df7-beac-4de13bf02ba6,WELL,Welltower
+b744db49-a58a-4309-9af5-1ec32c69e71d,WST,West Pharmaceutical Services
+121ce9f2-68d0-4587-8264-1395e537ff35,WDC,Western Digital
+139a49bd-8b6e-41ea-a46f-ace6e242707f,WY,Weyerhaeuser
+f9f640e1-c97d-47cf-a1fd-17a2e866b447,WMB,Williams Companies
+95ac2798-eadf-46b9-a128-08c796a2683b,WTW,Willis Towers Watson
+46a07c4f-d069-40c8-8d4c-c0ea8c6bed60,WYNN,Wynn Resorts
+1c3f9c7e-6d4d-4328-b9ee-141b2b0fcb7b,XEL,Xcel Energy
+2db9b0e1-ce92-4a04-bb0c-40ce1ce7bf64,XYL,Xylem Inc.
+7376069e-b6fd-41e0-abb5-d8d2c579678b,YUM,Yum! Brands
+24d92305-703a-466e-810f-3e69b52b5387,ZBRA,Zebra Technologies
+b4548d8a-74dd-4a6c-b2bf-d87117c9c33c,ZBH,Zimmer Biomet
+bc8cce27-d915-4f93-a41c-c86a587eb1e0,ZTS,Zoetis
