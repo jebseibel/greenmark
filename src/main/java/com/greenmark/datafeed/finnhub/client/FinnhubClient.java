@@ -30,6 +30,7 @@ import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -38,6 +39,7 @@ import java.util.List;
 
 @Component
 public class FinnhubClient {
+
 
     private CloseableHttpClient httpClient = HttpClients.createDefault();
     private String token;
