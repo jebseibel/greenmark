@@ -12,15 +12,6 @@ import java.util.Hashtable;
 // START CLASS: Heartbeat
 ////////////////////////////////////////////////////////////////////////////////
 
-/**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2003</p>
- * <p>Company: Seibel Consulting</p>
- *
- * @author Jeb Seibel
- * @version 1.0
- */
 @Slf4j
 public class Heartbeat
         extends Thread {
