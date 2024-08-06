@@ -26,9 +26,6 @@ public class Account implements Serializable {
 
     @Column(name = "description", length = 128, nullable = false)
     private String description;
-//
-//    @Column(name = "account_type")
-//    private Integer accountType;
 
     /**
      * BASE FIELDS

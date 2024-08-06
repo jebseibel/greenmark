@@ -35,9 +35,6 @@ public class AccountDbService extends BasicDbService {
      */
     public AccountDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
 
-        //look for already created
-        checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
-
         try {
             Account record = new Account();
             record.setExtid(extid);
@@ -54,13 +51,13 @@ public class AccountDbService extends BasicDbService {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
                     log.info(getCreatedFailureMessage(extid));
-                    throw new DatabaseCreateFailureException("DataIntegrityViolationException" + e.getMessage());
+                    throw new DatabaseCreateFailureException("DataIntegrityViolationException: " + e.getMessage());
                 case "ConstraintViolationException ":
                     log.info(getCreatedFailureMessage(extid));
-                    throw new DatabaseCreateFailureException("ConstraintViolationException" + e.getMessage());
+                    throw new DatabaseCreateFailureException("ConstraintViolationException: " + e.getMessage());
                 default:
                     log.info(getDbAccessMessage(extid));
-                    throw new DatabaseAccessException("DatabaseAccessException" + e.getMessage());
+                    throw new DatabaseAccessException("DatabaseAccessException: " + e.getMessage());
             }
         }
     }

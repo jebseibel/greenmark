@@ -1,9 +1,7 @@
 package com.greenmark.database.db.repository;
 
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.entity.StockDaily;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.greenmark.database.db.entity.BucketMinute15;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +13,20 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class StockDailyRepositoryTest {
+class BucketMinute15RepositoryTest {
 
     @Autowired
-    private StockDailyRepository repository;
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
+    private BucketMinute15Repository repository;
 
     @Nested
     class SuiteCrud {
 
         @Test
         void create() {
-            StockDaily item = DomainBuilder.getStockNightly();
+            BucketMinute15 item = DomainBuilder.getBucketMinute15();
+            System.out.println(item);
             assertNull(item.getId());
-            StockDaily result = repository.save(item);
+            BucketMinute15 result = repository.save(item);
 
             //test
             assertNotNull(result);
@@ -44,10 +35,10 @@ class StockDailyRepositoryTest {
         }
 
         @Test
-        void createUniqueName() {
-            String symbol = DomainBuilder.getSymbolRandom();
-            StockDaily item1 = DomainBuilder.getStockNightly(symbol);
-            StockDaily item2 = DomainBuilder.getStockNightly(symbol);
+        void createSymbolNotUnique() {
+            String name = DomainBuilder.getSymbolRandom();
+            BucketMinute15 item1 = DomainBuilder.getBucketMinute15(name);
+            BucketMinute15 item2 = DomainBuilder.getBucketMinute15(name);
 
             try {
                 repository.save(item1);
@@ -62,33 +53,30 @@ class StockDailyRepositoryTest {
 
         @Test
         void update() {
-            StockDaily item = DomainBuilder.getStockNightly();
+            BucketMinute15 item = DomainBuilder.getBucketMinute15();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
-            StockDaily record = repository.save(item);
+            BucketMinute15 record = repository.save(item);
 
             //now update
-            String changedSymbol = DomainBuilder.getSymbolRandom();
-            record.setSymbol(changedSymbol);
             record.setModifiedAt(LocalDateTime.now());
-            StockDaily resultUpdate = repository.save(record);
+            BucketMinute15 resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
-            assertEquals(resultUpdate.getSymbol(), changedSymbol);
             assertNotNull(resultUpdate.getModifiedAt());
         }
 
         @Test
         void delete() {
-            StockDaily item = DomainBuilder.getStockNightly();
+            BucketMinute15 item = DomainBuilder.getBucketMinute15();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
-            StockDaily record = repository.save(item);
+            BucketMinute15 record = repository.save(item);
 
             //now update
             record.setDeletedAt(LocalDateTime.now());
-            StockDaily resultUpdate = repository.save(record);
+            BucketMinute15 resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -100,29 +88,16 @@ class StockDailyRepositoryTest {
     class SuiteFind {
 
         @Test
-        void findById() {
-            String symbol = DomainBuilder.getSymbolRandom();
-            StockDaily record = DomainBuilder.getStockNightly(symbol);
-            StockDaily item = repository.save(record);
-            StockDaily result = repository.findById(item.getId()).get();
-
-            //test
-            assertNotNull(result);
-            assertEquals(result.getSymbol(), symbol);
-        }
-
-
-        @Test
         void findBySymbol() {
-            String symbol = DomainBuilder.getSymbolRandom();
-            StockDaily record = DomainBuilder.getStockNightly(symbol);
+            String name = DomainBuilder.getSymbolRandom();
+            BucketMinute15 record = DomainBuilder.getBucketMinute15(name);
 
             repository.save(record);
-            StockDaily result = repository.findBySymbol(symbol).get();
+            BucketMinute15 result = repository.findBySymbol(name).get();
 
             //test
             assertNotNull(result);
-            assertEquals(result.getSymbol(), symbol);
+            assertEquals(result.getSymbol(), name);
         }
     }
 }

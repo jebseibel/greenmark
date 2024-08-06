@@ -2,10 +2,12 @@ package com.greenmark.database.db;
 
 import com.greenmark.common.database.domain.*;
 import com.greenmark.common.enums.ActiveEnum;
+import com.greenmark.common.database.domain.StockData;
 import com.greenmark.database.db.entity.*;
 import com.greenmark.database.db.mapper.*;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
@@ -54,6 +56,8 @@ public class DomainBuilder
 //        .build();
 
     // //////////////////////////////////////////////////////////////////
+    // Bucket 60
+    // //////////////////////////////////////////////////////////////////
     public static BucketMinute60 getBucketMinute60() {
         String symbol = getSymbolRandom();
         return getBucketMinute60(symbol);
@@ -63,15 +67,15 @@ public class DomainBuilder
     ) {
         BucketMinute60 item = new BucketMinute60();
         item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
-        item.setCurrent(randomFloat());
-        item.setOpen(randomFloat());
-        item.setHigh(randomFloat());
-        item.setLow(randomFloat());
-        item.setClose(randomFloat());
-        item.setChanged(randomFloat());
-        item.setChangedPercent(randomFloat());
-        item.setMacd(randomFloat());
-        item.setStochk(randomFloat());
+        item.setCurrent(randomBigDecimal());
+        item.setOpen(randomBigDecimal());
+        item.setHigh(randomBigDecimal());
+        item.setLow(randomBigDecimal());
+        item.setPreviousClose(randomBigDecimal());
+        item.setChanged(randomBigDecimal());
+        item.setChangedPercent(randomBigDecimal());
+        item.setMacd(randomBigDecimal());
+        item.setStochk(randomBigDecimal());
         item.setActive(ActiveEnum.ACTIVE.value);
         item.setCreatedAt(LocalDateTime.now());
         item.setModifiedAt(null);
@@ -80,24 +84,26 @@ public class DomainBuilder
     }
 
     // //////////////////////////////////////////////////////////////////
-    public static BucketDb getBucketDb() {
-        Bucket item = getBucket(null, null);
-        return BucketMapper.toDb(item);
-    }    
-    public static Bucket getBucket() {
-        return getBucket(null, null);
+    // Bucket 15
+    // //////////////////////////////////////////////////////////////////
+    public static BucketMinute15 getBucketMinute15() {
+        String symbol = getSymbolRandom();
+        return getBucketMinute15(symbol);
     }
-    public static Bucket getBucket(String name) {
-        return getBucket(name, null);
-    }
-    public static Bucket getBucket(
-            String thisName,
-            String thisDescription
+    public static BucketMinute15 getBucketMinute15(
+            String thisSymbol
     ) {
-        Bucket item = new Bucket();
-        item.setExtid(UUID.randomUUID().toString());
-        item.setName( thisName != null ? thisName : getNameRandom());
-        item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom());
+        BucketMinute15 item = new BucketMinute15();
+        item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
+        item.setCurrent(randomBigDecimal());
+        item.setOpen(randomBigDecimal());
+        item.setHigh(randomBigDecimal());
+        item.setLow(randomBigDecimal());
+        item.setPreviousClose(randomBigDecimal());
+        item.setChanged(randomBigDecimal());
+        item.setChangedPercent(randomBigDecimal());
+        item.setMacd(randomBigDecimal());
+        item.setStochk(randomBigDecimal());
         item.setActive(ActiveEnum.ACTIVE.value);
         item.setCreatedAt(LocalDateTime.now());
         item.setModifiedAt(null);
@@ -106,26 +112,86 @@ public class DomainBuilder
     }
 
     // //////////////////////////////////////////////////////////////////
-    public static FollowDb getFollowDb() {
-        Follow item = getFollow(null, null);
-        return FollowMapper.toDb(item);
+    // Bucket 05
+    // //////////////////////////////////////////////////////////////////
+    public static BucketMinute05 getBucketMinute05() {
+        String symbol = getSymbolRandom();
+        return getBucketMinute05(symbol);
     }
-    public static Follow getFollow() { return getFollow(null, null); }
-    public static Follow getFollow(String name) { return getFollow(name, null);  }
-    public static Follow getFollow(
-            String thisName,
-            String thisDescription
+    public static BucketMinute05 getBucketMinute05(
+            String thisSymbol
     ) {
-        Follow item = new Follow();
-        item.setExtid(UUID.randomUUID().toString());
-        item.setName( thisName != null ? thisName : getNameRandom());
-        item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom());
+        BucketMinute05 item = new BucketMinute05();
+        item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
+        item.setCurrent(randomBigDecimal());
+        item.setOpen(randomBigDecimal());
+        item.setHigh(randomBigDecimal());
+        item.setLow(randomBigDecimal());
+        item.setPreviousClose(randomBigDecimal());
+        item.setChanged(randomBigDecimal());
+        item.setChangedPercent(randomBigDecimal());
+        item.setMacd(randomBigDecimal());
+        item.setStochk(randomBigDecimal());
         item.setActive(ActiveEnum.ACTIVE.value);
         item.setCreatedAt(LocalDateTime.now());
         item.setModifiedAt(null);
         item.setDeletedAt(null);
         return item;
     }
+
+    // //////////////////////////////////////////////////////////////////
+    // Bucket 01
+    // //////////////////////////////////////////////////////////////////
+    public static BucketMinute01 getBucketMinute01() {
+        String symbol = getSymbolRandom();
+        return getBucketMinute01(symbol);
+    }
+    public static BucketMinute01 getBucketMinute01(
+            String thisSymbol
+    ) {
+        BucketMinute01 item = new BucketMinute01();
+        item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
+        item.setCurrent(randomBigDecimal());
+        item.setOpen(randomBigDecimal());
+        item.setHigh(randomBigDecimal());
+        item.setLow(randomBigDecimal());
+        item.setPreviousClose(randomBigDecimal());
+        item.setChanged(randomBigDecimal());
+        item.setChangedPercent(randomBigDecimal());
+        item.setMacd(randomBigDecimal());
+        item.setStochk(randomBigDecimal());
+        item.setActive(ActiveEnum.ACTIVE.value);
+        item.setCreatedAt(LocalDateTime.now());
+        item.setModifiedAt(null);
+        item.setDeletedAt(null);
+        return item;
+    }
+    // //////////////////////////////////////////////////////////////////
+    public static BucketDaily getBucketDaily() {
+        String symbol = getSymbolRandom();
+        return getBucketDaily(symbol);
+    }
+    public static BucketDaily getBucketDaily(
+            String thisSymbol
+    ) {
+        BucketDaily item = new BucketDaily();
+        item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
+        item.setCurrent(randomBigDecimal());
+        item.setOpen(randomBigDecimal());
+        item.setHigh(randomBigDecimal());
+        item.setLow(randomBigDecimal());
+        item.setPreviousClose(randomBigDecimal());
+        item.setChanged(randomBigDecimal());
+        item.setChangedPercent(randomBigDecimal());
+        item.setMacd(randomBigDecimal());
+        item.setStochk(randomBigDecimal());
+        item.setActive(ActiveEnum.ACTIVE.value);
+        item.setCreatedAt(LocalDateTime.now());
+        item.setModifiedAt(null);
+        item.setDeletedAt(null);
+        return item;
+    }
+
 
     // //////////////////////////////////////////////////////////////////
     public static ScenarioDb getScenarioDb() {
@@ -191,16 +257,35 @@ public class DomainBuilder
     ) {
         StockDaily item = new StockDaily();
         item.setSymbol( thisSymbol != null ? thisSymbol : getSymbolRandom());
-        item.setOpen(randomFloat());
-        item.setClose(randomFloat());
-        item.setHigh(randomFloat());
-        item.setLow(randomFloat());
-        item.setVolume(randomLong());
-        item.setMacd(randomFloat());
-        item.setStochk(randomFloat());
+        item.setCurrent(randomBigDecimal());
+        item.setOpen(randomBigDecimal());
+        item.setHigh(randomBigDecimal());
+        item.setLow(randomBigDecimal());
+        item.setPreviousClose(randomBigDecimal());
+        item.setChanged(randomBigDecimal());
+        item.setChangedPercent(randomBigDecimal());
+        item.setMacd(randomBigDecimal());
+        item.setStochk(randomBigDecimal());
         item.setActive(ActiveEnum.ACTIVE.value);
         item.setCreatedAt(LocalDateTime.now());
         item.setModifiedAt(null);
+        item.setDeletedAt(null);
+
+        return item;
+    }
+
+    // //////////////////////////////////////////////////////////////////
+    public static StockData getStockData( ) {
+        StockData item = new StockData();
+        item.setCurrent(randomBigDecimal());
+        item.setHigh(randomBigDecimal());
+        item.setLow(randomBigDecimal());
+        item.setOpen(randomBigDecimal());
+        item.setPreviousClose(randomBigDecimal());
+        item.setChanged(randomBigDecimal());
+        item.setChangedPercent(randomBigDecimal());
+        item.setMacd(randomBigDecimal());
+        item.setStochk(randomBigDecimal());
 
         return item;
     }
@@ -235,6 +320,11 @@ public class DomainBuilder
 
     public static String randomString()  {
         return String.valueOf(new Random().nextInt());
+    }
+
+    public static BigDecimal randomBigDecimal()  {
+        float random = randomFloat();
+        return new BigDecimal(random);
     }
 
     public static float randomFloat()  {

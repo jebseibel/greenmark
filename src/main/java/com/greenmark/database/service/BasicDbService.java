@@ -4,17 +4,17 @@ public class BasicDbService {
 
     static final String DB_DOWN_TEMPLATE = "%s1 database access issue.";
 
-    static final String CREATED_SUCCESS_TEMPLATE = "%s1 with extid [%s2] was created.";
-    static final String FOUND_SUCCESS_TEMPLATE = "%s1 with extid [%s2] found.";
-    static final String UPDATED_SUCCESS_TEMPLATE = "%s1 with extid [%s2] updated.";
-    static final String DELETED_SUCCESS_TEMPLATE = "%s1 with extid [%s2] deleted.";
+    static final String CREATED_SUCCESS_TEMPLATE = "%s with extid [%s2] was created.";
+    static final String FOUND_SUCCESS_TEMPLATE = "%s with extid [%s2] found.";
+    static final String UPDATED_SUCCESS_TEMPLATE = "%s with extid [%s2] updated.";
+    static final String DELETED_SUCCESS_TEMPLATE = "%s with extid [%s2] deleted.";
 
-    static final String CREATED_FAILURE_TEMPLATE = "%s1 with extid [%s2] not created.";
-    static final String CREATED_ALREADY_TEMPLATE = "%s1 with extid [%s2] is already created.";
+    static final String CREATED_FAILURE_TEMPLATE = "%s with extid [%s2] not created.";
+    static final String CREATED_ALREADY_TEMPLATE = "%s with extid [%s2] is already created.";
 
-    static final String FOUND_FAILURE_TEMPLATE = "%s1 with extid [%s2] not found.";
-    static final String UPDATED_FAILURE_TEMPLATE = "%s1 with extid [%s2] not updated.";
-    static final String DELETED_FAILURE_TEMPLATE = "%s1 with extid [%s2] not deleted.";
+    static final String FOUND_FAILURE_TEMPLATE = "%s with extid [%s2] not found.";
+    static final String UPDATED_FAILURE_TEMPLATE = "%s with extid [%s2] not updated.";
+    static final String DELETED_FAILURE_TEMPLATE = "%s with extid [%s2] not deleted.";
 
     public String thisName;
 

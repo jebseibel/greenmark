@@ -1,13 +1,13 @@
 package com.greenmark.common.database.domain;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
+@Slf4j
 @Data
-public class BucketMinute60Db {
-    private String symbol;
+public class StockData {
     private BigDecimal current;
     private BigDecimal open;
     private BigDecimal high;
@@ -17,8 +17,8 @@ public class BucketMinute60Db {
     private BigDecimal changedPercent;
     private BigDecimal macd;
     private BigDecimal stochk;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
-    private LocalDateTime deletedAt;
-    private Integer active;
+
+    public StockData() {
+
+    }
 }

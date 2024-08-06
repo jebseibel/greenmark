@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class BucketMinute60Db {
+public class BucketMinute05Db {
     private String symbol;
     private BigDecimal current;
     private BigDecimal open;

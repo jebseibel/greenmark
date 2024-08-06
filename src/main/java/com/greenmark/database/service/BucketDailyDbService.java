@@ -1,11 +1,11 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.StockDailyDb;
-import com.greenmark.common.database.domain.StockData;
+import com.greenmark.common.database.domain.BucketDailyDb;
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.entity.StockDaily;
-import com.greenmark.database.db.mapper.StockDailyMapper;
-import com.greenmark.database.db.repository.StockDailyRepository;
+import com.greenmark.common.database.domain.StockData;
+import com.greenmark.database.db.entity.BucketDaily;
+import com.greenmark.database.db.mapper.BucketDailyMapper;
+import com.greenmark.database.db.repository.BucketDailyRepository;
 import com.greenmark.database.exceptions.*;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +15,12 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-public class StockDailyDbService extends BasicDbService {
+public class BucketDailyDbService extends BasicDbService {
 
-    private final StockDailyRepository repository;
+    private final BucketDailyRepository repository;
 
-    public StockDailyDbService(StockDailyRepository repository) {
-        super("StockDaily");
+    public BucketDailyDbService(BucketDailyRepository repository) {
+        super("BucketDaily");
         this.repository = repository;
     }
 
@@ -32,12 +32,12 @@ public class StockDailyDbService extends BasicDbService {
      * @throws DatabaseCreateFailureException
      * @throws DatabaseAccessException
      */
-    public StockDailyDb create(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseCreateFailureException, DatabaseAccessException {
+    public BucketDailyDb create(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseCreateFailureException, DatabaseAccessException {
 
         repository.findBySymbol(symbol).ifPresent(s -> new DatabaseCreateFailureException(getFoundFailureMessage(symbol)));
 
         try {
-            StockDaily record = new StockDaily();
+            BucketDaily record = new BucketDaily();
             record.setSymbol(symbol);
             record.setCreatedAt(LocalDateTime.now());
             record.setActive(ActiveEnum.ACTIVE.value);
@@ -51,8 +51,8 @@ public class StockDailyDbService extends BasicDbService {
             record.setChanged(stockData.getChanged());
             record.setChangedPercent(stockData.getChangedPercent());
 
-            StockDaily saved = repository.save(record);
-            return StockDailyMapper.toDb(saved);
+            BucketDaily saved = repository.save(record);
+            return BucketDailyMapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -74,10 +74,10 @@ public class StockDailyDbService extends BasicDbService {
      * @throws DatabaseUpdateFailureException
      * @throws DatabaseAccessException
      */
-    public StockDailyDb update(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseRetrievalFailureException,
+    public BucketDailyDb update(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseRetrievalFailureException,
             DatabaseUpdateFailureException, DatabaseAccessException {
 
-        StockDaily record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+        BucketDaily record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         try {
             record.setModifiedAt(LocalDateTime.now());
@@ -91,9 +91,9 @@ public class StockDailyDbService extends BasicDbService {
             record.setChanged(stockData.getChanged());
             record.setChangedPercent(stockData.getChangedPercent());
 
-            StockDaily saved = repository.save(record);
+            BucketDaily saved = repository.save(record);
             log.info(getUpdatedMessage(symbol));
-            return StockDailyMapper.toDb(saved);
+            return BucketDailyMapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -117,12 +117,12 @@ public class StockDailyDbService extends BasicDbService {
     public boolean delete(@NonNull String symbol) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
 
         // error if the record isn't there
-        StockDaily record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+        BucketDaily record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        StockDaily saved = repository.save(record);
+        BucketDaily saved = repository.save(record);
 
         //success
         log.info(getDeletedMessage(symbol));
@@ -130,19 +130,19 @@ public class StockDailyDbService extends BasicDbService {
     }
 
     /**
-     * Find StockDaily
+     * Find BucketDaily
      *
      * @param symbol - to find
      * @return boolean
      */
-    public StockDailyDb findBySymbol(@NonNull String symbol) throws DatabaseRetrievalFailureException {
-        StockDaily record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+    public BucketDailyDb findBySymbol(@NonNull String symbol) throws DatabaseRetrievalFailureException {
+        BucketDaily record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         log.info(getFoundMessage(symbol));
-        return StockDailyMapper.toDb(record);
+        return BucketDailyMapper.toDb(record);
     }
 
-    private StockDaily _addStockData(StockDaily record, StockData stockData) {
+    private BucketDaily _addStockData(BucketDaily record, StockData stockData) {
         record.setCurrent(stockData.getCurrent());
         record.setOpen(stockData.getOpen());
         record.setLow(stockData.getLow());

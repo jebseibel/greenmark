@@ -35,9 +35,6 @@ public class StockDbService extends BasicDbService {
      */
     public StockDb create(@NonNull String extid, @NonNull String symbol, @NonNull String name) throws DatabaseCreateFailureException, DatabaseAccessException {
 
-        //look for already created
-        checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
-
         try {
             Stock record = new Stock();
             record.setExtid(extid);

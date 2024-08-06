@@ -1,19 +1,18 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.StockDailyDb;
-
+import com.greenmark.common.database.domain.BucketMinute60Db;
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.entity.StockDaily;
+import com.greenmark.database.db.entity.BucketMinute60;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class StockNightlyMapperTest {
+class BucketDailyMapperTest {
 
     @Test
     void testToDb() {
-        StockDaily item = DomainBuilder.getStockNightly();
-        StockDailyDb itemDb = StockDailyMapper.toDb(item);
+        BucketMinute60 item = DomainBuilder.getBucketMinute60();
+        BucketMinute60Db itemDb = BucketMinute60Mapper.toDb(item);
 
         //test
         assertEquals(item.getSymbol(), itemDb.getSymbol());

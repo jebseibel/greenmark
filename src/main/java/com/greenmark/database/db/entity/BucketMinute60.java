@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -21,31 +22,31 @@ public class BucketMinute60 implements Serializable {
     private String symbol;
 
     @Column(name = "current", nullable = false)
-    private Float current;
+    private BigDecimal current;
 
     @Column(name = "open", nullable = false)
-    private Float open;
+    private BigDecimal open;
 
     @Column(name = "high", nullable = false)
-    private Float high;
+    private BigDecimal high;
 
     @Column(name = "low", nullable = false)
-    private Float low;
+    private BigDecimal low;
 
-    @Column(name = "close")
-    private Float close;
+    @Column(name = "previousClose")
+    private BigDecimal previousClose;
 
     @Column(name = "changed")
-    private Float changed;
+    private BigDecimal changed;
 
     @Column(name = "changed_percent")
-    private Float changedPercent;
+    private BigDecimal changedPercent;
 
     @Column(name = "macd")
-    private Float macd;
+    private BigDecimal macd;
 
     @Column(name = "stochk")
-    private Float stochk;
+    private BigDecimal stochk;
 
     /**
      * BASE FIELDS

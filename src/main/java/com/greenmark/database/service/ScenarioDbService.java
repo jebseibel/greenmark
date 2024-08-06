@@ -35,9 +35,6 @@ public class ScenarioDbService extends BasicDbService {
      */
     public ScenarioDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
 
-        //look for already created
-        checkCreatedAlready(extid, getCreatedAlreadyMessage(extid));
-
         try {
             Scenario record = new Scenario();
             record.setExtid(extid);

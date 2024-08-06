@@ -94,7 +94,7 @@ class BucketMinute60RepositoryTest {
             BucketMinute60 record = DomainBuilder.getBucketMinute60(name);
 
             repository.save(record);
-            BucketMinute60 result = repository.findBySymbol(name);
+            BucketMinute60 result = repository.findBySymbol(name).get();
 
             //test
             assertNotNull(result);
