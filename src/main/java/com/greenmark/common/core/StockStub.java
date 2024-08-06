@@ -1,6 +1,6 @@
-package com.greenmark.core;
+package com.greenmark.common.core;
 
-import com.greenmark.core.enums.StockStatus;
+import com.greenmark.common.enums.StockStatus;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 

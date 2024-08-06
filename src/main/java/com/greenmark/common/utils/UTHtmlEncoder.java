@@ -1,4 +1,4 @@
-package com.greenmark.utils;
+package com.greenmark.common.utils;
 
 import java.util.BitSet;
 

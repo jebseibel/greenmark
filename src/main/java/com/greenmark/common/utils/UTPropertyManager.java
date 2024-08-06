@@ -1,4 +1,4 @@
-package com.greenmark.utils;
+package com.greenmark.common.utils;
 
 import org.apache.commons.configuration.CompositeConfiguration;
 import org.apache.commons.configuration.PropertiesConfiguration;

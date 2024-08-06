@@ -1,4 +1,4 @@
-package com.greenmark.core.enums;
+package com.greenmark.common.enums;
 
 public enum StockStatus {
     NEW(1),

@@ -1,4 +1,4 @@
-package com.greenmark.utils;
+package com.greenmark.common.utils;
 
 import com.greenmark.common.exception.EmailException;
 
