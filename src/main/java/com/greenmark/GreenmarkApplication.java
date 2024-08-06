@@ -1,5 +1,6 @@
 package com.greenmark;
 
+import com.greenmark.app.AppConfig;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GreenmarkApplication implements CommandLineRunner {
 //
     @Autowired
-    AppConfig appConfig;
+AppConfig appConfig;
 
     @PostConstruct
     public void init(){
@@ -31,6 +32,7 @@ public class GreenmarkApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.info("EXECUTING : command line runner");
+
 //        log.info("Loading data create");
 //
 //        LoadStocks loadStocks = new LoadStocks();

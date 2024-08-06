@@ -1,4 +1,4 @@
-package com.greenmark;
+package com.greenmark.app;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -9,17 +9,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties
 public class AppConfig {
 
-    private int threadPool;
     private String email;
     public String finnhubtoken;
-
-    public int getThreadPool() {
-        return threadPool;
-    }
-
-    public void setThreadPool(int threadPool) {
-        this.threadPool = threadPool;
-    }
 
     public String getEmail() {
         return email;

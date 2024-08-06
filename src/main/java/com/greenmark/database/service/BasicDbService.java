@@ -6,6 +6,7 @@ public class BasicDbService {
 
     static final String CREATED_SUCCESS_TEMPLATE = "%s with extid [%s2] was created.";
     static final String FOUND_SUCCESS_TEMPLATE = "%s with extid [%s2] found.";
+    static final String FOUND_ACTIVE_SUCCESS_TEMPLATE = "%s found [%s2] items.";
     static final String UPDATED_SUCCESS_TEMPLATE = "%s with extid [%s2] updated.";
     static final String DELETED_SUCCESS_TEMPLATE = "%s with extid [%s2] deleted.";
 
@@ -45,6 +46,10 @@ public class BasicDbService {
     // ////////////////////////////////////////////////////////
     // FOUND
     // ////////////////////////////////////////////////////////
+    public String getFoundActiveMessage(Integer count) {
+        return String.format(FOUND_ACTIVE_SUCCESS_TEMPLATE, thisName, count);
+    }
+
     public String getFoundMessage(String extid) {
         return String.format(FOUND_SUCCESS_TEMPLATE, thisName, extid);
     }

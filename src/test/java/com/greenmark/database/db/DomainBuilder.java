@@ -243,16 +243,16 @@ public class DomainBuilder
     }
 
     // //////////////////////////////////////////////////////////////////
-    public static StockDailyDb getStockNightlyDb() {
-        StockDaily item = getStockNightly(null);
+    public static StockDailyDb getStockDailyDb() {
+        StockDaily item = getStockDaily(null);
         return StockDailyMapper.toDb(item);
     }
 
-    public static StockDaily getStockNightly() {
-        return getStockNightly(null);
+    public static StockDaily getStockDaily() {
+        return getStockDaily(null);
     }
 
-    public static StockDaily getStockNightly(
+    public static StockDaily getStockDaily(
             String thisSymbol
     ) {
         StockDaily item = new StockDaily();

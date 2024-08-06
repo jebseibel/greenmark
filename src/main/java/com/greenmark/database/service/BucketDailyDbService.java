@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -142,15 +143,10 @@ public class BucketDailyDbService extends BasicDbService {
         return BucketDailyMapper.toDb(record);
     }
 
-    private BucketDaily _addStockData(BucketDaily record, StockData stockData) {
-        record.setCurrent(stockData.getCurrent());
-        record.setOpen(stockData.getOpen());
-        record.setLow(stockData.getLow());
-        record.setHigh(stockData.getHigh());
-        record.setPreviousClose(stockData.getPreviousClose());
-        record.setChanged(stockData.getChanged());
-        record.setChangedPercent(stockData.getChangedPercent());
-        return record;
-    }
+    public List<BucketDailyDb> findActive() throws DatabaseRetrievalFailureException {
+        List<BucketDaily> records = repository.findByActive(ActiveEnum.ACTIVE.value);
 
+        log.info(getFoundActiveMessage(records.size()));
+        return BucketDailyMapper.toList(records);
+    }
 }

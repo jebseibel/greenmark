@@ -3,6 +3,7 @@ package com.greenmark.database.service;
 import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.common.database.domain.BucketDailyDb;
 import com.greenmark.common.database.domain.StockData;
+import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.db.entity.Stock;
 import com.greenmark.database.exceptions.*;
@@ -13,9 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class BucketDailyDbServiceTest {
@@ -175,4 +178,100 @@ class BucketDailyDbServiceTest {
         }
     }
 
+    @Nested
+    class FindTests {
+
+        BucketDailyDb record;
+        StockData stockData;
+        String symbol;
+
+        @BeforeEach
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
+            symbol = DomainBuilder.getSymbolRandom();
+            stockData = DomainBuilder.getStockData();
+            record = service.create(symbol, stockData);
+        }
+
+        @Test
+        void find() throws DatabaseRetrievalFailureException {
+            //execute
+            BucketDailyDb result = service.findBySymbol(symbol);
+
+            // validate
+            assertNotNull(result);
+        }
+
+        @Test
+        void findError() throws DatabaseRetrievalFailureException {
+            String badSymbol = DomainBuilder.getSymbolRandom();
+
+            try {
+                BucketDailyDb result = service.findBySymbol(badSymbol);
+                assertTrue(false);
+            }
+            catch (DatabaseRetrievalFailureException e) {
+                assertTrue(true);
+            }
+        }
+    }
+
+    @Nested
+    class FindActiveTests {
+
+        BucketDailyDb record1;
+        StockData stockData1;
+        String symbol1;
+
+        @BeforeEach
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
+            symbol1 = DomainBuilder.getSymbolRandom();
+            stockData1 = DomainBuilder.getStockData();
+            record1 = service.create(symbol1, stockData1);
+        }
+
+        @Test
+        void findActive_both() throws DatabaseRetrievalFailureException, DatabaseAccessException {
+            String symbol2 = DomainBuilder.getSymbolRandom();
+            StockData stockData2 = DomainBuilder.getStockData();
+            BucketDailyDb record2 = service.create(symbol2, stockData2);
+
+            //execute
+            List<BucketDailyDb> results = service.findActive();
+
+            // validate
+            assertNotNull(results);
+            assertTrue(results.size() > 1);
+            assertTrue(results.contains(record1));
+            assertTrue(results.contains(record2));
+        }
+
+        @Test
+        void findActive_one() throws DatabaseRetrievalFailureException, DatabaseAccessException, DatabaseDeleteFailureException {
+            String symbol2 = DomainBuilder.getSymbolRandom();
+            StockData stockData2 = DomainBuilder.getStockData();
+            BucketDailyDb record2 = service.create(symbol2, stockData2);
+            //set to inactive
+            service.delete(symbol2);
+
+            //execute
+            List<BucketDailyDb> results = service.findActive();
+
+            // validate - using Streams :)
+            BucketDailyDb hasRecord1 = results.stream()
+                    .filter(result -> record1.getSymbol().equals(result.getSymbol()))
+                    .findAny()
+                    .orElse(null);
+
+            BucketDailyDb hasRecord2 = results.stream()
+                    .filter(result -> record2.getSymbol().equals(result.getSymbol()))
+                    .findAny()
+                    .orElse(null);
+
+            assertNotNull(results);
+            assertTrue(results.size() > 1);
+            assertNotNull(hasRecord1);
+            assertNull(hasRecord2);
+        }
+
+    }
 }

@@ -1,9 +1,12 @@
 package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.StockDailyDb;
+import com.greenmark.common.database.domain.StockDailyDb;
 import com.greenmark.common.database.domain.StockData;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.StockDaily;
+import com.greenmark.database.db.entity.StockDaily;
+import com.greenmark.database.db.mapper.StockDailyMapper;
 import com.greenmark.database.db.mapper.StockDailyMapper;
 import com.greenmark.database.db.repository.StockDailyRepository;
 import com.greenmark.database.exceptions.*;
@@ -12,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -153,4 +157,10 @@ public class StockDailyDbService extends BasicDbService {
         return record;
     }
 
+    public List<StockDailyDb> findActive() throws DatabaseRetrievalFailureException {
+        List<StockDaily> records = repository.findByActive(ActiveEnum.ACTIVE.value);
+
+        log.info(getFoundActiveMessage(records.size()));
+        return StockDailyMapper.toList(records);
+    }
 }

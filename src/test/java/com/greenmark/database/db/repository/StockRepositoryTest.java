@@ -1,6 +1,8 @@
 package com.greenmark.database.db.repository;
 
+import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.database.db.entity.Stock;
 import com.greenmark.database.db.entity.Stock;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -127,6 +130,40 @@ class StockRepositoryTest {
             //test
             assertNotNull(result);
             assertEquals(result.getName(), name);
+        }
+
+        @Test
+        void findActive_toList() {
+            String symbol1 = DomainBuilder.getSymbolRandom();
+            String symbol2 = DomainBuilder.getSymbolRandom();
+            Stock record1 = DomainBuilder.getStock(symbol1);
+            Stock record2 = DomainBuilder.getStock(symbol2);
+            repository.save(record1);
+            repository.save(record2);
+
+            List<Stock> results = repository.findByActive(ActiveEnum.ACTIVE.value);
+
+            //test
+            assertNotNull(results);
+            assertTrue(results.size() > 1);
+        }
+
+        @Test
+        void findActive_checkNoInactive() {
+            String symbol1 = DomainBuilder.getSymbolRandom();
+            String symbol2 = DomainBuilder.getSymbolRandom();
+            Stock record1 = DomainBuilder.getStock(symbol1);
+            Stock record2 = DomainBuilder.getStock(symbol2);
+            record2.setActive(ActiveEnum.INACTIVE.value);
+            repository.save(record1);
+            repository.save(record2);
+
+            List<Stock> results = repository.findByActive(ActiveEnum.ACTIVE.value);
+
+            //test
+            assertNotNull(results);
+            assertTrue(results.size() > 0);
+            assertFalse(results.contains(record2));
         }
     }
 }

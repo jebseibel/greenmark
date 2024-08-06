@@ -4,12 +4,19 @@ import com.greenmark.common.database.domain.BucketDailyDb;
 import com.greenmark.database.db.entity.BucketDaily;
 import org.modelmapper.ModelMapper;
 
+import java.util.List;
+
 public class BucketDailyMapper {
+
     public static BucketDailyDb toDb(BucketDaily item) {
         return new ModelMapper().map(item, BucketDailyDb.class);
     }
 
     public static BucketDaily toEntity(BucketDailyDb itemDb) {
         return new ModelMapper().map(itemDb, BucketDaily.class);
+    }
+
+    public static List<BucketDailyDb> toList(List<BucketDaily> items) {
+        return items.stream().map( item -> toDb(item)).toList();
     }
 }
