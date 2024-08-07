@@ -18,9 +18,12 @@ package com.greenmark.datafeed.finnhub.integration;
 
 import com.greenmark.datafeed.finnhub.models.Quote;
 import com.greenmark.datafeed.finnhub.client.FinnhubClient;
+import com.greenmark.datafeed.service.DatafeedConfig;
 import org.apache.hc.core5.http.ParseException;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
@@ -28,14 +31,15 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = FinnhubClient.class)
+@EnableConfigurationProperties({DatafeedConfig.class})
 public class FinnhubClientQuoteTest {
 
-    @Value("${finnhub.token}")
-    private String token;
+    @Autowired
+    private DatafeedConfig datafeedConfig;
 
     @Test
     void requestQuote() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient(token);
+        FinnhubClient client = new FinnhubClient(datafeedConfig.getToken());
         Quote quote = client.quote("TSLA");
         assertNotNull(quote);
     }

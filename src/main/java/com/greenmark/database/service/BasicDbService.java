@@ -2,20 +2,20 @@ package com.greenmark.database.service;
 
 public class BasicDbService {
 
-    static final String DB_DOWN_TEMPLATE = "%s1 database access issue.";
+    static final String DB_DOWN_TEMPLATE = "%s database access issue.";
 
-    static final String CREATED_SUCCESS_TEMPLATE = "%s with extid [%s2] was created.";
-    static final String FOUND_SUCCESS_TEMPLATE = "%s with extid [%s2] found.";
-    static final String FOUND_ACTIVE_SUCCESS_TEMPLATE = "%s found [%s2] items.";
-    static final String UPDATED_SUCCESS_TEMPLATE = "%s with extid [%s2] updated.";
-    static final String DELETED_SUCCESS_TEMPLATE = "%s with extid [%s2] deleted.";
+    static final String CREATED_SUCCESS_TEMPLATE = "%s with symbol [%s] was created.";
+    static final String FOUND_SUCCESS_TEMPLATE = "%s with symbol [%s] found.";
+    static final String FOUND_ACTIVE_SUCCESS_TEMPLATE = "%s found [%s] items.";
+    static final String UPDATED_SUCCESS_TEMPLATE = "%s with symbol [%s] updated.";
+    static final String DELETED_SUCCESS_TEMPLATE = "%s with symbol [%s] deleted.";
 
-    static final String CREATED_FAILURE_TEMPLATE = "%s with extid [%s2] not created.";
-    static final String CREATED_ALREADY_TEMPLATE = "%s with extid [%s2] is already created.";
+    static final String CREATED_FAILURE_TEMPLATE = "%s with symbol [%s] not created.";
+    static final String CREATED_ALREADY_TEMPLATE = "%s with symbol [%s] is already created.";
 
-    static final String FOUND_FAILURE_TEMPLATE = "%s with extid [%s2] not found.";
-    static final String UPDATED_FAILURE_TEMPLATE = "%s with extid [%s2] not updated.";
-    static final String DELETED_FAILURE_TEMPLATE = "%s with extid [%s2] not deleted.";
+    static final String FOUND_FAILURE_TEMPLATE = "%s with symbol [%s] not found.";
+    static final String UPDATED_FAILURE_TEMPLATE = "%s with symbol [%s] not updated.";
+    static final String DELETED_FAILURE_TEMPLATE = "%s with symbol [%s] not deleted.";
 
     public String thisName;
 
@@ -24,23 +24,23 @@ public class BasicDbService {
         thisName = name;
     }
 
-    public String getDbAccessMessage(String extid) {
+    public String getDbAccessMessage(String symbol) {
         return String.format(DB_DOWN_TEMPLATE, thisName);
     }
 
     // ////////////////////////////////////////////////////////
     // CREATED
     // ////////////////////////////////////////////////////////
-    public String getCreatedMessage(String extid) {
-        return String.format(CREATED_SUCCESS_TEMPLATE, thisName, extid);
+    public String getCreatedMessage(String symbol) {
+        return String.format(CREATED_SUCCESS_TEMPLATE, thisName, symbol);
     }
 
-    public String getCreatedFailureMessage(String extid) {
-        return String.format(CREATED_FAILURE_TEMPLATE, thisName, extid);
+    public String getCreatedFailureMessage(String symbol) {
+        return String.format(CREATED_FAILURE_TEMPLATE, thisName, symbol);
     }
 
-    public String getCreatedAlreadyMessage(String extid) {
-        return String.format(CREATED_ALREADY_TEMPLATE, thisName, extid);
+    public String getCreatedAlreadyMessage(String symbol) {
+        return String.format(CREATED_ALREADY_TEMPLATE, thisName, symbol);
     }
 
     // ////////////////////////////////////////////////////////
@@ -50,33 +50,33 @@ public class BasicDbService {
         return String.format(FOUND_ACTIVE_SUCCESS_TEMPLATE, thisName, count);
     }
 
-    public String getFoundMessage(String extid) {
-        return String.format(FOUND_SUCCESS_TEMPLATE, thisName, extid);
+    public String getFoundMessage(String symbol) {
+        return String.format(FOUND_SUCCESS_TEMPLATE, thisName, symbol);
     }
 
-    public String getFoundFailureMessage(String extid) {
-        return String.format(FOUND_FAILURE_TEMPLATE, thisName, extid);
+    public String getFoundFailureMessage(String symbol) {
+        return String.format(FOUND_FAILURE_TEMPLATE, thisName, symbol);
     }
 
     // ////////////////////////////////////////////////////////
     // UPDATED
     // ////////////////////////////////////////////////////////
-    public String getUpdatedMessage(String extid) {
-        return String.format(UPDATED_SUCCESS_TEMPLATE, thisName, extid);
+    public String getUpdatedMessage(String symbol) {
+        return String.format(UPDATED_SUCCESS_TEMPLATE, thisName, symbol);
     }
 
-    public String getUpdatedFailureMessage(String extid) {
-        return String.format(UPDATED_FAILURE_TEMPLATE, thisName, extid);
+    public String getUpdatedFailureMessage(String symbol) {
+        return String.format(UPDATED_FAILURE_TEMPLATE, thisName, symbol);
     }
 
     // ////////////////////////////////////////////////////////
     // DELETED
     // ////////////////////////////////////////////////////////
-    public String getDeletedMessage(String extid) {
-        return String.format(DELETED_SUCCESS_TEMPLATE, thisName, extid);
+    public String getDeletedMessage(String symbol) {
+        return String.format(DELETED_SUCCESS_TEMPLATE, thisName, symbol);
     }
 
-    public String getDeletedFailureMessage(String extid) {
-        return String.format(DELETED_FAILURE_TEMPLATE, thisName, extid);
+    public String getDeletedFailureMessage(String symbol) {
+        return String.format(DELETED_FAILURE_TEMPLATE, thisName, symbol);
     }
 }

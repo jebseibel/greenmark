@@ -12,6 +12,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -27,17 +29,18 @@ public class StockDbService extends BasicDbService {
     /**
      * Create a record with name and description
      *
-     * @param extid - the extid to use
      * @param symbol - value for symbol
      * @param name  - value for name
      * @return
      * @throws DataIntegrityViolationException
      */
-    public StockDb create(@NonNull String extid, @NonNull String symbol, @NonNull String name) throws DatabaseCreateFailureException, DatabaseAccessException {
+    public StockDb create(@NonNull String symbol, @NonNull String name) throws DatabaseCreateFailureException, DatabaseAccessException {
+
+        repository.findBySymbol(symbol).ifPresent(s -> new DatabaseCreateFailureException(getFoundFailureMessage(symbol)));
 
         try {
             Stock record = new Stock();
-            record.setExtid(extid);
+            record.setExtid(UUID.randomUUID().toString());
             record.setSymbol(symbol);
             record.setName(name);
             record.setReady(ActiveEnum.ACTIVE.value);
@@ -46,18 +49,18 @@ public class StockDbService extends BasicDbService {
             System.out.println(record);
 
             Stock saved = repository.save(record);
-            log.debug(getCreatedMessage(extid));
+            log.debug(getCreatedMessage(symbol));
             return StockMapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
-                    log.info(getCreatedFailureMessage(extid));
+                    log.info(getCreatedFailureMessage(symbol));
                     throw new DatabaseCreateFailureException("DataIntegrityViolationException" + e.getMessage());
                 case "ConstraintViolationException ":
-                    log.info(getCreatedFailureMessage(extid));
+                    log.info(getCreatedFailureMessage(symbol));
                     throw new DatabaseCreateFailureException("ConstraintViolationException" + e.getMessage());
                 default:
-                    log.info(getDbAccessMessage(extid));
+                    log.info(getDbAccessMessage(symbol));
                     throw new DatabaseAccessException("DatabaseAccessException" + e.getMessage());
             }
         }
@@ -66,153 +69,66 @@ public class StockDbService extends BasicDbService {
     /**
      * Update the Stock name and description
      *
-     * @param extid - the extid to use
-     * @param symbol - value for symbol
+     * @param symbol - the symbol to use
      * @param name  - value for name
      *
      * @return
      */
-    public StockDb update(@NonNull String extid, String symbol, String name) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
-        Stock record = repository.findByExtid(extid);
-        checkNullRecord(record, getFoundFailureMessage(extid));
+    public StockDb update(@NonNull String symbol, String name) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
+        Stock record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
-        record.setSymbol(symbol);
         record.setName(name);
         record.setModifiedAt(LocalDateTime.now());
+
         Stock saved = repository.save(record);
-
-        if (saved == null) {
-            throw new DatabaseUpdateFailureException("Stock with extid " + extid + " not saved");
-        }
-        checkUpdatedFailure(saved, getUpdatedFailureMessage(extid));
-
-        log.info(getUpdatedMessage(extid));
+        log.debug(getUpdatedMessage(symbol));
         return StockMapper.toDb(saved);
     }
 
     /**
      * Delete by Extid
      *
-     * @param extid - to delete
+     * @param symbol - to delete
      * @return boolean
      * @throws DatabaseDeleteFailureException
      * @throws DatabaseRetrievalFailureException
      */
-    public boolean delete(@NonNull String extid) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
-        Stock record = repository.findByExtid(extid);
-
-        // error if the record isn't there
-        checkNullRecord(record, getFoundFailureMessage(extid));
+    public boolean delete(@NonNull String symbol) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
+        Stock record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
         Stock saved = repository.save(record);
 
-        // error delete failed
-        checkDeletedFailure(saved, getDeletedFailureMessage(extid));
-
         //success
-        log.info(getDeletedMessage(extid));
+        log.debug(getDeletedMessage(symbol));
         return true;
     }
 
     /**
      * Find Stock
      *
-     * @param extid - to find
+     * @param symbol - to find
      * @return boolean
      */
-    public StockDb findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
-        Stock record = repository.findByExtid(extid);
-        checkNullRecord(record, getFoundFailureMessage(extid));
+    public StockDb findBySymbol(@NonNull String symbol) throws DatabaseRetrievalFailureException {
+        Stock record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
-        log.info(getFoundMessage(extid));
+        log.debug(getFoundMessage(symbol));
         return StockMapper.toDb(record);
     }
 
-    public void loadOnStartup(@NonNull String extid, String name, String symbol) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
-        Stock record = repository.findByExtid(extid);
-        if (record == null) {
-            log.info("Already exists stock ["+name+"]");
-            return;
-        }
-
-        try {
-            record = new Stock();
-            record.setExtid(extid);
-            record.setSymbol(symbol);
-            record.setName(name);
-            record.setCreatedAt(LocalDateTime.now());
-            record.setActive(ActiveEnum.ACTIVE.value);
-            System.out.println(record);
-
-            repository.save(record);
-            log.info("Success creating stock ["+name+"]");
-            return;
-        } catch (Exception e) {
-            log.info("Failure creating stock ["+name+"]");
-            return;
-        }
-
-    }
-
-    // ////////////////////////////////////////////////////////
-    // CHECK METHODS
-    // ////////////////////////////////////////////////////////
-
     /**
-     * Checks if the retrieval of Stock failed elses throw an exception
      *
-     * @param record  - if null, throw an exception
-     * @param message
+     * @return
      * @throws DatabaseRetrievalFailureException
      */
-    private void checkNullRecord(Stock record, String message) throws DatabaseRetrievalFailureException {
-        if (record == null) {
-            throw new DatabaseRetrievalFailureException(message);
-        }
-    }
+    public List<StockDb> findActive() throws DatabaseRetrievalFailureException {
+        List<Stock> records = repository.findByActive(ActiveEnum.ACTIVE.value);
 
-    /**
-     * Checks if Stock was created else throws an exception
-     *
-     * @param record  - if null, throw an exception
-     * @param message
-     * @throws DatabaseUpdateFailureException
-     */
-    private void checkUpdatedFailure(Stock record, String message) throws DatabaseUpdateFailureException {
-        if (record == null) {
-            throw new DatabaseUpdateFailureException(message);
-        }
+        log.debug(getFoundActiveMessage(records.size()));
+        return StockMapper.toList(records);
     }
-
-    /**
-     * Checks if Stock was deleted else throws an exception
-     *
-     * @param record  - if null, throw an exception
-     * @param message
-     * @throws DatabaseDeleteFailureException
-     */
-    private void checkDeletedFailure(Stock record, String message) throws DatabaseDeleteFailureException {
-        if (record == null) {
-            throw new DatabaseDeleteFailureException(message);
-        }
-    }
-
-    /**
-     * Checks if Stock already exists
-     *
-     * @param extid   - if exists throw exception
-     * @param message
-     * @throws DatabaseCreateFailureException
-     */
-    private void checkCreatedAlready(String extid, String message) throws DatabaseCreateFailureException {
-        Stock record = repository.findByExtid(extid);
-        if (record != null) {
-            throw new DatabaseCreateFailureException(message);
-        }
-    }
-
 
 }

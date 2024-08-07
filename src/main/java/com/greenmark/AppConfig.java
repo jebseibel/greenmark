@@ -5,12 +5,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application.yaml")
 @ConfigurationProperties
 public class AppConfig {
 
     private String email;
-    private String finnhubtoken;
 
     public String getEmail() {
         return email;
@@ -20,13 +19,6 @@ public class AppConfig {
         this.email = email;
     }
 
-    public String getFinnhubtoken() {
-        return finnhubtoken;
-    }
-
-    public void setFinnhubtoken(String finnhubtoken) {
-        this.finnhubtoken = finnhubtoken;
-    }
 
 //    @Bean
 //    public ModelLogic getModelLogic() {

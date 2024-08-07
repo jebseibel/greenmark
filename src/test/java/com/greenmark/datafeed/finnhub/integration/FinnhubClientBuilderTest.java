@@ -20,9 +20,12 @@ import com.greenmark.datafeed.finnhub.models.Quote;
 import com.greenmark.datafeed.finnhub.models.StockSymbol;
 import com.greenmark.datafeed.finnhub.client.FinnhubClient;
 import com.greenmark.datafeed.finnhub.models.*;
+import com.greenmark.datafeed.service.DatafeedConfig;
 import org.apache.hc.core5.http.ParseException;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
@@ -33,14 +36,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(classes = FinnhubClient.class)
+@EnableConfigurationProperties({DatafeedConfig.class})
 public class FinnhubClientBuilderTest {
 
-    @Value("${finnhub.token}")
-    private String token;
+    @Autowired
+    private DatafeedConfig datafeedConfig;
 
     @Test
     void invocationQuote() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient.Builder().token(token).build();
+        FinnhubClient client = new FinnhubClient.Builder().token(datafeedConfig.getToken()).build();
         Quote quote = client.quote("TSLA");
         System.out.println(quote);
         assertNotNull(quote);
@@ -48,14 +52,14 @@ public class FinnhubClientBuilderTest {
     
     @Test
     void invocationCompanyProfile() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient.Builder().token(token).build();
+        FinnhubClient client = new FinnhubClient.Builder().token(datafeedConfig.getToken()).build();
         CompanyProfile2 companyProfile = client.companyProfile("TSLA");
         assertNotNull(companyProfile);
     }
     
     @Test
     void invocationSymbols() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient.Builder().token(token).build();
+        FinnhubClient client = new FinnhubClient.Builder().token(datafeedConfig.getToken()).build();
         List<StockSymbol> symbols = client.symbols(Exchange.US_EXCHANGES.toString());
         List<StockSymbol> t = symbols.stream().filter(s -> s.getDescription().contains("AMAZON.COM")).collect(Collectors.toList());
         assertEquals(1, t.size());
@@ -63,7 +67,7 @@ public class FinnhubClientBuilderTest {
 
     @Test
     void invocationSymbolLookup() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient.Builder().token(token).build();
+        FinnhubClient client = new FinnhubClient.Builder().token(datafeedConfig.getToken()).build();
         SymbolLookup lookup = client.searchSymbol("apple");
         assertEquals(22, lookup.getCount());
     }

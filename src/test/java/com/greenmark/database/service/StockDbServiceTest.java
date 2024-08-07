@@ -25,13 +25,11 @@ class StockDbServiceTest {
         String symbol = DomainBuilder.getSymbolRandom();
         String name = DomainBuilder.getNameRandom(random);
 
-
         @Test
         void created() throws Exception {
             // test
-            String extid = DomainBuilder.getUUID();
             System.out.println(symbol);
-            StockDb result = service.create(extid, symbol, name);
+            StockDb result = service.create(symbol, name);
 
             // validate
             assertNotNull(result);
@@ -43,8 +41,8 @@ class StockDbServiceTest {
         void createdTooLong() {
             // test
             try {
-                String extid = DomainBuilder.getStringTestUUID();
-                service.create(extid, symbol, name);
+                String symbol = DomainBuilder.getStringTestUUID();
+                service.create(symbol, name);
                 fail();
             }
             catch (DatabaseCreateFailureException e) {
@@ -60,38 +58,34 @@ class StockDbServiceTest {
     class UpdateTests {
 
         StockDb record;
-        String extid;
-        String random = DomainBuilder.randomString();
-        String name = DomainBuilder.getNameRandom(random);
-        String symbol = DomainBuilder.getSymbolRandom();
+        String symbol;
+        String name;
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            extid = DomainBuilder.getUUID();
-            record = service.create(extid, symbol, name);
+            symbol = DomainBuilder.getSymbolRandom();
+            name = DomainBuilder.getNameRandom();
+            record = service.create(symbol, name);
         }
 
         @Test
         void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException {
             String newName = DomainBuilder.getNameRandom();
-            String newSymbol = DomainBuilder.getSymbolRandom();
 
             //execute
-            StockDb result = service.update(extid, newSymbol, newName);
+            StockDb result = service.update(symbol, newName);
 
             // validate
             assertNotNull(result);
-            assertEquals(result.getExtid(), extid);
             assertEquals(result.getName(), newName);
-            assertEquals(result.getSymbol(), newSymbol);
         }
 
         @Test
-        void updatedBadExtid() {
+        void updatedBadSymbol() {
             // test
             try {
-                String badExtid = UUID.randomUUID().toString();
-                service.update(badExtid, symbol, name);
+                String badSymbol = UUID.randomUUID().toString();
+                service.update(badSymbol, name);
                 fail();
             }
             catch (DatabaseRetrievalFailureException e) {
@@ -107,26 +101,24 @@ class StockDbServiceTest {
     class FindTests {
 
         StockDb record;
-        String extid;
-        String random = DomainBuilder.randomString();
-        String symbol = DomainBuilder.getSymbolRandom();
-        String name = DomainBuilder.getNameRandom(random);
-
+        String symbol;
+        String name ;
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            extid = DomainBuilder.getUUID();
-            record = service.create(extid, symbol, name);
+            symbol = DomainBuilder.getSymbolRandom();
+            name = DomainBuilder.getNameRandom();
+            record = service.create(symbol, name);
         }
 
         @Test
         void findByExtid() throws DatabaseRetrievalFailureException {
             // test
-            StockDb result = service.findByExtid(extid);
+            StockDb result = service.findBySymbol(symbol);
 
             // validate
             assertNotNull(result);
-            assertEquals(result.getExtid(), extid);
+            assertEquals(result.getSymbol(), symbol);
         }
 
         @Test
@@ -134,7 +126,7 @@ class StockDbServiceTest {
             // test
             try {
                 String badExtid = UUID.randomUUID().toString();
-                service.findByExtid(badExtid);
+                service.findBySymbol(badExtid);
                 fail();
             } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
@@ -149,32 +141,31 @@ class StockDbServiceTest {
     class DeleteTests {
 
         StockDb record;
-        String extid;
-        String random = DomainBuilder.randomString();
-        String symbol = DomainBuilder.getSymbolRandom();
-        String name = DomainBuilder.getNameRandom(random);
+        String symbol;
+        String name;
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            extid = DomainBuilder.getUUID();
-            record = service.create(extid, symbol, name);
+            symbol = DomainBuilder.getSymbolRandom();
+            name = DomainBuilder.getNameRandom();
+            record = service.create(symbol, name);
         }
 
         @Test
         void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
             //execute
-            boolean result = service.delete(extid);
+            boolean result = service.delete(symbol);
 
             // validate
             assertTrue(result);
         }
 
         @Test
-        void updatedBadExtid() throws DatabaseDeleteFailureException {
+        void deleteBadSymbol() throws DatabaseDeleteFailureException {
             // test
             try {
-                String badExtid = UUID.randomUUID().toString();
-                service.delete(badExtid);
+                String symbol = UUID.randomUUID().toString();
+                service.delete(symbol);
                 fail();
             }
             catch (DatabaseRetrievalFailureException e) {

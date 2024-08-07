@@ -30,8 +30,8 @@ import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -375,6 +375,7 @@ public class FinnhubClient {
         private final FinnhubClient client;
 
         public Builder() {
+
             client = new FinnhubClient();
         }
 

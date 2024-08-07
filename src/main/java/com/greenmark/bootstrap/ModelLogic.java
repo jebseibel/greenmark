@@ -22,9 +22,6 @@ public class ModelLogic {
     private BigDecimal passStochkMinute05;
     private BigDecimal passStochkMinute01;
 
-    public ModelLogic() {
-    }
-
     public boolean passStockDaily(StockDailyDb stock) {
         if (stock.getStochk().compareTo(passStochkDaily) > 0) {
             return true;
