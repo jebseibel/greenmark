@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: DataFeed
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: password
+    url: jdbc:mysql://localhost:3306/greenmark
+    username: jeb
+  jpa:
+    show-sql: false
+finnhub:
+  token: cq63eipr01qlbj4vp9j0cq63eipr01qlbj4vp9jg
+finnhubtoken: cq63eipr01qlbj4vp9j0cq63eipr01qlbj4vp9jg
+logging:
+  level:
+    com:
+      greenmark: TRACE
+    root: INFO
+model:
+  pass-stochk-daily: 11.0
+  pass-stochk-minute01: 11.01
+  pass-stochk-minute05: 11.05
+  pass-stochk-minute15: 11.15
+  pass-stochk-minute60: 11.6
+  stock-max-price: 100
+  stock-min-price: 10

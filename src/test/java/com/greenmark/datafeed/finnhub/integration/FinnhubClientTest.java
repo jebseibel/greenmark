@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.greenmark.app.AppConfig;
+import com.greenmark.AppConfig;
 import com.greenmark.datafeed.finnhub.models.Quote;
 import com.greenmark.datafeed.finnhub.models.StockSymbol;
 import com.greenmark.datafeed.finnhub.client.FinnhubClient;

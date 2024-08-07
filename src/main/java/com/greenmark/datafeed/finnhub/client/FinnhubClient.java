@@ -40,7 +40,6 @@ import java.util.List;
 @Component
 public class FinnhubClient {
 
-
     private CloseableHttpClient httpClient = HttpClients.createDefault();
     private String token;
     private Gson gson;

@@ -1,13 +1,14 @@
-package com.greenmark.app;
+package com.greenmark.bootstrap;
 
 import com.greenmark.database.db.entity.*;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class MainTimer {
+public class MainTimer implements CommandLineRunner {
 
     private List<BucketDaily> bucketDailys = new ArrayList<BucketDaily>();
     private List<BucketMinute60> bucketMinute60s = new ArrayList<BucketMinute60>();
@@ -19,6 +20,10 @@ public class MainTimer {
     public MainTimer() {
     }
 
+    @Override
+    public void run(String... args) throws Exception {
+
+    }
     public void start() {
 
         // initialize or refresh
@@ -56,4 +61,6 @@ public class MainTimer {
     public void checkUpdateMinute01() {
 
     }
+
+
 }

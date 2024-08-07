@@ -1,25 +1,32 @@
 package com.greenmark;
 
-import com.greenmark.app.AppConfig;
+import com.greenmark.bootstrap.ModelLogic;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 
 @Slf4j
 @SpringBootApplication
 public class GreenmarkApplication implements CommandLineRunner {
 //
     @Autowired
-AppConfig appConfig;
+    AppConfig appConfig;
+
+    @Autowired
+    ModelLogic modelLogic;
 
     @PostConstruct
     public void init(){
         System.out.println("Test Start");
 
         System.out.println(appConfig.getEmail());
+        System.out.println(modelLogic.getPassStochkDaily());
         System.out.println("Finished loading stocks");
     }
 
@@ -27,6 +34,13 @@ AppConfig appConfig;
         log.info("STARTING THE APPLICATION");
         SpringApplication.run(GreenmarkApplication.class, args);
         log.info("APPLICATION FINISHED");
+    }
+
+    @Bean
+    ApplicationRunner applicationRunner(Environment environment) {
+        return args -> {
+            log.info("message from application.properties " + environment.getProperty("message-from-application-properties"));
+        };
     }
 
     @Override

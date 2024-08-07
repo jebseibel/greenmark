@@ -1,4 +1,4 @@
-package com.greenmark.app;
+package com.greenmark;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class AppConfig {
 
     private String email;
-    public String finnhubtoken;
+    private String finnhubtoken;
 
     public String getEmail() {
         return email;
@@ -27,4 +27,10 @@ public class AppConfig {
     public void setFinnhubtoken(String finnhubtoken) {
         this.finnhubtoken = finnhubtoken;
     }
+
+//    @Bean
+//    public ModelLogic getModelLogic() {
+//        ModelLogic logic = new ModelLogic();
+//
+//    }
 }
