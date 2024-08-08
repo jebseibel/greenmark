@@ -4,6 +4,7 @@ import com.greenmark.common.database.domain.BucketMinute15Db;
 import com.greenmark.common.database.domain.StockData;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.BucketMinute15;
+import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.mapper.BucketMinute15Mapper;
 import com.greenmark.database.db.repository.BucketMinute15Repository;
 import com.greenmark.database.exceptions.*;
@@ -18,10 +19,12 @@ import java.time.LocalDateTime;
 public class BucketMinute15DbService extends BasicDbService {
 
     private final BucketMinute15Repository repository;
+    private final BucketMinute15Mapper mapper;
 
-    public BucketMinute15DbService(BucketMinute15Repository repository) {
+    public BucketMinute15DbService(BucketMinute15Repository repository, BucketMinute15Mapper mapper) {
         super("BucketMinute15");
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     /**
@@ -52,7 +55,7 @@ public class BucketMinute15DbService extends BasicDbService {
             record.setChangedPercent(stockData.getChangedPercent());
 
             BucketMinute15 saved = repository.save(record);
-            return BucketMinute15Mapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -93,7 +96,7 @@ public class BucketMinute15DbService extends BasicDbService {
 
             BucketMinute15 saved = repository.save(record);
             log.info(getUpdatedMessage(symbol));
-            return BucketMinute15Mapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -139,7 +142,7 @@ public class BucketMinute15DbService extends BasicDbService {
         BucketMinute15 record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         log.info(getFoundMessage(symbol));
-        return BucketMinute15Mapper.toDb(record);
+        return mapper.toDb(record);
     }
 
     private BucketMinute15 _addStockData(BucketMinute15 record, StockData stockData) {

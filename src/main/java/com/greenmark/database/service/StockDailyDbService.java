@@ -8,6 +8,7 @@ import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.Stock;
 import com.greenmark.database.db.entity.StockDaily;
 import com.greenmark.database.db.entity.StockDaily;
+import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.mapper.StockDailyMapper;
 import com.greenmark.database.db.mapper.StockDailyMapper;
 import com.greenmark.database.db.mapper.StockMapper;
@@ -25,10 +26,12 @@ import java.util.List;
 public class StockDailyDbService extends BasicDbService {
 
     private final StockDailyRepository repository;
+    private final StockDailyMapper mapper;
 
-    public StockDailyDbService(StockDailyRepository repository) {
+    public StockDailyDbService(StockDailyRepository repository, StockDailyMapper mapper) {
         super("StockDaily");
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     /**
@@ -59,7 +62,7 @@ public class StockDailyDbService extends BasicDbService {
             record.setChangedPercent(stockData.getChangedPercent());
 
             StockDaily saved = repository.save(record);
-            return StockDailyMapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -100,7 +103,7 @@ public class StockDailyDbService extends BasicDbService {
 
             StockDaily saved = repository.save(record);
             log.info(getUpdatedMessage(symbol));
-            return StockDailyMapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -146,7 +149,7 @@ public class StockDailyDbService extends BasicDbService {
         StockDaily record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         log.info(getFoundMessage(symbol));
-        return StockDailyMapper.toDb(record);
+        return mapper.toDb(record);
     }
 
     private StockDaily _addStockData(StockDaily record, StockData stockData) {
@@ -167,13 +170,13 @@ public class StockDailyDbService extends BasicDbService {
      */
     public List<StockDailyDb> findAll() throws DatabaseRetrievalFailureException {
         List<StockDaily> records = repository.findAll();
-        return StockDailyMapper.toList(records);
+        return mapper.toList(records);
     }
 
     public List<StockDailyDb> findActive() throws DatabaseRetrievalFailureException {
         List<StockDaily> records = repository.findByActive(ActiveEnum.ACTIVE.value);
 
         log.info(getFoundActiveMessage(records.size()));
-        return StockDailyMapper.toList(records);
+        return mapper.toList(records);
     }
 }

@@ -2,21 +2,25 @@ package com.greenmark.database.db.mapper;
 
 import com.greenmark.common.database.domain.BucketDailyDb;
 import com.greenmark.database.db.entity.BucketDaily;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
+@NoArgsConstructor
 public class BucketDailyMapper {
 
-    public static BucketDailyDb toDb(BucketDaily item) {
+    public BucketDailyDb toDb(BucketDaily item) {
         return new ModelMapper().map(item, BucketDailyDb.class);
     }
 
-    public static BucketDaily toEntity(BucketDailyDb itemDb) {
+    public BucketDaily toEntity(BucketDailyDb itemDb) {
         return new ModelMapper().map(itemDb, BucketDaily.class);
     }
 
-    public static List<BucketDailyDb> toList(List<BucketDaily> items) {
+    public List<BucketDailyDb> toList(List<BucketDaily> items) {
         return items.stream().map( item -> toDb(item)).toList();
     }
 }

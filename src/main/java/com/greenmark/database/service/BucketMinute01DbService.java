@@ -22,10 +22,12 @@ import java.util.List;
 public class BucketMinute01DbService extends BasicDbService {
 
     private final BucketMinute01Repository repository;
+    private final BucketMinute01Mapper mapper;
 
-    public BucketMinute01DbService(BucketMinute01Repository repository) {
+    public BucketMinute01DbService(BucketMinute01Repository repository, BucketMinute01Mapper mapper) {
         super("BucketMinute01");
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     /**
@@ -56,7 +58,7 @@ public class BucketMinute01DbService extends BasicDbService {
             record.setChangedPercent(stockData.getChangedPercent());
 
             BucketMinute01 saved = repository.save(record);
-            return BucketMinute01Mapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -97,7 +99,7 @@ public class BucketMinute01DbService extends BasicDbService {
 
             BucketMinute01 saved = repository.save(record);
             log.info(getUpdatedMessage(symbol));
-            return BucketMinute01Mapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -143,13 +145,13 @@ public class BucketMinute01DbService extends BasicDbService {
         BucketMinute01 record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         log.info(getFoundMessage(symbol));
-        return BucketMinute01Mapper.toDb(record);
+        return mapper.toDb(record);
     }
 
     public List<BucketMinute01Db> findAll() throws DatabaseRetrievalFailureException {
         List<BucketMinute01> records = repository.findByActive(ActiveEnum.ACTIVE.value);
 
         log.info(getFoundActiveMessage(records.size()));
-        return BucketMinute01Mapper.toList(records);
+        return mapper.toList(records);
     }
 }

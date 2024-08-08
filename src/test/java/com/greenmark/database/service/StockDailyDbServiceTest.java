@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class StockDailyDbServiceTest {
+
     @Autowired
     private StockDailyDbService service;
 

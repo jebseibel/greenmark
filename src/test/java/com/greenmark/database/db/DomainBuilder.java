@@ -191,10 +191,6 @@ public class DomainBuilder
 
 
     // //////////////////////////////////////////////////////////////////
-    public static ScenarioDb getScenarioDb() {
-        Scenario item = getScenario(null, null);
-        return ScenarioMapper.toDb(item);
-    }
     public static Scenario getScenario() { return getScenario(null, null); }
     public static Scenario getScenario(String name) { return getScenario(name, null);  }
     public static Scenario getScenario(
@@ -213,10 +209,6 @@ public class DomainBuilder
     }
 
     // //////////////////////////////////////////////////////////////////
-    public static StockDb getStockDb() {
-        Stock item = getStock(null, null);
-        return StockMapper.toDb(item);
-    }
     public static Stock getStock() {
         return getStock(null, null);
     }
@@ -240,15 +232,9 @@ public class DomainBuilder
     }
 
     // //////////////////////////////////////////////////////////////////
-    public static StockDailyDb getStockDailyDb() {
-        StockDaily item = getStockDaily(null);
-        return StockDailyMapper.toDb(item);
-    }
-
     public static StockDaily getStockDaily() {
         return getStockDaily(null);
     }
-
     public static StockDaily getStockDaily(
             String thisSymbol
     ) {

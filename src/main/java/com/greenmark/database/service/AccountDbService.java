@@ -6,11 +6,15 @@ import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.entity.Stock;
 import com.greenmark.database.db.mapper.AccountMapper;
+import com.greenmark.database.db.mapper.BucketDailyMapper;
 import com.greenmark.database.db.mapper.StockMapper;
 import com.greenmark.database.db.repository.AccountRepository;
 import com.greenmark.database.exceptions.*;
+import jakarta.persistence.Access;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.mapper.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +25,13 @@ import java.util.List;
 @Service
 public class AccountDbService extends BasicDbService {
 
-    private AccountRepository repository;
+    private final AccountRepository repository;
+    private final AccountMapper mapper;
 
-    private AccountMapper mapper;
-
-    public AccountDbService(AccountRepository repository) {
+    public AccountDbService(AccountRepository repository, AccountMapper mapper) {
         super("Account");
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     /**
@@ -40,6 +44,8 @@ public class AccountDbService extends BasicDbService {
      * @throws DataIntegrityViolationException
      */
     public AccountDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
+
+        System.out.println(mapper);
 
         try {
             Account record = new Account();

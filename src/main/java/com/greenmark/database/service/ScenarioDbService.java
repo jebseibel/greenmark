@@ -3,6 +3,7 @@ package com.greenmark.database.service;
 import com.greenmark.common.database.domain.ScenarioDb;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.Scenario;
+import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.mapper.ScenarioMapper;
 import com.greenmark.database.db.repository.ScenarioRepository;
 import com.greenmark.database.exceptions.*;
@@ -18,10 +19,12 @@ import java.time.LocalDateTime;
 public class ScenarioDbService extends BasicDbService {
 
     private final ScenarioRepository repository;
+    private final ScenarioMapper mapper;
 
-    public ScenarioDbService(ScenarioRepository repository) {
+    public ScenarioDbService(ScenarioRepository repository, ScenarioMapper mapper) {
         super("Scenario");
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     /**
@@ -46,7 +49,7 @@ public class ScenarioDbService extends BasicDbService {
 
             Scenario saved = repository.save(record);
             log.debug(getCreatedMessage(extid));
-            return ScenarioMapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
@@ -85,7 +88,7 @@ public class ScenarioDbService extends BasicDbService {
         checkUpdatedFailure(saved, getUpdatedFailureMessage(extid));
 
         log.info(getUpdatedMessage(extid));
-        return ScenarioMapper.toDb(saved);
+        return mapper.toDb(saved);
     }
 
     /**
@@ -126,7 +129,7 @@ public class ScenarioDbService extends BasicDbService {
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         log.info(getFoundMessage(extid));
-        return ScenarioMapper.toDb(record);
+        return mapper.toDb(record);
     }
 
     // ////////////////////////////////////////////////////////

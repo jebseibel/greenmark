@@ -1,24 +1,26 @@
 package com.greenmark.database.db.mapper;
 
 import com.greenmark.common.database.domain.BucketMinute01Db;
-import com.greenmark.common.database.domain.BucketMinute60Db;
 import com.greenmark.database.db.entity.BucketMinute01;
-import com.greenmark.database.db.entity.BucketMinute60;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
+@NoArgsConstructor
 public class BucketMinute01Mapper {
 
-    public static BucketMinute01Db toDb(BucketMinute01 item) {
+    public BucketMinute01Db toDb(BucketMinute01 item) {
         return new ModelMapper().map(item, BucketMinute01Db.class);
     }
 
-    public static BucketMinute01 toEntity(BucketMinute01Db itemDb) {
+    public BucketMinute01 toEntity(BucketMinute01Db itemDb) {
         return new ModelMapper().map(itemDb, BucketMinute01.class);
     }
 
-    public static List<BucketMinute01Db> toList(List<BucketMinute01> items) {
+    public List<BucketMinute01Db> toList(List<BucketMinute01> items) {
         return items.stream().map( item -> toDb(item)).toList();
     }
 }

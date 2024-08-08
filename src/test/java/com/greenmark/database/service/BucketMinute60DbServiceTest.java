@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class BucketMinute60DbServiceTest {
+
     @Autowired
     private BucketMinute60DbService service;
 

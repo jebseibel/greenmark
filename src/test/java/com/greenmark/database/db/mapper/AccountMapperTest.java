@@ -4,13 +4,16 @@ import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.database.db.entity.Account;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@SpringBootTest
 class AccountMapperTest {
 
-    AccountMapper mapper = new AccountMapper();
+    @Autowired
+    AccountMapper mapper;
 
     @Test
     void testToDb() {

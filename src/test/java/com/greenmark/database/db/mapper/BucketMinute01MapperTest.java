@@ -6,6 +6,8 @@ import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.db.entity.BucketMinute15;
 import com.greenmark.database.db.entity.BucketMinute01;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,12 +15,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest
 class BucketMinute01MapperTest {
+
+    @Autowired
+    BucketMinute01Mapper mapper;
 
     @Test
     void testToDb() {
-        BucketMinute15 item = DomainBuilder.getBucketMinute15();
-        BucketMinute15Db itemDb = BucketMinute15Mapper.toDb(item);
+        BucketMinute01 item = DomainBuilder.getBucketMinute01();
+        BucketMinute01Db itemDb = mapper.toDb(item);
 
         //test
         assertEquals(item.getSymbol(), itemDb.getSymbol());
@@ -41,7 +47,7 @@ class BucketMinute01MapperTest {
         BucketMinute01 item1 = DomainBuilder.getBucketMinute01();
         BucketMinute01 item2 = DomainBuilder.getBucketMinute01();
         List<BucketMinute01> items = Arrays.asList(item1, item2);
-        List<BucketMinute01Db> itemDbs = BucketMinute01Mapper.toList(items);
+        List<BucketMinute01Db> itemDbs = mapper.toList(items);
 
         //test
         assertEquals(items.size(), itemDbs.size());

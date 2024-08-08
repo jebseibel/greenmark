@@ -19,12 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class AccountDbServiceTest {
 
-    @Mock
-    AccountRepository mockRepository;
-
-    @InjectMocks
+    @Autowired
     AccountDbService service;
-
 
     @Nested
     class CreateTests {

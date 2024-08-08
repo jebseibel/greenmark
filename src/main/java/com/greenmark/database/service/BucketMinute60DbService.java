@@ -4,6 +4,7 @@ import com.greenmark.common.database.domain.BucketMinute60Db;
 import com.greenmark.common.database.domain.StockData;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.BucketMinute60;
+import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.mapper.BucketMinute60Mapper;
 import com.greenmark.database.db.repository.BucketMinute60Repository;
 import com.greenmark.database.exceptions.*;
@@ -18,10 +19,12 @@ import java.time.LocalDateTime;
 public class BucketMinute60DbService extends BasicDbService {
 
     private final BucketMinute60Repository repository;
+    private final BucketMinute60Mapper mapper;
 
-    public BucketMinute60DbService(BucketMinute60Repository repository) {
+    public BucketMinute60DbService(BucketMinute60Repository repository, BucketMinute60Mapper mapper) {
         super("BucketMinute60");
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     /**
@@ -52,7 +55,7 @@ public class BucketMinute60DbService extends BasicDbService {
             record.setChangedPercent(stockData.getChangedPercent());
 
             BucketMinute60 saved = repository.save(record);
-            return BucketMinute60Mapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -93,7 +96,7 @@ public class BucketMinute60DbService extends BasicDbService {
 
             BucketMinute60 saved = repository.save(record);
             log.info(getUpdatedMessage(symbol));
-            return BucketMinute60Mapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -139,7 +142,7 @@ public class BucketMinute60DbService extends BasicDbService {
         BucketMinute60 record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         log.info(getFoundMessage(symbol));
-        return BucketMinute60Mapper.toDb(record);
+        return mapper.toDb(record);
     }
 
     private BucketMinute60 _addStockData(BucketMinute60 record, StockData stockData) {

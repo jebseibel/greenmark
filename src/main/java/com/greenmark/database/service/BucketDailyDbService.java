@@ -19,10 +19,12 @@ import java.util.List;
 public class BucketDailyDbService extends BasicDbService {
 
     private final BucketDailyRepository repository;
+    private final BucketDailyMapper mapper;
 
-    public BucketDailyDbService(BucketDailyRepository repository) {
+    public BucketDailyDbService(BucketDailyRepository repository, BucketDailyMapper mapper) {
         super("BucketDaily");
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     /**
@@ -51,7 +53,7 @@ public class BucketDailyDbService extends BasicDbService {
             record.setChangedPercent(stockData.getChangedPercent());
 
             BucketDaily saved = repository.save(record);
-            return BucketDailyMapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -92,7 +94,7 @@ public class BucketDailyDbService extends BasicDbService {
 
             BucketDaily saved = repository.save(record);
             log.info(getUpdatedMessage(symbol));
-            return BucketDailyMapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -138,13 +140,13 @@ public class BucketDailyDbService extends BasicDbService {
         BucketDaily record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         log.info(getFoundMessage(symbol));
-        return BucketDailyMapper.toDb(record);
+        return mapper.toDb(record);
     }
 
     public List<BucketDailyDb> findActive() throws DatabaseRetrievalFailureException {
         List<BucketDaily> records = repository.findByActive(ActiveEnum.ACTIVE.value);
 
         log.info(getFoundActiveMessage(records.size()));
-        return BucketDailyMapper.toList(records);
+        return mapper.toList(records);
     }
 }

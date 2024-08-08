@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ScenarioDbServiceTest {
+
     @Autowired
     private ScenarioDbService service;
 

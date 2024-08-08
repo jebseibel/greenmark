@@ -6,6 +6,8 @@ import com.greenmark.common.database.domain.StockDb;
 import com.greenmark.database.db.entity.Stock;
 import com.greenmark.database.db.entity.Stock;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,12 +15,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest
 class StockMapperTest {
+
+    @Autowired
+    StockMapper mapper;
 
     @Test
     void testToDb() {
         Stock item = DomainBuilder.getStock();
-        StockDb itemDb = StockMapper.toDb(item);
+        StockDb itemDb = mapper.toDb(item);
 
         //test
         assertEquals(item.getExtid(), itemDb.getExtid());
@@ -35,7 +41,7 @@ class StockMapperTest {
         Stock item1 = DomainBuilder.getStock();
         Stock item2 = DomainBuilder.getStock();
         List<Stock> items = Arrays.asList(item1, item2);
-        List<StockDb> itemDbs =StockMapper.toList(items);
+        List<StockDb> itemDbs = mapper.toList(items);
 
         //test
         assertEquals(items.size(), itemDbs.size());

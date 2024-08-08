@@ -3,6 +3,7 @@ package com.greenmark.database.service;
 import com.greenmark.common.database.domain.StockDb;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.Stock;
+import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.mapper.StockMapper;
 import com.greenmark.database.db.repository.StockRepository;
 import com.greenmark.database.exceptions.*;
@@ -20,10 +21,12 @@ import java.util.UUID;
 public class StockDbService extends BasicDbService {
 
     private final StockRepository repository;
+    private final StockMapper mapper;
 
-    public StockDbService(StockRepository repository) {
+    public StockDbService(StockRepository repository, StockMapper mapper) {
         super("Stock");
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     /**
@@ -50,7 +53,7 @@ public class StockDbService extends BasicDbService {
 
             Stock saved = repository.save(record);
             log.debug(getCreatedMessage(symbol));
-            return StockMapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
@@ -82,7 +85,7 @@ public class StockDbService extends BasicDbService {
 
         Stock saved = repository.save(record);
         log.debug(getUpdatedMessage(symbol));
-        return StockMapper.toDb(saved);
+        return mapper.toDb(saved);
     }
 
     /**
@@ -116,12 +119,12 @@ public class StockDbService extends BasicDbService {
         Stock record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         log.debug(getFoundMessage(symbol));
-        return StockMapper.toDb(record);
+        return mapper.toDb(record);
     }
 
     public List<StockDb> findAll()  {
         List<Stock> records = repository.findAll();
-        return StockMapper.toList(records);
+        return mapper.toList(records);
     }
 
     /**
@@ -133,7 +136,7 @@ public class StockDbService extends BasicDbService {
         List<Stock> records = repository.findByActive(ActiveEnum.ACTIVE.value);
 
         log.debug(getFoundActiveMessage(records.size()));
-        return StockMapper.toList(records);
+        return mapper.toList(records);
     }
 
     /**
@@ -145,6 +148,6 @@ public class StockDbService extends BasicDbService {
         List<Stock> records = repository.findByActive(ActiveEnum.INACTIVE.value);
 
         log.debug(getFoundActiveMessage(records.size()));
-        return StockMapper.toList(records);
+        return mapper.toList(records);
     }
 }

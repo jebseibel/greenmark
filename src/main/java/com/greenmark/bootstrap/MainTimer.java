@@ -58,19 +58,19 @@ public class MainTimer implements CommandLineRunner {
     }
     public void initialize() throws DatabaseRetrievalFailureException {
         log.error("START INITIALIZE");
-        currentActiveStocks = stockDbService.findActive();
-        log.error("Current active stocks ["+currentActiveStocks.size()+"]");
-
-        Iterator<StockDb> iterator = currentActiveStocks.iterator();
-        while (iterator.hasNext()) {
-            try {
-                StockDb stockDb = iterator.next();
-                QuoteDomain domain = datafeedService.getQuote(stockDb.getSymbol());
-            }
-            catch (Exception e) {
-                log.error(e.getMessage());
-            }
-        }
+//        currentActiveStocks = stockDbService.findActive();
+//        log.error("Current active stocks ["+currentActiveStocks.size()+"]");
+//
+//        Iterator<StockDb> iterator = currentActiveStocks.iterator();
+//        while (iterator.hasNext()) {
+//            try {
+//                StockDb stockDb = iterator.next();
+//                QuoteDomain domain = datafeedService.getQuote(stockDb.getSymbol());
+//            }
+//            catch (Exception e) {
+//                log.error(e.getMessage());
+//            }
+//        }
         // initialize or refresh
 
         // FOR EACH MINUTE
@@ -83,31 +83,6 @@ public class MainTimer implements CommandLineRunner {
         log.error("CLOSE INITIALIZE");
     }
 
-    public void updateStockDaily() {
-
-        Iterator<StockDb> iterator = currentActiveStocks.iterator();
-
-    }
-
-    public void checkUpdateDaily() {
-
-    }
-
-    public void checkUpdateMinute60() {
-
-    }
-
-    public void checkUpdateMinute15() {
-
-    }
-
-    public void checkUpdateMinute05() {
-
-    }
-
-    public void checkUpdateMinute01() {
-
-    }
 
 
 }

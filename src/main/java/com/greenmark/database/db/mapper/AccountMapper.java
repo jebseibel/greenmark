@@ -1,23 +1,16 @@
 package com.greenmark.database.db.mapper;
 
 import com.greenmark.common.database.domain.AccountDb;
-import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.database.db.entity.Account;
-import com.greenmark.database.db.entity.Account;
-import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-@Data
+@NoArgsConstructor
 public class AccountMapper {
-
-    String name = "thisname";
-
-    public AccountMapper() {
-    }
 
     public AccountDb toDb(Account item) {
         return new ModelMapper().map(item, AccountDb.class);

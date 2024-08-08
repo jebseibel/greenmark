@@ -2,6 +2,7 @@ package com.greenmark.database.db.repository;
 
 import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.database.db.mapper.AccountMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -20,14 +21,6 @@ class AccountRepositoryTest {
 
     @Autowired
     private AccountRepository repository;
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
 
     @Nested
     class SuiteCrud {
