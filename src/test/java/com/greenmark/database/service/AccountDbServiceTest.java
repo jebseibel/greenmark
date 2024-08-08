@@ -2,10 +2,13 @@ package com.greenmark.database.service;
 
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.AccountDb;
+import com.greenmark.database.db.repository.AccountRepository;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,8 +18,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class AccountDbServiceTest {
-    @Autowired
-    private AccountDbService service;
+
+    @Mock
+    AccountRepository mockRepository;
+
+    @InjectMocks
+    AccountDbService service;
+
 
     @Nested
     class CreateTests {

@@ -7,12 +7,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 class AccountMapperTest {
+
+    AccountMapper mapper = new AccountMapper();
 
     @Test
     void testToDb() {
         Account item = DomainBuilder.getAccount();
-        AccountDb itemDb = AccountMapper.toDb(item);
+        AccountDb itemDb = mapper.toDb(item);
 
         //test
         assertEquals(item.getExtid(), itemDb.getExtid());

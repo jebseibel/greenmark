@@ -119,12 +119,7 @@ public class StockDbService extends BasicDbService {
         return StockMapper.toDb(record);
     }
 
-    /**
-     *
-     * @return
-     * @throws DatabaseRetrievalFailureException
-     */
-    public List<StockDb> findAll() throws DatabaseRetrievalFailureException {
+    public List<StockDb> findAll()  {
         List<Stock> records = repository.findAll();
         return StockMapper.toList(records);
     }

@@ -19,10 +19,6 @@ public class DomainBuilder
     public static String DESCRIPTION = "Desc_";
 
     // ///////////////////////////////////////////////////////////////////
-    public static AccountDb getAccountDb() {
-        Account item = getAccount(null, null);
-        return AccountMapper.toDb(item);
-    }
     public static Account getAccount() {
         return getAccount(null, null);
     }

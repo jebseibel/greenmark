@@ -1,9 +1,12 @@
 package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.AccountDb;
+import com.greenmark.common.database.domain.StockDb;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.Account;
+import com.greenmark.database.db.entity.Stock;
 import com.greenmark.database.db.mapper.AccountMapper;
+import com.greenmark.database.db.mapper.StockMapper;
 import com.greenmark.database.db.repository.AccountRepository;
 import com.greenmark.database.exceptions.*;
 import lombok.NonNull;
@@ -12,12 +15,15 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
 public class AccountDbService extends BasicDbService {
 
-    private final AccountRepository repository;
+    private AccountRepository repository;
+
+    private AccountMapper mapper;
 
     public AccountDbService(AccountRepository repository) {
         super("Account");
@@ -46,7 +52,7 @@ public class AccountDbService extends BasicDbService {
 
             Account saved = repository.save(record);
             log.debug(getCreatedMessage(extid));
-            return AccountMapper.toDb(saved);
+            return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
@@ -85,7 +91,7 @@ public class AccountDbService extends BasicDbService {
         checkUpdatedFailure(saved, getUpdatedFailureMessage(extid));
 
         log.info(getUpdatedMessage(extid));
-        return AccountMapper.toDb(saved);
+        return mapper.toDb(saved);
     }
 
     /**
@@ -126,7 +132,16 @@ public class AccountDbService extends BasicDbService {
         checkNullRecord(record, getFoundFailureMessage(extid));
 
         log.info(getFoundMessage(extid));
-        return AccountMapper.toDb(record);
+        return mapper.toDb(record);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<AccountDb> findAll()  {
+        List<Account> records = repository.findAll();
+        return mapper.toList(records);
     }
 
     // ////////////////////////////////////////////////////////
