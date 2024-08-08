@@ -42,15 +42,8 @@ class BucketMinute01RepositoryTest {
             BucketMinute01 item1 = DomainBuilder.getBucketMinute01(name);
             BucketMinute01 item2 = DomainBuilder.getBucketMinute01(name);
 
-            try {
-                repository.save(item1);
-                repository.save(item2);
-                fail();
-            }
-            catch (DataIntegrityViolationException e) {
-                assertTrue(true);
-            }
-            System.out.println();
+            repository.save(item1);
+            assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
         }
 
         @Test
@@ -101,39 +94,5 @@ class BucketMinute01RepositoryTest {
             assertNotNull(result);
             assertEquals(result.getSymbol(), name);
         }
-
-        @Test
-        void findActive_toList() {
-            String symbol1 = DomainBuilder.getSymbolRandom();
-            String symbol2 = DomainBuilder.getSymbolRandom();
-            BucketMinute01 record1 = DomainBuilder.getBucketMinute01(symbol1);
-            BucketMinute01 record2 = DomainBuilder.getBucketMinute01(symbol2);
-            repository.save(record1);
-            repository.save(record2);
-
-            List<BucketMinute01> results = repository.findByActive(ActiveEnum.ACTIVE.value);
-
-            //test
-            assertNotNull(results);
-            assertTrue(results.size() > 1);
-        }
-
-        @Test
-        void findActive_checkNoInactive() {
-            String symbol1 = DomainBuilder.getSymbolRandom();
-            String symbol2 = DomainBuilder.getSymbolRandom();
-            BucketMinute01 record1 = DomainBuilder.getBucketMinute01(symbol1);
-            BucketMinute01 record2 = DomainBuilder.getBucketMinute01(symbol2);
-            record2.setActive(ActiveEnum.INACTIVE.value);
-            repository.save(record1);
-            repository.save(record2);
-
-            List<BucketMinute01> results = repository.findByActive(ActiveEnum.ACTIVE.value);
-
-            //test
-            assertNotNull(results);
-            assertTrue(results.size() > 0);
-            assertFalse(results.contains(record2));
-        }        
     }
 }

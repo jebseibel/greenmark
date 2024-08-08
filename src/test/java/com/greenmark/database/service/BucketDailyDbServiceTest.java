@@ -43,41 +43,20 @@ class BucketDailyDbServiceTest {
 
         @Test
         void createdTooLong() {
-            // test
-            try {
-                StockData stockData = DomainBuilder.getStockData();
-                String symbol = DomainBuilder.getStringTestUUID();
-                service.create(symbol, stockData);
-                fail();
-            }
-            catch (DatabaseCreateFailureException e) {
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                fail();
-            }
+            StockData stockData = DomainBuilder.getStockData();
+            String symbol = DomainBuilder.getStringTestUUID();
+
+            assertThrows(DatabaseCreateFailureException.class, () -> service.create(symbol, stockData));
         }
 
         @Test
         void createdAlready() throws Exception {
             // test
             StockData stockData = DomainBuilder.getStockData();
-            BucketDailyDb result = service.create(symbol, stockData);
+            service.create(symbol, stockData);
 
-            try {
-                service.create(symbol, stockData);
-                fail();
-            } catch (DatabaseCreateFailureException e) {
-                System.out.println(e.getMessage());
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                fail();
-            }
-
-            // validate
-            assertNotNull(result);
-            assertEquals(result.getSymbol(), symbol);
+            //try to create again
+            assertThrows(DatabaseCreateFailureException.class, () -> service.create(symbol, stockData));
         }
     }
 
@@ -110,35 +89,14 @@ class BucketDailyDbServiceTest {
 
         @Test
         void updatedBadSymbol() {
-            // test
-            try {
-                String badSymbol = UUID.randomUUID().toString();
-                service.update(badSymbol, stockData);
-                fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                fail();
-            }
+            String badSymbol = UUID.randomUUID().toString();
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.update(badSymbol, stockData));
         }
 
         @Test
         void updatedBadStockdata() {
-            // test
-            try {
-                stockData.setCurrent(null);
-                service.update(symbol, stockData);
-                fail();
-            }
-            catch (DatabaseUpdateFailureException e) {
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-                fail();
-            }
+            stockData.setCurrent(null);
+            assertThrows(DatabaseUpdateFailureException.class, () -> service.update(symbol, stockData));
         }
     }
 
@@ -157,24 +115,14 @@ class BucketDailyDbServiceTest {
 
         @Test
         void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
-            //execute
             boolean result = service.delete(symbol);
-
-            // validate
             assertTrue(result);
         }
 
         @Test
-        void updatedBadSymbol() throws DatabaseDeleteFailureException {
-            // test
-            try {
-                String symbol = UUID.randomUUID().toString();
-                service.delete(symbol);
-                fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
-                assertTrue(true);
-            }
+        void updatedBadSymbol()  {
+            String symbol = UUID.randomUUID().toString();
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.delete(symbol));
         }
     }
 
@@ -194,24 +142,14 @@ class BucketDailyDbServiceTest {
 
         @Test
         void find() throws DatabaseRetrievalFailureException {
-            //execute
             BucketDailyDb result = service.findBySymbol(symbol);
-
-            // validate
             assertNotNull(result);
         }
 
         @Test
         void findError() throws DatabaseRetrievalFailureException {
             String badSymbol = DomainBuilder.getSymbolRandom();
-
-            try {
-                BucketDailyDb result = service.findBySymbol(badSymbol);
-                assertTrue(false);
-            }
-            catch (DatabaseRetrievalFailureException e) {
-                assertTrue(true);
-            }
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.findBySymbol(badSymbol));
         }
     }
 
@@ -238,11 +176,22 @@ class BucketDailyDbServiceTest {
             //execute
             List<BucketDailyDb> results = service.findActive();
 
+            // validate - using Streams :)
+            BucketDailyDb hasRecord1 = results.stream()
+                    .filter(result -> record1.getSymbol().equals(result.getSymbol()))
+                    .findAny()
+                    .orElse(null);
+
+            BucketDailyDb hasRecord2 = results.stream()
+                    .filter(result -> record2.getSymbol().equals(result.getSymbol()))
+                    .findAny()
+                    .orElse(null);
+
             // validate
             assertNotNull(results);
             assertTrue(results.size() > 1);
-            assertTrue(results.contains(record1));
-            assertTrue(results.contains(record2));
+            assertNotNull(hasRecord1);
+            assertNotNull(hasRecord2);
         }
 
         @Test
@@ -272,6 +221,5 @@ class BucketDailyDbServiceTest {
             assertNotNull(hasRecord1);
             assertNull(hasRecord2);
         }
-
     }
 }

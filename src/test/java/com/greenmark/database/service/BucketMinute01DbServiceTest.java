@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,41 +39,20 @@ class BucketMinute01DbServiceTest {
 
         @Test
         void createdTooLong() {
-            // test
-            try {
-                StockData stockData = DomainBuilder.getStockData();
-                String symbol = DomainBuilder.getStringTestUUID();
-                service.create(symbol, stockData);
-                fail();
-            }
-            catch (DatabaseCreateFailureException e) {
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                fail();
-            }
+            StockData stockData = DomainBuilder.getStockData();
+            String symbol = DomainBuilder.getStringTestUUID();
+
+            assertThrows(DatabaseCreateFailureException.class, () -> service.create(symbol, stockData));
         }
 
         @Test
         void createdAlready() throws Exception {
             // test
             StockData stockData = DomainBuilder.getStockData();
-            BucketMinute01Db result = service.create(symbol, stockData);
+            service.create(symbol, stockData);
 
-            try {
-                service.create(symbol, stockData);
-                fail();
-            } catch (DatabaseCreateFailureException e) {
-                System.out.println(e.getMessage());
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                fail();
-            }
-
-            // validate
-            assertNotNull(result);
-            assertEquals(result.getSymbol(), symbol);
+            //try to create again
+            assertThrows(DatabaseCreateFailureException.class, () -> service.create(symbol, stockData));
         }
     }
 
@@ -105,35 +85,14 @@ class BucketMinute01DbServiceTest {
 
         @Test
         void updatedBadSymbol() {
-            // test
-            try {
-                String badSymbol = UUID.randomUUID().toString();
-                service.update(badSymbol, stockData);
-                fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                fail();
-            }
+            String badSymbol = UUID.randomUUID().toString();
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.update(badSymbol, stockData));
         }
 
         @Test
         void updatedBadStockdata() {
-            // test
-            try {
-                stockData.setCurrent(null);
-                service.update(symbol, stockData);
-                fail();
-            }
-            catch (DatabaseUpdateFailureException e) {
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                System.out.println(e.getMessage());
-                fail();
-            }
+            stockData.setCurrent(null);
+            assertThrows(DatabaseUpdateFailureException.class, () -> service.update(symbol, stockData));
         }
     }
 
@@ -152,25 +111,56 @@ class BucketMinute01DbServiceTest {
 
         @Test
         void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
-            //execute
             boolean result = service.delete(symbol);
-
-            // validate
             assertTrue(result);
         }
 
         @Test
-        void updatedBadSymbol() throws DatabaseDeleteFailureException {
-            // test
-            try {
-                String symbol = UUID.randomUUID().toString();
-                service.delete(symbol);
-                fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
-                assertTrue(true);
-            }
+        void updatedBadSymbol()  {
+            String symbol = UUID.randomUUID().toString();
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.delete(symbol));
         }
     }
 
+    @Nested
+    class FindTests {
+
+        BucketMinute01Db record;
+        StockData stockData;
+        String symbol;
+
+        @BeforeEach
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
+            symbol = DomainBuilder.getSymbolRandom();
+            stockData = DomainBuilder.getStockData();
+            record = service.create(symbol, stockData);
+        }
+
+        @Test
+        void find() throws DatabaseRetrievalFailureException {
+            BucketMinute01Db result = service.findBySymbol(symbol);
+            assertNotNull(result);
+        }
+
+        @Test
+        void findError() throws DatabaseRetrievalFailureException {
+            String badSymbol = DomainBuilder.getSymbolRandom();
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.findBySymbol(badSymbol));
+        }
+    }
+
+    @Nested
+    class FindActiveTests {
+
+        BucketMinute01Db record1;
+        StockData stockData1;
+        String symbol1;
+
+        @BeforeEach
+        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
+            symbol1 = DomainBuilder.getSymbolRandom();
+            stockData1 = DomainBuilder.getStockData();
+            record1 = service.create(symbol1, stockData1);
+        }
+    }
 }

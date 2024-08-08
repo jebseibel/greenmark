@@ -40,17 +40,8 @@ class ScenarioDbServiceTest {
         @Test
         void createdTooLong() {
             // test
-            try {
-                String extid = DomainBuilder.getStringTestUUID();
-                service.create(extid, name, description);
-                fail();
-            }
-            catch (DatabaseCreateFailureException e) {
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                fail();
-            }
+            String extid = DomainBuilder.getStringTestUUID();
+            assertThrows(DatabaseCreateFailureException.class, () -> service.create(extid, name, description));
         }
     }
 
@@ -128,17 +119,8 @@ class ScenarioDbServiceTest {
 
         @Test
         void findByExtid_NotFound() {
-            // test
-            try {
-                String badExtid = UUID.randomUUID().toString();
-                service.findByExtid(badExtid);
-                fail();
-            } catch (DatabaseRetrievalFailureException e) {
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                fail();
-            }
+            String badExtid = UUID.randomUUID().toString();
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.findByExtid(badExtid));
         }
     }
 
@@ -167,16 +149,9 @@ class ScenarioDbServiceTest {
         }
 
         @Test
-        void updatedBadExtid() throws DatabaseDeleteFailureException {
-            // test
-            try {
-                String badExtid = UUID.randomUUID().toString();
-                service.delete(badExtid);
-                fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
-                assertTrue(true);
-            }
+        void deleteBadExtid() {
+            String badExtid = UUID.randomUUID().toString();
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.delete(badExtid));
         }
     }
 }

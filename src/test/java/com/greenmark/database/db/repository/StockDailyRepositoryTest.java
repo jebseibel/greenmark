@@ -52,15 +52,8 @@ class StockDailyRepositoryTest {
             StockDaily item1 = DomainBuilder.getStockDaily(symbol);
             StockDaily item2 = DomainBuilder.getStockDaily(symbol);
 
-            try {
-                repository.save(item1);
-                repository.save(item2);
-                fail();
-            }
-            catch (DataIntegrityViolationException e) {
-                assertTrue(true);
-            }
-            System.out.println();
+            repository.save(item1);
+            assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
         }
 
         @Test

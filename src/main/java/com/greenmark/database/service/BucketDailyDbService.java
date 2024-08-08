@@ -35,8 +35,6 @@ public class BucketDailyDbService extends BasicDbService {
      */
     public BucketDailyDb create(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseCreateFailureException, DatabaseAccessException {
 
-        repository.findBySymbol(symbol).ifPresent(s -> new DatabaseCreateFailureException(getFoundFailureMessage(symbol)));
-
         try {
             BucketDaily record = new BucketDaily();
             record.setSymbol(symbol);

@@ -5,6 +5,7 @@ import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.StockData;
 import com.greenmark.database.db.entity.*;
 import com.greenmark.database.db.mapper.*;
+import com.greenmark.datafeed.finnhub.models.Quote;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.math.BigDecimal;
@@ -286,6 +287,19 @@ public class DomainBuilder
         item.setChangedPercent(randomBigDecimal());
         item.setMacd(randomBigDecimal());
         item.setStochk(randomBigDecimal());
+
+        return item;
+    }
+
+    public static Quote getQuote( ) {
+        Quote item = new Quote();
+        item.setC(randomFloat());  //current
+        item.setO(randomFloat());  //open
+        item.setL(randomFloat());  //low
+        item.setH(randomFloat());  //high
+        item.setPc(randomFloat()); //previousClose
+        item.setD(randomFloat());  //change
+        item.setDp(randomFloat()); //change percent
 
         return item;
     }

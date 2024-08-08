@@ -3,7 +3,6 @@ package com.greenmark.database.db.repository;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.db.entity.Stock;
-import com.greenmark.database.db.entity.Stock;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class StockRepositoryTest {
+class StockRepositoryMockTest {
 
     @Autowired
     private StockRepository repository;
@@ -43,9 +42,15 @@ class StockRepositoryTest {
             Stock item1 = DomainBuilder.getStock(name);
             Stock item2 = DomainBuilder.getStock(name);
 
-            repository.save(item1);
-            assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
-
+            try {
+                repository.save(item1);
+                repository.save(item2);
+                fail();
+            }
+            catch (DataIntegrityViolationException e) {
+                assertTrue(true);
+            }
+            System.out.println();
         }
 
         @Test

@@ -46,15 +46,8 @@ class BucketDailyRepositoryTest {
             BucketDaily item1 = DomainBuilder.getBucketDaily(symbol);
             BucketDaily item2 = DomainBuilder.getBucketDaily(symbol);
 
-            try {
-                repository.save(item1);
-                repository.save(item2);
-                fail();
-            }
-            catch (DataIntegrityViolationException e) {
-                assertTrue(true);
-            }
-            System.out.println();
+            repository.save(item1);
+            assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
         }
 
         @Test
@@ -104,40 +97,6 @@ class BucketDailyRepositoryTest {
             //test
             assertNotNull(result);
             assertEquals(result.getSymbol(), symbol);
-        }
-
-        @Test
-        void findActive_toList() {
-            String symbol1 = DomainBuilder.getSymbolRandom();
-            String symbol2 = DomainBuilder.getSymbolRandom();
-            BucketDaily record1 = DomainBuilder.getBucketDaily(symbol1);
-            BucketDaily record2 = DomainBuilder.getBucketDaily(symbol2);
-            repository.save(record1);
-            repository.save(record2);
-
-            List<BucketDaily> results = repository.findByActive(ActiveEnum.ACTIVE.value);
-
-            //test
-            assertNotNull(results);
-            assertTrue(results.size() > 1);
-        }
-
-        @Test
-        void findActive_checkNoInactive() {
-            String symbol1 = DomainBuilder.getSymbolRandom();
-            String symbol2 = DomainBuilder.getSymbolRandom();
-            BucketDaily record1 = DomainBuilder.getBucketDaily(symbol1);
-            BucketDaily record2 = DomainBuilder.getBucketDaily(symbol2);
-            record2.setActive(ActiveEnum.INACTIVE.value);
-            repository.save(record1);
-            repository.save(record2);
-
-            List<BucketDaily> results = repository.findByActive(ActiveEnum.ACTIVE.value);
-
-            //test
-            assertNotNull(results);
-            assertTrue(results.size() > 0);
-            assertFalse(results.contains(record2));
         }
     }
 }

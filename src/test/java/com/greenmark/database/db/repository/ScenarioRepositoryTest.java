@@ -40,15 +40,8 @@ class ScenarioRepositoryTest {
             Scenario item1 = DomainBuilder.getScenario(name);
             Scenario item2 = DomainBuilder.getScenario(name);
 
-            try {
-                repository.save(item1);
-                repository.save(item2);
-                fail();
-            }
-            catch (DataIntegrityViolationException e) {
-                assertTrue(true);
-            }
-            System.out.println();
+            repository.save(item1);
+            assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
         }
 
         @Test

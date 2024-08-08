@@ -3,11 +3,14 @@ package com.greenmark.database.service;
 import com.greenmark.common.database.domain.StockDailyDb;
 import com.greenmark.common.database.domain.StockDailyDb;
 import com.greenmark.common.database.domain.StockData;
+import com.greenmark.common.database.domain.StockDb;
 import com.greenmark.common.enums.ActiveEnum;
+import com.greenmark.database.db.entity.Stock;
 import com.greenmark.database.db.entity.StockDaily;
 import com.greenmark.database.db.entity.StockDaily;
 import com.greenmark.database.db.mapper.StockDailyMapper;
 import com.greenmark.database.db.mapper.StockDailyMapper;
+import com.greenmark.database.db.mapper.StockMapper;
 import com.greenmark.database.db.repository.StockDailyRepository;
 import com.greenmark.database.exceptions.*;
 import lombok.NonNull;
@@ -155,6 +158,16 @@ public class StockDailyDbService extends BasicDbService {
         record.setChanged(stockData.getChanged());
         record.setChangedPercent(stockData.getChangedPercent());
         return record;
+    }
+
+    /**
+     *
+     * @return
+     * @throws DatabaseRetrievalFailureException
+     */
+    public List<StockDailyDb> findAll() throws DatabaseRetrievalFailureException {
+        List<StockDaily> records = repository.findAll();
+        return StockDailyMapper.toList(records);
     }
 
     public List<StockDailyDb> findActive() throws DatabaseRetrievalFailureException {

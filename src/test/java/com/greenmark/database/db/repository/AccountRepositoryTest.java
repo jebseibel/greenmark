@@ -39,9 +39,11 @@ class AccountRepositoryTest {
             Account result = repository.save(item);
 
             //test
-            assertNotNull(result);
-            assertTrue(result.getId() != 0);
-            assertNotNull(item.getCreatedAt());
+            assertAll( "Creation tests",
+                    () -> assertNotNull(result, "result is not null"),
+                    () -> assertTrue(result.getId() != 0, "err"),
+                    () -> assertNotNull(item.getCreatedAt())
+            );
         }
 
         @Test
@@ -49,16 +51,9 @@ class AccountRepositoryTest {
             String name = "notUnique_"+DomainBuilder.randomString();
             Account item1 = DomainBuilder.getAccount(name);
             Account item2 = DomainBuilder.getAccount(name);
-            
-            try {
-                repository.save(item1);
-                repository.save(item2);
-                fail();
-            }
-            catch (DataIntegrityViolationException e) {
-                assertTrue(true);
-            }
-            System.out.println();
+
+            repository.save(item1);
+            assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
         }
 
         @Test

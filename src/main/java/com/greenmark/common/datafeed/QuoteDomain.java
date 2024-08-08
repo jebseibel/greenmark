@@ -1,11 +1,17 @@
 package com.greenmark.common.datafeed;
 
+import lombok.Data;
+
+import java.math.BigDecimal;
+
+@Data
 public class QuoteDomain {
-    private float open;
-    private float high;
-    private float low;
-    private float current;
-    private float previousClose;
-    private float change;
-    private float changePercent;
+    private BigDecimal current;
+    private BigDecimal open;
+    private BigDecimal high;
+    private BigDecimal low;
+
+    private BigDecimal previousClose;
+    private BigDecimal change;
+    private BigDecimal changePercent;
 }

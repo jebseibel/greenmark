@@ -1,9 +1,12 @@
 package com.greenmark.database.service;
 
+import com.greenmark.common.database.domain.BucketDailyDb;
 import com.greenmark.common.database.domain.BucketMinute01Db;
 import com.greenmark.common.database.domain.StockData;
 import com.greenmark.common.enums.ActiveEnum;
+import com.greenmark.database.db.entity.BucketDaily;
 import com.greenmark.database.db.entity.BucketMinute01;
+import com.greenmark.database.db.mapper.BucketDailyMapper;
 import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.repository.BucketMinute01Repository;
 import com.greenmark.database.exceptions.*;
@@ -12,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -142,15 +146,10 @@ public class BucketMinute01DbService extends BasicDbService {
         return BucketMinute01Mapper.toDb(record);
     }
 
-    private BucketMinute01 _addStockData(BucketMinute01 record, StockData stockData) {
-        record.setCurrent(stockData.getCurrent());
-        record.setOpen(stockData.getOpen());
-        record.setLow(stockData.getLow());
-        record.setHigh(stockData.getHigh());
-        record.setPreviousClose(stockData.getPreviousClose());
-        record.setChanged(stockData.getChanged());
-        record.setChangedPercent(stockData.getChangedPercent());
-        return record;
-    }
+    public List<BucketMinute01Db> findAll() throws DatabaseRetrievalFailureException {
+        List<BucketMinute01> records = repository.findByActive(ActiveEnum.ACTIVE.value);
 
+        log.info(getFoundActiveMessage(records.size()));
+        return BucketMinute01Mapper.toList(records);
+    }
 }

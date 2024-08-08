@@ -1,10 +1,12 @@
 package com.greenmark.bootstrap;
 
 import com.greenmark.common.database.domain.StockDb;
+import com.greenmark.common.datafeed.QuoteDomain;
 import com.greenmark.database.db.entity.*;
 import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
+import com.greenmark.database.service.StockDailyDbService;
 import com.greenmark.database.service.StockDbService;
-import com.greenmark.datafeed.service.DatafeedConfig;
+import com.greenmark.common.DatafeedConfig;
 import com.greenmark.datafeed.service.DatafeedService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class MainTimer implements CommandLineRunner {
     private StockDbService stockDbService;
 
     @Autowired
+    private StockDailyDbService stockDailyDbService;
+
+    @Autowired
     private DatafeedService datafeedService;
 
     @Autowired
@@ -45,8 +50,6 @@ public class MainTimer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.error("START MAIN TIMER");
-        log.info(modelLogic.toString());
-        log.info(finnHubConfig.toString());
 
         initialize();
 
@@ -62,12 +65,11 @@ public class MainTimer implements CommandLineRunner {
         while (iterator.hasNext()) {
             try {
                 StockDb stockDb = iterator.next();
-                datafeedService.getQuote(stockDb.getSymbol());
+                QuoteDomain domain = datafeedService.getQuote(stockDb.getSymbol());
             }
             catch (Exception e) {
                 log.error(e.getMessage());
             }
-
         }
         // initialize or refresh
 
@@ -78,7 +80,7 @@ public class MainTimer implements CommandLineRunner {
         // update BucketMinute15
         // update BucketMinute05
         // update BucketMinute01
-        log.error("START INITIALIZE");
+        log.error("CLOSE INITIALIZE");
     }
 
     public void updateStockDaily() {

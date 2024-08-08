@@ -124,6 +124,16 @@ public class StockDbService extends BasicDbService {
      * @return
      * @throws DatabaseRetrievalFailureException
      */
+    public List<StockDb> findAll() throws DatabaseRetrievalFailureException {
+        List<Stock> records = repository.findAll();
+        return StockMapper.toList(records);
+    }
+
+    /**
+     *
+     * @return
+     * @throws DatabaseRetrievalFailureException
+     */
     public List<StockDb> findActive() throws DatabaseRetrievalFailureException {
         List<Stock> records = repository.findByActive(ActiveEnum.ACTIVE.value);
 
@@ -131,4 +141,15 @@ public class StockDbService extends BasicDbService {
         return StockMapper.toList(records);
     }
 
+    /**
+     *
+     * @return
+     * @throws DatabaseRetrievalFailureException
+     */
+    public List<StockDb> findInactive() throws DatabaseRetrievalFailureException {
+        List<Stock> records = repository.findByActive(ActiveEnum.INACTIVE.value);
+
+        log.debug(getFoundActiveMessage(records.size()));
+        return StockMapper.toList(records);
+    }
 }

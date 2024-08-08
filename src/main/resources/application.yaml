@@ -2,6 +2,7 @@ email: test@mkyong.com
 finnhub:
   token: cq63eipr01qlbj4vp9j0cq63eipr01qlbj4vp9jg
   waitTimeInSeconds: 1
+  limitPerSecond: 30
 logging:
   level:
     com:

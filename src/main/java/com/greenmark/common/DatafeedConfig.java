@@ -1,4 +1,4 @@
-package com.greenmark.datafeed.service;
+package com.greenmark.common;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -12,4 +12,5 @@ import org.springframework.context.annotation.Configuration;
 public class DatafeedConfig {
     private String token;
     private int waitTimeInSeconds;
+    private int limitPerSecond;
 }

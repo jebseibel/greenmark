@@ -43,15 +43,8 @@ class BucketMinute60RepositoryTest {
             BucketMinute60 item1 = DomainBuilder.getBucketMinute60(name);
             BucketMinute60 item2 = DomainBuilder.getBucketMinute60(name);
 
-            try {
-                repository.save(item1);
-                repository.save(item2);
-                fail();
-            }
-            catch (DataIntegrityViolationException e) {
-                assertTrue(true);
-            }
-            System.out.println();
+            repository.save(item1);
+            assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
         }
 
         @Test
