@@ -1,17 +1,10 @@
 package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.StockDailyDb;
-import com.greenmark.common.database.domain.StockDailyDb;
 import com.greenmark.common.database.domain.StockData;
-import com.greenmark.common.database.domain.StockDb;
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.entity.Stock;
 import com.greenmark.database.db.entity.StockDaily;
-import com.greenmark.database.db.entity.StockDaily;
-import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.mapper.StockDailyMapper;
-import com.greenmark.database.db.mapper.StockDailyMapper;
-import com.greenmark.database.db.mapper.StockMapper;
 import com.greenmark.database.db.repository.StockDailyRepository;
 import com.greenmark.database.exceptions.*;
 import lombok.NonNull;
@@ -23,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class StockDailyDbService extends BasicDbService {
+public class StockDailyDbService extends BaseDbService {
 
     private final StockDailyRepository repository;
     private final StockDailyMapper mapper;
@@ -43,8 +36,6 @@ public class StockDailyDbService extends BasicDbService {
      * @throws DatabaseAccessException
      */
     public StockDailyDb create(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseCreateFailureException, DatabaseAccessException {
-
-        repository.findBySymbol(symbol).ifPresent(s -> new DatabaseCreateFailureException(getFoundFailureMessage(symbol)));
 
         try {
             StockDaily record = new StockDaily();
@@ -150,17 +141,6 @@ public class StockDailyDbService extends BasicDbService {
 
         log.info(getFoundMessage(symbol));
         return mapper.toDb(record);
-    }
-
-    private StockDaily _addStockData(StockDaily record, StockData stockData) {
-        record.setCurrent(stockData.getCurrent());
-        record.setOpen(stockData.getOpen());
-        record.setLow(stockData.getLow());
-        record.setHigh(stockData.getHigh());
-        record.setPreviousClose(stockData.getPreviousClose());
-        record.setChanged(stockData.getChanged());
-        record.setChangedPercent(stockData.getChangedPercent());
-        return record;
     }
 
     /**

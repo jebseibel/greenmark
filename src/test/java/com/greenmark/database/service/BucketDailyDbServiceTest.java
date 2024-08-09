@@ -169,7 +169,7 @@ class BucketDailyDbServiceTest {
         }
 
         @Test
-        void findActive_both() throws DatabaseRetrievalFailureException, DatabaseAccessException {
+        void findActive_both() throws DatabaseRetrievalFailureException, DatabaseAccessException, DatabaseCreateFailureException {
             String symbol2 = DomainBuilder.getSymbolRandom();
             StockData stockData2 = DomainBuilder.getStockData();
             BucketDailyDb record2 = service.create(symbol2, stockData2);
@@ -196,7 +196,7 @@ class BucketDailyDbServiceTest {
         }
 
         @Test
-        void findActive_one() throws DatabaseRetrievalFailureException, DatabaseAccessException, DatabaseDeleteFailureException {
+        void findActive_one() throws DatabaseRetrievalFailureException, DatabaseAccessException, DatabaseDeleteFailureException, DatabaseCreateFailureException {
             String symbol2 = DomainBuilder.getSymbolRandom();
             StockData stockData2 = DomainBuilder.getStockData();
             BucketDailyDb record2 = service.create(symbol2, stockData2);

@@ -1,8 +1,6 @@
 package com.greenmark.database.db.repository;
 
-import com.greenmark.database.db.entity.BucketMinute01;
 import com.greenmark.database.db.entity.BucketMinute60;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 

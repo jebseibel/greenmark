@@ -102,7 +102,7 @@ class ScenarioRepositoryTest {
             record.setExtid(extid);
 
             repository.save(record);
-            Scenario result = repository.findByExtid(extid);
+            Scenario result = repository.findByExtid(extid).get();
 
             //test
             assertNotNull(result);
@@ -115,7 +115,7 @@ class ScenarioRepositoryTest {
             Scenario record = DomainBuilder.getScenario(name);
 
             repository.save(record);
-            Scenario result = repository.findByName(name);
+            Scenario result = repository.findByName(name).get();
 
             //test
             assertNotNull(result);

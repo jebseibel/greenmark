@@ -4,7 +4,6 @@ import com.greenmark.common.database.domain.BucketMinute60Db;
 import com.greenmark.common.database.domain.StockData;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.BucketMinute60;
-import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.mapper.BucketMinute60Mapper;
 import com.greenmark.database.db.repository.BucketMinute60Repository;
 import com.greenmark.database.exceptions.*;
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-public class BucketMinute60DbService extends BasicDbService {
+public class BucketMinute60DbService extends BaseDbService {
 
     private final BucketMinute60Repository repository;
     private final BucketMinute60Mapper mapper;
@@ -36,8 +35,6 @@ public class BucketMinute60DbService extends BasicDbService {
      * @throws DatabaseAccessException
      */
     public BucketMinute60Db create(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseCreateFailureException, DatabaseAccessException {
-
-        repository.findBySymbol(symbol).ifPresent(s -> new DatabaseCreateFailureException(getFoundFailureMessage(symbol)));
 
         try {
             BucketMinute60 record = new BucketMinute60();

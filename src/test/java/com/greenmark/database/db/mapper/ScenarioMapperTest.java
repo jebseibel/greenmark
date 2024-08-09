@@ -1,13 +1,19 @@
 package com.greenmark.database.db.mapper;
 
+import com.greenmark.common.database.domain.ScenarioDb;
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.ScenarioDb;
+import com.greenmark.database.db.entity.Scenario;
 import com.greenmark.database.db.entity.Scenario;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class ScenarioMapperTest {
@@ -28,5 +34,18 @@ class ScenarioMapperTest {
         assertEquals(item.getModifiedAt(), itemDb.getModifiedAt());
         assertEquals(item.getDeletedAt(), itemDb.getDeletedAt());
         assertEquals(item.getActive(), itemDb.getActive());
+    }
+
+    @Test
+    void testToList() {
+        Scenario item1 = DomainBuilder.getScenario();
+        Scenario item2 = DomainBuilder.getScenario();
+        List<Scenario> items = Arrays.asList(item1, item2);
+        List<ScenarioDb> itemDbs = mapper.toList(items);
+
+        //test
+        assertEquals(items.size(), itemDbs.size());
+        assertTrue(items.size() == 2);
+        assertTrue(itemDbs.size() == 2);
     }
 }

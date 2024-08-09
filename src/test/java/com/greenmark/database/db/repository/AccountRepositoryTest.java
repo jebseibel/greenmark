@@ -107,7 +107,7 @@ class AccountRepositoryTest {
             record.setExtid(extid);
 
             repository.save(record);
-            Account result = repository.findByExtid(extid);
+            Account result = repository.findByExtid(extid).get();
 
             //test
             assertNotNull(result);
@@ -120,7 +120,7 @@ class AccountRepositoryTest {
             Account record = DomainBuilder.getAccount(name);
 
             repository.save(record);
-            Account result = repository.findByName(name);
+            Account result = repository.findByName(name).get();
 
             //test
             assertNotNull(result);

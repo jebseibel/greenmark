@@ -1,9 +1,10 @@
 package com.greenmark.database.service;
 
+import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.common.database.domain.ScenarioDb;
 import com.greenmark.common.enums.ActiveEnum;
+import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.entity.Scenario;
-import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.mapper.ScenarioMapper;
 import com.greenmark.database.db.repository.ScenarioRepository;
 import com.greenmark.database.exceptions.*;
@@ -13,10 +14,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
-public class ScenarioDbService extends BasicDbService {
+public class ScenarioDbService extends BaseDbService {
 
     private final ScenarioRepository repository;
     private final ScenarioMapper mapper;
@@ -73,22 +75,27 @@ public class ScenarioDbService extends BasicDbService {
      * @param description - value for description
      * @return
      */
-    public ScenarioDb update(@NonNull String extid, String name, String description) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
-        Scenario record = repository.findByExtid(extid);
-        checkNullRecord(record, getFoundFailureMessage(extid));
+    public ScenarioDb update(@NonNull String extid, String name, String description)
+            throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException, DatabaseAccessException {
 
-        record.setName(name);
-        record.setDescription(description);
-        record.setModifiedAt(LocalDateTime.now());
-        Scenario saved = repository.save(record);
-
-        if (saved == null) {
-            throw new DatabaseUpdateFailureException("Scenario with extid " + extid + " not saved");
+        Scenario record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+        try {
+            record.setName(name);
+            record.setDescription(description);
+            record.setModifiedAt(LocalDateTime.now());
+            Scenario saved = repository.save(record);
+            log.info(getUpdatedMessage(extid));
+            return mapper.toDb(saved);
+        } catch (Exception e) {
+            switch (e.getClass().getSimpleName()) {
+                case "DataIntegrityViolationException", "ConstraintViolationException":
+                    log.info(getUpdatedMessage(extid));
+                    throw new DatabaseUpdateFailureException(getUpdatedMessage(extid));
+                default:
+                    log.info(getDbAccessMessage(extid));
+                    throw new DatabaseAccessException(getDbAccessMessage(extid));
+            }
         }
-        checkUpdatedFailure(saved, getUpdatedFailureMessage(extid));
-
-        log.info(getUpdatedMessage(extid));
-        return mapper.toDb(saved);
     }
 
     /**
@@ -100,18 +107,13 @@ public class ScenarioDbService extends BasicDbService {
      * @throws DatabaseRetrievalFailureException
      */
     public boolean delete(@NonNull String extid) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
-        Scenario record = repository.findByExtid(extid);
-
         // error if the record isn't there
-        checkNullRecord(record, getFoundFailureMessage(extid));
+        Scenario record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
 
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        Scenario saved = repository.save(record);
-
-        // error delete failed
-        checkDeletedFailure(saved, getDeletedFailureMessage(extid));
+        repository.save(record);
 
         //success
         log.info(getDeletedMessage(extid));
@@ -125,69 +127,17 @@ public class ScenarioDbService extends BasicDbService {
      * @return boolean
      */
     public ScenarioDb findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
-        Scenario record = repository.findByExtid(extid);
-        checkNullRecord(record, getFoundFailureMessage(extid));
-
+        Scenario record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
         log.info(getFoundMessage(extid));
         return mapper.toDb(record);
     }
 
-    // ////////////////////////////////////////////////////////
-    // CHECK METHODS
-    // ////////////////////////////////////////////////////////
-
     /**
-     * Checks if the retrieval of Scenario failed elses throw an exception
      *
-     * @param record  - if null, throw an exception
-     * @param message
-     * @throws DatabaseRetrievalFailureException
+     * @return
      */
-    private void checkNullRecord(Scenario record, String message) throws DatabaseRetrievalFailureException {
-        if (record == null) {
-            throw new DatabaseRetrievalFailureException(message);
-        }
+    public List<ScenarioDb> findAll()  {
+        List<Scenario> records = repository.findAll();
+        return mapper.toList(records);
     }
-
-    /**
-     * Checks if Scenario was created else throws an exception
-     *
-     * @param record  - if null, throw an exception
-     * @param message
-     * @throws DatabaseUpdateFailureException
-     */
-    private void checkUpdatedFailure(Scenario record, String message) throws DatabaseUpdateFailureException {
-        if (record == null) {
-            throw new DatabaseUpdateFailureException(message);
-        }
-    }
-
-    /**
-     * Checks if Scenario was deleted else throws an exception
-     *
-     * @param record  - if null, throw an exception
-     * @param message
-     * @throws DatabaseDeleteFailureException
-     */
-    private void checkDeletedFailure(Scenario record, String message) throws DatabaseDeleteFailureException {
-        if (record == null) {
-            throw new DatabaseDeleteFailureException(message);
-        }
-    }
-
-    /**
-     * Checks if Scenario already exists
-     *
-     * @param extid   - if exists throw exception
-     * @param message
-     * @throws DatabaseCreateFailureException
-     */
-    private void checkCreatedAlready(String extid, String message) throws DatabaseCreateFailureException {
-        Scenario record = repository.findByExtid(extid);
-        if (record != null) {
-            throw new DatabaseCreateFailureException(message);
-        }
-    }
-
-
 }

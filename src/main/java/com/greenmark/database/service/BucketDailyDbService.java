@@ -16,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class BucketDailyDbService extends BasicDbService {
+public class BucketDailyDbService extends BaseDbService {
 
     private final BucketDailyRepository repository;
     private final BucketDailyMapper mapper;
@@ -123,7 +123,7 @@ public class BucketDailyDbService extends BasicDbService {
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        BucketDaily saved = repository.save(record);
+        repository.save(record);
 
         //success
         log.info(getDeletedMessage(symbol));
@@ -138,14 +138,12 @@ public class BucketDailyDbService extends BasicDbService {
      */
     public BucketDailyDb findBySymbol(@NonNull String symbol) throws DatabaseRetrievalFailureException {
         BucketDaily record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
-
         log.info(getFoundMessage(symbol));
         return mapper.toDb(record);
     }
 
     public List<BucketDailyDb> findActive() throws DatabaseRetrievalFailureException {
         List<BucketDaily> records = repository.findByActive(ActiveEnum.ACTIVE.value);
-
         log.info(getFoundActiveMessage(records.size()));
         return mapper.toList(records);
     }

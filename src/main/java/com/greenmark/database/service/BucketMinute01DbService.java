@@ -1,12 +1,9 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.BucketDailyDb;
 import com.greenmark.common.database.domain.BucketMinute01Db;
 import com.greenmark.common.database.domain.StockData;
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.entity.BucketDaily;
 import com.greenmark.database.db.entity.BucketMinute01;
-import com.greenmark.database.db.mapper.BucketDailyMapper;
 import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.repository.BucketMinute01Repository;
 import com.greenmark.database.exceptions.*;
@@ -19,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class BucketMinute01DbService extends BasicDbService {
+public class BucketMinute01DbService extends BaseDbService {
 
     private final BucketMinute01Repository repository;
     private final BucketMinute01Mapper mapper;
@@ -39,8 +36,6 @@ public class BucketMinute01DbService extends BasicDbService {
      * @throws DatabaseAccessException
      */
     public BucketMinute01Db create(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseCreateFailureException, DatabaseAccessException {
-
-        repository.findBySymbol(symbol).ifPresent(s -> new DatabaseCreateFailureException(getFoundFailureMessage(symbol)));
 
         try {
             BucketMinute01 record = new BucketMinute01();
@@ -128,7 +123,7 @@ public class BucketMinute01DbService extends BasicDbService {
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        BucketMinute01 saved = repository.save(record);
+        repository.save(record);
 
         //success
         log.info(getDeletedMessage(symbol));

@@ -3,7 +3,6 @@ package com.greenmark.database.service;
 import com.greenmark.common.database.domain.StockDb;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.Stock;
-import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.mapper.StockMapper;
 import com.greenmark.database.db.repository.StockRepository;
 import com.greenmark.database.exceptions.*;
@@ -18,7 +17,7 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class StockDbService extends BasicDbService {
+public class StockDbService extends BaseDbService {
 
     private final StockRepository repository;
     private final StockMapper mapper;
@@ -38,8 +37,6 @@ public class StockDbService extends BasicDbService {
      * @throws DataIntegrityViolationException
      */
     public StockDb create(@NonNull String symbol, @NonNull String name) throws DatabaseCreateFailureException, DatabaseAccessException {
-
-        repository.findBySymbol(symbol).ifPresent(s -> new DatabaseCreateFailureException(getFoundFailureMessage(symbol)));
 
         try {
             Stock record = new Stock();

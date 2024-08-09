@@ -1,9 +1,6 @@
 package com.greenmark.database.db.repository;
 
-import com.greenmark.database.db.entity.BucketDaily;
 import com.greenmark.database.db.entity.Stock;
-import com.greenmark.database.db.entity.StockDaily;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 

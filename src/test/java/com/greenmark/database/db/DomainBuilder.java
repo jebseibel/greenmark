@@ -19,6 +19,9 @@ public class DomainBuilder
     public static String DESCRIPTION = "Desc_";
 
     // ///////////////////////////////////////////////////////////////////
+    public static AccountDb getAccountDb(Account item) {
+        return new AccountMapper().toDb(item);
+    }
     public static Account getAccount() {
         return getAccount(null, null);
     }
@@ -29,8 +32,7 @@ public class DomainBuilder
             String thisName,
             String thisDescription
     ) {
-
-        String random = getNameRandom();
+        String random = getRandom();
         Account item = new Account();
         item.setExtid(UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom(random));
@@ -295,9 +297,14 @@ public class DomainBuilder
         return DESCRIPTION + random;
     }
 
+    public static String getRandom() {
+        return randomString();
+    }
+
     public static String getNameRandom() {
         return NAME + randomString();
     }
+
     public static String getSymbolRandom() {
         return RandomStringUtils.random(7, true, false);
     }

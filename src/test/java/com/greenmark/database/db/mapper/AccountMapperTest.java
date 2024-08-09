@@ -1,11 +1,16 @@
 package com.greenmark.database.db.mapper;
 
+import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.AccountDb;
+import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.entity.Account;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,4 +34,17 @@ class AccountMapperTest {
         assertEquals(item.getDeletedAt(), itemDb.getDeletedAt());
         assertEquals(item.getActive(), itemDb.getActive());
     }
+
+    @Test
+    void testToList() {
+        Account item1 = DomainBuilder.getAccount();
+        Account item2 = DomainBuilder.getAccount();
+        List<Account> items = Arrays.asList(item1, item2);
+        List<AccountDb> itemDbs = mapper.toList(items);
+
+        //test
+        assertEquals(items.size(), itemDbs.size());
+        assertTrue(items.size() == 2);
+        assertTrue(itemDbs.size() == 2);
+    }    
 }

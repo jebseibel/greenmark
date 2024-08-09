@@ -62,7 +62,7 @@ class ScenarioDbServiceTest {
         }
 
         @Test
-        void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException {
+        void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException, DatabaseAccessException {
             String newName = DomainBuilder.getNameRandom();
             String newDescription = DomainBuilder.getNameRandom();
 

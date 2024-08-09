@@ -4,7 +4,6 @@ import com.greenmark.common.database.domain.BucketMinute15Db;
 import com.greenmark.common.database.domain.StockData;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.BucketMinute15;
-import com.greenmark.database.db.mapper.BucketMinute01Mapper;
 import com.greenmark.database.db.mapper.BucketMinute15Mapper;
 import com.greenmark.database.db.repository.BucketMinute15Repository;
 import com.greenmark.database.exceptions.*;
@@ -16,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-public class BucketMinute15DbService extends BasicDbService {
+public class BucketMinute15DbService extends BaseDbService {
 
     private final BucketMinute15Repository repository;
     private final BucketMinute15Mapper mapper;
@@ -36,8 +35,6 @@ public class BucketMinute15DbService extends BasicDbService {
      * @throws DatabaseAccessException
      */
     public BucketMinute15Db create(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseCreateFailureException, DatabaseAccessException {
-
-        repository.findBySymbol(symbol).ifPresent(s -> new DatabaseCreateFailureException(getFoundFailureMessage(symbol)));
 
         try {
             BucketMinute15 record = new BucketMinute15();
@@ -144,16 +141,4 @@ public class BucketMinute15DbService extends BasicDbService {
         log.info(getFoundMessage(symbol));
         return mapper.toDb(record);
     }
-
-    private BucketMinute15 _addStockData(BucketMinute15 record, StockData stockData) {
-        record.setCurrent(stockData.getCurrent());
-        record.setOpen(stockData.getOpen());
-        record.setLow(stockData.getLow());
-        record.setHigh(stockData.getHigh());
-        record.setPreviousClose(stockData.getPreviousClose());
-        record.setChanged(stockData.getChanged());
-        record.setChangedPercent(stockData.getChangedPercent());
-        return record;
-    }
-
 }

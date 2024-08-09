@@ -1,6 +1,6 @@
 package com.greenmark.database.service;
 
-public class BasicDbService {
+public class BaseDbService {
 
     static final String DB_DOWN_TEMPLATE = "%s database access issue.";
 
@@ -20,7 +20,7 @@ public class BasicDbService {
     public String thisName;
 
 
-    public BasicDbService(String name) {
+    public BaseDbService(String name) {
         thisName = name;
     }
 

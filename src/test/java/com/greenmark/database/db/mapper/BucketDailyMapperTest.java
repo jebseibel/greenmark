@@ -41,16 +41,16 @@ class BucketDailyMapperTest {
         assertEquals(item.getActive(), itemDb.getActive());
     }
 
-//    @Test
-//    void testToList() {
-//        BucketDaily item1 = DomainBuilder.getBucketDaily();
-//        BucketDaily item2 = DomainBuilder.getBucketDaily();
-//        List<BucketDaily> items = Arrays.asList(item1, item2);
-//        List<BucketDailyDb> itemDbs = BucketDailyMapper.toList(items);
-//
-//        //test
-//        assertEquals(items.size(), itemDbs.size());
-//        assertTrue(items.size() == 2);
-//        assertTrue(itemDbs.size() == 2);
-//    }
+    @Test
+    void testToList() {
+        BucketDaily item1 = DomainBuilder.getBucketDaily();
+        BucketDaily item2 = DomainBuilder.getBucketDaily();
+        List<BucketDaily> items = Arrays.asList(item1, item2);
+        List<BucketDailyDb> itemDbs = mapper.toList(items);
+
+        //test
+        assertEquals(items.size(), itemDbs.size());
+        assertTrue(items.size() == 2);
+        assertTrue(itemDbs.size() == 2);
+    }
 }
