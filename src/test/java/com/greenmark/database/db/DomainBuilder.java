@@ -22,19 +22,25 @@ public class DomainBuilder
     public static AccountDb getAccountDb(Account item) {
         return new AccountMapper().toDb(item);
     }
+//    public static Account getAccountWithExtId(String extId) {
+//        Account item = getAccount(null, null);
+//        item.setExtid(extId);
+//        return item;
+//    }
     public static Account getAccount() {
-        return getAccount(null, null);
+        return getAccount(null, null, null);
     }
     public static Account getAccount(String name) {
-        return getAccount(name, null);
+        return getAccount(name, null, null);
     }
     public static Account getAccount(
             String thisName,
-            String thisDescription
+            String thisDescription,
+            String thisExtId
     ) {
         String random = getRandom();
         Account item = new Account();
-        item.setExtid(UUID.randomUUID().toString());
+        item.setExtid( thisName != null ? thisName : UUID.randomUUID().toString());
         item.setName( thisName != null ? thisName : getNameRandom(random));
         item.setDescription( thisDescription != null ? thisDescription : getDescriptionRandom(random));
         item.setActive(ActiveEnum.ACTIVE.value);

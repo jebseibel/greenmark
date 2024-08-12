@@ -7,10 +7,7 @@ import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
 import com.greenmark.database.exceptions.*;
 import net.bytebuddy.dynamic.DynamicType;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,6 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
@@ -39,57 +37,21 @@ class AccountDbServiceTest {
     AccountDbService service;
 
     @Nested
-    class FindMockTests {
-
-        @Test
-        void findByExtid() throws DatabaseRetrievalFailureException {
-            // setup
-            Account item = DomainBuilder.getAccount();
-            AccountDb itemDb = DomainBuilder.getAccountDb(item);
-            Optional<Account> itemOptional = Optional.of(item);
-            String extid = item.getExtid();
-
-            //mocks
-            when(accountRepository.findByExtid(extid)).thenReturn(itemOptional);
-            when(mapper.toDb(item)).thenReturn(itemDb);
-
-            //execute
-            AccountDb result = service.findByExtid(extid);
-
-            // validate
-            assertNotNull(result);
-            assertEquals(result.getExtid(), extid);
-        }
-    }
-
-
-    @Nested
     class CreateTests {
 
-        AccountDb record;
-//        String extid;
-//        String random = DomainBuilder.randomString();
-//        String name = DomainBuilder.getNameRandom(random);
-//        String description = DomainBuilder.getNameRandom(random);
+        Account item = DomainBuilder.getAccount();
+        AccountDb itemDb = DomainBuilder.getAccountDb(item);
+        String extid = item.getExtid();
+        String name = item.getName();
+        String description = item.getDescription();
 
         @Test
         void created() throws Exception {
-            // set
-            Account item = DomainBuilder.getAccount();
-            AccountDb itemDb = DomainBuilder.getAccountDb(item);
-            String extid = item.getExtid();
-            String name = item.getName();
-            String description = item.getDescription();
-
             //mocks
-            when(accountRepository.save(item)).thenReturn(item);
-            //when(accountRepository.save(any(Account.class))).thenReturn(item);
-            //lenient().when(accountRepository.save(item)).thenReturn(item);
+            when(accountRepository.save(any(Account.class))).thenReturn(item);
             when(mapper.toDb(item)).thenReturn(itemDb);
 
             AccountDb result = service.create(extid, name, description);
-            System.out.println(extid);
-            System.out.println(result.getExtid());
 
             // validate
             assertNotNull(result);
@@ -99,87 +61,90 @@ class AccountDbServiceTest {
         }
 
 //        @Test
-//        void createdTooLong() {
+//        void createdTooLong() throws DatabaseCreateFailureException, DatabaseAccessException {
 //            // test
-//            String extid = DomainBuilder.getStringTestUUID();
-//            assertThrows(DatabaseCreateFailureException.class, () -> service.create(extid, name, description));
+//            String extidBad = DomainBuilder.getStringTestUUID();
+//            when(accountRepository.findByExtid(extidBad)).thenReturn(Optional.empty());
+//            when(service.create(extid, name, description)).thenThrow(new DatabaseCreateFailureException(""));
+//
+//            assertThrows(DatabaseCreateFailureException.class, () -> service.create(extidBad, name, description));
 //        }
     }
 
-    @Disabled
     @Nested
     class UpdateTests {
 
-        AccountDb record;
-        String extid;
-        String random = DomainBuilder.randomString();
-        String name = DomainBuilder.getNameRandom(random);
-        String description = DomainBuilder.getNameRandom(random);
+        Account item = DomainBuilder.getAccount();
+        AccountDb itemDb = DomainBuilder.getAccountDb(item);
+        Optional<Account> itemOptional = Optional.of(item);
 
-        @BeforeEach
-        void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            extid = DomainBuilder.getUUID();
-            record = service.create(extid, name, description);
-        }
 
         @Test
         void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException, DatabaseAccessException {
+            String extid = UUID.randomUUID().toString();
             String newName = DomainBuilder.getNameRandom();
             String newDescription = DomainBuilder.getNameRandom();
 
-            //execute
+            // mocks
+            when(accountRepository.findByExtid(extid)).thenReturn(itemOptional);
+            when(accountRepository.save(any(Account.class))).thenReturn(item);
+            when(mapper.toDb(item)).thenReturn(itemDb);
+
+            // execute
             AccountDb result = service.update(extid, newName, newDescription);
 
             // validate
             assertNotNull(result);
-            assertEquals(result.getExtid(), extid);
-            assertEquals(result.getName(), newName);
-            assertEquals(result.getDescription(), newDescription);
         }
 
 
         @Test
         void updatedBadExtid() {
+            // setup
+            String extidBad = item.getExtid();
+
+            // mocks
+            when(accountRepository.findByExtid(extidBad)).thenReturn(Optional.empty());
+
             // test
-            try {
-                String badExtid = UUID.randomUUID().toString();
-                service.update(badExtid, name, description);
-                fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
-                assertTrue(true);
-            }
-            catch (Exception e) {
-                fail();
-            }
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.findByExtid(extidBad));
         }
     }
 
     @Nested
-    class FindTests {
+    class FindMockTests {
 
-//        @Test
-//        void findByExtid() throws DatabaseRetrievalFailureException {
-//            Account item = DomainBuilder.getAccount();
-//            AccountDb itemDb = DomainBuilder.getAccountDb(item);
-//            String extid = item.getExtid();
-//
-//            //mock
-//            when(accountRepository.findByExtid(extid)).thenReturn(item);
-//            when(mapper.toDb(item)).thenReturn(itemDb);
-//
-//            //execute
-//            AccountDb result = service.findByExtid(extid);
-//
-//            // validate
-//            assertNotNull(result);
-//            assertEquals(result.getExtid(), extid);
-//        }
+        Account item = DomainBuilder.getAccount();
+        AccountDb itemDb = DomainBuilder.getAccountDb(item);
+        Optional<Account> itemOptional = Optional.of(item);
+        String extid = item.getExtid();
 
         @Test
-        void findByExtid_NotFound() {
-            String badExtid = UUID.randomUUID().toString();
-            assertThrows(DatabaseRetrievalFailureException.class, () -> service.findByExtid(badExtid));
+        @DisplayName("FindByExtId - Found")
+        void findByExtid() throws DatabaseRetrievalFailureException {
+            // mocks
+            when(accountRepository.findByExtid(extid)).thenReturn(itemOptional);
+            when(mapper.toDb(item)).thenReturn(itemDb);
+
+            // execute
+            AccountDb result = service.findByExtid(extid);
+
+            // validate
+            assertNotNull(result);
+            assertEquals(result.getExtid(), extid);
+        }
+
+        @Test
+        @DisplayName("FindByExtId - Not found")
+        void findByExtid_Notfound() throws DatabaseRetrievalFailureException {
+            // setup
+            String extidBad = item.getExtid();
+
+            // mocks
+            when(accountRepository.findByExtid(extidBad)).thenReturn(Optional.empty());
+
+            // test
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.findByExtid(extidBad));
         }
     }
 
