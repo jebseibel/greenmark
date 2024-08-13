@@ -23,7 +23,7 @@ public class DatafeedService {
     public QuoteDomain getQuote(String symbol) throws FinnhubException {
         try {
             FinnhubClient finnhubClient = new FinnhubClient(finnHubConfig.getToken());
-            Quote quote = finnhubClient.quote(symbol);
+            Quote quote = finnhubClient.getQuote(symbol);
             return QuoteMapper.toDomain(quote);
         } catch (Exception e) {
             log.error("Finnhub exception {} for symbol {}", e.getMessage(), symbol);

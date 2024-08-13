@@ -48,13 +48,13 @@ public class FinnhubClientMockitoTest {
         ibm.l(Float.valueOf("185.00"));
         ibm.pc(Float.valueOf("185.00"));
 
-        when(finnhubMock.quote("IBM")).thenReturn(ibm);
+        when(finnhubMock.getQuote("IBM")).thenReturn(ibm);
     }
 
     @Test
-    void quoteMockTest() throws ParseException, IOException {
+    void getQuoteMockTest() throws ParseException, IOException {
         FinnhubClient client = finnhubMock;
-        Quote quote = client.quote("IBM");
+        Quote quote = client.getQuote("IBM");
         assertNotNull(quote);
         assertEquals(Float.valueOf("181.00"), quote.getDp());
     }

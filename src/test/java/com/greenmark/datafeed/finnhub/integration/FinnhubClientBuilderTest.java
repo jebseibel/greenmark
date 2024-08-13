@@ -16,6 +16,7 @@
  */
 package com.greenmark.datafeed.finnhub.integration;
 
+import com.greenmark.datafeed.finnhub.client.FinnhubClientAdvanced;
 import com.greenmark.datafeed.finnhub.models.Quote;
 import com.greenmark.datafeed.finnhub.models.StockSymbol;
 import com.greenmark.datafeed.finnhub.client.FinnhubClient;
@@ -44,31 +45,31 @@ public class FinnhubClientBuilderTest {
     private DatafeedConfig datafeedConfig;
 
     @Test
-    void invocationQuote() throws ParseException, IOException {
+    void invocationGetQuote() throws ParseException, IOException {
         FinnhubClient client = new FinnhubClient.Builder().token(datafeedConfig.getToken()).build();
-        Quote quote = client.quote("TSLA");
+        Quote quote = client.getQuote("TSLA");
         System.out.println(quote);
         assertNotNull(quote);
     }
     
     @Test
-    void invocationCompanyProfile() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient.Builder().token(datafeedConfig.getToken()).build();
-        CompanyProfile2 companyProfile = client.companyProfile("TSLA");
+    void invocationGetCompanyProfile() throws ParseException, IOException {
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced.Builder().token(datafeedConfig.getToken()).build();
+        CompanyProfile2 companyProfile = client.getCompanyProfile("TSLA");
         assertNotNull(companyProfile);
     }
     
     @Test
-    void invocationSymbols() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient.Builder().token(datafeedConfig.getToken()).build();
-        List<StockSymbol> symbols = client.symbols(Exchange.US_EXCHANGES.toString());
+    void invocationGetSymbols() throws ParseException, IOException {
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced.Builder().token(datafeedConfig.getToken()).build();
+        List<StockSymbol> symbols = client.getSymbols(Exchange.US_EXCHANGES.toString());
         List<StockSymbol> t = symbols.stream().filter(s -> s.getDescription().contains("AMAZON.COM")).collect(Collectors.toList());
         assertEquals(1, t.size());
     }
 
     @Test
     void invocationSymbolLookup() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient.Builder().token(datafeedConfig.getToken()).build();
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced.Builder().token(datafeedConfig.getToken()).build();
         SymbolLookup lookup = client.searchSymbol("apple");
         assertEquals(22, lookup.getCount());
     }

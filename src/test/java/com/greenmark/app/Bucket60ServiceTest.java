@@ -82,15 +82,6 @@ class Bucket60ServiceTest {
             List<BucketMinute60Db> result = service.getAllPromote();
             assertEquals(2, result.size());
         }
-//        @Test
-//        void getAllPromoteOld() {
-//            // setup
-//            service.setPromote(testPromoteValue);
-//
-//            // test
-//            List<BucketMinute60Db> result = service.getAllPromoteOld();
-//            assertEquals(1, result.size());
-//        }
     }
 
     @Nested
@@ -121,15 +112,5 @@ class Bucket60ServiceTest {
             List<BucketMinute60Db> result = service.getAllDemote();
             assertEquals(2, result.size());
         }
-
-//        @Test
-//        void getAllDemoteOld() {
-//            // setup
-//            service.setDemote(testDemoteValue);
-//
-//            // test
-//            List<BucketMinute60Db> result = service.getAllDemoteOld();
-//            assertEquals(1, result.size());
-//        }
     }
 }

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.greenmark.datafeed.finnhub.client.FinnhubClientAdvanced;
 import com.greenmark.datafeed.finnhub.models.*;
 import com.greenmark.datafeed.finnhub.client.FinnhubClient;
 
@@ -44,34 +45,34 @@ public class FinnhubClientTest {
 
     @Disabled
     @Test
-    void requestQuote() throws ParseException, IOException {
+    void requestGetQuote() throws ParseException, IOException {
         token = datafeedConfig.getToken();
     	FinnhubClient client = new FinnhubClient(token);
-        Quote quote = client.quote("TSLA");
+        Quote quote = client.getQuote("TSLA");
         assertNotNull(quote);
     }
 
     @Disabled
     @Test
     void requestCompanyTest() throws ParseException, IOException {
-    	FinnhubClient client = new FinnhubClient(token);
-        CompanyProfile2 companyProfile = client.companyProfile("TSLA");
+    	FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
+        CompanyProfile2 companyProfile = client.getCompanyProfile("TSLA");
         assertNotNull(companyProfile);
     }
 
     @Disabled
     @Test
-    void requestCompanyProfile() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient(System.getenv(token));
-        CompanyProfile2 companyProfile = client.companyProfile("TSLA");
+    void requestGetCompanyProfile() throws ParseException, IOException {
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced(System.getenv(token));
+        CompanyProfile2 companyProfile = client.getCompanyProfile("TSLA");
         assertNotNull(companyProfile);
     }
 
     @Disabled
     @Test
-    void requestSymbols() throws ParseException, IOException {
-    	FinnhubClient client = new FinnhubClient(token);
-        List<StockSymbol> symbols = client.symbols(Exchange.US_EXCHANGES.toString());
+    void requestGetSymbols() throws ParseException, IOException {
+    	FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
+        List<StockSymbol> symbols = client.getSymbols(Exchange.US_EXCHANGES.toString());
         List<StockSymbol> t = symbols.stream().filter(s -> s.getDescription().contains("AMAZON.COM")).collect(Collectors.toList());
         assertEquals(1, t.size());
     }
@@ -79,33 +80,33 @@ public class FinnhubClientTest {
     @Disabled
     @Test
     void requestSymbolLookup() throws ParseException, IOException {
-    	FinnhubClient client = new FinnhubClient(token);
+    	FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
         SymbolLookup lookup = client.searchSymbol("apple");
         assertEquals(22, lookup.getCount());
     }
 
     @Disabled
     @Test
-    void requestMarketStatus() throws ParseException, IOException {
+    void requestGetMarketStatus() throws ParseException, IOException {
         FinnhubClient client = new FinnhubClient(token);
-        MarketStatus status = client.marketStatus(Exchange.US_EXCHANGES.code());
+        MarketStatus status = client.getMarketStatus(Exchange.US_EXCHANGES.code());
         assertNotNull(status);
     }
 
     @Disabled
     @Test
-    void requestMarketHoliday() throws ParseException, IOException {
+    void requestGetMarketHoliday() throws ParseException, IOException {
         FinnhubClient client = new FinnhubClient(token);
-        MarketHoliday holidays = client.marketHoliday(Exchange.US_EXCHANGES.code());
+        MarketHoliday holidays = client.getMarketHoliday(Exchange.US_EXCHANGES.code());
         assertNotNull(holidays);
         assertTrue(holidays.getData().size() >= 1);
     }
 
     @Disabled
     @Test
-    void requestMarketNews() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient(token);
-        List<MarketNews> marketNews = client.marketNews("general");
+    void requestGetMarketNews() throws ParseException, IOException {
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
+        List<MarketNews> marketNews = client.getMarketNews("general");
         assertNotNull(marketNews);
         assertTrue(marketNews.size() >= 1);
     }
@@ -114,7 +115,7 @@ public class FinnhubClientTest {
     @Test
     void requestCandlesOneDay() throws ParseException, IOException {
         FinnhubClient client = new FinnhubClient(token);
-        StockCandles candle = client.candle(
+        StockCandles candle = client.getCandle(
             "TSLA",
             "D",
             // Nov/5/2021 18:00:00 GMT = 1636135200
@@ -129,7 +130,7 @@ public class FinnhubClientTest {
     @Test
     void requestCandlesTwoDays() throws ParseException, IOException {
         FinnhubClient client = new FinnhubClient(token);
-        StockCandles candle = client.candle(
+        StockCandles candle = client.getCandle(
             "TSLA",
             "D",
             // Nov/4/2021 18:00:00 GMT = 1636048800
@@ -145,7 +146,7 @@ public class FinnhubClientTest {
     @Disabled
     @Test
     void requestDividends() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient(token);
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
         List<Dividends> dividends = client.dividends("TSLA", "2020-01-01", "2023-01-01");
         assertNotNull(dividends);
         assertEquals(dividends.size(), 0);
@@ -154,7 +155,7 @@ public class FinnhubClientTest {
     @Disabled
     @Test
     void requestCompanyNews() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient(token);
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
         List<CompanyNews> companyNews = client.companyNews("TSLA", "2024-01-01", "2024-03-20");
         assertNotNull(companyNews);
     }
@@ -162,7 +163,7 @@ public class FinnhubClientTest {
     @Disabled
     @Test
     void requestBasicFinancials() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient(token);
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
         BasicFinancials metrics = client.basicFinancials("TSLA", null);
         assertNotNull(metrics);
         assertNotNull(metrics.getMetric());
@@ -174,7 +175,7 @@ public class FinnhubClientTest {
     @Disabled
     @Test
     void requestInsiderTransactions() throws ParseException, IOException {
-        FinnhubClient client = new FinnhubClient(token);
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
         InsiderTransactions insiderTransactions = client.insiderTransactions("TSLA", null, null);
         assertNotNull(insiderTransactions);
         assertNotNull(insiderTransactions.getData().size() > 0);

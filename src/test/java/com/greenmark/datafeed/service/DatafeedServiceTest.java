@@ -14,7 +14,6 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class DatafeedServiceTest {
@@ -38,7 +37,7 @@ class DatafeedServiceTest {
         ibm.l(Float.valueOf("185.00"));
         ibm.pc(Float.valueOf("185.00"));
 
-        when(finnhubMock.quote("IBM")).thenReturn(ibm);
+        when(finnhubMock.getQuote("IBM")).thenReturn(ibm);
     }
 
     @Nested

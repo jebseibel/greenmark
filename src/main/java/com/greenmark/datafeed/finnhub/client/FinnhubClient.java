@@ -89,7 +89,7 @@ public class FinnhubClient {
      * @throws IOException
      * @throws ParseException
      */
-    public Quote quote(String symbol) throws IOException, ParseException {
+    public Quote getQuote(String symbol) throws IOException, ParseException {
         ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.QUOTE.url() + "?token=" + token + "&symbol=" + symbol)
                 .build();
 
@@ -113,7 +113,7 @@ public class FinnhubClient {
      * @throws IOException
      * @throws ParseException
      */
-    public StockCandles candle(String symbol, String resolution, long startEpoch, long endEpoch) throws IOException, ParseException {
+    public StockCandles getCandle(String symbol, String resolution, long startEpoch, long endEpoch) throws IOException, ParseException {
         ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.CANDLE.url() + "?token=" + token
                         + "&symbol=" + symbol.toUpperCase() + "&resolution=" + resolution + "&from=" + startEpoch + "&to=" + endEpoch)
                 .build();
@@ -127,67 +127,6 @@ public class FinnhubClient {
     }
 
     /**
-     * Get the company profile for a specific symbol
-     *
-     * @param symbol Ticker symbol
-     * @return JSON object with information about the company
-     * @throws IOException
-     * @throws ParseException
-     */
-    public CompanyProfile2 companyProfile(String symbol) throws IOException, ParseException {
-        ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.COMPANY_PROFILE.url() + "?token=" + token + "&symbol=" + symbol)
-                .build();
-
-        String result = null;
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            result = EntityUtils.toString(response.getEntity());
-        }
-
-        return gson.fromJson(result, CompanyProfile2.class);
-    }
-
-    /**
-     * List the supported stocks for a specific market exchange
-     *
-     * @param exchange Market exchange
-     * @return JSON array with list of supported stocks enriched with more details
-     * @throws IOException
-     * @throws ParseException
-     */
-    public List<StockSymbol> symbols(String exchange) throws IOException, ParseException {
-        ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.SYMBOL.url() + "?token=" + token + "&exchange=" + Exchange.valueOf(exchange).code())
-                .build();
-
-        String result = null;
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            result = EntityUtils.toString(response.getEntity());
-        }
-
-        return gson.fromJson(result, new TypeToken<List<StockSymbol>>() {
-        });
-    }
-
-    /**
-     * Query for a specific stock symbol
-     *
-     * @param query Query text can be symbol, name, isin, or cusip.
-     * @return JSON array with list of supported stocks enriched with more details
-     * @throws IOException
-     * @throws ParseException
-     */
-    public SymbolLookup searchSymbol(String query) throws IOException, ParseException {
-        ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.SYMBOL_LOOKUP.url() + "?token=" + token + "&q=" + query)
-                .build();
-
-        String result = null;
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            result = EntityUtils.toString(response.getEntity());
-        }
-
-        return gson.fromJson(result, SymbolLookup.class);
-    }
-
-    /**
      * Return market status for a specific stock exchange
      *
      * @param exchange Exchange code
@@ -195,7 +134,7 @@ public class FinnhubClient {
      * @throws IOException
      * @throws ParseException
      */
-    public MarketStatus marketStatus(String exchange) throws IOException, ParseException {
+    public MarketStatus getMarketStatus(String exchange) throws IOException, ParseException {
         ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.MARKET_STATUS.url() + "?token=" + token + "&exchange=" + exchange)
                 .build();
 
@@ -215,7 +154,7 @@ public class FinnhubClient {
      * @throws IOException
      * @throws ParseException
      */
-    public MarketHoliday marketHoliday(String exchange) throws IOException, ParseException {
+    public MarketHoliday getMarketHoliday(String exchange) throws IOException, ParseException {
         ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.MARKET_HOLIDAY.url() + "?token=" + token + "&exchange=" + exchange)
                 .build();
 
@@ -230,13 +169,13 @@ public class FinnhubClient {
     /**
      * Return market holidays for a specific stock exchange
      *
-     * @param category category for the news one of general, forex, crypto and merger
-     * @return JSON arrays with the news for the specified category
+     * @param exchange Exchange code
+     * @return JSON arrays with the holidays for the specific stock exchange
      * @throws IOException
      * @throws ParseException
      */
-    public List<MarketNews> marketNews(String category) throws IOException, ParseException {
-        ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.MARKET_NEWS.url() + "?token=" + token + "&category=" + category)
+    public MarketHoliday getTechnicalIndicators(String exchange) throws IOException, ParseException {
+        ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.MARKET_HOLIDAY.url() + "?token=" + token + "&exchange=" + exchange)
                 .build();
 
         String result = null;
@@ -244,130 +183,7 @@ public class FinnhubClient {
             result = EntityUtils.toString(response.getEntity());
         }
 
-        return gson.fromJson(result, new TypeToken<List<MarketNews>>() {
-        }.getType());
-    }
-
-    /**
-     * Return dividends history for a specific date range of a specific stock symbol
-     *
-     * @param symbol Exchange code
-     * @param from   from date with format YYYY-MM-DD
-     * @param to     from date with format YYYY-MM-DD
-     * @return JSON arrays with the dividends for specific date range
-     * @throws IOException
-     * @throws ParseException
-     */
-    public List<Dividends> dividends(String symbol, String from, String to) throws IOException, ParseException {
-        ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.DIVIDEND.url() + "?token=" + token + "&symbol=" + symbol + "&from=" + from + "&to=" + to)
-                .build();
-
-        String result = null;
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            result = EntityUtils.toString(response.getEntity());
-        }
-
-        return gson.fromJson(result, new TypeToken<List<Dividends>>() {
-        }.getType());
-    }
-
-    /**
-     * Return company news for a specific date range of a specific stock symbol
-     *
-     * @param symbol Exchange code
-     * @param from   from date with format YYYY-MM-DD
-     * @param to     from date with format YYYY-MM-DD
-     * @return JSON arrays with the company news for specific date range
-     * @throws IOException
-     * @throws ParseException
-     */
-    public List<CompanyNews> technical(String symbol, String from, String to) throws IOException, ParseException {
-        ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.COMPANY_NEWS.url() + "?token=" + token + "&symbol=" + symbol + "&from=" + from + "&to=" + to)
-                .build();
-
-        String result = null;
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            result = EntityUtils.toString(response.getEntity());
-        }
-
-        return gson.fromJson(result, new TypeToken<List<CompanyNews>>() {
-        }.getType());
-    }
-
-    /**
-     * Return company news for a specific date range of a specific stock symbol
-     *
-     * @param symbol Exchange code
-     * @param from   from date with format YYYY-MM-DD
-     * @param to     from date with format YYYY-MM-DD
-     * @return JSON arrays with the company news for specific date range
-     * @throws IOException
-     * @throws ParseException
-     */
-    public List<CompanyNews> companyNews(String symbol, String from, String to) throws IOException, ParseException {
-        ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.COMPANY_NEWS.url() + "?token=" + token + "&symbol=" + symbol + "&from=" + from + "&to=" + to)
-                .build();
-
-        String result = null;
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            result = EntityUtils.toString(response.getEntity());
-        }
-
-        return gson.fromJson(result, new TypeToken<List<CompanyNews>>() {
-        }.getType());
-    }
-
-    /**
-     * Return company news for a specific date range of a specific stock symbol
-     *
-     * @param symbol Exchange code
-     * @param metric the metric to return, supported value is only 'all'
-     * @return JSON arrays with the company basic financials such as margin, P/E ratio, 52-week high/low etc.
-     * @throws IOException
-     * @throws ParseException
-     */
-    public BasicFinancials basicFinancials(String symbol, String metric) throws IOException, ParseException {
-        if (metric == null) {
-            metric = "all";
-        }
-        ClassicHttpRequest httpGet = ClassicRequestBuilder.get(Endpoint.METRIC.url() + "?token=" + token + "&symbol=" + symbol + "&metric=" + metric)
-                .build();
-
-        String result = null;
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            result = EntityUtils.toString(response.getEntity());
-        }
-
-        return gson.fromJson(result, BasicFinancials.class);
-    }
-
-    /**
-     * Get the list of Insider Transactions objects for a date or a range. Set startEpoch equal to the endEpoch for one day.
-     *
-     * @param symbol Ticker symbol
-     *               Some timeframes might not be available depending on the exchange.
-     * @param from   From date with format YYYY-MM-DD
-     * @param from   To date with format YYYY-MM-DD
-     * @return JSON object with Insider Transaction Objects
-     * @throws IOException
-     * @throws ParseException
-     */
-    public InsiderTransactions insiderTransactions(String symbol, String from, String to) throws IOException, ParseException {
-
-        StringBuilder urlBuilder = new StringBuilder(Endpoint.INSIDER_TRANSACTIONS.url() + "?token=" + token
-                + "&symbol=" + symbol.toUpperCase());
-        if (from != null && to != null) {
-            urlBuilder.append("&from=" + from + "&to=" + to);
-        }
-
-        ClassicHttpRequest httpGet = ClassicRequestBuilder.get(urlBuilder.toString()).build();
-
-        String result = null;
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            result = EntityUtils.toString(response.getEntity());
-        }
-
-        return gson.fromJson(result, InsiderTransactions.class);
+        return gson.fromJson(result, MarketHoliday.class);
     }
 
     public static class Builder {

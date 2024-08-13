@@ -1,7 +1,6 @@
 package com.greenmark.app;
 
-import com.greenmark.common.database.domain.BucketMinute60Db;
-import com.greenmark.datafeed.finnhub.client.FinnhubClient;
+import com.greenmark.common.database.domain.BucketMinute15Db;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,13 +11,13 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Data
-public class Bucket60Service {
+public class Bucket05Service {
 
-    List<BucketMinute60Db> list;
+    List<BucketMinute15Db> list;
     BigDecimal promote;
     BigDecimal demote;
 
-    public Bucket60Service(BigDecimal promote, BigDecimal demote) {
+    public Bucket05Service(BigDecimal promote, BigDecimal demote) {
         this.list = new ArrayList<>();
         this.promote = promote;
         this.demote = demote;
@@ -31,43 +30,30 @@ public class Bucket60Service {
         return list.size();
     }
 
-    public void addItem(BucketMinute60Db bucketMinute60) {
+    public void addItem(BucketMinute15Db bucketMinute60) {
         if(! list.contains(bucketMinute60))
             list.add(bucketMinute60);
     }
 
-    public void removeItem(BucketMinute60Db bucketMinute60) {
+    public void removeItem(BucketMinute15Db bucketMinute60) {
         list.remove(bucketMinute60);
     }
 
-    public List<BucketMinute60Db> getBucketMinute60Db() {
+    public List<BucketMinute15Db> getBucketMinute15Db() {
         return list;
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    public List<BucketMinute60Db> getAllPromote() {
+    public List<BucketMinute15Db> getAllPromote() {
         return list.stream()
                 .filter(item -> item.getMacd().compareTo(promote) > 0)
                 .collect(Collectors.toList());
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    public List<BucketMinute60Db> getAllDemote() {
+    public List<BucketMinute15Db> getAllDemote() {
         return list.stream()
                 .filter(item -> item.getMacd().compareTo(demote) < 0)
                 .collect(Collectors.toList());
     }
-
-    /////////////////////////////////////////////////////////////////////////////////
-//    public List<BucketMinute60Db> updateAll(FinnhubClient client) {
-//        for(BucketMinute60Db bucketMinute60 : list) {
-//            String symbol = bucketMinute60.getSymbol();
-//            try {
-//                client.getQuote(symbol);
-//            } catch (Exception e) {
-//                throw new RuntimeException(e);
-//            }
-//
-//        }
-//    }
 }
