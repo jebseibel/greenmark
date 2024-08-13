@@ -1,6 +1,6 @@
 package com.greenmark.common.database.domain;
 
-public interface BucketInterface {
+public interface BucketData {
     String getSymbol();
 
     java.math.BigDecimal getCurrent();
@@ -56,4 +56,6 @@ public interface BucketInterface {
     void setDeletedAt(java.time.LocalDateTime deletedAt);
 
     void setActive(Integer active);
+
+    String toStringTA();
 }

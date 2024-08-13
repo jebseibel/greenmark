@@ -1,12 +1,13 @@
 package com.greenmark.common.database.domain;
 
+import com.greenmark.common.core.Bucket;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class BucketDailyDb {
+public class BucketDailyDb implements BucketData {
     private String symbol;
     private BigDecimal current;
     private BigDecimal open;
@@ -21,4 +22,8 @@ public class BucketDailyDb {
     private LocalDateTime modifiedAt;
     private LocalDateTime deletedAt;
     private Integer active;
+
+    public String toStringTA() {
+        return this.getClass().getSimpleName()+  " symbol ["+symbol + "] macd ["+macd+"] stochk ["+stochk+"]";
+    }
 }

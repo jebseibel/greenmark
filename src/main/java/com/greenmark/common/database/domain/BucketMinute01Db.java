@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class BucketMinute01Db implements BucketInterface {
+public class BucketMinute01Db implements BucketData {
     private String symbol;
     private BigDecimal current;
     private BigDecimal open;
@@ -21,4 +21,8 @@ public class BucketMinute01Db implements BucketInterface {
     private LocalDateTime modifiedAt;
     private LocalDateTime deletedAt;
     private Integer active;
+
+    public String toStringTA() {
+        return this.getClass().getSimpleName()+  " symbol ["+symbol + "] macd ["+macd+"] stochk ["+stochk+"]";
+    }
 }

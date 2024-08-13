@@ -10,11 +10,11 @@ logging:
     root: INFO
 message-from-application-properties: Hello from application.properties
 model:
-  pass-stochk-daily: 11.0
-  pass-stochk-minute01: 11.01
-  pass-stochk-minute05: 11.05
-  pass-stochk-minute15: 11.15
-  pass-stochk-minute60: 11.6
+  minute60:
+    promote: 11.0
+    demote: 9.0
+
+
   stock-max-price: 100
   stock-min-price: 10
 spring:

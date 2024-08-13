@@ -22,11 +22,6 @@ public class DomainBuilder
     public static AccountDb getAccountDb(Account item) {
         return new AccountMapper().toDb(item);
     }
-//    public static Account getAccountWithExtId(String extId) {
-//        Account item = getAccount(null, null);
-//        item.setExtid(extId);
-//        return item;
-//    }
     public static Account getAccount() {
         return getAccount(null, null, null);
     }
@@ -63,6 +58,15 @@ public class DomainBuilder
     // //////////////////////////////////////////////////////////////////
     // Bucket 60
     // //////////////////////////////////////////////////////////////////
+    public static BucketMinute60Db getBucketMinute60DbMacd(BigDecimal macd) {
+        BucketMinute60 item = getBucketMinute60(getSymbolRandom());
+        item.setMacd(macd);
+        return new BucketMinute60Mapper().toDb(item);
+    }
+    public static BucketMinute60Db getBucketMinute60Db() {
+        BucketMinute60 item = getBucketMinute60(getSymbolRandom());
+        return new BucketMinute60Mapper().toDb(item);
+    }
     public static BucketMinute60 getBucketMinute60() {
         String symbol = getSymbolRandom();
         return getBucketMinute60(symbol);
@@ -295,6 +299,8 @@ public class DomainBuilder
     }
 
     // //////////////////////////////////////////////////////////////////
+    public static BigDecimal getBigDecimal(String value) { return new BigDecimal(value); }
+
     public static String getDescriptionRandom() {
         return DESCRIPTION + randomString();
     }
