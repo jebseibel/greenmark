@@ -1,8 +1,6 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.common.database.domain.ScenarioDb;
-import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.entity.Scenario;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,7 +20,9 @@ public class ScenarioMapper {
     }
 
     public List<ScenarioDb> toList(List<Scenario> items) {
-        if (items == null) { return null; }
-        return items.stream().map( item -> toDb(item)).toList();
+        if (items == null) {
+            return null;
+        }
+        return items.stream().map(item -> toDb(item)).toList();
     }
 }

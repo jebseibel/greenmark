@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 class BasicDbServiceTest {
 
     private final BaseDbService dbService = new BaseDbService("Test");
+
     @Test
     void getCreatedMessage() {
         String extid = DomainBuilder.getUUID();

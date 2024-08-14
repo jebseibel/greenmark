@@ -32,7 +32,7 @@ public class StockDbService extends BaseDbService {
      * Create a record with name and description
      *
      * @param symbol - value for symbol
-     * @param name  - value for name
+     * @param name   - value for name
      * @return
      * @throws DataIntegrityViolationException
      */
@@ -70,8 +70,7 @@ public class StockDbService extends BaseDbService {
      * Update the Stock name and description
      *
      * @param symbol - the symbol to use
-     * @param name  - value for name
-     *
+     * @param name   - value for name
      * @return
      */
     public StockDb update(@NonNull String symbol, String name) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
@@ -119,13 +118,12 @@ public class StockDbService extends BaseDbService {
         return mapper.toDb(record);
     }
 
-    public List<StockDb> findAll()  {
+    public List<StockDb> findAll() {
         List<Stock> records = repository.findAll();
         return mapper.toList(records);
     }
 
     /**
-     *
      * @return
      * @throws DatabaseRetrievalFailureException
      */
@@ -137,7 +135,6 @@ public class StockDbService extends BaseDbService {
     }
 
     /**
-     *
      * @return
      * @throws DatabaseRetrievalFailureException
      */

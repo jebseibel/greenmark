@@ -23,6 +23,6 @@ public class BucketMinute01Db implements BucketData {
     private Integer active;
 
     public String toStringTA() {
-        return this.getClass().getSimpleName()+  " symbol ["+symbol + "] macd ["+macd+"] stochk ["+stochk+"]";
+        return this.getClass().getSimpleName() + " symbol [" + symbol + "] macd [" + macd + "] stochk [" + stochk + "]";
     }
 }

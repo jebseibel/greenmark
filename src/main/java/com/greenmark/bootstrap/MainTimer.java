@@ -1,12 +1,11 @@
 package com.greenmark.bootstrap;
 
+import com.greenmark.common.DatafeedConfig;
 import com.greenmark.common.database.domain.StockDb;
-import com.greenmark.common.datafeed.QuoteDomain;
 import com.greenmark.database.db.entity.*;
 import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
 import com.greenmark.database.service.StockDailyDbService;
 import com.greenmark.database.service.StockDbService;
-import com.greenmark.common.DatafeedConfig;
 import com.greenmark.datafeed.service.DatafeedService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -22,12 +20,12 @@ import java.util.List;
 public class MainTimer implements CommandLineRunner {
 
     private List<StockDb> currentActiveStocks;
-    private List<BucketDaily> bucketDailys = new ArrayList<BucketDaily>();
-    private List<BucketMinute60> bucketMinute60s = new ArrayList<BucketMinute60>();
-    private List<BucketMinute15> bucketMinute15s = new ArrayList<BucketMinute15>();
-    private List<BucketMinute05> bucketMinute05s = new ArrayList<BucketMinute05>();
-    private List<BucketMinute01> bucketMinute01s = new ArrayList<BucketMinute01>();
-    private List<StockDaily> stockDailies = new ArrayList<StockDaily>();
+    private final List<BucketDaily> bucketDailys = new ArrayList<BucketDaily>();
+    private final List<BucketMinute60> bucketMinute60s = new ArrayList<BucketMinute60>();
+    private final List<BucketMinute15> bucketMinute15s = new ArrayList<BucketMinute15>();
+    private final List<BucketMinute05> bucketMinute05s = new ArrayList<BucketMinute05>();
+    private final List<BucketMinute01> bucketMinute01s = new ArrayList<BucketMinute01>();
+    private final List<StockDaily> stockDailies = new ArrayList<StockDaily>();
 
     @Autowired
     private StockDbService stockDbService;
@@ -56,6 +54,7 @@ public class MainTimer implements CommandLineRunner {
 
         log.error("CLOSE MAIN TIMER");
     }
+
     public void initialize() throws DatabaseRetrievalFailureException {
         log.error("START INITIALIZE");
 //        currentActiveStocks = stockDbService.findActive();
@@ -82,7 +81,6 @@ public class MainTimer implements CommandLineRunner {
         // update BucketMinute01
         log.error("CLOSE INITIALIZE");
     }
-
 
 
 }

@@ -3,7 +3,6 @@ package com.greenmark.database.db.repository;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.db.entity.Stock;
-import com.greenmark.database.db.entity.Stock;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ class StockRepositoryTest {
 
         @Test
         void createUniqueName() {
-            String name = "notUnique_"+DomainBuilder.randomString();
+            String name = "notUnique_" + DomainBuilder.randomString();
             Stock item1 = DomainBuilder.getStock(name);
             Stock item2 = DomainBuilder.getStock(name);
 
@@ -89,7 +88,7 @@ class StockRepositoryTest {
 
         @Test
         void findById() {
-            String name = "name"+DomainBuilder.randomString();
+            String name = "name" + DomainBuilder.randomString();
             Stock record = DomainBuilder.getStock(name);
             Stock item = repository.save(record);
             Stock result = repository.findById(item.getId()).get();
@@ -115,7 +114,7 @@ class StockRepositoryTest {
 
         @Test
         void findByName() {
-            String name = "name"+DomainBuilder.randomString();
+            String name = "name" + DomainBuilder.randomString();
             Stock record = DomainBuilder.getStock(name);
 
             repository.save(record);

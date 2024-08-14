@@ -1,6 +1,5 @@
 package com.greenmark.common.database.domain;
 
-import com.greenmark.common.core.Bucket;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -24,6 +23,6 @@ public class BucketDailyDb implements BucketData {
     private Integer active;
 
     public String toStringTA() {
-        return this.getClass().getSimpleName()+  " symbol ["+symbol + "] macd ["+macd+"] stochk ["+stochk+"]";
+        return this.getClass().getSimpleName() + " symbol [" + symbol + "] macd [" + macd + "] stochk [" + stochk + "]";
     }
 }

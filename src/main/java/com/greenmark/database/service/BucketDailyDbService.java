@@ -1,8 +1,8 @@
 package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.BucketDailyDb;
-import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.database.domain.StockData;
+import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.BucketDaily;
 import com.greenmark.database.db.mapper.BucketDailyMapper;
 import com.greenmark.database.db.repository.BucketDailyRepository;
@@ -28,7 +28,6 @@ public class BucketDailyDbService extends BaseDbService {
     }
 
     /**
-     *
      * @param symbol
      * @param stockData
      * @return
@@ -67,7 +66,6 @@ public class BucketDailyDbService extends BaseDbService {
     }
 
     /**
-     *
      * @param symbol
      * @param stockData
      * @return

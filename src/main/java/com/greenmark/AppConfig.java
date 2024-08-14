@@ -20,9 +20,4 @@ public class AppConfig {
     }
 
 
-//    @Bean
-//    public ModelLogic getModelLogic() {
-//        ModelLogic logic = new ModelLogic();
-//
-//    }
 }

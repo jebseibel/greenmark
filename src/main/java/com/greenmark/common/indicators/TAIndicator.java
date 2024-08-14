@@ -7,7 +7,10 @@ import java.math.BigDecimal;
 
 public interface TAIndicator {
     String getName();
+
     boolean isGreater(@NonNull BucketData bucketData, @NonNull BigDecimal value);
+
     boolean isLess(@NonNull BucketData bucketData, @NonNull BigDecimal value);
+
     boolean isEqual(@NonNull BucketData bucketData, @NonNull BigDecimal value);
 }

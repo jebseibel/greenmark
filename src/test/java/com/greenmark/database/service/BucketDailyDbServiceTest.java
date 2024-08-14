@@ -1,11 +1,8 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.common.database.domain.BucketDailyDb;
 import com.greenmark.common.database.domain.StockData;
-import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.entity.Stock;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -18,7 +15,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class BucketDailyDbServiceTest {
@@ -121,7 +117,7 @@ class BucketDailyDbServiceTest {
         }
 
         @Test
-        void updatedBadSymbol()  {
+        void updatedBadSymbol() {
             String symbol = UUID.randomUUID().toString();
             assertThrows(DatabaseRetrievalFailureException.class, () -> service.delete(symbol));
         }

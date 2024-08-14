@@ -1,6 +1,5 @@
-package com.greenmark.app.macds;
+package com.greenmark.common.indicators;
 
-import com.greenmark.common.indicators.Macd;
 import com.greenmark.common.database.domain.BucketData;
 import com.greenmark.common.database.domain.StockDailyDb;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MacdTest {
 
@@ -20,7 +19,7 @@ class MacdTest {
     BucketData bucketDataMacdIs10 = new StockDailyDb();
 
     @BeforeEach
-    void beforeEach()  {
+    void beforeEach() {
         bucketDataMacdIs10.setMacd(bigDecimal10);
     }
 

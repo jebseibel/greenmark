@@ -28,7 +28,6 @@ public class BucketMinute01DbService extends BaseDbService {
     }
 
     /**
-     *
      * @param symbol
      * @param stockData
      * @return
@@ -67,7 +66,6 @@ public class BucketMinute01DbService extends BaseDbService {
     }
 
     /**
-     *
      * @param symbol
      * @param stockData
      * @return

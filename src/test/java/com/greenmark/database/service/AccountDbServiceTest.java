@@ -1,40 +1,39 @@
 package com.greenmark.database.service;
 
-import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.AccountDb;
+import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
-import com.greenmark.database.exceptions.*;
-import net.bytebuddy.dynamic.DynamicType;
-import org.junit.jupiter.api.*;
+import com.greenmark.database.exceptions.DatabaseAccessException;
+import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
+import com.greenmark.database.exceptions.DatabaseUpdateFailureException;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
 class AccountDbServiceTest {
 
-    @Mock
-    private AccountRepository accountRepository;
-
-    @Mock
-    private AccountMapper mapper;
-
     @InjectMocks
     AccountDbService service;
+    @Mock
+    private AccountRepository accountRepository;
+    @Mock
+    private AccountMapper mapper;
 
     @Nested
     class CreateTests {

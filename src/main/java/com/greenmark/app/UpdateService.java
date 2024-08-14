@@ -24,30 +24,26 @@ public class UpdateService {
     public UpdateService() {
     }
 
-    public void removeInactiveStocksFromStockDaily() throws Exception{
+    public void removeInactiveStocksFromStockDaily() throws Exception {
 //        List<StockDb> currentActiveStocks;
 
 //            currentStocks = stockDbService.findAll();
 //            currentStockDaily = stockDailyDbService.findAll();
 //            log.error("Current active stocks [{}]", currentActiveStocks.size());
 
-            List<StockDb> currentInactiveStocks = stockDbService.findInactive();
-            List<StockDailyDb> currentStockDaily = stockDailyDbService.findAll();
+        List<StockDb> currentInactiveStocks = stockDbService.findInactive();
+        List<StockDailyDb> currentStockDaily = stockDailyDbService.findAll();
 
-            //loop inactive and if found in delete
-            Iterator<StockDb> iterator = currentInactiveStocks.iterator();
-            while (iterator.hasNext()) {
-                try {
-
-
+        //loop inactive and if found in delete
+        Iterator<StockDb> iterator = currentInactiveStocks.iterator();
+        while (iterator.hasNext()) {
+            try {
 
 
-
-                }
-                catch (Exception e) {
-                    log.error(e.getMessage());
-                }
+            } catch (Exception e) {
+                log.error(e.getMessage());
             }
+        }
 
         //limitPerSecond
     }

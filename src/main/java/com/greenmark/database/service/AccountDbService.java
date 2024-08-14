@@ -3,7 +3,6 @@ package com.greenmark.database.service;
 import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.Account;
-import com.greenmark.database.db.entity.BucketDaily;
 import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
 import com.greenmark.database.exceptions.*;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -134,10 +132,9 @@ public class AccountDbService extends BaseDbService {
     }
 
     /**
-     *
      * @return
      */
-    public List<AccountDb> findAll()  {
+    public List<AccountDb> findAll() {
         List<Account> records = repository.findAll();
         return mapper.toList(records);
     }

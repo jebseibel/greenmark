@@ -16,12 +16,10 @@
  */
 package com.greenmark.datafeed.finnhub.integration;
 
-import com.greenmark.datafeed.finnhub.client.FinnhubClientAdvanced;
-import com.greenmark.datafeed.finnhub.models.Quote;
-import com.greenmark.datafeed.finnhub.models.StockSymbol;
-import com.greenmark.datafeed.finnhub.client.FinnhubClient;
-import com.greenmark.datafeed.finnhub.models.*;
 import com.greenmark.common.DatafeedConfig;
+import com.greenmark.datafeed.finnhub.client.FinnhubClient;
+import com.greenmark.datafeed.finnhub.client.FinnhubClientAdvanced;
+import com.greenmark.datafeed.finnhub.models.*;
 import org.apache.hc.core5.http.ParseException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -51,14 +49,14 @@ public class FinnhubClientBuilderTest {
         System.out.println(quote);
         assertNotNull(quote);
     }
-    
+
     @Test
     void invocationGetCompanyProfile() throws ParseException, IOException {
         FinnhubClientAdvanced client = new FinnhubClientAdvanced.Builder().token(datafeedConfig.getToken()).build();
         CompanyProfile2 companyProfile = client.getCompanyProfile("TSLA");
         assertNotNull(companyProfile);
     }
-    
+
     @Test
     void invocationGetSymbols() throws ParseException, IOException {
         FinnhubClientAdvanced client = new FinnhubClientAdvanced.Builder().token(datafeedConfig.getToken()).build();

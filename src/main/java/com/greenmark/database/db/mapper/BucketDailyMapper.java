@@ -21,6 +21,6 @@ public class BucketDailyMapper {
     }
 
     public List<BucketDailyDb> toList(List<BucketDaily> items) {
-        return items.stream().map( item -> toDb(item)).toList();
+        return items.stream().map(item -> toDb(item)).toList();
     }
 }

@@ -21,14 +21,14 @@ public class Heartbeat
     public static final String CLASSNAME = "Heartbeat";
     public static final String STATUS_ON = "beating";
     public static final String STATUS_OFF = "off";
+    // The heart-beat time is 1 second (1,000 milliseconds)
+    private static final long sleepTime = Labels.SECOND;
     // internal timing values
     public static int thisSecond = 0;
     public static int thisMinute = 0;
     public static int thisHour = 0;
     public static String thisTime = "";
     private static String status;
-    // The heart-beat time is 1 second (1,000 milliseconds)
-    private static final long sleepTime = Labels.SECOND;
     // Every 10 iterations, attempt to re-sync.
     private final int syncIterations = 10;
     // Current sync'ing iteration, set to 8 initially to ensure an early
@@ -379,64 +379,66 @@ public class Heartbeat
     private final void _setStatusOff() {
         status = STATUS_OFF;
     }
-/**  OLD AND DEPRECATED
- public static final String formatTimeHHMMSS( String delim, Calendar calendar, Date trialTime )
- {
- //		Calendar calendar = new ();
- //		Date trialTime = new Date();
- calendar.setTime( trialTime );
 
- //get the Hour
- String sHour = "";
- int thisHour = calendar.get( Calendar.HOUR_OF_DAY );
- if( thisHour < 10 )
- {
- sHour = "0" + Integer.toString( thisHour ); //add leading zeros
- }
- else
- {
- sHour = Integer.toString( thisHour );
- }
-
- //get the Minute
- String sMinute = "";
- int thisMinute = calendar.get( Calendar.MINUTE );
- if( thisMinute < 10 )
- {
- sMinute = "0" + Integer.toString( thisMinute ); //add leading zeros
- }
- else
- {
- sMinute = Integer.toString( thisMinute );
- }
-
- //get the Second
- String sSecond = "";
- int thisSecond = calendar.get( Calendar.SECOND );
- if( thisSecond < 10 )
- {
- sSecond = "0" + Integer.toString( thisSecond ); //add leading zeros
- }
- else
- {
- sSecond = Integer.toString( thisSecond );
- }
-
- return sHour + delim + sMinute + delim + sSecond;
- }
- **/
+    /**
+     * OLD AND DEPRECATED
+     * public static final String formatTimeHHMMSS( String delim, Calendar calendar, Date trialTime )
+     * {
+     * //		Calendar calendar = new ();
+     * //		Date trialTime = new Date();
+     * calendar.setTime( trialTime );
+     * <p>
+     * //get the Hour
+     * String sHour = "";
+     * int thisHour = calendar.get( Calendar.HOUR_OF_DAY );
+     * if( thisHour < 10 )
+     * {
+     * sHour = "0" + Integer.toString( thisHour ); //add leading zeros
+     * }
+     * else
+     * {
+     * sHour = Integer.toString( thisHour );
+     * }
+     * <p>
+     * //get the Minute
+     * String sMinute = "";
+     * int thisMinute = calendar.get( Calendar.MINUTE );
+     * if( thisMinute < 10 )
+     * {
+     * sMinute = "0" + Integer.toString( thisMinute ); //add leading zeros
+     * }
+     * else
+     * {
+     * sMinute = Integer.toString( thisMinute );
+     * }
+     * <p>
+     * //get the Second
+     * String sSecond = "";
+     * int thisSecond = calendar.get( Calendar.SECOND );
+     * if( thisSecond < 10 )
+     * {
+     * sSecond = "0" + Integer.toString( thisSecond ); //add leading zeros
+     * }
+     * else
+     * {
+     * sSecond = Integer.toString( thisSecond );
+     * }
+     * <p>
+     * return sHour + delim + sMinute + delim + sSecond;
+     * }
+     **/
     public static class Labels {
         /**
          * This is the class name.
          */
         public static final String CLASSNAME = "Labels";
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // PUBLIC CONSTANTS
-    ////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        // PUBLIC CONSTANTS
+        ////////////////////////////////////////////////////////////////////////////////
 
         //   public static final long MILLISECONDS = 1000;
-    //
+        //
         public static final long SECOND = 1000;
         //
         public static final long MINUTE = 60 * SECOND;
@@ -484,9 +486,9 @@ public class Heartbeat
         public static final String STR_TRUE = "1";
         public static final String STR_FALSE = "0";
 
-    ////////////////////////////////////////////////////////////////////////////////
-    // CONSTRUCTORS
-    ////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        // CONSTRUCTORS
+        ////////////////////////////////////////////////////////////////////////////////
 
         /**
          * Static object, Can't call

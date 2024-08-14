@@ -1,6 +1,5 @@
 package com.greenmark.database.db.repository;
 
-import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.db.entity.BucketMinute01;
 import org.junit.jupiter.api.Nested;
@@ -10,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,7 +1,6 @@
 package com.greenmark.database.db.mapper;
 
 import com.greenmark.common.database.domain.StockDailyDb;
-
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.db.entity.StockDaily;
 import org.junit.jupiter.api.Test;
@@ -42,14 +41,14 @@ class StockDailyMapperTest {
 
     @Test
     void testToList() {
-       StockDaily item1 = DomainBuilder.getStockDaily();
-       StockDaily item2 = DomainBuilder.getStockDaily();
+        StockDaily item1 = DomainBuilder.getStockDaily();
+        StockDaily item2 = DomainBuilder.getStockDaily();
         List<StockDaily> items = Arrays.asList(item1, item2);
         List<StockDailyDb> itemDbs = mapper.toList(items);
 
         //test
         assertEquals(items.size(), itemDbs.size());
-        assertTrue(items.size() == 2);
-        assertTrue(itemDbs.size() == 2);
-    }    
+        assertEquals(2, items.size());
+        assertEquals(2, itemDbs.size());
+    }
 }

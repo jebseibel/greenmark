@@ -1,9 +1,7 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.BucketMinute15Db;
 import com.greenmark.common.database.domain.BucketMinute01Db;
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.entity.BucketMinute15;
 import com.greenmark.database.db.entity.BucketMinute01;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +49,7 @@ class BucketMinute01MapperTest {
 
         //test
         assertEquals(items.size(), itemDbs.size());
-        assertTrue(items.size() == 2);
-        assertTrue(itemDbs.size() == 2);
-    }    
+        assertEquals(2, items.size());
+        assertEquals(2, itemDbs.size());
+    }
 }

@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface BucketMinute15Repository extends ListCrudRepository<BucketMinute15, Integer> {
     Optional<BucketMinute15> findBySymbol(String name);
+
     List<BucketMinute15> findByActive(Integer active);
 }

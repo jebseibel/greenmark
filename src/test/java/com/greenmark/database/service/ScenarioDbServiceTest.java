@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
-import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.ScenarioDb;
+import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -83,11 +83,9 @@ class ScenarioDbServiceTest {
                 String badExtid = UUID.randomUUID().toString();
                 service.update(badExtid, name, description);
                 fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
+            } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 fail();
             }
         }

@@ -1,13 +1,7 @@
 package com.greenmark.database.db.repository;
 
-import com.greenmark.common.database.domain.BucketDailyDb;
-import com.greenmark.common.database.domain.StockData;
-import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.db.entity.BucketDaily;
-import com.greenmark.database.exceptions.DatabaseAccessException;
-import com.greenmark.database.exceptions.DatabaseCreateFailureException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

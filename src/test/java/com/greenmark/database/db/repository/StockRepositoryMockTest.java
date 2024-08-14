@@ -38,7 +38,7 @@ class StockRepositoryMockTest {
 
         @Test
         void createUniqueName() {
-            String name = "notUnique_"+DomainBuilder.randomString();
+            String name = "notUnique_" + DomainBuilder.randomString();
             Stock item1 = DomainBuilder.getStock(name);
             Stock item2 = DomainBuilder.getStock(name);
 
@@ -46,8 +46,7 @@ class StockRepositoryMockTest {
                 repository.save(item1);
                 repository.save(item2);
                 fail();
-            }
-            catch (DataIntegrityViolationException e) {
+            } catch (DataIntegrityViolationException e) {
                 assertTrue(true);
             }
             System.out.println();
@@ -94,7 +93,7 @@ class StockRepositoryMockTest {
 
         @Test
         void findById() {
-            String name = "name"+DomainBuilder.randomString();
+            String name = "name" + DomainBuilder.randomString();
             Stock record = DomainBuilder.getStock(name);
             Stock item = repository.save(record);
             Stock result = repository.findById(item.getId()).get();
@@ -120,7 +119,7 @@ class StockRepositoryMockTest {
 
         @Test
         void findByName() {
-            String name = "name"+DomainBuilder.randomString();
+            String name = "name" + DomainBuilder.randomString();
             Stock record = DomainBuilder.getStock(name);
 
             repository.save(record);

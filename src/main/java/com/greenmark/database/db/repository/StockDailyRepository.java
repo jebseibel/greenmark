@@ -10,5 +10,6 @@ import java.util.Optional;
 @Repository
 public interface StockDailyRepository extends ListCrudRepository<StockDaily, Integer> {
     Optional<StockDaily> findBySymbol(String name);
+
     List<StockDaily> findByActive(Integer active);
 }

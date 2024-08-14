@@ -8,15 +8,25 @@ logging:
     com:
       greenmark: INFO
     root: INFO
-message-from-application-properties: Hello from application.properties
 model:
+  minute01:
+    promote: 11.1
+    demote: 22.2
+  minute05:
+    promote: 11
+    demote: 22
+  minute15:
+    promote: 11
+    demote: 22
   minute60:
-    promote: 11.0
-    demote: 9.0
-
-
-  stock-max-price: 100
-  stock-min-price: 10
+    promote: 11
+    demote: 22
+  daily:
+    promote: 11
+    demote: 22
+  all:
+    promote: 11
+    demote: 22
 spring:
   application:
     name: DataFeed

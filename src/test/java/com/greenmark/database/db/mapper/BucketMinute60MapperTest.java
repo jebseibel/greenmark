@@ -48,7 +48,7 @@ class BucketMinute60MapperTest {
 
         //test
         assertEquals(items.size(), itemDbs.size());
-        assertTrue(items.size() == 2);
-        assertTrue(itemDbs.size() == 2);
+        assertEquals(2, items.size());
+        assertEquals(2, itemDbs.size());
     }
 }

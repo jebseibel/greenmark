@@ -3,7 +3,6 @@ package com.greenmark.database.db.repository;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.db.entity.StockDaily;
-import com.greenmark.database.db.entity.StockDaily;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -153,6 +152,6 @@ class StockDailyRepositoryTest {
             assertNotNull(results);
             assertTrue(results.size() > 0);
             assertFalse(results.contains(record2));
-        }        
+        }
     }
 }

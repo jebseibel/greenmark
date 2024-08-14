@@ -2,10 +2,8 @@ package com.greenmark.datafeed.mapper;
 
 import com.greenmark.common.datafeed.QuoteDomain;
 import com.greenmark.datafeed.finnhub.models.Quote;
-import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class QuoteMapper {
     public static QuoteDomain toDomain(Quote item) {

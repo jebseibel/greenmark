@@ -45,11 +45,9 @@ class StockDailyDbServiceTest {
                 String symbol = DomainBuilder.getStringTestUUID();
                 service.create(symbol, stockData);
                 fail();
-            }
-            catch (DatabaseCreateFailureException e) {
+            } catch (DatabaseCreateFailureException e) {
                 assertTrue(true);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 fail();
             }
         }
@@ -66,8 +64,7 @@ class StockDailyDbServiceTest {
             } catch (DatabaseCreateFailureException e) {
                 System.out.println(e.getMessage());
                 assertTrue(true);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 fail();
             }
 
@@ -111,11 +108,9 @@ class StockDailyDbServiceTest {
                 String badSymbol = UUID.randomUUID().toString();
                 service.update(badSymbol, stockData);
                 fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
+            } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 fail();
             }
         }
@@ -127,11 +122,9 @@ class StockDailyDbServiceTest {
                 stockData.setCurrent(null);
                 service.update(symbol, stockData);
                 fail();
-            }
-            catch (DatabaseUpdateFailureException e) {
+            } catch (DatabaseUpdateFailureException e) {
                 assertTrue(true);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
                 fail();
             }
@@ -167,8 +160,7 @@ class StockDailyDbServiceTest {
                 String symbol = UUID.randomUUID().toString();
                 service.delete(symbol);
                 fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
+            } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
         }

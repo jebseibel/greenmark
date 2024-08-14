@@ -1,0 +1,40 @@
+email: jeb.seibel@yahoo.com
+finnhub:
+  token: cq63eipr01qlbj4vp9j0cq63eipr01qlbj4vp9jg
+  waitTimeInSeconds: 1
+  limitPerSecond: 30
+logging:
+  level:
+    com:
+      greenmark: INFO
+    root: INFO
+model:
+  minute01:
+    demote: 1.1
+    promote: 1.9
+  minute05:
+    demote: 5.1
+    promote: 5.9
+  minute15:
+    demote: 15.1
+    promote: 15.9
+  minute60:
+    demote: 60.1
+    promote: 60.9
+  daily:
+    demote: 100.1
+    promote: 100.9
+  all:
+    demote: 999.1
+    promote: 999.9
+spring:
+  application:
+    name: DataFeed
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: password
+    url: jdbc:mysql://localhost:3306/greenmark
+    username: jeb
+  jpa:
+    show-sql: false
+thread-pool: 12

@@ -2,8 +2,6 @@ package com.greenmark.database.db.mapper;
 
 import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.common.database.domain.AccountDb;
-import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.entity.Account;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class AccountMapperTest {
@@ -44,7 +43,7 @@ class AccountMapperTest {
 
         //test
         assertEquals(items.size(), itemDbs.size());
-        assertTrue(items.size() == 2);
-        assertTrue(itemDbs.size() == 2);
-    }    
+        assertEquals(2, items.size());
+        assertEquals(2, itemDbs.size());
+    }
 }

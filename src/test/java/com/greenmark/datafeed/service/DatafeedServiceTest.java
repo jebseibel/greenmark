@@ -18,10 +18,9 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class DatafeedServiceTest {
 
+    static FinnhubClient finnhubMock;
     @Autowired
     private DatafeedService service;
-
-    static FinnhubClient finnhubMock;
 
     @BeforeAll
     static void initClientMock() throws IOException, ParseException {

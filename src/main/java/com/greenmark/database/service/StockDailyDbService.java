@@ -28,7 +28,6 @@ public class StockDailyDbService extends BaseDbService {
     }
 
     /**
-     *
      * @param symbol
      * @param stockData
      * @return
@@ -67,7 +66,6 @@ public class StockDailyDbService extends BaseDbService {
     }
 
     /**
-     *
      * @param symbol
      * @param stockData
      * @return
@@ -144,7 +142,6 @@ public class StockDailyDbService extends BaseDbService {
     }
 
     /**
-     *
      * @return
      * @throws DatabaseRetrievalFailureException
      */

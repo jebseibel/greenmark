@@ -21,7 +21,9 @@ public class AccountMapper {
     }
 
     public List<AccountDb> toList(List<Account> items) {
-        if (items == null) { return null; }
-        return items.stream().map( item -> toDb(item)).toList();
+        if (items == null) {
+            return null;
+        }
+        return items.stream().map(item -> toDb(item)).toList();
     }
 }

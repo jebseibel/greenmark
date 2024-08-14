@@ -36,7 +36,7 @@ class ScenarioRepositoryTest {
 
         @Test
         void createUniqueName() {
-            String name = "notUnique_"+DomainBuilder.randomString();
+            String name = "notUnique_" + DomainBuilder.randomString();
             Scenario item1 = DomainBuilder.getScenario(name);
             Scenario item2 = DomainBuilder.getScenario(name);
 
@@ -85,7 +85,7 @@ class ScenarioRepositoryTest {
 
         @Test
         void findById() {
-            String name = "name"+DomainBuilder.randomString();
+            String name = "name" + DomainBuilder.randomString();
             Scenario record = DomainBuilder.getScenario(name);
             Scenario item = repository.save(record);
             Scenario result = repository.findById(item.getId()).get();
@@ -111,7 +111,7 @@ class ScenarioRepositoryTest {
 
         @Test
         void findByName() {
-            String name = "name"+DomainBuilder.randomString();
+            String name = "name" + DomainBuilder.randomString();
             Scenario record = DomainBuilder.getScenario(name);
 
             repository.save(record);

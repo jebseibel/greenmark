@@ -1,14 +1,13 @@
-package com.greenmark.app.indicators;
+package com.greenmark.common.indicators;
 
 import com.greenmark.common.database.domain.BucketData;
 import com.greenmark.common.database.domain.StockDailyDb;
-import com.greenmark.common.indicators.StochK;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StochKTest {
 
@@ -20,7 +19,7 @@ class StochKTest {
     BucketData bucketDataStochkIs10 = new StockDailyDb();
 
     @BeforeEach
-    void beforeEach()  {
+    void beforeEach() {
         bucketDataStochkIs10.setStochk(bigDecimal10);
     }
 

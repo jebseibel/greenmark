@@ -1,9 +1,7 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.common.database.domain.ScenarioDb;
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.entity.Scenario;
 import com.greenmark.database.db.mapper.ScenarioMapper;
 import com.greenmark.database.db.repository.ScenarioRepository;
@@ -133,10 +131,9 @@ public class ScenarioDbService extends BaseDbService {
     }
 
     /**
-     *
      * @return
      */
-    public List<ScenarioDb> findAll()  {
+    public List<ScenarioDb> findAll() {
         List<Scenario> records = repository.findAll();
         return mapper.toList(records);
     }

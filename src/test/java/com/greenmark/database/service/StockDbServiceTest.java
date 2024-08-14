@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
-import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.common.database.domain.StockDb;
+import com.greenmark.database.db.DomainBuilder;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -45,11 +45,9 @@ class StockDbServiceTest {
                 String symbol = DomainBuilder.getStringTestUUID();
                 service.create(symbol, name);
                 fail();
-            }
-            catch (DatabaseCreateFailureException e) {
+            } catch (DatabaseCreateFailureException e) {
                 assertTrue(true);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 fail();
             }
         }
@@ -88,11 +86,9 @@ class StockDbServiceTest {
                 String badSymbol = UUID.randomUUID().toString();
                 service.update(badSymbol, name);
                 fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
+            } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 fail();
             }
         }
@@ -103,7 +99,7 @@ class StockDbServiceTest {
 
         StockDb record;
         String symbol;
-        String name ;
+        String name;
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
@@ -131,8 +127,7 @@ class StockDbServiceTest {
                 fail();
             } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 fail();
             }
         }
@@ -168,8 +163,7 @@ class StockDbServiceTest {
                 String symbol = UUID.randomUUID().toString();
                 service.delete(symbol);
                 fail();
-            }
-            catch (DatabaseRetrievalFailureException e) {
+            } catch (DatabaseRetrievalFailureException e) {
                 assertTrue(true);
             }
         }

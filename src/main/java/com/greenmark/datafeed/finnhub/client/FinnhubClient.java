@@ -19,10 +19,12 @@ package com.greenmark.datafeed.finnhub.client;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.greenmark.datafeed.finnhub.models.*;
+import com.greenmark.datafeed.finnhub.models.MarketHoliday;
+import com.greenmark.datafeed.finnhub.models.MarketStatus;
+import com.greenmark.datafeed.finnhub.models.Quote;
+import com.greenmark.datafeed.finnhub.models.StockCandles;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -32,10 +34,9 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.springframework.stereotype.Component;
 
-
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
+
 
 @Component
 public class FinnhubClient {

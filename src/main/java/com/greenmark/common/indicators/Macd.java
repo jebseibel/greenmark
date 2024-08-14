@@ -1,7 +1,6 @@
 package com.greenmark.common.indicators;
 
 import com.greenmark.common.database.domain.BucketData;
-import com.greenmark.datafeed.finnhub.models.Indicator;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

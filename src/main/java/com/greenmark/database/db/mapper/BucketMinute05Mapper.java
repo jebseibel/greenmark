@@ -21,6 +21,6 @@ public class BucketMinute05Mapper {
     }
 
     public List<BucketMinute05Db> toList(List<BucketMinute05> items) {
-        return items.stream().map( item -> toDb(item)).toList();
+        return items.stream().map(item -> toDb(item)).toList();
     }
 }

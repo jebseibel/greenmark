@@ -16,21 +16,20 @@
  */
 package com.greenmark.datafeed.finnhub.integration;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.greenmark.common.DatafeedConfig;
+import com.greenmark.datafeed.finnhub.client.FinnhubClient;
 import com.greenmark.datafeed.finnhub.client.FinnhubClientAdvanced;
 import com.greenmark.datafeed.finnhub.models.*;
-import com.greenmark.datafeed.finnhub.client.FinnhubClient;
-
-import com.greenmark.common.DatafeedConfig;
 import org.apache.hc.core5.http.ParseException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,7 +46,7 @@ public class FinnhubClientTest {
     @Test
     void requestGetQuote() throws ParseException, IOException {
         token = datafeedConfig.getToken();
-    	FinnhubClient client = new FinnhubClient(token);
+        FinnhubClient client = new FinnhubClient(token);
         Quote quote = client.getQuote("TSLA");
         assertNotNull(quote);
     }
@@ -55,7 +54,7 @@ public class FinnhubClientTest {
     @Disabled
     @Test
     void requestCompanyTest() throws ParseException, IOException {
-    	FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
         CompanyProfile2 companyProfile = client.getCompanyProfile("TSLA");
         assertNotNull(companyProfile);
     }
@@ -71,7 +70,7 @@ public class FinnhubClientTest {
     @Disabled
     @Test
     void requestGetSymbols() throws ParseException, IOException {
-    	FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
         List<StockSymbol> symbols = client.getSymbols(Exchange.US_EXCHANGES.toString());
         List<StockSymbol> t = symbols.stream().filter(s -> s.getDescription().contains("AMAZON.COM")).collect(Collectors.toList());
         assertEquals(1, t.size());
@@ -80,7 +79,7 @@ public class FinnhubClientTest {
     @Disabled
     @Test
     void requestSymbolLookup() throws ParseException, IOException {
-    	FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
+        FinnhubClientAdvanced client = new FinnhubClientAdvanced(token);
         SymbolLookup lookup = client.searchSymbol("apple");
         assertEquals(22, lookup.getCount());
     }
@@ -116,11 +115,11 @@ public class FinnhubClientTest {
     void requestCandlesOneDay() throws ParseException, IOException {
         FinnhubClient client = new FinnhubClient(token);
         StockCandles candle = client.getCandle(
-            "TSLA",
-            "D",
-            // Nov/5/2021 18:00:00 GMT = 1636135200
-            1636135200,
-            1636135200);
+                "TSLA",
+                "D",
+                // Nov/5/2021 18:00:00 GMT = 1636135200
+                1636135200,
+                1636135200);
 
         assertEquals("ok", candle.getS());
         assertEquals(1, candle.getC().size());
@@ -131,12 +130,12 @@ public class FinnhubClientTest {
     void requestCandlesTwoDays() throws ParseException, IOException {
         FinnhubClient client = new FinnhubClient(token);
         StockCandles candle = client.getCandle(
-            "TSLA",
-            "D",
-            // Nov/4/2021 18:00:00 GMT = 1636048800
-            1636048800,  // Nov/4
-            1636135200   // Nov/5
-            );
+                "TSLA",
+                "D",
+                // Nov/4/2021 18:00:00 GMT = 1636048800
+                1636048800,  // Nov/4
+                1636135200   // Nov/5
+        );
 
         assertEquals(2, candle.getC().size());
         assertEquals("ok", candle.getS());

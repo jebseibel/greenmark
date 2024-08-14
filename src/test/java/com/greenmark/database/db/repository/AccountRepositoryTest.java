@@ -1,10 +1,7 @@
 package com.greenmark.database.db.repository;
 
-import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.DomainBuilder;
-import com.greenmark.database.db.mapper.AccountMapper;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.greenmark.database.db.entity.Account;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,7 @@ class AccountRepositoryTest {
             Account result = repository.save(item);
 
             //test
-            assertAll( "Creation tests",
+            assertAll("Creation tests",
                     () -> assertNotNull(result, "result is not null"),
                     () -> assertTrue(result.getId() != 0, "err"),
                     () -> assertNotNull(item.getCreatedAt())
@@ -41,7 +38,7 @@ class AccountRepositoryTest {
 
         @Test
         void createUniqueName() {
-            String name = "notUnique_"+DomainBuilder.randomString();
+            String name = "notUnique_" + DomainBuilder.randomString();
             Account item1 = DomainBuilder.getAccount(name);
             Account item2 = DomainBuilder.getAccount(name);
 
@@ -90,7 +87,7 @@ class AccountRepositoryTest {
 
         @Test
         void findById() {
-            String name = "name"+DomainBuilder.randomString();
+            String name = "name" + DomainBuilder.randomString();
             Account record = DomainBuilder.getAccount(name);
             Account item = repository.save(record);
             Account result = repository.findById(item.getId()).get();
@@ -116,7 +113,7 @@ class AccountRepositoryTest {
 
         @Test
         void findByName() {
-            String name = "name"+DomainBuilder.randomString();
+            String name = "name" + DomainBuilder.randomString();
             Account record = DomainBuilder.getAccount(name);
 
             repository.save(record);
