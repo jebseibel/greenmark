@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.AccountDb;
-import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.database.DomainBuilder;
 import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
@@ -30,8 +30,10 @@ class AccountDbServiceTest {
 
     @InjectMocks
     AccountDbService service;
+
     @Mock
     private AccountRepository accountRepository;
+
     @Mock
     private AccountMapper mapper;
 

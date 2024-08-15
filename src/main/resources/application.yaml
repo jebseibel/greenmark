@@ -10,23 +10,23 @@ logging:
     root: INFO
 model:
   minute01:
-    promote: 11.1
-    demote: 22.2
+    promote: 80
+    demote: 20
   minute05:
-    promote: 11
-    demote: 22
+    promote: 80
+    demote: 20
   minute15:
-    promote: 11
-    demote: 22
+    promote: 80
+    demote: 20
   minute60:
-    promote: 11
-    demote: 22
+    promote: 80
+    demote: 20
   daily:
-    promote: 11
-    demote: 22
+    promote: 80
+    demote: 20
   all:
-    promote: 11
-    demote: 22
+    promote: 80
+    demote: 20
 spring:
   application:
     name: DataFeed

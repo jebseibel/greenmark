@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-public class BucketDDService extends BucketServiceBase {
+public class BucketDDService extends BucketServiceBase implements BucketService {
 
     public BucketDDService() {
     }

@@ -1,7 +1,7 @@
 package com.greenmark.app.buckets;
 
 import com.greenmark.common.database.domain.BucketMinute60Db;
-import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.database.DomainBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

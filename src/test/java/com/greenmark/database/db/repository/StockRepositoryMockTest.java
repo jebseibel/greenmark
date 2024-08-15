@@ -1,7 +1,7 @@
 package com.greenmark.database.db.repository;
 
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.database.DomainBuilder;
 import com.greenmark.database.db.entity.Stock;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

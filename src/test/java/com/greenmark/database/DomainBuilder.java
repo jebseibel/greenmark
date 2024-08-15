@@ -1,4 +1,4 @@
-package com.greenmark.database.db;
+package com.greenmark.database;
 
 import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.common.database.domain.BucketMinute60Db;

@@ -1,7 +1,7 @@
 package com.greenmark.database.db.mapper;
 
 import com.greenmark.common.database.domain.BucketDailyDb;
-import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.database.DomainBuilder;
 import com.greenmark.database.db.entity.BucketDaily;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

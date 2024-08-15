@@ -2,7 +2,7 @@ package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.StockDailyDb;
 import com.greenmark.common.database.domain.StockData;
-import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.database.DomainBuilder;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;

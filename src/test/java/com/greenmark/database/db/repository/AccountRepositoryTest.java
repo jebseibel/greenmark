@@ -1,6 +1,6 @@
 package com.greenmark.database.db.repository;
 
-import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.database.DomainBuilder;
 import com.greenmark.database.db.entity.Account;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

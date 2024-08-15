@@ -1,7 +1,7 @@
 package com.greenmark.datafeed.mapper;
 
 import com.greenmark.common.datafeed.QuoteDomain;
-import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.database.DomainBuilder;
 import com.greenmark.datafeed.finnhub.models.Quote;
 import org.junit.jupiter.api.Test;
 

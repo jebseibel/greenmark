@@ -1,6 +1,6 @@
 package com.greenmark.database.service;
 
-import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.database.DomainBuilder;
 import org.junit.jupiter.api.Test;
 
 class BasicDbServiceTest {

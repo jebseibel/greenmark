@@ -1,6 +1,7 @@
 package com.greenmark.datafeed.service;
 
-import com.greenmark.database.db.DomainBuilder;
+import com.greenmark.common.datafeed.TechnicalIndicatorRequest;
+import com.greenmark.datafeed.DomainBuilder;
 import com.greenmark.datafeed.finnhub.client.FinnhubClient;
 import com.greenmark.datafeed.finnhub.models.Quote;
 import org.apache.hc.core5.http.ParseException;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -19,6 +21,7 @@ import static org.mockito.Mockito.when;
 class DatafeedServiceTest {
 
     static FinnhubClient finnhubMock;
+
     @Autowired
     private DatafeedService service;
 
@@ -37,6 +40,21 @@ class DatafeedServiceTest {
         ibm.pc(Float.valueOf("185.00"));
 
         when(finnhubMock.getQuote("IBM")).thenReturn(ibm);
+    }
+
+    @Test
+    void getQuote() {
+    }
+
+    @Test
+    void getMacd() {
+        TechnicalIndicatorRequest request = DomainBuilder.getMacd("SYMBOL");
+        BigDecimal result = service.getMacd(request);
+        System.out.println(result);
+    }
+
+    @Test
+    void getStochk() {
     }
 
     @Nested
