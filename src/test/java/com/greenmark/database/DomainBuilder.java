@@ -352,7 +352,7 @@ public class DomainBuilder {
         return UUID.randomUUID().toString();
     }
 
-    public static final String getStringTestUUID() {
+    public static final String getStringTestUUIDTooLong() {
         return "123456789012345678901234567890123456789012345678901234567890";
     }
 

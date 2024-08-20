@@ -42,7 +42,7 @@ class StockDbServiceTest {
         void createdTooLong() {
             // test
             try {
-                String symbol = DomainBuilder.getStringTestUUID();
+                String symbol = DomainBuilder.getStringTestUUIDTooLong();
                 service.create(symbol, name);
                 fail();
             } catch (DatabaseCreateFailureException e) {

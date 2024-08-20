@@ -41,7 +41,7 @@ class ScenarioDbServiceTest {
         @Test
         void createdTooLong() {
             // test
-            String extid = DomainBuilder.getStringTestUUID();
+            String extid = DomainBuilder.getStringTestUUIDTooLong();
             assertThrows(DatabaseCreateFailureException.class, () -> service.create(extid, name, description));
         }
     }

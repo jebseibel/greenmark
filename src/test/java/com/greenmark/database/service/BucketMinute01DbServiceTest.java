@@ -40,7 +40,7 @@ class BucketMinute01DbServiceTest {
         @Test
         void createdTooLong() {
             StockData stockData = DomainBuilder.getStockData();
-            String symbol = DomainBuilder.getStringTestUUID();
+            String symbol = DomainBuilder.getStringTestUUIDTooLong();
 
             assertThrows(DatabaseCreateFailureException.class, () -> service.create(symbol, stockData));
         }

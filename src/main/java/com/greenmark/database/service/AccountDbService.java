@@ -45,8 +45,6 @@ public class AccountDbService extends BaseDbService {
             record.setDescription(description);
             record.setCreatedAt(LocalDateTime.now());
             record.setActive(ActiveEnum.ACTIVE.value);
-            System.out.println(record);
-
             Account saved = repository.save(record);
             log.debug(getCreatedMessage(extid));
             return mapper.toDb(saved);

@@ -5,12 +5,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class AccountDb {
+public class AccountDb extends BaseDb {
     private String extid;
     private String name;
     private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
-    private LocalDateTime deletedAt;
-    private Integer active;
 }

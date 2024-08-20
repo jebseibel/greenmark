@@ -5,10 +5,7 @@ import com.greenmark.database.DomainBuilder;
 import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
-import com.greenmark.database.exceptions.DatabaseAccessException;
-import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
-import com.greenmark.database.exceptions.DatabaseUpdateFailureException;
-import org.junit.jupiter.api.Disabled;
+import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -23,7 +20,6 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
 
 @ExtendWith(MockitoExtension.class)
 class AccountDbServiceTest {
@@ -48,7 +44,7 @@ class AccountDbServiceTest {
 
         @Test
         void created() throws Exception {
-            //mocks
+            // mocks
             when(accountRepository.save(any(Account.class))).thenReturn(item);
             when(mapper.toDb(item)).thenReturn(itemDb);
 
@@ -60,16 +56,6 @@ class AccountDbServiceTest {
             assertEquals(name, result.getName());
             assertEquals(description, result.getDescription());
         }
-
-//        @Test
-//        void createdTooLong() throws DatabaseCreateFailureException, DatabaseAccessException {
-//            // test
-//            String extidBad = DomainBuilder.getStringTestUUID();
-//            when(accountRepository.findByExtid(extidBad)).thenReturn(Optional.empty());
-//            when(service.create(extid, name, description)).thenThrow(new DatabaseCreateFailureException(""));
-//
-//            assertThrows(DatabaseCreateFailureException.class, () -> service.create(extidBad, name, description));
-//        }
     }
 
     @Nested
@@ -131,6 +117,7 @@ class AccountDbServiceTest {
             AccountDb result = service.findByExtid(extid);
 
             // validate
+            verify(accountRepository).findByExtid(extid);
             assertNotNull(result);
             assertEquals(result.getExtid(), extid);
         }
@@ -150,27 +137,23 @@ class AccountDbServiceTest {
     }
 
     @Nested
-    @Disabled
     class DeleteTests {
 
-//        @Test
-//        void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
-//            Account item = DomainBuilder.getAccount();
-//            AccountDb itemDb = DomainBuilder.getAccountDb(item);
-//            String extid = item.getExtid();
-//
-//            //mock
-//            when(accountRepository.findByExtid(extid)).thenReturn(item);
-//            when(mapper.toDb(item)).thenReturn(itemDb);
-//
-//            //execute
-//            AccountDb result = service.findByExtid(extid);
-//
-//            boolean result = service.delete(extid);
-//
-//            // validate
-//            assertTrue(result);
-//        }
+        @Test
+        void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
+            Account item = DomainBuilder.getAccount();
+            AccountDb itemDb = DomainBuilder.getAccountDb(item);
+            String extid = item.getExtid();
+
+            //mock
+            when(accountRepository.findByExtid(extid)).thenReturn(Optional.of(item));
+
+            //execute
+            boolean result = service.delete(extid);
+
+            // validate
+            assertTrue(result);
+        }
 
         @Test
         void deleteBadExtid() {

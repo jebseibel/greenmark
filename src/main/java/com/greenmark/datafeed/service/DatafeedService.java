@@ -38,6 +38,8 @@ public class DatafeedService {
         }
     }
 
+
+
     public BigDecimal getMacd(TechnicalIndicatorRequest request) {
         return getMacdRandom();
     }

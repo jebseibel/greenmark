@@ -1,5 +1,7 @@
 package com.greenmark.database.service;
 
+import com.greenmark.common.database.domain.BaseDb;
+
 public class BaseDbService {
 
     static final String DB_DOWN_TEMPLATE = "%s database access issue.";
