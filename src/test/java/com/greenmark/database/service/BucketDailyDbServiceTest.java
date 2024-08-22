@@ -171,7 +171,7 @@ class BucketDailyDbServiceTest {
             BucketDailyDb record2 = service.create(symbol2, stockData2);
 
             //execute
-            List<BucketDailyDb> results = service.findActive();
+            List<BucketDailyDb> results = service.findAll();
 
             // validate - using Streams :)
             BucketDailyDb hasRecord1 = results.stream()
@@ -200,7 +200,7 @@ class BucketDailyDbServiceTest {
             service.delete(symbol2);
 
             //execute
-            List<BucketDailyDb> results = service.findActive();
+            List<BucketDailyDb> results = service.findAll();
 
             // validate - using Streams :)
             BucketDailyDb hasRecord1 = results.stream()

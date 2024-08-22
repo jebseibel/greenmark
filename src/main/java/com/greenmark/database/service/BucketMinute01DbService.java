@@ -141,7 +141,11 @@ public class BucketMinute01DbService extends BaseDbService {
         return mapper.toDb(record);
     }
 
-    public List<BucketMinute01Db> findAll() throws DatabaseRetrievalFailureException {
+    /**
+     * Find all active records
+     * @return
+     */
+    public List<BucketMinute01Db> findAll()  {
         List<BucketMinute01> records = repository.findByActive(ActiveEnum.ACTIVE.value);
 
         log.info(getFoundActiveMessage(records.size()));

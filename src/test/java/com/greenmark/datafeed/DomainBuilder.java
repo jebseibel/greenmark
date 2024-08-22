@@ -3,7 +3,6 @@ package com.greenmark.datafeed;
 import com.greenmark.common.datafeed.TechnicalIndicatorRequest;
 import com.greenmark.common.enums.ResolutionType;
 import com.greenmark.common.enums.TaType;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

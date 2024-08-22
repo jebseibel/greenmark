@@ -140,7 +140,7 @@ public class BucketDailyDbService extends BaseDbService {
         return mapper.toDb(record);
     }
 
-    public List<BucketDailyDb> findActive() throws DatabaseRetrievalFailureException {
+    public List<BucketDailyDb> findAll() {
         List<BucketDaily> records = repository.findByActive(ActiveEnum.ACTIVE.value);
         log.info(getFoundActiveMessage(records.size()));
         return mapper.toList(records);

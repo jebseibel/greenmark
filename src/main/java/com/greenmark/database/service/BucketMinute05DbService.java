@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -138,5 +139,16 @@ public class BucketMinute05DbService extends BaseDbService {
 
         log.info(getFoundMessage(symbol));
         return mapper.toDb(record);
+    }
+
+    /**
+     * Find all active records
+     * @return
+     */
+    public List<BucketMinute05Db> findAll()  {
+        List<BucketMinute05> records = repository.findByActive(ActiveEnum.ACTIVE.value);
+
+        log.info(getFoundActiveMessage(records.size()));
+        return mapper.toList(records);
     }
 }

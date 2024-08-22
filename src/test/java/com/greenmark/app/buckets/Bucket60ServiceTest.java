@@ -1,6 +1,5 @@
 package com.greenmark.app.buckets;
 
-import com.greenmark.common.database.domain.BucketData;
 import com.greenmark.common.database.domain.BucketMinute60Db;
 import com.greenmark.database.DomainBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Bucket60ServiceTest {
 
-    Bucket60Service service;
+    Bucket60Data service;
     String strBasis = "2";
     BigDecimal promote = DomainBuilder.getBigDecimal("3");
     BigDecimal basis = DomainBuilder.getBigDecimal(strBasis);
@@ -25,7 +24,7 @@ class Bucket60ServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new Bucket60Service();
+        service = new Bucket60Data();
         service.setPromote(promote);
         service.setDemote(demote);
         service.addItem(bucketPromote);
@@ -44,7 +43,7 @@ class Bucket60ServiceTest {
             service.setPromote(testPromoteValue);
 
             // test
-            List<BucketData> result = service.getAllPromote();
+            List<BucketMinute60Db> result = service.getAllPromote();
             assertEquals(1, result.size());
         }
 
@@ -56,7 +55,7 @@ class Bucket60ServiceTest {
             service.addItem(bucketTest);
 
             // test
-            List<BucketData> result = service.getAllPromote();
+            List<BucketMinute60Db> result = service.getAllPromote();
             assertEquals(2, result.size());
         }
     }
@@ -74,7 +73,7 @@ class Bucket60ServiceTest {
             service.setDemote(testDemoteValue);
 
             // test
-            List<BucketData> result = service.getAllDemote();
+            List<BucketMinute60Db> result = service.getAllDemote();
             assertEquals(2, result.size());
         }
 
@@ -86,7 +85,7 @@ class Bucket60ServiceTest {
             service.setDemote(testDemoteValue);
 
             // test
-            List<BucketData> result = service.getAllDemote();
+            List<BucketMinute60Db> result = service.getAllDemote();
             assertEquals(2, result.size());
         }
     }

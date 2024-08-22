@@ -10,9 +10,9 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class BucketServiceBaseTest {
+class BucketDataBaseTest {
 
-    Bucket60Service service;
+    Bucket60Data service;
     String strBasis = "2";
     BigDecimal promote = DomainBuilder.getBigDecimal("3");
     BigDecimal basis = DomainBuilder.getBigDecimal(strBasis);
@@ -23,7 +23,7 @@ class BucketServiceBaseTest {
 
     @BeforeEach
     void setUp() {
-        service = new Bucket60Service();
+        service = new Bucket60Data();
         service.setPromote(promote);
         service.setDemote(demote);
         service.addItem(bucketPromote);

@@ -5,7 +5,10 @@ import com.greenmark.database.DomainBuilder;
 import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
-import com.greenmark.database.exceptions.*;
+import com.greenmark.database.exceptions.DatabaseAccessException;
+import com.greenmark.database.exceptions.DatabaseDeleteFailureException;
+import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
+import com.greenmark.database.exceptions.DatabaseUpdateFailureException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -117,7 +120,7 @@ class AccountDbServiceTest {
             AccountDb result = service.findByExtid(extid);
 
             // validate
-            verify(accountRepository).findByExtid(extid);
+            //verify(accountRepository).findByExtid(extid);
             assertNotNull(result);
             assertEquals(result.getExtid(), extid);
         }

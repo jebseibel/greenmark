@@ -1,12 +1,9 @@
 package com.greenmark.database;
 
-import com.greenmark.common.database.domain.AccountDb;
-import com.greenmark.common.database.domain.BucketMinute60Db;
-import com.greenmark.common.database.domain.StockData;
+import com.greenmark.common.database.domain.*;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.db.entity.*;
-import com.greenmark.database.db.mapper.AccountMapper;
-import com.greenmark.database.db.mapper.BucketMinute60Mapper;
+import com.greenmark.database.db.mapper.*;
 import com.greenmark.datafeed.finnhub.models.Quote;
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -39,7 +36,7 @@ public class DomainBuilder {
     ) {
         String random = getRandom();
         Account item = new Account();
-        item.setExtid(thisName != null ? thisName : UUID.randomUUID().toString());
+        item.setExtid(thisExtId != null ? thisExtId : UUID.randomUUID().toString());
         item.setName(thisName != null ? thisName : getNameRandom(random));
         item.setDescription(thisDescription != null ? thisDescription : getDescriptionRandom(random));
         item.setActive(ActiveEnum.ACTIVE.value);
@@ -102,6 +99,17 @@ public class DomainBuilder {
     // //////////////////////////////////////////////////////////////////
     // Bucket 15
     // //////////////////////////////////////////////////////////////////
+    public static BucketMinute15Db getBucketMinute15DbMacd(BigDecimal macd) {
+        BucketMinute15 item = getBucketMinute15(getSymbolRandom());
+        item.setMacd(macd);
+        return new BucketMinute15Mapper().toDb(item);
+    }
+
+    public static BucketMinute15Db getBucketMinute15Db() {
+        BucketMinute15 item = getBucketMinute15(getSymbolRandom());
+        return new BucketMinute15Mapper().toDb(item);
+    }
+
     public static BucketMinute15 getBucketMinute15() {
         String symbol = getSymbolRandom();
         return getBucketMinute15(symbol);
@@ -131,6 +139,17 @@ public class DomainBuilder {
     // //////////////////////////////////////////////////////////////////
     // Bucket 05
     // //////////////////////////////////////////////////////////////////
+    public static BucketMinute05Db getBucketMinute05DbMacd(BigDecimal macd) {
+        BucketMinute05 item = getBucketMinute05(getSymbolRandom());
+        item.setMacd(macd);
+        return new BucketMinute05Mapper().toDb(item);
+    }
+
+    public static BucketMinute05Db getBucketMinute05Db() {
+        BucketMinute05 item = getBucketMinute05(getSymbolRandom());
+        return new BucketMinute05Mapper().toDb(item);
+    }
+
     public static BucketMinute05 getBucketMinute05() {
         String symbol = getSymbolRandom();
         return getBucketMinute05(symbol);
@@ -160,6 +179,17 @@ public class DomainBuilder {
     // //////////////////////////////////////////////////////////////////
     // Bucket 01
     // //////////////////////////////////////////////////////////////////
+    public static BucketMinute01Db getBucketMinute01DbMacd(BigDecimal macd) {
+        BucketMinute01 item = getBucketMinute01(getSymbolRandom());
+        item.setMacd(macd);
+        return new BucketMinute01Mapper().toDb(item);
+    }
+
+    public static BucketMinute01Db getBucketMinute01Db() {
+        BucketMinute01 item = getBucketMinute01(getSymbolRandom());
+        return new BucketMinute01Mapper().toDb(item);
+    }
+
     public static BucketMinute01 getBucketMinute01() {
         String symbol = getSymbolRandom();
         return getBucketMinute01(symbol);

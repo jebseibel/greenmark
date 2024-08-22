@@ -1,8 +1,5 @@
 package com.greenmark.app;
 
-import com.greenmark.app.buckets.Bucket01Service;
-import com.greenmark.app.buckets.BucketService;
-import com.greenmark.app.model.ModelLogic;
 import com.greenmark.common.database.domain.BucketData;
 import com.greenmark.common.datafeed.TechnicalIndicatorRequest;
 import com.greenmark.common.enums.ResolutionType;
@@ -23,13 +20,13 @@ public class BucketUpdater {
         this.datafeedService = datafeedService;
     }
 
-    public boolean update(Bucket01Service bucket01Service) {
+    public boolean update(List<BucketData> bucketData, ResolutionType resolutionType ) {
 
-        List<BucketData> bucketData = bucket01Service.getBucketData();
         for (BucketData bucketData1 : bucketData) {
+
             // build the request
             String symbol = bucketData1.getSymbol();
-            TechnicalIndicatorRequest request = getRequest(symbol);
+            TechnicalIndicatorRequest request = getRequest(symbol, resolutionType);
 
             //get the data and save
             BigDecimal macd = datafeedService.getMacd(request);
@@ -39,10 +36,10 @@ public class BucketUpdater {
         return true;
     }
 
-    private TechnicalIndicatorRequest getRequest(String symbol) {
+    private TechnicalIndicatorRequest getRequest(String symbol, ResolutionType resolutionType) {
         TechnicalIndicatorRequest request = new TechnicalIndicatorRequest();
         request.setSymbol(symbol);
-        request.setResolution(ResolutionType.DAILY);
+        request.setResolution(resolutionType);
         request.setType(TaType.MACD);
         request.setLocalDateTime(LocalDateTime.now());
         return request;

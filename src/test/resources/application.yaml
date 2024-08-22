@@ -1,4 +1,4 @@
-email: jeb.seibel@yahoo.com
+
 finnhub:
   token: cq63eipr01qlbj4vp9j0cq63eipr01qlbj4vp9jg
   waitTimeInSeconds: 1
@@ -37,4 +37,15 @@ spring:
     username: jeb
   jpa:
     show-sql: false
+  mail:
+    host: smtp.gmail.com
+    password: t2Z7qIUHhx!PJuN&
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: 'true'
+    username: jeb.seibel@gmail.com
 thread-pool: 12
