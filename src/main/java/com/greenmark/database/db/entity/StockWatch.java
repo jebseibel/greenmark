@@ -3,20 +3,26 @@ package com.greenmark.database.db.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "bucket_minute15")
-public class BucketMinute15 implements Serializable {
+@Table(name = "stock_watch")
+public class StockWatch implements Serializable {
+
+    @Serial
     private static final long serialVersionUID = -3779377594651740105L;
 
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "timeframe", length = 16, nullable = false)
+    private String timeframe;
 
     @Column(name = "symbol", length = 8, nullable = false)
     private String symbol;

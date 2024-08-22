@@ -2,7 +2,7 @@ package com.greenmark.app;
 
 import com.greenmark.app.buckets.*;
 import com.greenmark.common.database.domain.*;
-import com.greenmark.database.service.DatabaseBucketService;
+import com.greenmark.database.service.DatabaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +13,14 @@ import java.util.List;
 public class StartupService {
 
     private BucketAllData bucketAllData;
-    private DatabaseBucketService databaseBucketService;
+    private DatabaseService databaseService;
     
     public StartupService(
             BucketAllData bucketAllData,
-            DatabaseBucketService databaseBucketService
+            DatabaseService databaseService
     ) {
         this.bucketAllData = bucketAllData;
-        this.databaseBucketService = databaseBucketService;
+        this.databaseService = databaseService;
     }
 
     public void loadAll() {
@@ -34,38 +34,38 @@ public class StartupService {
     }
 
     public int loadMinute01() {
-        List<BucketMinute01Db> items = databaseBucketService.getAllMinute01();
-        Bucket01Data data = bucketAllData.getBucket01Data();
+        List<StockWatchDb> items = databaseService.getAllMinute01();
+        BucketData data = bucketAllData.getBucket01Data();
         data.setData(items);
         return items.size();
     }
 
     public int loadMinute05() {
-        List<BucketMinute05Db> items = databaseBucketService.getAllMinute05();
-        Bucket05Data data = bucketAllData.getBucket05Data();
+        List<StockWatchDb> items = databaseService.getAllMinute05();
+        BucketData data = bucketAllData.getBucket05Data();
         data.setData(items);
         return items.size();
 
     }
 
     public int loadMinute15() {
-        List<BucketMinute15Db> items = databaseBucketService.getAllMinute15();
-        Bucket15Data data = bucketAllData.getBucket15Data();
+        List<StockWatchDb> items = databaseService.getAllMinute15();
+        BucketData data = bucketAllData.getBucket15Data();
         data.setData(items);
         return items.size();
 
     }
 
     public int loadMinute60() {
-        List<BucketMinute60Db> items = databaseBucketService.getAllMinute60();
-        Bucket60Data data = bucketAllData.getBucket60Data();
+        List<StockWatchDb> items = databaseService.getAllMinute60();
+        BucketData data = bucketAllData.getBucket60Data();
         data.setData(items);
         return items.size();
     }
 
     public int loadMinuteDD() {
-        List<BucketDailyDb> items = databaseBucketService.getAllDaily();
-        BucketDDData data = bucketAllData.getBucketDailyData();
+        List<StockWatchDb> items = databaseService.getAllDaily();
+        BucketData data = bucketAllData.getBucketDailyData();
         data.setData(items);
         return items.size();
     }

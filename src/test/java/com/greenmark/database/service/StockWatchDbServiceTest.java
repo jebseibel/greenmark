@@ -1,7 +1,8 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.BucketDailyDb;
-import com.greenmark.common.database.domain.StockData;
+import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.MarketData;
+import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.database.DomainBuilder;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,21 +18,22 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class BucketDailyDbServiceTest {
+class StockWatchDbServiceTest {
 
     @Autowired
-    private BucketDailyDbService service;
+    private StockWatchDbService service;
 
     @Nested
     class CreateTests {
 
-        String symbol = DomainBuilder.getSymbolRandom();
 
         @Test
         void createdNew() throws Exception {
             // test
-            StockData stockData = DomainBuilder.getStockData();
-            BucketDailyDb result = service.create(symbol, stockData);
+            String symbol = DomainBuilder.getSymbolRandom();
+            TimeframeType timeframeType = TimeframeType.DAILY;
+            MarketData marketData = DomainBuilder.getMarketData();
+            StockWatchDb result = service.create(symbol, timeframeType, marketData);
 
             // validate
             assertNotNull(result);
@@ -40,43 +42,48 @@ class BucketDailyDbServiceTest {
 
         @Test
         void createdTooLong() {
-            StockData stockData = DomainBuilder.getStockData();
+            // test
             String symbol = DomainBuilder.getStringTestUUIDTooLong();
+            TimeframeType timeframeType = TimeframeType.DAILY;
+            MarketData marketData = DomainBuilder.getMarketData();
 
-            assertThrows(DatabaseCreateFailureException.class, () -> service.create(symbol, stockData));
+            assertThrows(DatabaseCreateFailureException.class, () -> service.create(symbol, timeframeType, marketData));
         }
 
         @Test
         void createdAlready() throws Exception {
             // test
-            StockData stockData = DomainBuilder.getStockData();
-            service.create(symbol, stockData);
+            String symbol = DomainBuilder.getStringTestUUIDTooLong();
+            TimeframeType timeframeType = TimeframeType.DAILY;
+            MarketData marketData = DomainBuilder.getMarketData();
+            //service.create(symbol, timeframeType, marketData);
 
             //try to create again
-            assertThrows(DatabaseCreateFailureException.class, () -> service.create(symbol, stockData));
+            assertThrows(DatabaseCreateFailureException.class, () -> service.create(symbol, timeframeType, marketData));
         }
     }
 
     @Nested
     class UpdateTests {
 
-        BucketDailyDb record;
-        StockData stockData;
+        StockWatchDb record;
+        MarketData marketData;
         String symbol = DomainBuilder.getSymbolRandom();
+        TimeframeType timeframeType = TimeframeType.DAILY;
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            stockData = DomainBuilder.getStockData();
-            record = service.create(symbol, stockData);
+            marketData = DomainBuilder.getMarketData();
+            record = service.create(symbol, timeframeType, marketData);
         }
 
         @Test
         void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException, DatabaseAccessException {
             BigDecimal newCurrent = DomainBuilder.randomBigDecimal();
-            stockData.setCurrent(newCurrent);
+            marketData.setCurrent(newCurrent);
 
             //execute
-            BucketDailyDb result = service.update(symbol, stockData);
+            StockWatchDb result = service.update(symbol, marketData);
 
             // validate
             assertNotNull(result);
@@ -87,27 +94,28 @@ class BucketDailyDbServiceTest {
         @Test
         void updatedBadSymbol() {
             String badSymbol = UUID.randomUUID().toString();
-            assertThrows(DatabaseRetrievalFailureException.class, () -> service.update(badSymbol, stockData));
+            assertThrows(DatabaseRetrievalFailureException.class, () -> service.update(badSymbol, marketData));
         }
 
         @Test
         void updatedBadStockdata() {
-            stockData.setCurrent(null);
-            assertThrows(DatabaseUpdateFailureException.class, () -> service.update(symbol, stockData));
+            marketData.setCurrent(null);
+            assertThrows(DatabaseUpdateFailureException.class, () -> service.update(symbol, marketData));
         }
     }
 
     @Nested
     class DeleteTests {
 
-        BucketDailyDb record;
-        StockData stockData;
+        StockWatchDb record;
+        MarketData marketData;
         String symbol = DomainBuilder.getSymbolRandom();
+        TimeframeType timeframeType = TimeframeType.DAILY;
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            stockData = DomainBuilder.getStockData();
-            record = service.create(symbol, stockData);
+            marketData = DomainBuilder.getMarketData();
+            record = service.create(symbol, timeframeType, marketData);
         }
 
         @Test
@@ -126,20 +134,22 @@ class BucketDailyDbServiceTest {
     @Nested
     class FindTests {
 
-        BucketDailyDb record;
-        StockData stockData;
+        StockWatchDb record;
+        MarketData marketData;
         String symbol;
+        TimeframeType timeframeType;
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             symbol = DomainBuilder.getSymbolRandom();
-            stockData = DomainBuilder.getStockData();
-            record = service.create(symbol, stockData);
+            timeframeType = TimeframeType.DAILY;
+            marketData = DomainBuilder.getMarketData();
+            record = service.create(symbol, timeframeType, marketData);
         }
 
         @Test
         void find() throws DatabaseRetrievalFailureException {
-            BucketDailyDb result = service.findBySymbol(symbol);
+            StockWatchDb result = service.findBySymbol(symbol);
             assertNotNull(result);
         }
 
@@ -153,33 +163,35 @@ class BucketDailyDbServiceTest {
     @Nested
     class FindActiveTests {
 
-        BucketDailyDb record1;
-        StockData stockData1;
+        StockWatchDb record1;
+        MarketData marketData1;
         String symbol1;
+        TimeframeType timeframeType;
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
             symbol1 = DomainBuilder.getSymbolRandom();
-            stockData1 = DomainBuilder.getStockData();
-            record1 = service.create(symbol1, stockData1);
+            timeframeType = TimeframeType.DAILY;
+            marketData1 = DomainBuilder.getMarketData();
+            record1 = service.create(symbol1,timeframeType, marketData1);
         }
 
         @Test
         void findActive_both() throws DatabaseRetrievalFailureException, DatabaseAccessException, DatabaseCreateFailureException {
             String symbol2 = DomainBuilder.getSymbolRandom();
-            StockData stockData2 = DomainBuilder.getStockData();
-            BucketDailyDb record2 = service.create(symbol2, stockData2);
+            MarketData marketData2 = DomainBuilder.getMarketData();
+            StockWatchDb record2 = service.create(symbol2, timeframeType, marketData2);
 
             //execute
-            List<BucketDailyDb> results = service.findAll();
+            List<StockWatchDb> results = service.findAll();
 
             // validate - using Streams :)
-            BucketDailyDb hasRecord1 = results.stream()
+            StockWatchDb hasRecord1 = results.stream()
                     .filter(result -> record1.getSymbol().equals(result.getSymbol()))
                     .findAny()
                     .orElse(null);
 
-            BucketDailyDb hasRecord2 = results.stream()
+            StockWatchDb hasRecord2 = results.stream()
                     .filter(result -> record2.getSymbol().equals(result.getSymbol()))
                     .findAny()
                     .orElse(null);
@@ -194,21 +206,22 @@ class BucketDailyDbServiceTest {
         @Test
         void findActive_one() throws DatabaseRetrievalFailureException, DatabaseAccessException, DatabaseDeleteFailureException, DatabaseCreateFailureException {
             String symbol2 = DomainBuilder.getSymbolRandom();
-            StockData stockData2 = DomainBuilder.getStockData();
-            BucketDailyDb record2 = service.create(symbol2, stockData2);
+            TimeframeType timeframeType = TimeframeType.DAILY;
+            MarketData marketData2 = DomainBuilder.getMarketData();
+            StockWatchDb record2 = service.create(symbol2, timeframeType, marketData2);
             //set to inactive
             service.delete(symbol2);
 
             //execute
-            List<BucketDailyDb> results = service.findAll();
+            List<StockWatchDb> results = service.findAll();
 
             // validate - using Streams :)
-            BucketDailyDb hasRecord1 = results.stream()
+            StockWatchDb hasRecord1 = results.stream()
                     .filter(result -> record1.getSymbol().equals(result.getSymbol()))
                     .findAny()
                     .orElse(null);
 
-            BucketDailyDb hasRecord2 = results.stream()
+            StockWatchDb hasRecord2 = results.stream()
                     .filter(result -> record2.getSymbol().equals(result.getSymbol()))
                     .findAny()
                     .orElse(null);

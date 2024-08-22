@@ -1,5 +1,6 @@
 package com.greenmark.app;
 
+import com.greenmark.database.db.entity.StockWatch;
 import com.greenmark.datafeed.service.DatafeedService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,10 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
-class BucketUpdaterTest {
+class StockWatchUpdaterTest {
 
     @InjectMocks
-    BucketUpdater bucketUpdater;
+    StockWatch stockWatch;
 
     @Mock
     DatafeedService datafeedService;
@@ -25,7 +26,7 @@ class BucketUpdaterTest {
 
     @Test
     void getBucketUpdater() {
-        assertNotNull(bucketUpdater);
+        assertNotNull(stockWatch);
     }
 
     @Test

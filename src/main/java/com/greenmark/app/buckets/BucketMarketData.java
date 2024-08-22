@@ -1,6 +1,6 @@
 package com.greenmark.app.buckets;
 
-import com.greenmark.common.database.domain.StockDailyDb;
+import com.greenmark.common.database.domain.StockWatchDb;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -13,39 +13,39 @@ import java.util.stream.Collectors;
 @Component
 public class BucketMarketData {
 
-    List<StockDailyDb> list = new ArrayList<>();
+    List<StockWatchDb> list = new ArrayList<>();
     BigDecimal promote;
     BigDecimal demote;
 
     public BucketMarketData() {
     }
 
-    public List<StockDailyDb> getAllPromote() {
+    public List<StockWatchDb> getAllPromote() {
         return list.stream()
                 .filter(item -> item.getMacd().compareTo(promote) > 0)
                 .collect(Collectors.toList());
     }
 
-    public List<StockDailyDb> getAllDemote() {
+    public List<StockWatchDb> getAllDemote() {
         return list.stream()
                 .filter(item -> item.getMacd().compareTo(demote) < 0)
                 .collect(Collectors.toList());
     }
 
-    public void setData(List<StockDailyDb> records) {
+    public void setData(List<StockWatchDb> records) {
         list = records;
     }
 
-    public List<StockDailyDb> getData()  {
+    public List<StockWatchDb> getData()  {
         return list;
     }
 
-    public void addItem(StockDailyDb item) {
+    public void addItem(StockWatchDb item) {
         if (!list.contains(item))
             list.add(item);
     }
 
-    public void removeItem(StockDailyDb item) {
+    public void removeItem(StockWatchDb item) {
         list.remove(item);
     }
 

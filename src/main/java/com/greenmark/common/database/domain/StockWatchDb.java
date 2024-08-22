@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class BucketMinute15Db implements BucketData {
+public class StockWatchDb {
     private String symbol;
     private BigDecimal current;
     private BigDecimal open;

@@ -1,7 +1,6 @@
 package com.greenmark.common.indicators;
 
-import com.greenmark.common.database.domain.BucketData;
-import com.greenmark.common.database.domain.StockDailyDb;
+import com.greenmark.common.database.domain.StockWatchDb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,28 +15,28 @@ class StochKTest {
     BigDecimal bigDecimal20 = new BigDecimal(20);
 
     StochK stochk = new StochK();
-    BucketData bucketDataStochkIs10 = new StockDailyDb();
+    StockWatchDb stockWatchDb = new StockWatchDb();
 
     @BeforeEach
     void beforeEach() {
-        bucketDataStochkIs10.setStochk(bigDecimal10);
+        stockWatchDb.setStochk(bigDecimal10);
     }
 
     @Test
     void isGreater() {
-        boolean result = stochk.isGreater(bucketDataStochkIs10, bigDecimal20);
+        boolean result = stochk.isGreater(stockWatchDb, bigDecimal20);
         assertTrue(result);
     }
 
     @Test
     void isLess() {
-        boolean result = stochk.isLess(bucketDataStochkIs10, bigDecimal01);
+        boolean result = stochk.isLess(stockWatchDb, bigDecimal01);
         assertTrue(result);
     }
 
     @Test
     void isEqual() {
-        boolean result = stochk.isEqual(bucketDataStochkIs10, bigDecimal10);
+        boolean result = stochk.isEqual(stockWatchDb, bigDecimal10);
         assertTrue(result);
     }
 }

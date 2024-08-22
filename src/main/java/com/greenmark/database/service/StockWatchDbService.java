@@ -1,11 +1,12 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.BucketMinute15Db;
-import com.greenmark.common.database.domain.StockData;
+import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.MarketData;
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.entity.BucketMinute15;
-import com.greenmark.database.db.mapper.BucketMinute15Mapper;
-import com.greenmark.database.db.repository.BucketMinute15Repository;
+import com.greenmark.common.enums.TimeframeType;
+import com.greenmark.database.db.entity.StockWatch;
+import com.greenmark.database.db.mapper.StockWatchMapper;
+import com.greenmark.database.db.repository.StockWatchRepository;
 import com.greenmark.database.exceptions.*;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -16,42 +17,43 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class BucketMinute15DbService extends BaseDbService {
+public class StockWatchDbService extends BaseDbService {
 
-    private final BucketMinute15Repository repository;
-    private final BucketMinute15Mapper mapper;
+    private final StockWatchRepository repository;
+    private final StockWatchMapper mapper;
 
-    public BucketMinute15DbService(BucketMinute15Repository repository, BucketMinute15Mapper mapper) {
-        super("BucketMinute15");
+    public StockWatchDbService(StockWatchRepository repository, StockWatchMapper mapper) {
+        super("StockWatch");
         this.repository = repository;
         this.mapper = mapper;
     }
 
     /**
      * @param symbol
-     * @param stockData
+     * @param marketData
      * @return
      * @throws DatabaseCreateFailureException
      * @throws DatabaseAccessException
      */
-    public BucketMinute15Db create(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseCreateFailureException, DatabaseAccessException {
+    public StockWatchDb create(@NonNull String symbol, @NonNull TimeframeType timeframeType, @NonNull MarketData marketData) throws DatabaseCreateFailureException, DatabaseAccessException {
 
         try {
-            BucketMinute15 record = new BucketMinute15();
+            StockWatch record = new StockWatch();
             record.setSymbol(symbol);
+            record.setTimeframe(timeframeType.value);
             record.setCreatedAt(LocalDateTime.now());
             record.setActive(ActiveEnum.ACTIVE.value);
 
             //stock data
-            record.setCurrent(stockData.getCurrent());
-            record.setLow(stockData.getLow());
-            record.setHigh(stockData.getHigh());
-            record.setOpen(stockData.getOpen());
-            record.setPreviousClose(stockData.getPreviousClose());
-            record.setChanged(stockData.getChanged());
-            record.setChangedPercent(stockData.getChangedPercent());
+            record.setCurrent(marketData.getCurrent());
+            record.setLow(marketData.getLow());
+            record.setHigh(marketData.getHigh());
+            record.setOpen(marketData.getOpen());
+            record.setPreviousClose(marketData.getPreviousClose());
+            record.setChanged(marketData.getChanged());
+            record.setChangedPercent(marketData.getChangedPercent());
 
-            BucketMinute15 saved = repository.save(record);
+            StockWatch saved = repository.save(record);
             return mapper.toDb(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
@@ -67,30 +69,30 @@ public class BucketMinute15DbService extends BaseDbService {
 
     /**
      * @param symbol
-     * @param stockData
+     * @param marketData
      * @return
      * @throws DatabaseRetrievalFailureException
      * @throws DatabaseUpdateFailureException
      * @throws DatabaseAccessException
      */
-    public BucketMinute15Db update(@NonNull String symbol, @NonNull StockData stockData) throws DatabaseRetrievalFailureException,
+    public StockWatchDb update(@NonNull String symbol, @NonNull MarketData marketData) throws DatabaseRetrievalFailureException,
             DatabaseUpdateFailureException, DatabaseAccessException {
 
-        BucketMinute15 record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+        StockWatch record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         try {
             record.setModifiedAt(LocalDateTime.now());
 
             //stock data
-            record.setCurrent(stockData.getCurrent());
-            record.setLow(stockData.getLow());
-            record.setHigh(stockData.getHigh());
-            record.setOpen(stockData.getOpen());
-            record.setPreviousClose(stockData.getPreviousClose());
-            record.setChanged(stockData.getChanged());
-            record.setChangedPercent(stockData.getChangedPercent());
+            record.setCurrent(marketData.getCurrent());
+            record.setLow(marketData.getLow());
+            record.setHigh(marketData.getHigh());
+            record.setOpen(marketData.getOpen());
+            record.setPreviousClose(marketData.getPreviousClose());
+            record.setChanged(marketData.getChanged());
+            record.setChangedPercent(marketData.getChangedPercent());
 
-            BucketMinute15 saved = repository.save(record);
+            StockWatch saved = repository.save(record);
             log.info(getUpdatedMessage(symbol));
             return mapper.toDb(saved);
         } catch (Exception e) {
@@ -116,12 +118,12 @@ public class BucketMinute15DbService extends BaseDbService {
     public boolean delete(@NonNull String symbol) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
 
         // error if the record isn't there
-        BucketMinute15 record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+        StockWatch record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        BucketMinute15 saved = repository.save(record);
+        repository.save(record);
 
         //success
         log.info(getDeletedMessage(symbol));
@@ -129,25 +131,33 @@ public class BucketMinute15DbService extends BaseDbService {
     }
 
     /**
-     * Find BucketMinute15
+     * Find BucketDaily
      *
      * @param symbol - to find
      * @return boolean
      */
-    public BucketMinute15Db findBySymbol(@NonNull String symbol) throws DatabaseRetrievalFailureException {
-        BucketMinute15 record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
-
+    public StockWatchDb findBySymbol(@NonNull String symbol) throws DatabaseRetrievalFailureException {
+        StockWatch record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
         log.info(getFoundMessage(symbol));
         return mapper.toDb(record);
     }
 
     /**
-     * Find all active records
+     *
      * @return
      */
-    public List<BucketMinute15Db> findAll()  {
-        List<BucketMinute15> records = repository.findByActive(ActiveEnum.ACTIVE.value);
+    public List<StockWatchDb> findAll() {
+        List<StockWatch> records = repository.findByActive(ActiveEnum.ACTIVE.value);
+        log.info(getFoundActiveMessage(records.size()));
+        return mapper.toList(records);
+    }
 
+    /**
+     *
+     * @return
+     */
+    public List<StockWatchDb> findByTimeframe(TimeframeType timeframe) {
+        List<StockWatch> records = repository.findByTimeframeAndActive(timeframe.value, ActiveEnum.ACTIVE.value);
         log.info(getFoundActiveMessage(records.size()));
         return mapper.toList(records);
     }

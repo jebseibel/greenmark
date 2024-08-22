@@ -1,6 +1,6 @@
 package com.greenmark.common.indicators;
 
-import com.greenmark.common.database.domain.BucketData;
+import com.greenmark.common.database.domain.StockWatchDb;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -17,15 +17,15 @@ public class StochK implements TAIndicator {
 
     }
 
-    public boolean isGreater(@NonNull BucketData bucketData, @NonNull BigDecimal value) {
+    public boolean isGreater(@NonNull StockWatchDb bucketData, @NonNull BigDecimal value) {
         return value.compareTo(bucketData.getStochk()) > 0;
     }
 
-    public boolean isLess(@NonNull BucketData bucketData, @NonNull BigDecimal value) {
+    public boolean isLess(@NonNull StockWatchDb bucketData, @NonNull BigDecimal value) {
         return value.compareTo(bucketData.getStochk()) < 0;
     }
 
-    public boolean isEqual(@NonNull BucketData bucketData, @NonNull BigDecimal value) {
+    public boolean isEqual(@NonNull StockWatchDb bucketData, @NonNull BigDecimal value) {
         return value.compareTo(bucketData.getStochk()) == 0;
     }
 }

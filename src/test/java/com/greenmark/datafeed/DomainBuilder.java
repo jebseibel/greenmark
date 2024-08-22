@@ -1,7 +1,7 @@
 package com.greenmark.datafeed;
 
 import com.greenmark.common.datafeed.TechnicalIndicatorRequest;
-import com.greenmark.common.enums.ResolutionType;
+import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.common.enums.TaType;
 
 import java.math.BigDecimal;
@@ -16,13 +16,13 @@ public class DomainBuilder {
     // ///////////////////////////////////////////////////////////////////
 
     public static TechnicalIndicatorRequest getMacd(String symbol) {
-        return  getTechnicalIndicatorRequest(symbol, TaType.MACD, ResolutionType.MINUTE01);
+        return  getTechnicalIndicatorRequest(symbol, TaType.MACD, TimeframeType.MINUTE01);
     }
 
     public static TechnicalIndicatorRequest getTechnicalIndicatorRequest(
             String symbol,
             TaType thisTa,
-            ResolutionType thisResolution
+            TimeframeType thisResolution
     ) {
         TechnicalIndicatorRequest item = new TechnicalIndicatorRequest();
         item.setSymbol(symbol);

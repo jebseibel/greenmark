@@ -1,8 +1,8 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.BucketMinute15Db;
+import com.greenmark.common.database.domain.StockWatchDb;
 import com.greenmark.database.DomainBuilder;
-import com.greenmark.database.db.entity.BucketMinute15;
+import com.greenmark.database.db.entity.StockWatch;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,15 +13,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class BucketMinute15MapperTest {
+class StockWatchMapperTest {
 
     @Autowired
-    BucketMinute15Mapper mapper;
+    StockWatchMapper mapper;
 
     @Test
     void testToDb() {
-        BucketMinute15 item = DomainBuilder.getBucketMinute15();
-        BucketMinute15Db itemDb = mapper.toDb(item);
+        StockWatch item = DomainBuilder.getStockWatchDaily();
+        StockWatchDb itemDb = mapper.toDb(item);
 
         //test
         assertEquals(item.getSymbol(), itemDb.getSymbol());
@@ -40,10 +40,10 @@ class BucketMinute15MapperTest {
 
     @Test
     void testToList() {
-        BucketMinute15 item1 = DomainBuilder.getBucketMinute15();
-        BucketMinute15 item2 = DomainBuilder.getBucketMinute15();
-        List<BucketMinute15> items = Arrays.asList(item1, item2);
-        List<BucketMinute15Db> itemDbs = mapper.toList(items);
+        StockWatch item1 = DomainBuilder.getStockWatchDaily();
+        StockWatch item2 = DomainBuilder.getStockWatchDaily();
+        List<StockWatch> items = Arrays.asList(item1, item2);
+        List<StockWatchDb> itemDbs = mapper.toList(items);
 
         //test
         assertEquals(items.size(), itemDbs.size());

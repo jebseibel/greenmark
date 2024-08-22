@@ -1,7 +1,6 @@
 package com.greenmark.app.buckets;
 
-import com.greenmark.common.database.domain.BucketMinute60Db;
-import lombok.Data;
+import com.greenmark.common.database.domain.StockWatchDb;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -12,43 +11,41 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-@Data
-public class Bucket60Data {
+public class BucketData {
 
-    List<BucketMinute60Db> list = new ArrayList<>();
+    List<StockWatchDb> list = new ArrayList<>();
     BigDecimal promote;
     BigDecimal demote;
 
-    public Bucket60Data() {
-
+    public BucketData() {
     }
 
-    public List<BucketMinute60Db> getAllPromote() {
+    public List<StockWatchDb> getAllPromote() {
         return list.stream()
                 .filter(item -> item.getMacd().compareTo(promote) > 0)
                 .collect(Collectors.toList());
     }
 
-    public List<BucketMinute60Db> getAllDemote() {
+    public List<StockWatchDb> getAllDemote() {
         return list.stream()
                 .filter(item -> item.getMacd().compareTo(demote) < 0)
                 .collect(Collectors.toList());
     }
 
-    public void setData(List<BucketMinute60Db> records) {
+    public void setData(List<StockWatchDb> records) {
         list = records;
     }
 
-    public List<BucketMinute60Db> getData()  {
+    public List<StockWatchDb> getData()  {
         return list;
     }
 
-    public void addItem(BucketMinute60Db item) {
+    public void addItem(StockWatchDb item) {
         if (!list.contains(item))
             list.add(item);
     }
 
-    public void removeItem(BucketMinute60Db item) {
+    public void removeItem(StockWatchDb item) {
         list.remove(item);
     }
 

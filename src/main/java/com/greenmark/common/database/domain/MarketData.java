@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Slf4j
 @Data
-public class StockData {
+public class MarketData {
     private BigDecimal current;
     private BigDecimal open;
     private BigDecimal high;
@@ -18,7 +18,7 @@ public class StockData {
     private BigDecimal macd;
     private BigDecimal stochk;
 
-    public StockData() {
+    public MarketData() {
 
     }
 }

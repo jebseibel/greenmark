@@ -1,17 +1,15 @@
 package com.greenmark.common.enums;
 
-public enum ResolutionType {
+public enum TimeframeType {
     MINUTE01("1"),
     MINUTE05("5"),
     MINUTE15("15"),
     MINUTE60("60"),
-    DAILY("D"),
-    WEEKLY("W"),
-    MONTHLY("M");
+    DAILY("D");
 
     public final String value;
 
-    ResolutionType(String value) {
+    TimeframeType(String value) {
         this.value = value;
     }
 

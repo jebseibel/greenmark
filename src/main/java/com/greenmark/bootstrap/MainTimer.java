@@ -4,7 +4,6 @@ import com.greenmark.common.DatafeedConfig;
 import com.greenmark.common.database.domain.StockDb;
 import com.greenmark.database.db.entity.*;
 import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
-import com.greenmark.database.service.StockDailyDbService;
 import com.greenmark.database.service.StockDbService;
 import com.greenmark.datafeed.service.DatafeedService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,18 +19,18 @@ import java.util.List;
 public class MainTimer implements CommandLineRunner {
 
     private List<StockDb> currentActiveStocks;
-    private final List<BucketDaily> bucketDailys = new ArrayList<BucketDaily>();
-    private final List<BucketMinute60> bucketMinute60s = new ArrayList<BucketMinute60>();
-    private final List<BucketMinute15> bucketMinute15s = new ArrayList<BucketMinute15>();
-    private final List<BucketMinute05> bucketMinute05s = new ArrayList<BucketMinute05>();
-    private final List<BucketMinute01> bucketMinute01s = new ArrayList<BucketMinute01>();
+//    private final List<BucketData> bucketData = new ArrayList<BucketData>();
+    private final List<StockWatch> stockWatchMinute60s = new ArrayList<StockWatch>();
+    private final List<StockWatch> stockWatchMinute15s = new ArrayList<StockWatch>();
+    private final List<StockWatch> stockWatchMinute05s = new ArrayList<StockWatch>();
+    private final List<StockWatch> stockWatchMinute01s = new ArrayList<StockWatch>();
     private final List<StockDaily> stockDailies = new ArrayList<StockDaily>();
 
     @Autowired
     private StockDbService stockDbService;
 
-    @Autowired
-    private StockDailyDbService stockDailyDbService;
+//    @Autowired
+//    private StockDailyDbService stockDailyDbService;
 
     @Autowired
     private DatafeedService datafeedService;

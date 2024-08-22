@@ -2,7 +2,9 @@ package com.greenmark.database;
 
 import com.greenmark.common.database.domain.*;
 import com.greenmark.common.enums.ActiveEnum;
+import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.database.db.entity.*;
+import com.greenmark.database.db.entity.StockWatch;
 import com.greenmark.database.db.mapper.*;
 import com.greenmark.datafeed.finnhub.models.Quote;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -56,177 +58,40 @@ public class DomainBuilder {
 //                .active(ActiveEnum.ACTIVE.value)
 //        .build();
 
-    // //////////////////////////////////////////////////////////////////
-    // Bucket 60
-    // //////////////////////////////////////////////////////////////////
-    public static BucketMinute60Db getBucketMinute60DbMacd(BigDecimal macd) {
-        BucketMinute60 item = getBucketMinute60(getSymbolRandom());
-        item.setMacd(macd);
-        return new BucketMinute60Mapper().toDb(item);
-    }
-
-    public static BucketMinute60Db getBucketMinute60Db() {
-        BucketMinute60 item = getBucketMinute60(getSymbolRandom());
-        return new BucketMinute60Mapper().toDb(item);
-    }
-
-    public static BucketMinute60 getBucketMinute60() {
+    public static StockWatch getStockWatchMinute01() {
         String symbol = getSymbolRandom();
-        return getBucketMinute60(symbol);
+        return getStockWatch(symbol, TimeframeType.MINUTE01);
     }
 
-    public static BucketMinute60 getBucketMinute60(
-            String thisSymbol
-    ) {
-        BucketMinute60 item = new BucketMinute60();
-        item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
-        item.setCurrent(randomBigDecimal());
-        item.setOpen(randomBigDecimal());
-        item.setHigh(randomBigDecimal());
-        item.setLow(randomBigDecimal());
-        item.setPreviousClose(randomBigDecimal());
-        item.setChanged(randomBigDecimal());
-        item.setChangedPercent(randomBigDecimal());
-        item.setMacd(randomBigDecimal());
-        item.setStochk(randomBigDecimal());
-        item.setActive(ActiveEnum.ACTIVE.value);
-        item.setCreatedAt(LocalDateTime.now());
-        item.setModifiedAt(null);
-        item.setDeletedAt(null);
-        return item;
-    }
-
-    // //////////////////////////////////////////////////////////////////
-    // Bucket 15
-    // //////////////////////////////////////////////////////////////////
-    public static BucketMinute15Db getBucketMinute15DbMacd(BigDecimal macd) {
-        BucketMinute15 item = getBucketMinute15(getSymbolRandom());
-        item.setMacd(macd);
-        return new BucketMinute15Mapper().toDb(item);
-    }
-
-    public static BucketMinute15Db getBucketMinute15Db() {
-        BucketMinute15 item = getBucketMinute15(getSymbolRandom());
-        return new BucketMinute15Mapper().toDb(item);
-    }
-
-    public static BucketMinute15 getBucketMinute15() {
+    public static StockWatch getStockWatchMinute05() {
         String symbol = getSymbolRandom();
-        return getBucketMinute15(symbol);
+        return getStockWatch(symbol, TimeframeType.MINUTE05);
     }
 
-    public static BucketMinute15 getBucketMinute15(
-            String thisSymbol
-    ) {
-        BucketMinute15 item = new BucketMinute15();
-        item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
-        item.setCurrent(randomBigDecimal());
-        item.setOpen(randomBigDecimal());
-        item.setHigh(randomBigDecimal());
-        item.setLow(randomBigDecimal());
-        item.setPreviousClose(randomBigDecimal());
-        item.setChanged(randomBigDecimal());
-        item.setChangedPercent(randomBigDecimal());
-        item.setMacd(randomBigDecimal());
-        item.setStochk(randomBigDecimal());
-        item.setActive(ActiveEnum.ACTIVE.value);
-        item.setCreatedAt(LocalDateTime.now());
-        item.setModifiedAt(null);
-        item.setDeletedAt(null);
-        return item;
-    }
-
-    // //////////////////////////////////////////////////////////////////
-    // Bucket 05
-    // //////////////////////////////////////////////////////////////////
-    public static BucketMinute05Db getBucketMinute05DbMacd(BigDecimal macd) {
-        BucketMinute05 item = getBucketMinute05(getSymbolRandom());
-        item.setMacd(macd);
-        return new BucketMinute05Mapper().toDb(item);
-    }
-
-    public static BucketMinute05Db getBucketMinute05Db() {
-        BucketMinute05 item = getBucketMinute05(getSymbolRandom());
-        return new BucketMinute05Mapper().toDb(item);
-    }
-
-    public static BucketMinute05 getBucketMinute05() {
+    public static StockWatch getStockWatchMinute15() {
         String symbol = getSymbolRandom();
-        return getBucketMinute05(symbol);
+        return getStockWatch(symbol, TimeframeType.MINUTE15);
     }
 
-    public static BucketMinute05 getBucketMinute05(
-            String thisSymbol
-    ) {
-        BucketMinute05 item = new BucketMinute05();
-        item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
-        item.setCurrent(randomBigDecimal());
-        item.setOpen(randomBigDecimal());
-        item.setHigh(randomBigDecimal());
-        item.setLow(randomBigDecimal());
-        item.setPreviousClose(randomBigDecimal());
-        item.setChanged(randomBigDecimal());
-        item.setChangedPercent(randomBigDecimal());
-        item.setMacd(randomBigDecimal());
-        item.setStochk(randomBigDecimal());
-        item.setActive(ActiveEnum.ACTIVE.value);
-        item.setCreatedAt(LocalDateTime.now());
-        item.setModifiedAt(null);
-        item.setDeletedAt(null);
-        return item;
-    }
-
-    // //////////////////////////////////////////////////////////////////
-    // Bucket 01
-    // //////////////////////////////////////////////////////////////////
-    public static BucketMinute01Db getBucketMinute01DbMacd(BigDecimal macd) {
-        BucketMinute01 item = getBucketMinute01(getSymbolRandom());
-        item.setMacd(macd);
-        return new BucketMinute01Mapper().toDb(item);
-    }
-
-    public static BucketMinute01Db getBucketMinute01Db() {
-        BucketMinute01 item = getBucketMinute01(getSymbolRandom());
-        return new BucketMinute01Mapper().toDb(item);
-    }
-
-    public static BucketMinute01 getBucketMinute01() {
+    public static StockWatch getStockWatchMinute60() {
         String symbol = getSymbolRandom();
-        return getBucketMinute01(symbol);
+        return getStockWatch(symbol, TimeframeType.MINUTE60);
     }
 
-    public static BucketMinute01 getBucketMinute01(
-            String thisSymbol
-    ) {
-        BucketMinute01 item = new BucketMinute01();
-        item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
-        item.setCurrent(randomBigDecimal());
-        item.setOpen(randomBigDecimal());
-        item.setHigh(randomBigDecimal());
-        item.setLow(randomBigDecimal());
-        item.setPreviousClose(randomBigDecimal());
-        item.setChanged(randomBigDecimal());
-        item.setChangedPercent(randomBigDecimal());
-        item.setMacd(randomBigDecimal());
-        item.setStochk(randomBigDecimal());
-        item.setActive(ActiveEnum.ACTIVE.value);
-        item.setCreatedAt(LocalDateTime.now());
-        item.setModifiedAt(null);
-        item.setDeletedAt(null);
-        return item;
+    public static StockWatch getStockWatchDaily() {
+        String symbol = getSymbolRandom();
+        return getStockWatch(symbol, TimeframeType.DAILY);
     }
 
     // //////////////////////////////////////////////////////////////////
-    public static BucketDaily getBucketDaily() {
-        String symbol = getSymbolRandom();
-        return getBucketDaily(symbol);
-    }
-
-    public static BucketDaily getBucketDaily(
-            String thisSymbol
+    // //////////////////////////////////////////////////////////////////
+    public static StockWatch getStockWatch(
+            String thisSymbol,
+            TimeframeType timeframeType
     ) {
-        BucketDaily item = new BucketDaily();
+        StockWatch item = new StockWatch();
         item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
+        item.setTimeframe(timeframeType.value);
         item.setCurrent(randomBigDecimal());
         item.setOpen(randomBigDecimal());
         item.setHigh(randomBigDecimal());
@@ -320,9 +185,36 @@ public class DomainBuilder {
         return item;
     }
 
+    public static StockWatch getStockWatch() {
+        String symbol = getSymbolRandom();
+        return getStockWatch(symbol);
+    }
+
+    public static StockWatch getStockWatch(
+            String thisSymbol
+    ) {
+        StockWatch item = new StockWatch();
+        item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
+        item.setCurrent(randomBigDecimal());
+        item.setOpen(randomBigDecimal());
+        item.setHigh(randomBigDecimal());
+        item.setLow(randomBigDecimal());
+        item.setPreviousClose(randomBigDecimal());
+        item.setChanged(randomBigDecimal());
+        item.setChangedPercent(randomBigDecimal());
+        item.setMacd(randomBigDecimal());
+        item.setStochk(randomBigDecimal());
+        item.setActive(ActiveEnum.ACTIVE.value);
+        item.setCreatedAt(LocalDateTime.now());
+        item.setModifiedAt(null);
+        item.setDeletedAt(null);
+
+        return item;
+    }
+
     // //////////////////////////////////////////////////////////////////
-    public static StockData getStockData() {
-        StockData item = new StockData();
+    public static MarketData getMarketData() {
+        MarketData item = new MarketData();
         item.setCurrent(randomBigDecimal());
         item.setHigh(randomBigDecimal());
         item.setLow(randomBigDecimal());

@@ -1,6 +1,6 @@
 package com.greenmark.common.datafeed;
 
-import com.greenmark.common.enums.ResolutionType;
+import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.common.enums.TaType;
 import lombok.Data;
 
@@ -10,6 +10,6 @@ import java.time.LocalDateTime;
 public class TechnicalIndicatorRequest {
     String symbol;
     TaType type;
-    ResolutionType resolution;
+    TimeframeType resolution;
     LocalDateTime localDateTime;
 }
