@@ -29,7 +29,7 @@ dependencies {
     implementation 'org.apache.activemq:artemis-jms-server'
 
     //redis
-    implementation 'org.springframework.boot:spring-boot-starter-redis:3.2.0'
+//    implementation 'org.springframework.boot:spring-boot-starter-redis:3.2.0'
 //    implementation 'org.springframework.data:spring-data-redis:3.2.0'
 //    implementation 'redis.clients:jedis:5.1.5'
 
@@ -44,8 +44,8 @@ dependencies {
 
     implementation("com.google.code.gson:gson:${gsonVersion}")
     implementation("com.squareup.okhttp3:okhttp:3.4.1")
-    implementation("commons-configuration:commons-configuration:$commonsConfigurationVersion")
-    implementation("commons-lang:commons-lang:$commonsLang2Version")
+//    implementation("commons-configuration:commons-configuration:$commonsConfigurationVersion")
+//    implementation("commons-lang:commons-lang:$commonsLang2Version")
     implementation("io.swagger.core.v3:swagger-annotations:${swaggerAnnotationsVersion}")
     implementation("jakarta.annotation:jakarta.annotation-api:${jakartaAnnotationVersion}")
     implementation("javax.mail:mail:$javaMailVersion")
