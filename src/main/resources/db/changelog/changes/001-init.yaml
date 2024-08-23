@@ -85,46 +85,6 @@ databaseChangeLog:
                   name: active
                   type: int
         - createTable:
-            tableName: follow
-            columns:
-              - column:
-                  name: id
-                  type: int
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name:  extid
-                  type:  varchar(36)
-                  constraints:
-                    nullable:  false
-              - column:
-                  name: name
-                  type: varchar(64)
-                  constraints:
-                    nullable:  false
-                    unique: true
-              - column:
-                  name: description
-                  type: varchar(128)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: created_at
-                  type: datetime
-                  constraints:
-                    nullable: false
-              - column:
-                  name: modified_at
-                  type: datetime
-              - column:
-                  name: deleted_at
-                  type: datetime
-              - column:
-                  name: active
-                  type: int
-        - createTable:
             tableName: scenario
             columns:
               - column:

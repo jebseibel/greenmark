@@ -1,11 +1,11 @@
 package com.greenmark.database;
 
-import com.greenmark.common.database.domain.*;
+import com.greenmark.common.database.domain.AccountDb;
+import com.greenmark.common.database.domain.MarketData;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.database.db.entity.*;
-import com.greenmark.database.db.entity.StockWatch;
-import com.greenmark.database.db.mapper.*;
+import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.datafeed.finnhub.models.Quote;
 import org.apache.commons.lang3.RandomStringUtils;
 

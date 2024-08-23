@@ -1,8 +1,7 @@
 package com.greenmark.app;
 
-import com.greenmark.app.buckets.*;
-import com.greenmark.common.database.domain.StockWatchDb;
-import com.greenmark.database.db.entity.StockWatch;
+import com.greenmark.app.buckets.BucketData;
+import com.greenmark.app.buckets.BucketMarketData;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 

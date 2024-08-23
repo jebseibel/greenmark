@@ -1,8 +1,8 @@
 package com.greenmark.datafeed;
 
 import com.greenmark.common.datafeed.TechnicalIndicatorRequest;
-import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.common.enums.TaType;
+import com.greenmark.common.enums.TimeframeType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

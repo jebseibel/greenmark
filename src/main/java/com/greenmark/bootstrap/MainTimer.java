@@ -2,7 +2,8 @@ package com.greenmark.bootstrap;
 
 import com.greenmark.common.DatafeedConfig;
 import com.greenmark.common.database.domain.StockDb;
-import com.greenmark.database.db.entity.*;
+import com.greenmark.database.db.entity.StockDaily;
+import com.greenmark.database.db.entity.StockWatch;
 import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
 import com.greenmark.database.service.StockDbService;
 import com.greenmark.datafeed.service.DatafeedService;

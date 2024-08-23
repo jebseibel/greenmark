@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.StockWatchDb;
 import com.greenmark.common.database.domain.MarketData;
+import com.greenmark.common.database.domain.StockWatchDb;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.database.db.entity.StockWatch;

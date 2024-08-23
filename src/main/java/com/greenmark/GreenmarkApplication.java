@@ -21,6 +21,6 @@ public class GreenmarkApplication {
 
         server.start();
         SpringApplication.run(GreenmarkApplication.class, args);
-        log.info("APPLICATION FINISHED");
+        log.info("APPLICATION READY");
     }
 }

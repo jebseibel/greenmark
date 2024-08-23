@@ -1,6 +1,6 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.*;
+import com.greenmark.common.database.domain.StockWatchDb;
 import com.greenmark.common.enums.TimeframeType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
