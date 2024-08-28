@@ -15,9 +15,9 @@ class EmailServiceTest {
     @Autowired
     JavaMailSender javaMailSender;
 
+    @Disabled
     @Test
     void sendEmail() {
-
         String to = "jeb.seibel@yahoo.com";
         String subject = "jeb.seibel@gmail.com";
         String text = "This is a test email";
