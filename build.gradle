@@ -34,6 +34,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-cache:3.1.5'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis:3.1.5'
 
+
     //liquibase
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
 
@@ -53,6 +54,7 @@ dependencies {
 
     //test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.github.codemonstur:embedded-redis:1.4.0'
 
     //possible delete
 //    implementation("org.apache.commons:commons-dbcp2:$commonsDbcp2Version")
