@@ -25,4 +25,13 @@ public class StockWatchDb {
     public String toStringTA() {
         return this.getClass().getSimpleName() + " symbol [" + symbol + "] macd [" + macd + "] stochk [" + stochk + "]";
     }
+
+    public String toStringShort() {
+        return this.getClass().getSimpleName() +" [" + symbol + "]";
+    }
+
+    @Override
+    public String toString() {
+        return toStringShort();
+    }
 }

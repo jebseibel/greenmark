@@ -20,7 +20,8 @@ public class EmailService {
         message.setTo(to);
         message.setSubject(subject);
         message.setText(text);
+
+        emailSender.send(message);
         System.out.println("Fake email sent");
-        // emailSender.send(message);
     }
 }

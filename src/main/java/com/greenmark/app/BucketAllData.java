@@ -14,21 +14,18 @@ public class BucketAllData {
     private BucketData bucket15Data;
     private BucketData bucket60Data;
     private BucketData bucketDailyData;
-    private BucketMarketData bucketMarketData;
 
     public BucketAllData(
             BucketData bucket01Data,
             BucketData bucket05Data,
             BucketData bucket15Data,
             BucketData bucket60Data,
-            BucketData bucketDailyData,
-            BucketMarketData bucketMarketData
+            BucketData bucketDailyData
     ) {
         this.bucket01Data = bucket01Data;
         this.bucket05Data = bucket05Data;
         this.bucket15Data = bucket15Data;
         this.bucket60Data = bucket60Data;
         this.bucketDailyData = bucketDailyData;
-        this.bucketMarketData = bucketMarketData;
     }
 }

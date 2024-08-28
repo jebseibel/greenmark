@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.JavaMailSender;
 
-
 @SpringBootTest
 class EmailServiceTest {
 
@@ -16,7 +15,6 @@ class EmailServiceTest {
     @Autowired
     JavaMailSender javaMailSender;
 
-    @Disabled
     @Test
     void sendEmail() {
 

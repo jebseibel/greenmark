@@ -1,5 +1,7 @@
 package com.greenmark.bootstrap;
 
+import com.greenmark.app.BucketAllData;
+import com.greenmark.app.StartupService;
 import com.greenmark.common.DatafeedConfig;
 import com.greenmark.common.database.domain.StockDb;
 import com.greenmark.database.db.entity.StockDaily;
@@ -11,45 +13,29 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 @Slf4j
 public class MainTimer implements CommandLineRunner {
 
-    private List<StockDb> currentActiveStocks;
-//    private final List<BucketData> bucketData = new ArrayList<BucketData>();
-    private final List<StockWatch> stockWatchMinute60s = new ArrayList<StockWatch>();
-    private final List<StockWatch> stockWatchMinute15s = new ArrayList<StockWatch>();
-    private final List<StockWatch> stockWatchMinute05s = new ArrayList<StockWatch>();
-    private final List<StockWatch> stockWatchMinute01s = new ArrayList<StockWatch>();
-    private final List<StockDaily> stockDailies = new ArrayList<StockDaily>();
+    private StartupService startupService;
+    private BucketAllData bucketAllData;
 
-    @Autowired
-    private StockDbService stockDbService;
-
-//    @Autowired
-//    private StockDailyDbService stockDailyDbService;
-
-    @Autowired
-    private DatafeedService datafeedService;
-
-    @Autowired
-    private ModelLogic modelLogic;
-
-    @Autowired
-    private DatafeedConfig finnHubConfig;
-
-    public MainTimer() {
+    public MainTimer(StartupService startupService) {
+        this.startupService = startupService;
     }
 
     @Override
     public void run(String... args) throws Exception {
         log.error("START MAIN TIMER");
 
-        initialize();
+//        startupService.loadAll();
+//        bucketAllData = startupService.getBucketAllData();
+//        System.out.println(bucketAllData);
 
 
         log.error("CLOSE MAIN TIMER");
