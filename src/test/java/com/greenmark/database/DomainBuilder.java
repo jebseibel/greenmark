@@ -1,5 +1,6 @@
 package com.greenmark.database;
 
+import com.greenmark.app.buckets.BucketData;
 import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.common.database.domain.MarketData;
 import com.greenmark.common.enums.ActiveEnum;
@@ -46,6 +47,15 @@ public class DomainBuilder {
         item.setModifiedAt(null);
         item.setDeletedAt(null);
         return item;
+    }
+
+    public static BucketData getBucketData(String name) {
+
+        BucketData bucketData = new BucketData();
+        bucketData.setName(name);
+        bucketData.setDemote(BigDecimal.TWO);
+        bucketData.setPromote(BigDecimal.ONE);
+        return bucketData;
     }
 
 //          Account item = Account.builder()

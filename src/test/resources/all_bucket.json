@@ -1,0 +1,87 @@
+{
+  "bucket01Data":{
+    "list":[
+
+    ],
+    "data":[
+
+    ],
+    "allPromote":[
+
+    ],
+    "allDemote":[
+
+    ],
+    "name":"minute01",
+    "promote":1,
+    "demote":2
+  },
+  "bucket05Data":{
+    "list":[
+
+    ],
+    "data":[
+
+    ],
+    "allPromote":[
+
+    ],
+    "allDemote":[
+
+    ],
+    "name":"minute05",
+    "promote":1,
+    "demote":2
+  },
+  "bucket15Data":{
+    "list":[
+
+    ],
+    "data":[
+
+    ],
+    "allPromote":[
+
+    ],
+    "allDemote":[
+
+    ],
+    "name":"minute15",
+    "promote":1,
+    "demote":2
+  },
+  "bucket60Data":{
+    "list":[
+
+    ],
+    "data":[
+
+    ],
+    "allPromote":[
+
+    ],
+    "allDemote":[
+
+    ],
+    "name":"minute60",
+    "promote":1,
+    "demote":2
+  },
+  "bucketDailyData":{
+    "list":[
+
+    ],
+    "data":[
+
+    ],
+    "allPromote":[
+
+    ],
+    "allDemote":[
+
+    ],
+    "name":"daily",
+    "promote":1,
+    "demote":2
+  }
+}

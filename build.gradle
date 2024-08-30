@@ -54,7 +54,7 @@ dependencies {
 
     //test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.github.codemonstur:embedded-redis:1.4.0'
+    testImplementation 'com.github.codemonstur:embedded-redis:1.4.2'
 
     //possible delete
 //    implementation("org.apache.commons:commons-dbcp2:$commonsDbcp2Version")

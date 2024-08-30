@@ -1,5 +1,6 @@
 package com.greenmark.app.buckets;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.greenmark.common.database.domain.StockWatchDb;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +16,15 @@ import java.util.stream.Collectors;
 @Data
 public class BucketData {
 
+    @JsonProperty("name")
     String name;
+
+    @JsonProperty("promote")
     BigDecimal promote;
+
+    @JsonProperty("demote")
     BigDecimal demote;
+
     List<StockWatchDb> list = new ArrayList<>();
 
     public BucketData() {

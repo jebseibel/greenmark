@@ -6,9 +6,11 @@ import org.apache.activemq.artemis.core.server.ActiveMQServer;
 import org.apache.activemq.artemis.core.server.ActiveMQServers;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 @Slf4j
 @SpringBootApplication
+@EnableCaching
 public class GreenmarkApplication {
 
     public static void main(String[] args) throws Exception {

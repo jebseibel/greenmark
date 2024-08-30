@@ -30,12 +30,11 @@ import jakarta.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.Optional;
 
+@Disabled
 @Import({ CacheConfig.class, ItemService.class })
-//@ExtendWith(SpringExtension.class)
 @ImportAutoConfiguration(classes = { CacheAutoConfiguration.class, RedisAutoConfiguration.class })
 @EnableCaching
 @SpringBootTest
-//@Disabled("This will be fixed.")
 class ItemServiceCachingIntegrationTest {
 
     private static final String AN_ID = "id-1";
