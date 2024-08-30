@@ -1,7 +1,7 @@
 package com.greenmark.bootstrap;
 
-import com.greenmark.app.buckets.BucketDataContainer;
 import com.greenmark.app.StartupService;
+import com.greenmark.app.buckets.BucketDataContainer;
 import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

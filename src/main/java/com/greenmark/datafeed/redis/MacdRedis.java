@@ -3,7 +3,6 @@ package com.greenmark.datafeed.redis;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
-//import org.springframework.data.redis.core.RedisHash;
 
 import java.math.BigDecimal;
 
