@@ -1,7 +1,7 @@
 package com.greenmark.database.db.mapper;
 
 import com.greenmark.common.database.domain.StockWatchDb;
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.db.entity.StockWatch;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ class StockWatchMapperTest {
 
     @Test
     void testToDb() {
-        StockWatch item = DomainBuilder.getStockWatchDaily();
+        StockWatch item = DomainBuilderDatabase.getStockWatchDaily();
         StockWatchDb itemDb = mapper.toDb(item);
 
         //test
@@ -40,8 +40,8 @@ class StockWatchMapperTest {
 
     @Test
     void testToList() {
-        StockWatch item1 = DomainBuilder.getStockWatchDaily();
-        StockWatch item2 = DomainBuilder.getStockWatchDaily();
+        StockWatch item1 = DomainBuilderDatabase.getStockWatchDaily();
+        StockWatch item2 = DomainBuilderDatabase.getStockWatchDaily();
         List<StockWatch> items = Arrays.asList(item1, item2);
         List<StockWatchDb> itemDbs = mapper.toList(items);
 

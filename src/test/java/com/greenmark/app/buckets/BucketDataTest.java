@@ -27,8 +27,8 @@ class BucketDataTest {
         stockWatchDb1.setSymbol("test1");
         StockWatchDb stockWatchDb2 = new StockWatchDb();
         stockWatchDb2.setSymbol("test2");
-        bucketData.addItem(stockWatchDb1);
-        bucketData.addItem(stockWatchDb2);
+//        bucketData.addItem(stockWatchDb1);
+//        bucketData.addItem(stockWatchDb2);
     }
 
     @Test

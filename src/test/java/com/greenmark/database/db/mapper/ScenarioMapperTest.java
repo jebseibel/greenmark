@@ -1,7 +1,7 @@
 package com.greenmark.database.db.mapper;
 
 import com.greenmark.common.database.domain.ScenarioDb;
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.db.entity.Scenario;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ class ScenarioMapperTest {
 
     @Test
     void testToDb() {
-        Scenario item = DomainBuilder.getScenario();
+        Scenario item = DomainBuilderDatabase.getScenario();
         ScenarioDb itemDb = mapper.toDb(item);
 
         //test
@@ -35,8 +35,8 @@ class ScenarioMapperTest {
 
     @Test
     void testToList() {
-        Scenario item1 = DomainBuilder.getScenario();
-        Scenario item2 = DomainBuilder.getScenario();
+        Scenario item1 = DomainBuilderDatabase.getScenario();
+        Scenario item2 = DomainBuilderDatabase.getScenario();
         List<Scenario> items = Arrays.asList(item1, item2);
         List<ScenarioDb> itemDbs = mapper.toList(items);
 

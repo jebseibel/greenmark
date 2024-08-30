@@ -12,65 +12,65 @@ import java.util.List;
 @Slf4j
 public class StartupService {
 
-    private BucketAllData bucketAllData;
+    private BucketDataContainer bucketDataContainer;
     private DatabaseService databaseService;
     
     public StartupService(
-            BucketAllData bucketAllData,
+            BucketDataContainer bucketDataContainer,
             DatabaseService databaseService
     ) {
-        this.bucketAllData = bucketAllData;
+        this.bucketDataContainer = bucketDataContainer;
         this.databaseService = databaseService;
     }
+//
+//    public void loadAll() {
+//        log.info("Loading all buckets");
+//        loadMinute01();
+//        loadMinute05();
+//        loadMinute15();
+//        loadMinute60();
+//        loadMinuteDD();
+//        log.info("Done loading buckets");
+//    }
+//
+//    public int loadMinute01() {
+//        List<StockWatchDb> items = databaseService.getAllMinute01();
+//        BucketData data = bucketDataContainer.getBucket01Data();
+//        data.setData(items);
+//        return items.size();
+//    }
+//
+//    public int loadMinute05() {
+//        List<StockWatchDb> items = databaseService.getAllMinute05();
+//        BucketData data = bucketDataContainer.getBucket05Data();
+//        data.setData(items);
+//        return items.size();
+//
+//    }
+//
+//    public int loadMinute15() {
+//        List<StockWatchDb> items = databaseService.getAllMinute15();
+//        BucketData data = bucketDataContainer.getBucket15Data();
+//        data.setData(items);
+//        return items.size();
+//
+//    }
+//
+//    public int loadMinute60() {
+//        List<StockWatchDb> items = databaseService.getAllMinute60();
+//        BucketData data = bucketDataContainer.getBucket60Data();
+//        data.setData(items);
+//        return items.size();
+//    }
+//
+//    public int loadMinuteDD() {
+//        List<StockWatchDb> items = databaseService.getAllDaily();
+//        BucketData data = bucketDataContainer.getBucketDailyData();
+//        data.setData(items);
+//        return items.size();
+//    }
 
-    public void loadAll() {
-        log.info("Loading all buckets");
-        loadMinute01();
-        loadMinute05();
-        loadMinute15();
-        loadMinute60();
-        loadMinuteDD();
-        log.info("Done loading buckets");
-    }
-
-    public int loadMinute01() {
-        List<StockWatchDb> items = databaseService.getAllMinute01();
-        BucketData data = bucketAllData.getBucket01Data();
-        data.setData(items);
-        return items.size();
-    }
-
-    public int loadMinute05() {
-        List<StockWatchDb> items = databaseService.getAllMinute05();
-        BucketData data = bucketAllData.getBucket05Data();
-        data.setData(items);
-        return items.size();
-
-    }
-
-    public int loadMinute15() {
-        List<StockWatchDb> items = databaseService.getAllMinute15();
-        BucketData data = bucketAllData.getBucket15Data();
-        data.setData(items);
-        return items.size();
-
-    }
-
-    public int loadMinute60() {
-        List<StockWatchDb> items = databaseService.getAllMinute60();
-        BucketData data = bucketAllData.getBucket60Data();
-        data.setData(items);
-        return items.size();
-    }
-
-    public int loadMinuteDD() {
-        List<StockWatchDb> items = databaseService.getAllDaily();
-        BucketData data = bucketAllData.getBucketDailyData();
-        data.setData(items);
-        return items.size();
-    }
-
-    public BucketAllData getBucketAllData() {
-        return bucketAllData;
+    public BucketDataContainer getBucketAllData() {
+        return bucketDataContainer;
     }
 }

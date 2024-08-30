@@ -1,7 +1,7 @@
 package com.greenmark.database.db.repository;
 
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.db.entity.Stock;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class StockRepositoryTest {
 
         @Test
         void create() {
-            Stock item = DomainBuilder.getStock();
+            Stock item = DomainBuilderDatabase.getStock();
             assertNull(item.getId());
             Stock result = repository.save(item);
 
@@ -38,9 +38,9 @@ class StockRepositoryTest {
 
         @Test
         void createUniqueName() {
-            String name = "notUnique_" + DomainBuilder.randomString();
-            Stock item1 = DomainBuilder.getStock(name);
-            Stock item2 = DomainBuilder.getStock(name);
+            String name = "notUnique_" + DomainBuilderDatabase.randomString();
+            Stock item1 = DomainBuilderDatabase.getStock(name);
+            Stock item2 = DomainBuilderDatabase.getStock(name);
 
             repository.save(item1);
             assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
@@ -49,13 +49,13 @@ class StockRepositoryTest {
 
         @Test
         void update() {
-            Stock item = DomainBuilder.getStock();
+            Stock item = DomainBuilderDatabase.getStock();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
             Stock record = repository.save(item);
 
             //now update
-            String changedSymbol = DomainBuilder.getSymbolRandom();
+            String changedSymbol = DomainBuilderDatabase.getSymbolRandom();
             record.setSymbol(changedSymbol);
             record.setModifiedAt(LocalDateTime.now());
             Stock resultUpdate = repository.save(record);
@@ -68,7 +68,7 @@ class StockRepositoryTest {
 
         @Test
         void delete() {
-            Stock item = DomainBuilder.getStock();
+            Stock item = DomainBuilderDatabase.getStock();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
             Stock record = repository.save(item);
@@ -88,8 +88,8 @@ class StockRepositoryTest {
 
         @Test
         void findById() {
-            String name = "name" + DomainBuilder.randomString();
-            Stock record = DomainBuilder.getStock(name);
+            String name = "name" + DomainBuilderDatabase.randomString();
+            Stock record = DomainBuilderDatabase.getStock(name);
             Stock item = repository.save(record);
             Stock result = repository.findById(item.getId()).get();
 
@@ -101,7 +101,7 @@ class StockRepositoryTest {
         @Test
         void findByExtid() {
             String extid = UUID.randomUUID().toString();
-            Stock record = DomainBuilder.getStock();
+            Stock record = DomainBuilderDatabase.getStock();
             record.setExtid(extid);
 
             repository.save(record);
@@ -114,8 +114,8 @@ class StockRepositoryTest {
 
         @Test
         void findByName() {
-            String name = "name" + DomainBuilder.randomString();
-            Stock record = DomainBuilder.getStock(name);
+            String name = "name" + DomainBuilderDatabase.randomString();
+            Stock record = DomainBuilderDatabase.getStock(name);
 
             repository.save(record);
             Stock result = repository.findByName(name);
@@ -127,10 +127,10 @@ class StockRepositoryTest {
 
         @Test
         void findActive_toList() {
-            String symbol1 = DomainBuilder.getSymbolRandom();
-            String symbol2 = DomainBuilder.getSymbolRandom();
-            Stock record1 = DomainBuilder.getStock(symbol1);
-            Stock record2 = DomainBuilder.getStock(symbol2);
+            String symbol1 = DomainBuilderDatabase.getSymbolRandom();
+            String symbol2 = DomainBuilderDatabase.getSymbolRandom();
+            Stock record1 = DomainBuilderDatabase.getStock(symbol1);
+            Stock record2 = DomainBuilderDatabase.getStock(symbol2);
             repository.save(record1);
             repository.save(record2);
 
@@ -143,10 +143,10 @@ class StockRepositoryTest {
 
         @Test
         void findActive_checkNoInactive() {
-            String symbol1 = DomainBuilder.getSymbolRandom();
-            String symbol2 = DomainBuilder.getSymbolRandom();
-            Stock record1 = DomainBuilder.getStock(symbol1);
-            Stock record2 = DomainBuilder.getStock(symbol2);
+            String symbol1 = DomainBuilderDatabase.getSymbolRandom();
+            String symbol2 = DomainBuilderDatabase.getSymbolRandom();
+            Stock record1 = DomainBuilderDatabase.getStock(symbol1);
+            Stock record2 = DomainBuilderDatabase.getStock(symbol2);
             record2.setActive(ActiveEnum.INACTIVE.value);
             repository.save(record1);
             repository.save(record2);

@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.AccountDb;
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.db.entity.Account;
 import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
@@ -39,8 +39,8 @@ class AccountDbServiceTest {
     @Nested
     class CreateTests {
 
-        Account item = DomainBuilder.getAccount();
-        AccountDb itemDb = DomainBuilder.getAccountDb(item);
+        Account item = DomainBuilderDatabase.getAccount();
+        AccountDb itemDb = DomainBuilderDatabase.getAccountDb(item);
         String extid = item.getExtid();
         String name = item.getName();
         String description = item.getDescription();
@@ -64,16 +64,16 @@ class AccountDbServiceTest {
     @Nested
     class UpdateTests {
 
-        Account item = DomainBuilder.getAccount();
-        AccountDb itemDb = DomainBuilder.getAccountDb(item);
+        Account item = DomainBuilderDatabase.getAccount();
+        AccountDb itemDb = DomainBuilderDatabase.getAccountDb(item);
         Optional<Account> itemOptional = Optional.of(item);
 
 
         @Test
         void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException, DatabaseAccessException {
             String extid = UUID.randomUUID().toString();
-            String newName = DomainBuilder.getNameRandom();
-            String newDescription = DomainBuilder.getNameRandom();
+            String newName = DomainBuilderDatabase.getNameRandom();
+            String newDescription = DomainBuilderDatabase.getNameRandom();
 
             // mocks
             when(accountRepository.findByExtid(extid)).thenReturn(itemOptional);
@@ -104,8 +104,8 @@ class AccountDbServiceTest {
     @Nested
     class FindMockTests {
 
-        Account item = DomainBuilder.getAccount();
-        AccountDb itemDb = DomainBuilder.getAccountDb(item);
+        Account item = DomainBuilderDatabase.getAccount();
+        AccountDb itemDb = DomainBuilderDatabase.getAccountDb(item);
         Optional<Account> itemOptional = Optional.of(item);
         String extid = item.getExtid();
 
@@ -144,8 +144,8 @@ class AccountDbServiceTest {
 
         @Test
         void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
-            Account item = DomainBuilder.getAccount();
-            AccountDb itemDb = DomainBuilder.getAccountDb(item);
+            Account item = DomainBuilderDatabase.getAccount();
+            AccountDb itemDb = DomainBuilderDatabase.getAccountDb(item);
             String extid = item.getExtid();
 
             //mock

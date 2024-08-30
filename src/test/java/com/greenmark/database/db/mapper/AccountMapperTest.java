@@ -1,7 +1,7 @@
 package com.greenmark.database.db.mapper;
 
 import com.greenmark.common.database.domain.AccountDb;
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.db.entity.Account;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ class AccountMapperTest {
 
     @Test
     void testToDb() {
-        Account item = DomainBuilder.getAccount();
+        Account item = DomainBuilderDatabase.getAccount();
         AccountDb itemDb = mapper.toDb(item);
 
         //test
@@ -35,8 +35,8 @@ class AccountMapperTest {
 
     @Test
     void testToList() {
-        Account item1 = DomainBuilder.getAccount();
-        Account item2 = DomainBuilder.getAccount();
+        Account item1 = DomainBuilderDatabase.getAccount();
+        Account item2 = DomainBuilderDatabase.getAccount();
         List<Account> items = Arrays.asList(item1, item2);
         List<AccountDb> itemDbs = mapper.toList(items);
 

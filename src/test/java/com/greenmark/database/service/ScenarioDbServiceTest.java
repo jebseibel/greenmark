@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.ScenarioDb;
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -22,14 +22,14 @@ class ScenarioDbServiceTest {
     @Nested
     class CreateTests {
 
-        String random = DomainBuilder.randomString();
-        String name = DomainBuilder.getNameRandom(random);
-        String description = DomainBuilder.getNameRandom(random);
+        String random = DomainBuilderDatabase.randomString();
+        String name = DomainBuilderDatabase.getNameRandom(random);
+        String description = DomainBuilderDatabase.getNameRandom(random);
 
         @Test
         void created() throws Exception {
             // test
-            String extid = DomainBuilder.getUUID();
+            String extid = DomainBuilderDatabase.getUUID();
             ScenarioDb result = service.create(extid, name, description);
 
             // validate
@@ -41,7 +41,7 @@ class ScenarioDbServiceTest {
         @Test
         void createdTooLong() {
             // test
-            String extid = DomainBuilder.getStringTestUUIDTooLong();
+            String extid = DomainBuilderDatabase.getStringTestUUIDTooLong();
             assertThrows(DatabaseCreateFailureException.class, () -> service.create(extid, name, description));
         }
     }
@@ -51,20 +51,20 @@ class ScenarioDbServiceTest {
 
         ScenarioDb record;
         String extid;
-        String random = DomainBuilder.randomString();
-        String name = DomainBuilder.getNameRandom(random);
-        String description = DomainBuilder.getNameRandom(random);
+        String random = DomainBuilderDatabase.randomString();
+        String name = DomainBuilderDatabase.getNameRandom(random);
+        String description = DomainBuilderDatabase.getNameRandom(random);
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            extid = DomainBuilder.getUUID();
+            extid = DomainBuilderDatabase.getUUID();
             record = service.create(extid, name, description);
         }
 
         @Test
         void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException, DatabaseAccessException {
-            String newName = DomainBuilder.getNameRandom();
-            String newDescription = DomainBuilder.getNameRandom();
+            String newName = DomainBuilderDatabase.getNameRandom();
+            String newDescription = DomainBuilderDatabase.getNameRandom();
 
             //execute
             ScenarioDb result = service.update(extid, newName, newDescription);
@@ -96,13 +96,13 @@ class ScenarioDbServiceTest {
 
         ScenarioDb record;
         String extid;
-        String random = DomainBuilder.randomString();
-        String name = DomainBuilder.getNameRandom(random);
-        String description = DomainBuilder.getNameRandom(random);
+        String random = DomainBuilderDatabase.randomString();
+        String name = DomainBuilderDatabase.getNameRandom(random);
+        String description = DomainBuilderDatabase.getNameRandom(random);
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            extid = DomainBuilder.getUUID();
+            extid = DomainBuilderDatabase.getUUID();
             record = service.create(extid, name, description);
         }
 
@@ -128,13 +128,13 @@ class ScenarioDbServiceTest {
 
         ScenarioDb record;
         String extid;
-        String random = DomainBuilder.randomString();
-        String name = DomainBuilder.getNameRandom(random);
-        String description = DomainBuilder.getNameRandom(random);
+        String random = DomainBuilderDatabase.randomString();
+        String name = DomainBuilderDatabase.getNameRandom(random);
+        String description = DomainBuilderDatabase.getNameRandom(random);
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            extid = DomainBuilder.getUUID();
+            extid = DomainBuilderDatabase.getUUID();
             record = service.create(extid, name, description);
         }
 

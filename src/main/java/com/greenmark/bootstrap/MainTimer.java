@@ -1,29 +1,18 @@
 package com.greenmark.bootstrap;
 
-import com.greenmark.app.BucketAllData;
+import com.greenmark.app.BucketDataContainer;
 import com.greenmark.app.StartupService;
-import com.greenmark.common.DatafeedConfig;
-import com.greenmark.common.database.domain.StockDb;
-import com.greenmark.database.db.entity.StockDaily;
-import com.greenmark.database.db.entity.StockWatch;
 import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
-import com.greenmark.database.service.StockDbService;
-import com.greenmark.datafeed.service.DatafeedService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Slf4j
 public class MainTimer implements CommandLineRunner {
 
     private StartupService startupService;
-    private BucketAllData bucketAllData;
+    private BucketDataContainer bucketDataContainer;
 
     public MainTimer(StartupService startupService) {
         this.startupService = startupService;

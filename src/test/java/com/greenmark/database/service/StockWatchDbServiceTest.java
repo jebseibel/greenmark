@@ -3,7 +3,7 @@ package com.greenmark.database.service;
 import com.greenmark.common.database.domain.MarketData;
 import com.greenmark.common.database.domain.StockWatchDb;
 import com.greenmark.common.enums.TimeframeType;
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -30,9 +30,9 @@ class StockWatchDbServiceTest {
         @Test
         void createdNew() throws Exception {
             // test
-            String symbol = DomainBuilder.getSymbolRandom();
+            String symbol = DomainBuilderDatabase.getSymbolRandom();
             TimeframeType timeframeType = TimeframeType.DAILY;
-            MarketData marketData = DomainBuilder.getMarketData();
+            MarketData marketData = DomainBuilderDatabase.getMarketData();
             StockWatchDb result = service.create(symbol, timeframeType, marketData);
 
             // validate
@@ -43,9 +43,9 @@ class StockWatchDbServiceTest {
         @Test
         void createdTooLong() {
             // test
-            String symbol = DomainBuilder.getStringTestUUIDTooLong();
+            String symbol = DomainBuilderDatabase.getStringTestUUIDTooLong();
             TimeframeType timeframeType = TimeframeType.DAILY;
-            MarketData marketData = DomainBuilder.getMarketData();
+            MarketData marketData = DomainBuilderDatabase.getMarketData();
 
             assertThrows(DatabaseCreateFailureException.class, () -> service.create(symbol, timeframeType, marketData));
         }
@@ -53,9 +53,9 @@ class StockWatchDbServiceTest {
         @Test
         void createdAlready() throws Exception {
             // test
-            String symbol = DomainBuilder.getStringTestUUIDTooLong();
+            String symbol = DomainBuilderDatabase.getStringTestUUIDTooLong();
             TimeframeType timeframeType = TimeframeType.DAILY;
-            MarketData marketData = DomainBuilder.getMarketData();
+            MarketData marketData = DomainBuilderDatabase.getMarketData();
             //service.create(symbol, timeframeType, marketData);
 
             //try to create again
@@ -68,18 +68,18 @@ class StockWatchDbServiceTest {
 
         StockWatchDb record;
         MarketData marketData;
-        String symbol = DomainBuilder.getSymbolRandom();
+        String symbol = DomainBuilderDatabase.getSymbolRandom();
         TimeframeType timeframeType = TimeframeType.DAILY;
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            marketData = DomainBuilder.getMarketData();
+            marketData = DomainBuilderDatabase.getMarketData();
             record = service.create(symbol, timeframeType, marketData);
         }
 
         @Test
         void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException, DatabaseAccessException {
-            BigDecimal newCurrent = DomainBuilder.randomBigDecimal();
+            BigDecimal newCurrent = DomainBuilderDatabase.randomBigDecimal();
             marketData.setCurrent(newCurrent);
 
             //execute
@@ -109,12 +109,12 @@ class StockWatchDbServiceTest {
 
         StockWatchDb record;
         MarketData marketData;
-        String symbol = DomainBuilder.getSymbolRandom();
+        String symbol = DomainBuilderDatabase.getSymbolRandom();
         TimeframeType timeframeType = TimeframeType.DAILY;
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            marketData = DomainBuilder.getMarketData();
+            marketData = DomainBuilderDatabase.getMarketData();
             record = service.create(symbol, timeframeType, marketData);
         }
 
@@ -141,9 +141,9 @@ class StockWatchDbServiceTest {
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            symbol = DomainBuilder.getSymbolRandom();
+            symbol = DomainBuilderDatabase.getSymbolRandom();
             timeframeType = TimeframeType.DAILY;
-            marketData = DomainBuilder.getMarketData();
+            marketData = DomainBuilderDatabase.getMarketData();
             record = service.create(symbol, timeframeType, marketData);
         }
 
@@ -155,7 +155,7 @@ class StockWatchDbServiceTest {
 
         @Test
         void findError() throws DatabaseRetrievalFailureException {
-            String badSymbol = DomainBuilder.getSymbolRandom();
+            String badSymbol = DomainBuilderDatabase.getSymbolRandom();
             assertThrows(DatabaseRetrievalFailureException.class, () -> service.findBySymbol(badSymbol));
         }
     }
@@ -170,16 +170,16 @@ class StockWatchDbServiceTest {
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            symbol1 = DomainBuilder.getSymbolRandom();
+            symbol1 = DomainBuilderDatabase.getSymbolRandom();
             timeframeType = TimeframeType.DAILY;
-            marketData1 = DomainBuilder.getMarketData();
+            marketData1 = DomainBuilderDatabase.getMarketData();
             record1 = service.create(symbol1,timeframeType, marketData1);
         }
 
         @Test
         void findActive_both() throws DatabaseRetrievalFailureException, DatabaseAccessException, DatabaseCreateFailureException {
-            String symbol2 = DomainBuilder.getSymbolRandom();
-            MarketData marketData2 = DomainBuilder.getMarketData();
+            String symbol2 = DomainBuilderDatabase.getSymbolRandom();
+            MarketData marketData2 = DomainBuilderDatabase.getMarketData();
             StockWatchDb record2 = service.create(symbol2, timeframeType, marketData2);
 
             //execute
@@ -205,9 +205,9 @@ class StockWatchDbServiceTest {
 
         @Test
         void findActive_one() throws DatabaseRetrievalFailureException, DatabaseAccessException, DatabaseDeleteFailureException, DatabaseCreateFailureException {
-            String symbol2 = DomainBuilder.getSymbolRandom();
+            String symbol2 = DomainBuilderDatabase.getSymbolRandom();
             TimeframeType timeframeType = TimeframeType.DAILY;
-            MarketData marketData2 = DomainBuilder.getMarketData();
+            MarketData marketData2 = DomainBuilderDatabase.getMarketData();
             StockWatchDb record2 = service.create(symbol2, timeframeType, marketData2);
             //set to inactive
             service.delete(symbol2);

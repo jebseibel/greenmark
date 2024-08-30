@@ -13,4 +13,8 @@ public class ModelLogic {
         this.demote = demote;
         this.promote = promote;
     }
+
+
+
+
 }

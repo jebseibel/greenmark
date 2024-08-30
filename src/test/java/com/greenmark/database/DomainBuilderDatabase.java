@@ -1,5 +1,6 @@
 package com.greenmark.database;
 
+import com.greenmark.app.BucketDataContainer;
 import com.greenmark.app.buckets.BucketData;
 import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.common.database.domain.MarketData;
@@ -12,10 +13,11 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class DomainBuilder {
+public class DomainBuilderDatabase {
     public static String NAME = "Name_";
     public static String DESCRIPTION = "Desc_";
 
@@ -47,15 +49,6 @@ public class DomainBuilder {
         item.setModifiedAt(null);
         item.setDeletedAt(null);
         return item;
-    }
-
-    public static BucketData getBucketData(String name) {
-
-        BucketData bucketData = new BucketData();
-        bucketData.setName(name);
-        bucketData.setDemote(BigDecimal.TWO);
-        bucketData.setPromote(BigDecimal.ONE);
-        return bucketData;
     }
 
 //          Account item = Account.builder()
@@ -273,7 +266,7 @@ public class DomainBuilder {
     }
 
     public static String getSymbolRandom() {
-        return RandomStringUtils.random(7, true, false);
+        return RandomStringUtils.random(4, true, false).toUpperCase();
     }
 
     public static String getNameRandom(String random) {
@@ -293,7 +286,7 @@ public class DomainBuilder {
     }
 
     public static BigDecimal randomBigDecimal() {
-        float random = randomFloat();
+        int random = randomPositiveInt(100);
         return new BigDecimal(random);
     }
 

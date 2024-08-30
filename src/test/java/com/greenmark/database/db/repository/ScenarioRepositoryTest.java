@@ -1,6 +1,6 @@
 package com.greenmark.database.db.repository;
 
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.db.entity.Scenario;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class ScenarioRepositoryTest {
 
         @Test
         void create() {
-            Scenario item = DomainBuilder.getScenario();
+            Scenario item = DomainBuilderDatabase.getScenario();
             assertNull(item.getId());
             Scenario result = repository.save(item);
 
@@ -36,9 +36,9 @@ class ScenarioRepositoryTest {
 
         @Test
         void createUniqueName() {
-            String name = "notUnique_" + DomainBuilder.randomString();
-            Scenario item1 = DomainBuilder.getScenario(name);
-            Scenario item2 = DomainBuilder.getScenario(name);
+            String name = "notUnique_" + DomainBuilderDatabase.randomString();
+            Scenario item1 = DomainBuilderDatabase.getScenario(name);
+            Scenario item2 = DomainBuilderDatabase.getScenario(name);
 
             repository.save(item1);
             assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
@@ -46,7 +46,7 @@ class ScenarioRepositoryTest {
 
         @Test
         void update() {
-            Scenario item = DomainBuilder.getScenario();
+            Scenario item = DomainBuilderDatabase.getScenario();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
             Scenario record = repository.save(item);
@@ -65,7 +65,7 @@ class ScenarioRepositoryTest {
 
         @Test
         void delete() {
-            Scenario item = DomainBuilder.getScenario();
+            Scenario item = DomainBuilderDatabase.getScenario();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
             Scenario record = repository.save(item);
@@ -85,8 +85,8 @@ class ScenarioRepositoryTest {
 
         @Test
         void findById() {
-            String name = "name" + DomainBuilder.randomString();
-            Scenario record = DomainBuilder.getScenario(name);
+            String name = "name" + DomainBuilderDatabase.randomString();
+            Scenario record = DomainBuilderDatabase.getScenario(name);
             Scenario item = repository.save(record);
             Scenario result = repository.findById(item.getId()).get();
 
@@ -98,7 +98,7 @@ class ScenarioRepositoryTest {
         @Test
         void findByExtid() {
             String extid = UUID.randomUUID().toString();
-            Scenario record = DomainBuilder.getScenario();
+            Scenario record = DomainBuilderDatabase.getScenario();
             record.setExtid(extid);
 
             repository.save(record);
@@ -111,8 +111,8 @@ class ScenarioRepositoryTest {
 
         @Test
         void findByName() {
-            String name = "name" + DomainBuilder.randomString();
-            Scenario record = DomainBuilder.getScenario(name);
+            String name = "name" + DomainBuilderDatabase.randomString();
+            Scenario record = DomainBuilderDatabase.getScenario(name);
 
             repository.save(record);
             Scenario result = repository.findByName(name).get();

@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.StockDb;
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -22,9 +22,9 @@ class StockDbServiceTest {
     @Nested
     class CreateTests {
 
-        String random = DomainBuilder.randomString();
-        String symbol = DomainBuilder.getSymbolRandom();
-        String name = DomainBuilder.getNameRandom(random);
+        String random = DomainBuilderDatabase.randomString();
+        String symbol = DomainBuilderDatabase.getSymbolRandom();
+        String name = DomainBuilderDatabase.getNameRandom(random);
 
         @Test
         void created() throws Exception {
@@ -42,7 +42,7 @@ class StockDbServiceTest {
         void createdTooLong() {
             // test
             try {
-                String symbol = DomainBuilder.getStringTestUUIDTooLong();
+                String symbol = DomainBuilderDatabase.getStringTestUUIDTooLong();
                 service.create(symbol, name);
                 fail();
             } catch (DatabaseCreateFailureException e) {
@@ -62,14 +62,14 @@ class StockDbServiceTest {
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            symbol = DomainBuilder.getSymbolRandom();
-            name = DomainBuilder.getNameRandom();
+            symbol = DomainBuilderDatabase.getSymbolRandom();
+            name = DomainBuilderDatabase.getNameRandom();
             record = service.create(symbol, name);
         }
 
         @Test
         void updated() throws DatabaseUpdateFailureException, DatabaseRetrievalFailureException {
-            String newName = DomainBuilder.getNameRandom();
+            String newName = DomainBuilderDatabase.getNameRandom();
 
             //execute
             StockDb result = service.update(symbol, newName);
@@ -103,8 +103,8 @@ class StockDbServiceTest {
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            symbol = DomainBuilder.getSymbolRandom();
-            name = DomainBuilder.getNameRandom();
+            symbol = DomainBuilderDatabase.getSymbolRandom();
+            name = DomainBuilderDatabase.getNameRandom();
             record = service.create(symbol, name);
         }
 
@@ -142,8 +142,8 @@ class StockDbServiceTest {
 
         @BeforeEach
         void beforeEach() throws DatabaseCreateFailureException, DatabaseAccessException {
-            symbol = DomainBuilder.getSymbolRandom();
-            name = DomainBuilder.getNameRandom();
+            symbol = DomainBuilderDatabase.getSymbolRandom();
+            name = DomainBuilderDatabase.getNameRandom();
             record = service.create(symbol, name);
         }
 

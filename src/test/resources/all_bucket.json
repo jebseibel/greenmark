@@ -1,87 +1,218 @@
 {
-  "bucket01Data":{
-    "list":[
-
-    ],
-    "data":[
-
-    ],
-    "allPromote":[
-
-    ],
-    "allDemote":[
-
-    ],
-    "name":"minute01",
-    "promote":1,
-    "demote":2
-  },
-  "bucket05Data":{
-    "list":[
-
-    ],
-    "data":[
-
-    ],
-    "allPromote":[
-
-    ],
-    "allDemote":[
-
-    ],
-    "name":"minute05",
-    "promote":1,
-    "demote":2
-  },
-  "bucket15Data":{
-    "list":[
-
-    ],
-    "data":[
-
-    ],
-    "allPromote":[
-
-    ],
-    "allDemote":[
-
-    ],
-    "name":"minute15",
-    "promote":1,
-    "demote":2
-  },
-  "bucket60Data":{
-    "list":[
-
-    ],
-    "data":[
-
-    ],
-    "allPromote":[
-
-    ],
-    "allDemote":[
-
-    ],
-    "name":"minute60",
-    "promote":1,
-    "demote":2
-  },
-  "bucketDailyData":{
-    "list":[
-
-    ],
-    "data":[
-
-    ],
-    "allPromote":[
-
-    ],
-    "allDemote":[
-
-    ],
-    "name":"daily",
-    "promote":1,
-    "demote":2
-  }
+  "bucketDataList" : [ {
+    "name" : "minute01",
+    "order" : 1,
+    "timeframe" : "MINUTE01",
+    "demote" : 26,
+    "promote" : 61,
+    "stocklist" : [ {
+      "symbol" : "SHyQPVy",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    } ]
+  }, {
+    "name" : "minute05",
+    "order" : 2,
+    "timeframe" : "MINUTE05",
+    "demote" : 1,
+    "promote" : 40,
+    "stocklist" : [ {
+      "symbol" : "qhLtdUE",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    }, {
+      "symbol" : "XoYqgPW",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    } ]
+  }, {
+    "name" : "minute15",
+    "order" : 3,
+    "timeframe" : "MINUTE15",
+    "demote" : 86,
+    "promote" : 17,
+    "stocklist" : [ {
+      "symbol" : "MALOFYl",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    } ]
+  }, {
+    "name" : "minute60",
+    "order" : 4,
+    "timeframe" : "MINUTE60",
+    "demote" : 44,
+    "promote" : 56,
+    "stocklist" : [ {
+      "symbol" : "sfJXOuw",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    }, {
+      "symbol" : "TuoSSmi",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    }, {
+      "symbol" : "mSmMlki",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    } ]
+  }, {
+    "name" : "daily",
+    "order" : 5,
+    "timeframe" : "DAILY",
+    "demote" : 98,
+    "promote" : 26,
+    "stocklist" : [ {
+      "symbol" : "AZSOBOb",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    }, {
+      "symbol" : "BZrwbDS",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    }, {
+      "symbol" : "mnlWElA",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    }, {
+      "symbol" : "CIQxiRe",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    }, {
+      "symbol" : "AVltITD",
+      "current" : null,
+      "open" : null,
+      "high" : null,
+      "low" : null,
+      "previousClose" : null,
+      "changed" : null,
+      "changedPercent" : null,
+      "macd" : null,
+      "stochk" : null,
+      "createdAt" : null,
+      "modifiedAt" : null,
+      "deletedAt" : null,
+      "active" : null
+    } ]
+  } ]
 }

@@ -1,11 +1,13 @@
 package com.greenmark.common.database.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
 public class StockWatchDb {
     private String symbol;
     private BigDecimal current;
@@ -21,6 +23,10 @@ public class StockWatchDb {
     private LocalDateTime modifiedAt;
     private LocalDateTime deletedAt;
     private Integer active;
+
+    public StockWatchDb(String symbol) {
+        this.symbol = symbol;
+    }
 
     public String toStringTA() {
         return this.getClass().getSimpleName() + " symbol [" + symbol + "] macd [" + macd + "] stochk [" + stochk + "]";

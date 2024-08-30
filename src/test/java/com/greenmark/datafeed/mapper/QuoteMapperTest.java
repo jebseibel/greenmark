@@ -1,7 +1,7 @@
 package com.greenmark.datafeed.mapper;
 
 import com.greenmark.common.datafeed.QuoteDomain;
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.datafeed.finnhub.models.Quote;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ class QuoteMapperTest {
 
     @Test
     void testToDomain() {
-        Quote item = DomainBuilder.getQuote();
+        Quote item = DomainBuilderDatabase.getQuote();
         QuoteDomain domain = QuoteMapper.toDomain(item);
 
         assertEquals(domain.getCurrent().toString(), item.getC().toString());

@@ -1,6 +1,6 @@
 package com.greenmark.database.service;
 
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import org.junit.jupiter.api.Test;
 
 class BasicDbServiceTest {
@@ -9,7 +9,7 @@ class BasicDbServiceTest {
 
     @Test
     void getCreatedMessage() {
-        String extid = DomainBuilder.getUUID();
+        String extid = DomainBuilderDatabase.getUUID();
         String result = dbService.getCreatedMessage(extid);
 
         System.out.println(result);

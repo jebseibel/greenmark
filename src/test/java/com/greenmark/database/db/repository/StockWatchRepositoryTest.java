@@ -1,6 +1,6 @@
 package com.greenmark.database.db.repository;
 
-import com.greenmark.database.DomainBuilder;
+import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.db.entity.StockWatch;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class StockWatchRepositoryTest {
 
         @Test
         void create() {
-            StockWatch item = DomainBuilder.getStockWatchDaily();
+            StockWatch item = DomainBuilderDatabase.getStockWatchDaily();
             assertNull(item.getId());
             StockWatch result = repository.save(item);
 
@@ -36,9 +36,9 @@ class StockWatchRepositoryTest {
 
         @Test
         void createSymbolNotUnique() {
-            String symbol = DomainBuilder.getSymbolRandom();
-            StockWatch item1 = DomainBuilder.getStockWatchDaily();
-            StockWatch item2 = DomainBuilder.getStockWatchDaily();
+            String symbol = DomainBuilderDatabase.getSymbolRandom();
+            StockWatch item1 = DomainBuilderDatabase.getStockWatchDaily();
+            StockWatch item2 = DomainBuilderDatabase.getStockWatchDaily();
 
             item1.setSymbol(symbol);
             item2.setSymbol(symbol);
@@ -48,7 +48,7 @@ class StockWatchRepositoryTest {
 
         @Test
         void update() {
-            StockWatch item = DomainBuilder.getStockWatchDaily();
+            StockWatch item = DomainBuilderDatabase.getStockWatchDaily();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
             StockWatch record = repository.save(item);
@@ -64,7 +64,7 @@ class StockWatchRepositoryTest {
 
         @Test
         void delete() {
-            StockWatch item = DomainBuilder.getStockWatchDaily();
+            StockWatch item = DomainBuilderDatabase.getStockWatchDaily();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
             StockWatch record = repository.save(item);
@@ -84,8 +84,8 @@ class StockWatchRepositoryTest {
 
         @Test
         void findBySymbol() {
-            String symbol = DomainBuilder.getSymbolRandom();
-            StockWatch record = DomainBuilder.getStockWatchDaily();
+            String symbol = DomainBuilderDatabase.getSymbolRandom();
+            StockWatch record = DomainBuilderDatabase.getStockWatchDaily();
             System.out.println(symbol);
             repository.save(record);
 
