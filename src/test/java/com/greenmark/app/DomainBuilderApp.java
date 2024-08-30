@@ -1,6 +1,7 @@
 package com.greenmark.app;
 
 import com.greenmark.app.buckets.BucketData;
+import com.greenmark.app.buckets.BucketDataContainer;
 import com.greenmark.common.database.domain.StockWatchDb;
 import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.database.DomainBuilderDatabase;
@@ -49,8 +50,9 @@ public class DomainBuilderApp {
         BucketData bucket60 = DomainBuilderApp.getBucketData("minute60",4, TimeframeType.MINUTE60);
         BucketData bucketDD = DomainBuilderApp.getBucketData("daily",5, TimeframeType.DAILY);
         List<BucketData> list = List.of(bucket01, bucket05, bucket15, bucket60, bucketDD);
-
-        return new BucketDataContainer(list);
+        BucketDataContainer bucketDataContainer = new BucketDataContainer();
+        bucketDataContainer.setBucketDataList(list);
+        return bucketDataContainer;
     }
 
 //          Account item = Account.builder()

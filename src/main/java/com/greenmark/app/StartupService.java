@@ -1,12 +1,9 @@
 package com.greenmark.app;
 
-import com.greenmark.app.buckets.BucketData;
-import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.app.buckets.BucketDataContainer;
 import com.greenmark.database.service.DatabaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Slf4j

@@ -1,7 +1,5 @@
 package com.greenmark.database;
 
-import com.greenmark.app.BucketDataContainer;
-import com.greenmark.app.buckets.BucketData;
 import com.greenmark.common.database.domain.AccountDb;
 import com.greenmark.common.database.domain.MarketData;
 import com.greenmark.common.enums.ActiveEnum;
@@ -13,7 +11,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 

@@ -3,10 +3,10 @@
     "name" : "minute01",
     "order" : 1,
     "timeframe" : "MINUTE01",
-    "demote" : 26,
-    "promote" : 61,
+    "demote" : 88,
+    "promote" : 92,
     "stocklist" : [ {
-      "symbol" : "SHyQPVy",
+      "symbol" : "xCzhCVN",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -25,10 +25,10 @@
     "name" : "minute05",
     "order" : 2,
     "timeframe" : "MINUTE05",
-    "demote" : 1,
-    "promote" : 40,
+    "demote" : 11,
+    "promote" : 91,
     "stocklist" : [ {
-      "symbol" : "qhLtdUE",
+      "symbol" : "htdyfuE",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -43,7 +43,7 @@
       "deletedAt" : null,
       "active" : null
     }, {
-      "symbol" : "XoYqgPW",
+      "symbol" : "zwvkYdk",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -62,10 +62,10 @@
     "name" : "minute15",
     "order" : 3,
     "timeframe" : "MINUTE15",
-    "demote" : 86,
-    "promote" : 17,
+    "demote" : 65,
+    "promote" : 25,
     "stocklist" : [ {
-      "symbol" : "MALOFYl",
+      "symbol" : "pBEGulu",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -84,10 +84,10 @@
     "name" : "minute60",
     "order" : 4,
     "timeframe" : "MINUTE60",
-    "demote" : 44,
-    "promote" : 56,
+    "demote" : 16,
+    "promote" : 67,
     "stocklist" : [ {
-      "symbol" : "sfJXOuw",
+      "symbol" : "lNCtQbh",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -102,7 +102,7 @@
       "deletedAt" : null,
       "active" : null
     }, {
-      "symbol" : "TuoSSmi",
+      "symbol" : "JinucOd",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -117,7 +117,7 @@
       "deletedAt" : null,
       "active" : null
     }, {
-      "symbol" : "mSmMlki",
+      "symbol" : "brQEdvt",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -136,10 +136,10 @@
     "name" : "daily",
     "order" : 5,
     "timeframe" : "DAILY",
-    "demote" : 98,
-    "promote" : 26,
+    "demote" : 7,
+    "promote" : 7,
     "stocklist" : [ {
-      "symbol" : "AZSOBOb",
+      "symbol" : "KNPdfjm",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -154,7 +154,7 @@
       "deletedAt" : null,
       "active" : null
     }, {
-      "symbol" : "BZrwbDS",
+      "symbol" : "OipLlHJ",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -169,7 +169,7 @@
       "deletedAt" : null,
       "active" : null
     }, {
-      "symbol" : "mnlWElA",
+      "symbol" : "INsRJSe",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -184,7 +184,7 @@
       "deletedAt" : null,
       "active" : null
     }, {
-      "symbol" : "CIQxiRe",
+      "symbol" : "AeQaZcn",
       "current" : null,
       "open" : null,
       "high" : null,
@@ -199,7 +199,7 @@
       "deletedAt" : null,
       "active" : null
     }, {
-      "symbol" : "AVltITD",
+      "symbol" : "MIhyGxc",
       "current" : null,
       "open" : null,
       "high" : null,
