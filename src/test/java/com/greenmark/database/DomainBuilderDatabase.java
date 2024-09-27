@@ -48,15 +48,38 @@ public class DomainBuilderDatabase {
         return item;
     }
 
-//          Account item = Account.builder()
-//                .extid(UUID.randomUUID().toString())
-//                .name( thisName != null ? thisName : getNameRandom())
-//                .description(thisDescription)
-//                .createdAt(LocalDateTime.now())
-//                .modifiedAt(null)
-//                .deletedAt(null)
-//                .active(ActiveEnum.ACTIVE.value)
-//        .build();
+    // //////////////////////////////////////////////////////////////////
+    public static Position getPosition() {
+        return getPosition(null, null);
+    }
+
+    public static Position getPosition(String name) {
+        return getPosition(name, null);
+    }
+
+    public static Position getPosition(
+            String thisName,
+            String thisSymbol
+    ) {
+        String random = getRandom();
+        BigDecimal price = randomBigDecimal();
+        int shares = 10;
+        //create
+        BigDecimal total = price.multiply(new BigDecimal(shares));
+        Position item = new Position();
+        item.setExtid(UUID.randomUUID().toString());
+        item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
+        item.setName(thisName != null ? thisName : getNameRandom(random));
+        item.setShares(shares);
+        item.setPrice(price);
+        item.setTotal(total);
+        item.setActive(ActiveEnum.ACTIVE.value);
+        item.setCreatedAt(LocalDateTime.now());
+        item.setModifiedAt(null);
+        item.setDeletedAt(null);
+        return item;
+    }
+
 
     public static StockWatch getStockWatchMinute01() {
         String symbol = getSymbolRandom();

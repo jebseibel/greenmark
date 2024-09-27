@@ -16,23 +16,14 @@ dependencies {
     //spring
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-mail:3.3.1'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-devtools:3.3.2'
+    implementation 'net.lbruun.springboot:preliquibase-spring-boot-starter:1.5.1'
+
     implementation 'mysql:mysql-connector-java:8.0.33'
     implementation platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
-
-    //JMS
-    implementation 'org.springframework:spring-jms:6.1.8'
-    implementation 'org.springframework.boot:spring-boot-starter-artemis'
-    implementation 'org.apache.activemq:artemis-server'
-    implementation 'org.apache.activemq:artemis-jms-server'
-
-    //redis
-//    implementation 'org.springframework.boot:spring-boot-starter-cache:3.1.5'
-//    implementation 'org.springframework.boot:spring-boot-starter-data-redis:3.1.5'
 
     //liquibase
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
@@ -43,6 +34,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:3.4.1")
     implementation("io.swagger.core.v3:swagger-annotations:${swaggerAnnotationsVersion}")
     implementation("jakarta.annotation:jakarta.annotation-api:${jakartaAnnotationVersion}")
+
     implementation("org.apache.httpcomponents.client5:httpclient5:${httpclientVersion}")
     implementation("org.modelmapper:modelmapper:$modelMakerVersion")
     implementation("org.threeten:threetenbp:${threetenbpVersion}")
@@ -53,7 +45,7 @@ dependencies {
 
     //test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.github.codemonstur:embedded-redis:1.4.2'
+//    testImplementation 'com.github.codemonstur:embedded-redis:1.4.2'
 
     //possible delete
 //    implementation("org.apache.commons:commons-dbcp2:$commonsDbcp2Version")

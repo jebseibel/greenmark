@@ -23,6 +23,6 @@ public class ScenarioMapper {
         if (items == null) {
             return null;
         }
-        return items.stream().map(item -> toDb(item)).toList();
+        return items.stream().map(this::toDb).toList();
     }
 }

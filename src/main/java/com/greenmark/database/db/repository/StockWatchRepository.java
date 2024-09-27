@@ -10,8 +10,6 @@ import java.util.Optional;
 @Repository
 public interface StockWatchRepository extends ListCrudRepository<StockWatch, Integer> {
     Optional<StockWatch> findBySymbol(String name);
-
     List<StockWatch> findByActive(Integer active);
-
     List<StockWatch> findByTimeframeAndActive(String timeframe, Integer active);
 }

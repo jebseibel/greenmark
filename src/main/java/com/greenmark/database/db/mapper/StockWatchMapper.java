@@ -21,6 +21,6 @@ public class StockWatchMapper {
     }
 
     public List<StockWatchDb> toList(List<StockWatch> items) {
-        return items.stream().map(item -> toDb(item)).toList();
+        return items.stream().map(this::toDb).toList();
     }
 }

@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id:  init
+      author:  jeb
+      labels: create_database
+      changes:
+        - createTable:
+            tableName: position
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name:  extid
+                  type:  varchar(36)
+                  constraints:
+                    nullable:  false
+              - column:
+                  name: symbol
+                  type: varchar(8)
+                  constraints:
+                    nullable:  false
+              - column:
+                  name:  name
+                  type:  varchar(36)
+                  constraints:
+                    nullable:  false
+                    unique: true
+              - column:
+                  name: shares
+                  type: int
+              - column:
+                  name: price
+                  type: float
+              - column:
+                  name: total
+                  type: float
+              - column:
+                  name: created_at
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modified_at
+                  type: datetime
+              - column:
+                  name: deleted_at
+                  type: datetime
+              - column:
+                  name: active
+                  type: int

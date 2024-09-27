@@ -9,6 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ScenarioRepository extends ListCrudRepository<Scenario, Integer> {
     Optional<Scenario> findByName(String name);
-
     Optional<Scenario> findByExtid(String extid);
 }

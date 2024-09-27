@@ -10,10 +10,7 @@ import java.util.Optional;
 @Repository
 public interface StockRepository extends ListCrudRepository<Stock, Integer> {
     Stock findByName(String name);
-
     Stock findByExtid(String extid);
-
     Optional<Stock> findBySymbol(String name);
-
     List<Stock> findByActive(Integer active);
 }
