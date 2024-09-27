@@ -8,7 +8,6 @@ import com.greenmark.database.db.repository.PositionRepository;
 import com.greenmark.database.exceptions.*;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 

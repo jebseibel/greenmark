@@ -2,7 +2,6 @@ package com.greenmark.database.db.mapper;
 
 import com.greenmark.common.database.domain.PositionDb;
 import com.greenmark.database.db.entity.Position;
-import com.greenmark.web.response.ResponsePosition;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
