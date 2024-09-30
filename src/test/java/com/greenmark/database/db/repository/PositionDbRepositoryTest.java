@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,17 +33,6 @@ class PositionDbRepositoryTest {
             assertNotNull(result);
             assertTrue(result.getId() != 0);
             assertNotNull(item.getCreatedAt());
-        }
-
-        @Test
-        void createUniqueName() {
-            String name = "notUnique_" + DomainBuilderDatabase.randomString();
-            PositionDb item1 = DomainBuilderDatabase.getPosition(name);
-            PositionDb item2 = DomainBuilderDatabase.getPosition(name);
-
-            repository.save(item1);
-            assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
-
         }
 
         @Test

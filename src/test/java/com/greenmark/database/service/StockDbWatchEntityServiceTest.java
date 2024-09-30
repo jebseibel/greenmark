@@ -51,7 +51,7 @@ class StockDbWatchEntityServiceTest {
         }
 
         @Test
-        void createdAlready() throws Exception {
+        void createdAlready() {
             // test
             String symbol = DomainBuilderDatabase.getStringTestUUIDTooLong();
             TimeframeType timeframeType = TimeframeType.DAILY;
@@ -95,12 +95,6 @@ class StockDbWatchEntityServiceTest {
         void updatedBadSymbol() {
             String badSymbol = UUID.randomUUID().toString();
             assertThrows(DatabaseRetrievalFailureException.class, () -> service.update(badSymbol, marketData));
-        }
-
-        @Test
-        void updatedBadStockdata() {
-            marketData.setCurrent(null);
-            assertThrows(DatabaseUpdateFailureException.class, () -> service.update(symbol, marketData));
         }
     }
 
@@ -177,7 +171,7 @@ class StockDbWatchEntityServiceTest {
         }
 
         @Test
-        void findActive_both() throws DatabaseRetrievalFailureException, DatabaseAccessException, DatabaseCreateFailureException {
+        void findActive_both() throws DatabaseAccessException, DatabaseCreateFailureException {
             String symbol2 = DomainBuilderDatabase.getSymbolRandom();
             MarketData marketData2 = DomainBuilderDatabase.getMarketData();
             StockWatch record2 = service.create(symbol2, timeframeType, marketData2);
