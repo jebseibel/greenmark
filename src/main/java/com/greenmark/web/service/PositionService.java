@@ -4,14 +4,15 @@ import com.greenmark.common.database.domain.PositionDb;
 import com.greenmark.database.db.mapper.PositionMapper;
 import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
 import com.greenmark.database.service.PositionDbService;
-import com.greenmark.web.request.RequestPositionCreate;
-import com.greenmark.web.request.RequestPositionUpdate;
-import com.greenmark.web.response.ResponsePosition;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * This class is primarily to deal with business logic.
+ */
 @Slf4j
 @Service
 public class PositionService {
@@ -24,47 +25,25 @@ public class PositionService {
         this.positionMapper = positionMapper;
     }
 
-    public ResponsePosition create(RequestPositionCreate request) {
+    public PositionDb create(PositionDb request) {
         try {
-            PositionDb item = PositionDb.builder()
-                    .symbol(request.getSymbol())
-                    .name(request.getName())
-                    .shares(request.getShares())
-                    .price(request.getPrice())
-                    .total(request.getTotal())
-                    .build();
-            PositionDb result = positionDbService.create(request.getName(), item);
-
-            //change to response
-            return toResponse(result);
+            return positionDbService.create(request.getName(), request);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public ResponsePosition update(String extid, RequestPositionUpdate request) {
+    public PositionDb update(String extid, String name, int shares, BigDecimal price, BigDecimal total) {
         try {
-            PositionDb result = positionDbService.update(
-                    extid,
-                    request.getShares(),
-                    request.getPrice(),
-                    request.getTotal());
-            System.out.println(result);
-            //change to response
-            return toResponse(result);
+            return positionDbService.update(extid, name, shares, price, total);
         } catch (Exception e) {
             return null;
         }
     }
 
-    public ResponsePosition getByExtid(String extid) {
+    public PositionDb getByExtid(String extid) {
         try {
-            PositionDb result = positionDbService.findByExtid(extid);
-
-            //change to response
-            ResponsePosition address =  toResponse(result);
-            log.info(String.valueOf(address));
-            return address;
+            return positionDbService.findByExtid(extid);
         } catch (Exception e) {
             return null;
         }
@@ -78,26 +57,9 @@ public class PositionService {
         }
     }
 
-    public List<ResponsePosition> getAll() throws DatabaseRetrievalFailureException {
+    public List<PositionDb> getAll() throws DatabaseRetrievalFailureException {
         List<PositionDb> result = positionDbService.findActive();
-        return toResponse(result);
-    }
-
-    public ResponsePosition toResponse(PositionDb itemDb) {
-        return ResponsePosition.builder()
-                .extid(itemDb.getExtid())
-                .name(itemDb.getName())
-                .symbol(itemDb.getSymbol())
-                .price(itemDb.getPrice())
-                .shares(itemDb.getShares())
-                .total(itemDb.getTotal())
-                .created(itemDb.getCreatedAt())
-                .modified(itemDb.getModifiedAt())
-                .deleted(itemDb.getDeletedAt())
-                .build();
-    }
-
-    public List<ResponsePosition> toResponse(List<PositionDb> items) {
-        return items.stream().map(this::toResponse).toList();
+        log.info("returned [{}]", result.size());
+        return result;
     }
 }

@@ -75,9 +75,9 @@ public class PositionDbService extends BaseDbService {
 //     * @param name   - value for name
      * @return
      */
-    public PositionDb update(@NonNull String extid, int shares, @NonNull BigDecimal price, @NonNull BigDecimal total) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
+    public PositionDb update(@NonNull String extid, @NonNull String name, int shares, @NonNull BigDecimal price, @NonNull BigDecimal total) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
         Position record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
-
+        record.setName(name);
         record.setShares(shares);
         record.setPrice(price);
         record.setTotal(total);

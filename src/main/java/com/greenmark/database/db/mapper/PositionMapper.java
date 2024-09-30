@@ -13,7 +13,18 @@ import java.util.List;
 public class PositionMapper {
 
     public PositionDb toDb(Position item) {
-        return new ModelMapper().map(item, PositionDb.class);
+        return PositionDb.builder()
+                .extid(item.getExtid())
+                .symbol(item.getSymbol())
+                .name(item.getName())
+                .price(item.getPrice())
+                .shares(item.getShares())
+                .total(item.getTotal())
+                .createdAt(item.getCreatedAt())
+                .modifiedAt(item.getModifiedAt())
+                .deletedAt(item.getDeletedAt())
+                .active(item.getActive())
+                .build();
     }
 
     public Position toEntity(PositionDb itemDb) {

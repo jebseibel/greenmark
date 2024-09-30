@@ -24,7 +24,7 @@ public class Position implements Serializable {
     @Column(name = "symbol", length = 8, nullable = false)
     private String symbol;
 
-    @Column(name = "name", length = 32, nullable = false, unique = true)
+    @Column(name = "name", length = 32, nullable = false)
     private String name;
 
     @Column(name = "shares", columnDefinition = "integer default 1", nullable = false)
