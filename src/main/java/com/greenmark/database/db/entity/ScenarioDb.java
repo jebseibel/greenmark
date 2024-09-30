@@ -1,18 +1,14 @@
 package com.greenmark.database.db.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "account")
-public class Account implements Serializable {
-    private static final long serialVersionUID = 330515747211210728L;
-
+@Table(name = "scenario")
+public class ScenarioDb {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

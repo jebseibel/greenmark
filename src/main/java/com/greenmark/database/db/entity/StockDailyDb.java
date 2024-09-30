@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "stock_daily")
-public class StockDaily implements Serializable {
+public class StockDailyDb implements Serializable {
     private static final long serialVersionUID = -3779377594651740105L;
 
     @Id

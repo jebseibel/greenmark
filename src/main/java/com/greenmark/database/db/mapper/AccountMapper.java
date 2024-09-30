@@ -1,7 +1,7 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.AccountDb;
-import com.greenmark.database.db.entity.Account;
+import com.greenmark.common.database.domain.Account;
+import com.greenmark.database.db.entity.AccountDb;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -12,18 +12,18 @@ import java.util.List;
 @NoArgsConstructor
 public class AccountMapper {
 
-    public AccountDb toDb(Account item) {
-        return new ModelMapper().map(item, AccountDb.class);
+    public Account toEntity(AccountDb item) {
+        return new ModelMapper().map(item, Account.class);
     }
 
-    public Account toEntity(AccountDb itemDb) {
-        return new ModelMapper().map(itemDb, Account.class);
-    }
+//    public AccountDb toDb(Account itemDb) {
+//        return new ModelMapper().map(itemDb, AccountDb.class);
+//    }
 
-    public List<AccountDb> toList(List<Account> items) {
+    public List<Account> toList(List<AccountDb> items) {
         if (items == null) {
             return null;
         }
-        return items.stream().map(this::toDb).toList();
+        return items.stream().map(this::toEntity).toList();
     }
 }

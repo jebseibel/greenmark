@@ -1,7 +1,7 @@
 package com.greenmark.database.db.repository;
 
 import com.greenmark.database.DomainBuilderDatabase;
-import com.greenmark.database.db.entity.Scenario;
+import com.greenmark.database.db.entity.ScenarioDb;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class ScenarioRepositoryTest {
+class ScenarioDbRepositoryTest {
 
     @Autowired
     private ScenarioRepository repository;
@@ -24,9 +24,9 @@ class ScenarioRepositoryTest {
 
         @Test
         void create() {
-            Scenario item = DomainBuilderDatabase.getScenario();
+            ScenarioDb item = DomainBuilderDatabase.getScenario();
             assertNull(item.getId());
-            Scenario result = repository.save(item);
+            ScenarioDb result = repository.save(item);
 
             //test
             assertNotNull(result);
@@ -37,8 +37,8 @@ class ScenarioRepositoryTest {
         @Test
         void createUniqueName() {
             String name = "notUnique_" + DomainBuilderDatabase.randomString();
-            Scenario item1 = DomainBuilderDatabase.getScenario(name);
-            Scenario item2 = DomainBuilderDatabase.getScenario(name);
+            ScenarioDb item1 = DomainBuilderDatabase.getScenario(name);
+            ScenarioDb item2 = DomainBuilderDatabase.getScenario(name);
 
             repository.save(item1);
             assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
@@ -46,16 +46,16 @@ class ScenarioRepositoryTest {
 
         @Test
         void update() {
-            Scenario item = DomainBuilderDatabase.getScenario();
+            ScenarioDb item = DomainBuilderDatabase.getScenario();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
-            Scenario record = repository.save(item);
+            ScenarioDb record = repository.save(item);
 
             //now update
             String changedDescription = "description_update";
             record.setDescription(changedDescription);
             record.setModifiedAt(LocalDateTime.now());
-            Scenario resultUpdate = repository.save(record);
+            ScenarioDb resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -65,14 +65,14 @@ class ScenarioRepositoryTest {
 
         @Test
         void delete() {
-            Scenario item = DomainBuilderDatabase.getScenario();
+            ScenarioDb item = DomainBuilderDatabase.getScenario();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
-            Scenario record = repository.save(item);
+            ScenarioDb record = repository.save(item);
 
             //now update
             record.setDeletedAt(LocalDateTime.now());
-            Scenario resultUpdate = repository.save(record);
+            ScenarioDb resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -86,9 +86,9 @@ class ScenarioRepositoryTest {
         @Test
         void findById() {
             String name = "name" + DomainBuilderDatabase.randomString();
-            Scenario record = DomainBuilderDatabase.getScenario(name);
-            Scenario item = repository.save(record);
-            Scenario result = repository.findById(item.getId()).get();
+            ScenarioDb record = DomainBuilderDatabase.getScenario(name);
+            ScenarioDb item = repository.save(record);
+            ScenarioDb result = repository.findById(item.getId()).get();
 
             //test
             assertNotNull(result);
@@ -98,11 +98,11 @@ class ScenarioRepositoryTest {
         @Test
         void findByExtid() {
             String extid = UUID.randomUUID().toString();
-            Scenario record = DomainBuilderDatabase.getScenario();
+            ScenarioDb record = DomainBuilderDatabase.getScenario();
             record.setExtid(extid);
 
             repository.save(record);
-            Scenario result = repository.findByExtid(extid).get();
+            ScenarioDb result = repository.findByExtid(extid).get();
 
             //test
             assertNotNull(result);
@@ -112,10 +112,10 @@ class ScenarioRepositoryTest {
         @Test
         void findByName() {
             String name = "name" + DomainBuilderDatabase.randomString();
-            Scenario record = DomainBuilderDatabase.getScenario(name);
+            ScenarioDb record = DomainBuilderDatabase.getScenario(name);
 
             repository.save(record);
-            Scenario result = repository.findByName(name).get();
+            ScenarioDb result = repository.findByName(name).get();
 
             //test
             assertNotNull(result);

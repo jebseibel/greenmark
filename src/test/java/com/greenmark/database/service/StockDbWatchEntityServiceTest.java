@@ -1,7 +1,7 @@
 package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.MarketData;
-import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.StockWatch;
 import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.exceptions.*;
@@ -18,7 +18,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class StockWatchDbServiceTest {
+class StockDbWatchEntityServiceTest {
 
     @Autowired
     private StockWatchDbService service;
@@ -33,7 +33,7 @@ class StockWatchDbServiceTest {
             String symbol = DomainBuilderDatabase.getSymbolRandom();
             TimeframeType timeframeType = TimeframeType.DAILY;
             MarketData marketData = DomainBuilderDatabase.getMarketData();
-            StockWatchDb result = service.create(symbol, timeframeType, marketData);
+            StockWatch result = service.create(symbol, timeframeType, marketData);
 
             // validate
             assertNotNull(result);
@@ -66,7 +66,7 @@ class StockWatchDbServiceTest {
     @Nested
     class UpdateTests {
 
-        StockWatchDb record;
+        StockWatch record;
         MarketData marketData;
         String symbol = DomainBuilderDatabase.getSymbolRandom();
         TimeframeType timeframeType = TimeframeType.DAILY;
@@ -83,7 +83,7 @@ class StockWatchDbServiceTest {
             marketData.setCurrent(newCurrent);
 
             //execute
-            StockWatchDb result = service.update(symbol, marketData);
+            StockWatch result = service.update(symbol, marketData);
 
             // validate
             assertNotNull(result);
@@ -107,7 +107,7 @@ class StockWatchDbServiceTest {
     @Nested
     class DeleteTests {
 
-        StockWatchDb record;
+        StockWatch record;
         MarketData marketData;
         String symbol = DomainBuilderDatabase.getSymbolRandom();
         TimeframeType timeframeType = TimeframeType.DAILY;
@@ -134,7 +134,7 @@ class StockWatchDbServiceTest {
     @Nested
     class FindTests {
 
-        StockWatchDb record;
+        StockWatch record;
         MarketData marketData;
         String symbol;
         TimeframeType timeframeType;
@@ -149,7 +149,7 @@ class StockWatchDbServiceTest {
 
         @Test
         void find() throws DatabaseRetrievalFailureException {
-            StockWatchDb result = service.findBySymbol(symbol);
+            StockWatch result = service.findBySymbol(symbol);
             assertNotNull(result);
         }
 
@@ -163,7 +163,7 @@ class StockWatchDbServiceTest {
     @Nested
     class FindActiveTests {
 
-        StockWatchDb record1;
+        StockWatch record1;
         MarketData marketData1;
         String symbol1;
         TimeframeType timeframeType;
@@ -180,18 +180,18 @@ class StockWatchDbServiceTest {
         void findActive_both() throws DatabaseRetrievalFailureException, DatabaseAccessException, DatabaseCreateFailureException {
             String symbol2 = DomainBuilderDatabase.getSymbolRandom();
             MarketData marketData2 = DomainBuilderDatabase.getMarketData();
-            StockWatchDb record2 = service.create(symbol2, timeframeType, marketData2);
+            StockWatch record2 = service.create(symbol2, timeframeType, marketData2);
 
             //execute
-            List<StockWatchDb> results = service.findAll();
+            List<StockWatch> results = service.findAll();
 
             // validate - using Streams :)
-            StockWatchDb hasRecord1 = results.stream()
+            StockWatch hasRecord1 = results.stream()
                     .filter(result -> record1.getSymbol().equals(result.getSymbol()))
                     .findAny()
                     .orElse(null);
 
-            StockWatchDb hasRecord2 = results.stream()
+            StockWatch hasRecord2 = results.stream()
                     .filter(result -> record2.getSymbol().equals(result.getSymbol()))
                     .findAny()
                     .orElse(null);
@@ -208,20 +208,20 @@ class StockWatchDbServiceTest {
             String symbol2 = DomainBuilderDatabase.getSymbolRandom();
             TimeframeType timeframeType = TimeframeType.DAILY;
             MarketData marketData2 = DomainBuilderDatabase.getMarketData();
-            StockWatchDb record2 = service.create(symbol2, timeframeType, marketData2);
+            StockWatch record2 = service.create(symbol2, timeframeType, marketData2);
             //set to inactive
             service.delete(symbol2);
 
             //execute
-            List<StockWatchDb> results = service.findAll();
+            List<StockWatch> results = service.findAll();
 
             // validate - using Streams :)
-            StockWatchDb hasRecord1 = results.stream()
+            StockWatch hasRecord1 = results.stream()
                     .filter(result -> record1.getSymbol().equals(result.getSymbol()))
                     .findAny()
                     .orElse(null);
 
-            StockWatchDb hasRecord2 = results.stream()
+            StockWatch hasRecord2 = results.stream()
                     .filter(result -> record2.getSymbol().equals(result.getSymbol()))
                     .findAny()
                     .orElse(null);

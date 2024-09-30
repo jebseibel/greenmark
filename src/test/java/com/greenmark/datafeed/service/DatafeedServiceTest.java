@@ -65,7 +65,7 @@ class DatafeedServiceTest {
         void getQuote() throws Exception {
             // test
             String extid = DomainBuilder.getUUID();
-//            AccountDb result = service.create(extid, name, description);
+//            Account result = service.create(extid, name, description);
 //
 //            // validate
 //            assertNotNull(result);

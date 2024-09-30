@@ -101,7 +101,7 @@ public class FinnhubClientAdvanced {
     }
 
     /**
-     * Get the Stock Candle object for a date or a range. Set startEpoch equal to the endEpoch for one day.
+     * Get the StockDb Candle object for a date or a range. Set startEpoch equal to the endEpoch for one day.
      *
      * @param symbol     Ticker symbol
      * @param resolution Supported resolution includes 1, 5, 15, 30, 60, D, W, M.

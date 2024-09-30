@@ -2,7 +2,7 @@ package com.greenmark.app;
 
 import com.greenmark.app.buckets.BucketData;
 import com.greenmark.app.buckets.BucketDataContainer;
-import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.StockWatch;
 import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.datafeed.finnhub.models.Quote;
@@ -18,16 +18,16 @@ public class DomainBuilderApp {
     public static String DESCRIPTION = "Desc_";
 
     // ///////////////////////////////////////////////////////////////////
-    public static StockWatchDb getStockWatchDb() {
+    public static StockWatch getStockWatchDb() {
         String symbol = getSymbolRandom();
-        return new StockWatchDb(symbol);
+        return new StockWatch(symbol);
     }
 
     public static BucketData getBucketData(String name, int order, TimeframeType timeframeType, int swNumber) {
         BucketData bucketData  = getBucketData(name, order, timeframeType);
         for(int i = 1; i <= swNumber; i++) {
-            StockWatchDb stockWatch = getStockWatchDb();
-            bucketData.getStockWatchDbList().add(stockWatch);
+            StockWatch stockWatch = getStockWatchDb();
+            bucketData.getStockWatchList().add(stockWatch);
         }
         return bucketData;
     }
@@ -55,7 +55,7 @@ public class DomainBuilderApp {
         return bucketDataContainer;
     }
 
-//          Account item = Account.builder()
+//          AccountDb item = AccountDb.builder()
 //                .extid(UUID.randomUUID().toString())
 //                .name( thisName != null ? thisName : getNameRandom())
 //                .description(thisDescription)

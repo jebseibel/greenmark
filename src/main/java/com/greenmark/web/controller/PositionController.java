@@ -1,6 +1,6 @@
 package com.greenmark.web.controller;
 
-import com.greenmark.common.database.domain.PositionDb;
+import com.greenmark.common.database.domain.Position;
 import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
 import com.greenmark.web.request.RequestPositionCreate;
 import com.greenmark.web.request.RequestPositionUpdate;
@@ -22,32 +22,32 @@ public class PositionController {
 
     @GetMapping("/")
     public List<ResponsePosition> getAll() throws DatabaseRetrievalFailureException {
-        List<PositionDb> result = positionService.getAll();
+        List<Position> result = positionService.getAll();
         return toResponse(result);
     }
 
     @GetMapping("/{extid}")
     public ResponsePosition getByExtid(@PathVariable String extid) {
-        PositionDb item = positionService.getByExtid(extid);
+        Position item = positionService.getByExtid(extid);
         return toResponse(item);
     }
 
     @PostMapping("/")
     public ResponsePosition create(@RequestBody RequestPositionCreate request) {
-        PositionDb item = PositionDb.builder()
+        Position item = Position.builder()
                 .symbol(request.getSymbol())
                 .name(request.getName())
                 .shares(request.getShares())
                 .price(request.getPrice())
                 .total(request.getTotal())
                 .build();
-        PositionDb result = positionService.create(item);
+        Position result = positionService.create(item);
         return toResponse(result);
     }
 
     @PutMapping("/{extid}")
     public ResponsePosition update(@PathVariable String extid, @RequestBody RequestPositionUpdate request) {
-        PositionDb result =  positionService.update(extid,
+        Position result =  positionService.update(extid,
                 request.getName(),
                 request.getShares(),
                 request.getPrice(),
@@ -60,7 +60,7 @@ public class PositionController {
         positionService.delete(extid);
     }
 
-    private ResponsePosition toResponse(PositionDb itemDb) {
+    private ResponsePosition toResponse(Position itemDb) {
         return ResponsePosition.builder()
                 .extid(itemDb.getExtid())
                 .name(itemDb.getName())
@@ -74,7 +74,7 @@ public class PositionController {
                 .build();
     }
 
-    private List<ResponsePosition> toResponse(List<PositionDb> items) {
+    private List<ResponsePosition> toResponse(List<Position> items) {
         return items.stream().map(this::toResponse).toList();
     }
 }

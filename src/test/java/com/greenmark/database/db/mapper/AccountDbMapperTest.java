@@ -1,8 +1,8 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.AccountDb;
+import com.greenmark.common.database.domain.Account;
 import com.greenmark.database.DomainBuilderDatabase;
-import com.greenmark.database.db.entity.Account;
+import com.greenmark.database.db.entity.AccountDb;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,15 +13,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class AccountMapperTest {
+class AccountDbMapperTest {
 
     @Autowired
     AccountMapper mapper;
 
     @Test
     void testToDb() {
-        Account item = DomainBuilderDatabase.getAccount();
-        AccountDb itemDb = mapper.toDb(item);
+        AccountDb item = DomainBuilderDatabase.getAccount();
+        Account itemDb = mapper.toEntity(item);
 
         //test
         assertEquals(item.getExtid(), itemDb.getExtid());
@@ -35,10 +35,10 @@ class AccountMapperTest {
 
     @Test
     void testToList() {
-        Account item1 = DomainBuilderDatabase.getAccount();
-        Account item2 = DomainBuilderDatabase.getAccount();
-        List<Account> items = Arrays.asList(item1, item2);
-        List<AccountDb> itemDbs = mapper.toList(items);
+        AccountDb item1 = DomainBuilderDatabase.getAccount();
+        AccountDb item2 = DomainBuilderDatabase.getAccount();
+        List<AccountDb> items = Arrays.asList(item1, item2);
+        List<Account> itemDbs = mapper.toList(items);
 
         //test
         assertEquals(items.size(), itemDbs.size());

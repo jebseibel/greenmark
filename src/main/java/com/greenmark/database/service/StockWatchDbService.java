@@ -1,10 +1,10 @@
 package com.greenmark.database.service;
 
 import com.greenmark.common.database.domain.MarketData;
-import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.StockWatch;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.enums.TimeframeType;
-import com.greenmark.database.db.entity.StockWatch;
+import com.greenmark.database.db.entity.StockWatchDb;
 import com.greenmark.database.db.mapper.StockWatchMapper;
 import com.greenmark.database.db.repository.StockWatchRepository;
 import com.greenmark.database.exceptions.*;
@@ -23,7 +23,7 @@ public class StockWatchDbService extends BaseDbService {
     private final StockWatchMapper mapper;
 
     public StockWatchDbService(StockWatchRepository repository, StockWatchMapper mapper) {
-        super("StockWatch");
+        super("StockWatchDb");
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -35,10 +35,10 @@ public class StockWatchDbService extends BaseDbService {
      * @throws DatabaseCreateFailureException
      * @throws DatabaseAccessException
      */
-    public StockWatchDb create(@NonNull String symbol, @NonNull TimeframeType timeframeType, @NonNull MarketData marketData) throws DatabaseCreateFailureException, DatabaseAccessException {
+    public StockWatch create(@NonNull String symbol, @NonNull TimeframeType timeframeType, @NonNull MarketData marketData) throws DatabaseCreateFailureException, DatabaseAccessException {
 
         try {
-            StockWatch record = new StockWatch();
+            StockWatchDb record = new StockWatchDb();
             record.setSymbol(symbol);
             record.setTimeframe(timeframeType.value);
             record.setCreatedAt(LocalDateTime.now());
@@ -53,8 +53,8 @@ public class StockWatchDbService extends BaseDbService {
             record.setChanged(marketData.getChanged());
             record.setChangedPercent(marketData.getChangedPercent());
 
-            StockWatch saved = repository.save(record);
-            return mapper.toDb(saved);
+            StockWatchDb saved = repository.save(record);
+            return mapper.toEntity(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -75,10 +75,10 @@ public class StockWatchDbService extends BaseDbService {
      * @throws DatabaseUpdateFailureException
      * @throws DatabaseAccessException
      */
-    public StockWatchDb update(@NonNull String symbol, @NonNull MarketData marketData) throws DatabaseRetrievalFailureException,
+    public StockWatch update(@NonNull String symbol, @NonNull MarketData marketData) throws DatabaseRetrievalFailureException,
             DatabaseUpdateFailureException, DatabaseAccessException {
 
-        StockWatch record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+        StockWatchDb record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         try {
             record.setModifiedAt(LocalDateTime.now());
@@ -92,9 +92,9 @@ public class StockWatchDbService extends BaseDbService {
             record.setChanged(marketData.getChanged());
             record.setChangedPercent(marketData.getChangedPercent());
 
-            StockWatch saved = repository.save(record);
+            StockWatchDb saved = repository.save(record);
             log.info(getUpdatedMessage(symbol));
-            return mapper.toDb(saved);
+            return mapper.toEntity(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -118,7 +118,7 @@ public class StockWatchDbService extends BaseDbService {
     public boolean delete(@NonNull String symbol) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
 
         // error if the record isn't there
-        StockWatch record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+        StockWatchDb record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
@@ -136,18 +136,18 @@ public class StockWatchDbService extends BaseDbService {
      * @param symbol - to find
      * @return boolean
      */
-    public StockWatchDb findBySymbol(@NonNull String symbol) throws DatabaseRetrievalFailureException {
-        StockWatch record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+    public StockWatch findBySymbol(@NonNull String symbol) throws DatabaseRetrievalFailureException {
+        StockWatchDb record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
         log.info(getFoundMessage(symbol));
-        return mapper.toDb(record);
+        return mapper.toEntity(record);
     }
 
     /**
      *
      * @return
      */
-    public List<StockWatchDb> findAll() {
-        List<StockWatch> records = repository.findByActive(ActiveEnum.ACTIVE.value);
+    public List<StockWatch> findAll() {
+        List<StockWatchDb> records = repository.findByActive(ActiveEnum.ACTIVE.value);
         log.info(getFoundActiveMessage(records.size()));
         return mapper.toList(records);
     }
@@ -156,8 +156,8 @@ public class StockWatchDbService extends BaseDbService {
      *
      * @return
      */
-    public List<StockWatchDb> findByTimeframe(TimeframeType timeframe) {
-        List<StockWatch> records = repository.findByTimeframeAndActive(timeframe.value, ActiveEnum.ACTIVE.value);
+    public List<StockWatch> findByTimeframe(TimeframeType timeframe) {
+        List<StockWatchDb> records = repository.findByTimeframeAndActive(timeframe.value, ActiveEnum.ACTIVE.value);
         log.info(getFoundActiveMessage(records.size()));
         return mapper.toList(records);
     }

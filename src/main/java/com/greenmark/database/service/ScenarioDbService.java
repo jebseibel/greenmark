@@ -1,8 +1,8 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.ScenarioDb;
+import com.greenmark.common.database.domain.Scenario;
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.entity.Scenario;
+import com.greenmark.database.db.entity.ScenarioDb;
 import com.greenmark.database.db.mapper.ScenarioMapper;
 import com.greenmark.database.db.repository.ScenarioRepository;
 import com.greenmark.database.exceptions.*;
@@ -22,7 +22,7 @@ public class ScenarioDbService extends BaseDbService {
     private final ScenarioMapper mapper;
 
     public ScenarioDbService(ScenarioRepository repository, ScenarioMapper mapper) {
-        super("Scenario");
+        super("ScenarioDb");
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -36,10 +36,10 @@ public class ScenarioDbService extends BaseDbService {
      * @return
      * @throws DataIntegrityViolationException
      */
-    public ScenarioDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
+    public Scenario create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
 
         try {
-            Scenario record = new Scenario();
+            ScenarioDb record = new ScenarioDb();
             record.setExtid(extid);
             record.setName(name);
             record.setDescription(description);
@@ -47,9 +47,9 @@ public class ScenarioDbService extends BaseDbService {
             record.setActive(ActiveEnum.ACTIVE.value);
             System.out.println(record);
 
-            Scenario saved = repository.save(record);
+            ScenarioDb saved = repository.save(record);
             log.debug(getCreatedMessage(extid));
-            return mapper.toDb(saved);
+            return mapper.toEntity(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
@@ -66,24 +66,24 @@ public class ScenarioDbService extends BaseDbService {
     }
 
     /**
-     * Update the Scenario name and description
+     * Update the ScenarioDb name and description
      *
      * @param extid       - the extid to use
      * @param name        - value for name
      * @param description - value for description
      * @return
      */
-    public ScenarioDb update(@NonNull String extid, String name, String description)
+    public Scenario update(@NonNull String extid, String name, String description)
             throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException, DatabaseAccessException {
 
-        Scenario record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+        ScenarioDb record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
         try {
             record.setName(name);
             record.setDescription(description);
             record.setModifiedAt(LocalDateTime.now());
-            Scenario saved = repository.save(record);
+            ScenarioDb saved = repository.save(record);
             log.info(getUpdatedMessage(extid));
-            return mapper.toDb(saved);
+            return mapper.toEntity(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -106,7 +106,7 @@ public class ScenarioDbService extends BaseDbService {
      */
     public boolean delete(@NonNull String extid) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
         // error if the record isn't there
-        Scenario record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+        ScenarioDb record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
 
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
@@ -119,22 +119,22 @@ public class ScenarioDbService extends BaseDbService {
     }
 
     /**
-     * Find Scenario
+     * Find ScenarioDb
      *
      * @param extid - to find
      * @return boolean
      */
-    public ScenarioDb findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
-        Scenario record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+    public Scenario findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
+        ScenarioDb record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
         log.info(getFoundMessage(extid));
-        return mapper.toDb(record);
+        return mapper.toEntity(record);
     }
 
     /**
      * @return
      */
-    public List<ScenarioDb> findAll() {
-        List<Scenario> records = repository.findAll();
+    public List<Scenario> findAll() {
+        List<ScenarioDb> records = repository.findAll();
         return mapper.toList(records);
     }
 }

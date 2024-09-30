@@ -1,6 +1,6 @@
 package com.greenmark.web.service;
 
-import com.greenmark.common.database.domain.PositionDb;
+import com.greenmark.common.database.domain.Position;
 import com.greenmark.database.db.mapper.PositionMapper;
 import com.greenmark.database.exceptions.DatabaseRetrievalFailureException;
 import com.greenmark.database.service.PositionDbService;
@@ -25,7 +25,7 @@ public class PositionService {
         this.positionMapper = positionMapper;
     }
 
-    public PositionDb create(PositionDb request) {
+    public Position create(Position request) {
         try {
             return positionDbService.create(request.getName(), request);
         } catch (Exception e) {
@@ -33,7 +33,7 @@ public class PositionService {
         }
     }
 
-    public PositionDb update(String extid, String name, int shares, BigDecimal price, BigDecimal total) {
+    public Position update(String extid, String name, int shares, BigDecimal price, BigDecimal total) {
         try {
             return positionDbService.update(extid, name, shares, price, total);
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class PositionService {
         }
     }
 
-    public PositionDb getByExtid(String extid) {
+    public Position getByExtid(String extid) {
         try {
             return positionDbService.findByExtid(extid);
         } catch (Exception e) {
@@ -57,8 +57,8 @@ public class PositionService {
         }
     }
 
-    public List<PositionDb> getAll() throws DatabaseRetrievalFailureException {
-        List<PositionDb> result = positionDbService.findActive();
+    public List<Position> getAll() throws DatabaseRetrievalFailureException {
+        List<Position> result = positionDbService.findActive();
         log.info("returned [{}]", result.size());
         return result;
     }

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class StockWatchDb {
+public class StockWatch {
     private String symbol;
     private BigDecimal current;
     private BigDecimal open;
@@ -24,7 +24,7 @@ public class StockWatchDb {
     private LocalDateTime deletedAt;
     private Integer active;
 
-    public StockWatchDb(String symbol) {
+    public StockWatch(String symbol) {
         this.symbol = symbol;
     }
 

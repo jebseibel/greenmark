@@ -2,7 +2,7 @@ package com.greenmark.database.db.repository;
 
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.database.DomainBuilderDatabase;
-import com.greenmark.database.db.entity.Stock;
+import com.greenmark.database.db.entity.StockDb;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class StockRepositoryMockTest {
+class StockDbRepositoryTest {
 
     @Autowired
     private StockRepository repository;
@@ -26,9 +26,9 @@ class StockRepositoryMockTest {
 
         @Test
         void create() {
-            Stock item = DomainBuilderDatabase.getStock();
+            StockDb item = DomainBuilderDatabase.getStock();
             assertNull(item.getId());
-            Stock result = repository.save(item);
+            StockDb result = repository.save(item);
 
             //test
             assertNotNull(result);
@@ -39,31 +39,26 @@ class StockRepositoryMockTest {
         @Test
         void createUniqueName() {
             String name = "notUnique_" + DomainBuilderDatabase.randomString();
-            Stock item1 = DomainBuilderDatabase.getStock(name);
-            Stock item2 = DomainBuilderDatabase.getStock(name);
+            StockDb item1 = DomainBuilderDatabase.getStock(name);
+            StockDb item2 = DomainBuilderDatabase.getStock(name);
 
-            try {
-                repository.save(item1);
-                repository.save(item2);
-                fail();
-            } catch (DataIntegrityViolationException e) {
-                assertTrue(true);
-            }
-            System.out.println();
+            repository.save(item1);
+            assertThrows(DataIntegrityViolationException.class, () -> repository.save(item2));
+
         }
 
         @Test
         void update() {
-            Stock item = DomainBuilderDatabase.getStock();
+            StockDb item = DomainBuilderDatabase.getStock();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
-            Stock record = repository.save(item);
+            StockDb record = repository.save(item);
 
             //now update
             String changedSymbol = DomainBuilderDatabase.getSymbolRandom();
             record.setSymbol(changedSymbol);
             record.setModifiedAt(LocalDateTime.now());
-            Stock resultUpdate = repository.save(record);
+            StockDb resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -73,14 +68,14 @@ class StockRepositoryMockTest {
 
         @Test
         void delete() {
-            Stock item = DomainBuilderDatabase.getStock();
+            StockDb item = DomainBuilderDatabase.getStock();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
-            Stock record = repository.save(item);
+            StockDb record = repository.save(item);
 
             //now update
             record.setDeletedAt(LocalDateTime.now());
-            Stock resultUpdate = repository.save(record);
+            StockDb resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -94,9 +89,9 @@ class StockRepositoryMockTest {
         @Test
         void findById() {
             String name = "name" + DomainBuilderDatabase.randomString();
-            Stock record = DomainBuilderDatabase.getStock(name);
-            Stock item = repository.save(record);
-            Stock result = repository.findById(item.getId()).get();
+            StockDb record = DomainBuilderDatabase.getStock(name);
+            StockDb item = repository.save(record);
+            StockDb result = repository.findById(item.getId()).get();
 
             //test
             assertNotNull(result);
@@ -106,11 +101,11 @@ class StockRepositoryMockTest {
         @Test
         void findByExtid() {
             String extid = UUID.randomUUID().toString();
-            Stock record = DomainBuilderDatabase.getStock();
+            StockDb record = DomainBuilderDatabase.getStock();
             record.setExtid(extid);
 
             repository.save(record);
-            Stock result = repository.findByExtid(extid);
+            StockDb result = repository.findByExtid(extid);
 
             //test
             assertNotNull(result);
@@ -120,10 +115,10 @@ class StockRepositoryMockTest {
         @Test
         void findByName() {
             String name = "name" + DomainBuilderDatabase.randomString();
-            Stock record = DomainBuilderDatabase.getStock(name);
+            StockDb record = DomainBuilderDatabase.getStock(name);
 
             repository.save(record);
-            Stock result = repository.findByName(name);
+            StockDb result = repository.findByName(name);
 
             //test
             assertNotNull(result);
@@ -134,12 +129,12 @@ class StockRepositoryMockTest {
         void findActive_toList() {
             String symbol1 = DomainBuilderDatabase.getSymbolRandom();
             String symbol2 = DomainBuilderDatabase.getSymbolRandom();
-            Stock record1 = DomainBuilderDatabase.getStock(symbol1);
-            Stock record2 = DomainBuilderDatabase.getStock(symbol2);
+            StockDb record1 = DomainBuilderDatabase.getStock(symbol1);
+            StockDb record2 = DomainBuilderDatabase.getStock(symbol2);
             repository.save(record1);
             repository.save(record2);
 
-            List<Stock> results = repository.findByActive(ActiveEnum.ACTIVE.value);
+            List<StockDb> results = repository.findByActive(ActiveEnum.ACTIVE.value);
 
             //test
             assertNotNull(results);
@@ -150,13 +145,13 @@ class StockRepositoryMockTest {
         void findActive_checkNoInactive() {
             String symbol1 = DomainBuilderDatabase.getSymbolRandom();
             String symbol2 = DomainBuilderDatabase.getSymbolRandom();
-            Stock record1 = DomainBuilderDatabase.getStock(symbol1);
-            Stock record2 = DomainBuilderDatabase.getStock(symbol2);
+            StockDb record1 = DomainBuilderDatabase.getStock(symbol1);
+            StockDb record2 = DomainBuilderDatabase.getStock(symbol2);
             record2.setActive(ActiveEnum.INACTIVE.value);
             repository.save(record1);
             repository.save(record2);
 
-            List<Stock> results = repository.findByActive(ActiveEnum.ACTIVE.value);
+            List<StockDb> results = repository.findByActive(ActiveEnum.ACTIVE.value);
 
             //test
             assertNotNull(results);

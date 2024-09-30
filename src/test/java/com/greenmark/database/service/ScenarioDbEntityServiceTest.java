@@ -1,6 +1,6 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.ScenarioDb;
+import com.greenmark.common.database.domain.Scenario;
 import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class ScenarioDbServiceTest {
+class ScenarioDbEntityServiceTest {
 
     @Autowired
     private ScenarioDbService service;
@@ -30,7 +30,7 @@ class ScenarioDbServiceTest {
         void created() throws Exception {
             // test
             String extid = DomainBuilderDatabase.getUUID();
-            ScenarioDb result = service.create(extid, name, description);
+            Scenario result = service.create(extid, name, description);
 
             // validate
             assertNotNull(result);
@@ -49,7 +49,7 @@ class ScenarioDbServiceTest {
     @Nested
     class UpdateTests {
 
-        ScenarioDb record;
+        Scenario record;
         String extid;
         String random = DomainBuilderDatabase.randomString();
         String name = DomainBuilderDatabase.getNameRandom(random);
@@ -67,7 +67,7 @@ class ScenarioDbServiceTest {
             String newDescription = DomainBuilderDatabase.getNameRandom();
 
             //execute
-            ScenarioDb result = service.update(extid, newName, newDescription);
+            Scenario result = service.update(extid, newName, newDescription);
 
             // validate
             assertNotNull(result);
@@ -94,7 +94,7 @@ class ScenarioDbServiceTest {
     @Nested
     class FindTests {
 
-        ScenarioDb record;
+        Scenario record;
         String extid;
         String random = DomainBuilderDatabase.randomString();
         String name = DomainBuilderDatabase.getNameRandom(random);
@@ -109,7 +109,7 @@ class ScenarioDbServiceTest {
         @Test
         void findByExtid() throws DatabaseRetrievalFailureException {
             // test
-            ScenarioDb result = service.findByExtid(extid);
+            Scenario result = service.findByExtid(extid);
 
             // validate
             assertNotNull(result);
@@ -126,7 +126,7 @@ class ScenarioDbServiceTest {
     @Nested
     class DeleteTests {
 
-        ScenarioDb record;
+        Scenario record;
         String extid;
         String random = DomainBuilderDatabase.randomString();
         String name = DomainBuilderDatabase.getNameRandom(random);

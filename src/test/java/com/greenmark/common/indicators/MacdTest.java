@@ -1,6 +1,6 @@
 package com.greenmark.common.indicators;
 
-import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.StockWatch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,28 +15,28 @@ class MacdTest {
     BigDecimal bigDecimal20 = new BigDecimal(20);
 
     Macd macd = new Macd();
-    StockWatchDb stockWatchDb = new StockWatchDb();
+    StockWatch stockWatch = new StockWatch();
 
     @BeforeEach
     void beforeEach() {
-        stockWatchDb.setMacd(bigDecimal10);
+        stockWatch.setMacd(bigDecimal10);
     }
 
     @Test
     void isGreater() {
-        boolean result = macd.isGreater(stockWatchDb, bigDecimal20);
+        boolean result = macd.isGreater(stockWatch, bigDecimal20);
         assertTrue(result);
     }
 
     @Test
     void isLess() {
-        boolean result = macd.isLess(stockWatchDb, bigDecimal01);
+        boolean result = macd.isLess(stockWatch, bigDecimal01);
         assertTrue(result);
     }
 
     @Test
     void isEqual() {
-        boolean result = macd.isEqual(stockWatchDb, bigDecimal10);
+        boolean result = macd.isEqual(stockWatch, bigDecimal10);
         assertTrue(result);
     }
 }

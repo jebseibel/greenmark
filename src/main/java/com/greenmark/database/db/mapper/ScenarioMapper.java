@@ -1,7 +1,7 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.ScenarioDb;
-import com.greenmark.database.db.entity.Scenario;
+import com.greenmark.common.database.domain.Scenario;
+import com.greenmark.database.db.entity.ScenarioDb;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -11,18 +11,18 @@ import java.util.List;
 @Component
 @NoArgsConstructor
 public class ScenarioMapper {
-    public ScenarioDb toDb(Scenario item) {
-        return new ModelMapper().map(item, ScenarioDb.class);
+    public Scenario toEntity(ScenarioDb item) {
+        return new ModelMapper().map(item, Scenario.class);
     }
 
-    public Scenario toEntity(ScenarioDb itemDb) {
-        return new ModelMapper().map(itemDb, Scenario.class);
-    }
+//    public ScenarioDb toEntity(Scenario itemDb) {
+//        return new ModelMapper().map(itemDb, ScenarioDb.class);
+//    }
 
-    public List<ScenarioDb> toList(List<Scenario> items) {
+    public List<Scenario> toList(List<ScenarioDb> items) {
         if (items == null) {
             return null;
         }
-        return items.stream().map(this::toDb).toList();
+        return items.stream().map(this::toEntity).toList();
     }
 }

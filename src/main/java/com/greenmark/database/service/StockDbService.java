@@ -1,8 +1,8 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.StockDb;
+import com.greenmark.common.database.domain.Stock;
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.entity.Stock;
+import com.greenmark.database.db.entity.StockDb;
 import com.greenmark.database.db.mapper.StockMapper;
 import com.greenmark.database.db.repository.StockRepository;
 import com.greenmark.database.exceptions.*;
@@ -23,7 +23,7 @@ public class StockDbService extends BaseDbService {
     private final StockMapper mapper;
 
     public StockDbService(StockRepository repository, StockMapper mapper) {
-        super("Stock");
+        super("StockDb");
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -36,10 +36,10 @@ public class StockDbService extends BaseDbService {
      * @return
      * @throws DataIntegrityViolationException
      */
-    public StockDb create(@NonNull String symbol, @NonNull String name) throws DatabaseCreateFailureException, DatabaseAccessException {
+    public Stock create(@NonNull String symbol, @NonNull String name) throws DatabaseCreateFailureException, DatabaseAccessException {
 
         try {
-            Stock record = new Stock();
+            StockDb record = new StockDb();
             record.setExtid(UUID.randomUUID().toString());
             record.setSymbol(symbol);
             record.setName(name);
@@ -48,9 +48,9 @@ public class StockDbService extends BaseDbService {
             record.setActive(ActiveEnum.ACTIVE.value);
             System.out.println(record);
 
-            Stock saved = repository.save(record);
+            StockDb saved = repository.save(record);
             log.debug(getCreatedMessage(symbol));
-            return mapper.toDb(saved);
+            return mapper.toEntity(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
@@ -67,21 +67,21 @@ public class StockDbService extends BaseDbService {
     }
 
     /**
-     * Update the Stock name and description
+     * Update the StockDb name and description
      *
      * @param symbol - the symbol to use
      * @param name   - value for name
      * @return
      */
-    public StockDb update(@NonNull String symbol, String name) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
-        Stock record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+    public Stock update(@NonNull String symbol, String name) throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException {
+        StockDb record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         record.setName(name);
         record.setModifiedAt(LocalDateTime.now());
 
-        Stock saved = repository.save(record);
+        StockDb saved = repository.save(record);
         log.debug(getUpdatedMessage(symbol));
-        return mapper.toDb(saved);
+        return mapper.toEntity(saved);
     }
 
     /**
@@ -93,12 +93,12 @@ public class StockDbService extends BaseDbService {
      * @throws DatabaseRetrievalFailureException
      */
     public boolean delete(@NonNull String symbol) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
-        Stock record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+        StockDb record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
         record.setActive(ActiveEnum.INACTIVE.value);
-        Stock saved = repository.save(record);
+        StockDb saved = repository.save(record);
 
         //success
         log.debug(getDeletedMessage(symbol));
@@ -106,20 +106,20 @@ public class StockDbService extends BaseDbService {
     }
 
     /**
-     * Find Stock
+     * Find StockDb
      *
      * @param symbol - to find
      * @return boolean
      */
-    public StockDb findBySymbol(@NonNull String symbol) throws DatabaseRetrievalFailureException {
-        Stock record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
+    public Stock findBySymbol(@NonNull String symbol) throws DatabaseRetrievalFailureException {
+        StockDb record = repository.findBySymbol(symbol).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(symbol)));
 
         log.debug(getFoundMessage(symbol));
-        return mapper.toDb(record);
+        return mapper.toEntity(record);
     }
 
-    public List<StockDb> findAll() {
-        List<Stock> records = repository.findAll();
+    public List<Stock> findAll() {
+        List<StockDb> records = repository.findAll();
         return mapper.toList(records);
     }
 
@@ -127,8 +127,8 @@ public class StockDbService extends BaseDbService {
      * @return
      * @throws DatabaseRetrievalFailureException
      */
-    public List<StockDb> findActive() throws DatabaseRetrievalFailureException {
-        List<Stock> records = repository.findByActive(ActiveEnum.ACTIVE.value);
+    public List<Stock> findActive() throws DatabaseRetrievalFailureException {
+        List<StockDb> records = repository.findByActive(ActiveEnum.ACTIVE.value);
 
         log.debug(getFoundActiveMessage(records.size()));
         return mapper.toList(records);
@@ -138,8 +138,8 @@ public class StockDbService extends BaseDbService {
      * @return
      * @throws DatabaseRetrievalFailureException
      */
-    public List<StockDb> findInactive() throws DatabaseRetrievalFailureException {
-        List<Stock> records = repository.findByActive(ActiveEnum.INACTIVE.value);
+    public List<Stock> findInactive() throws DatabaseRetrievalFailureException {
+        List<StockDb> records = repository.findByActive(ActiveEnum.INACTIVE.value);
 
         log.debug(getFoundActiveMessage(records.size()));
         return mapper.toList(records);

@@ -1,9 +1,8 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.PositionDb;
-import com.greenmark.database.db.entity.Position;
+import com.greenmark.common.database.domain.Position;
+import com.greenmark.database.db.entity.PositionDb;
 import lombok.NoArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,8 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 public class PositionMapper {
 
-    public PositionDb toDb(Position item) {
-        return PositionDb.builder()
+    public Position toEntity(PositionDb item) {
+        return Position.builder()
                 .extid(item.getExtid())
                 .symbol(item.getSymbol())
                 .name(item.getName())
@@ -26,12 +25,12 @@ public class PositionMapper {
                 .active(item.getActive())
                 .build();
     }
+//
+//    public PositionDb toEntity(Position itemDb) {
+//        return new ModelMapper().map(itemDb, PositionDb.class);
+//    }
 
-    public Position toEntity(PositionDb itemDb) {
-        return new ModelMapper().map(itemDb, Position.class);
-    }
-
-    public List<PositionDb> toList(List<Position> items) {
-        return items.stream().map(this::toDb).toList();
+    public List<Position> toList(List<PositionDb> items) {
+        return items.stream().map(this::toEntity).toList();
     }
 }

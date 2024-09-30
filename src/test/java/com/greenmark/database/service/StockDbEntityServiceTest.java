@@ -1,6 +1,6 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.StockDb;
+import com.greenmark.common.database.domain.Stock;
 import com.greenmark.database.DomainBuilderDatabase;
 import com.greenmark.database.exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +14,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class StockDbServiceTest {
+class StockDbEntityServiceTest {
 
     @Autowired
     private StockDbService service;
@@ -30,7 +30,7 @@ class StockDbServiceTest {
         void created() throws Exception {
             // test
             System.out.println(symbol);
-            StockDb result = service.create(symbol, name);
+            Stock result = service.create(symbol, name);
 
             // validate
             assertNotNull(result);
@@ -56,7 +56,7 @@ class StockDbServiceTest {
     @Nested
     class UpdateTests {
 
-        StockDb record;
+        Stock record;
         String symbol;
         String name;
 
@@ -72,7 +72,7 @@ class StockDbServiceTest {
             String newName = DomainBuilderDatabase.getNameRandom();
 
             //execute
-            StockDb result = service.update(symbol, newName);
+            Stock result = service.update(symbol, newName);
 
             // validate
             assertNotNull(result);
@@ -97,7 +97,7 @@ class StockDbServiceTest {
     @Nested
     class FindTests {
 
-        StockDb record;
+        Stock record;
         String symbol;
         String name;
 
@@ -111,7 +111,7 @@ class StockDbServiceTest {
         @Test
         void findByExtid() throws DatabaseRetrievalFailureException {
             // test
-            StockDb result = service.findBySymbol(symbol);
+            Stock result = service.findBySymbol(symbol);
 
             // validate
             assertNotNull(result);
@@ -136,7 +136,7 @@ class StockDbServiceTest {
     @Nested
     class DeleteTests {
 
-        StockDb record;
+        Stock record;
         String symbol;
         String name;
 

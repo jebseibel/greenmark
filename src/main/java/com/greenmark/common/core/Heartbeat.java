@@ -800,7 +800,7 @@ public class Heartbeat
             String open = (String) this.data.get(Timeslice.OPEN);
             String close = (String) this.data.get(Timeslice.CLOSE);
 
-            return ("Stock Timeslice: " + " datetime: " + date + ", high: " + high + ", low: " + low + ", open: " + open + ", close: " + close + ";");
+            return ("StockDb Timeslice: " + " datetime: " + date + ", high: " + high + ", low: " + low + ", open: " + open + ", close: " + close + ";");
         }
     }
 }

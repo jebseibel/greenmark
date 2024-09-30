@@ -1,6 +1,6 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.StockWatch;
 import com.greenmark.common.enums.TimeframeType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,23 +28,23 @@ public class DatabaseService {
         this.stockDbService = stockDbService;
     }
 
-    public List<StockWatchDb> getAllMinute01 () {
+    public List<StockWatch> getAllMinute01 () {
         return stockWatchDbService.findByTimeframe(TimeframeType.MINUTE01);
     }
 
-    public List<StockWatchDb> getAllMinute05 () {
+    public List<StockWatch> getAllMinute05 () {
         return stockWatchDbService.findByTimeframe(TimeframeType.MINUTE05);
     }
 
-    public List<StockWatchDb> getAllMinute15 () {
+    public List<StockWatch> getAllMinute15 () {
         return stockWatchDbService.findByTimeframe(TimeframeType.MINUTE15);
     }
 
-    public List<StockWatchDb> getAllMinute60 () {
+    public List<StockWatch> getAllMinute60 () {
         return stockWatchDbService.findByTimeframe(TimeframeType.MINUTE60);
     }
 
-    public List<StockWatchDb> getAllDaily () {
+    public List<StockWatch> getAllDaily () {
         return stockWatchDbService.findByTimeframe(TimeframeType.DAILY);
     }
 }

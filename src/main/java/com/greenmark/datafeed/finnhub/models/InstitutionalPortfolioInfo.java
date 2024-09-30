@@ -101,11 +101,11 @@ public class InstitutionalPortfolioInfo {
     }
 
     /**
-     * Position&#x27;s name.
+     * PositionDb&#x27;s name.
      *
      * @return name
      **/
-    @Schema(description = "Position's name.")
+    @Schema(description = "PositionDb's name.")
     public String getName() {
         return name;
     }
@@ -253,11 +253,11 @@ public class InstitutionalPortfolioInfo {
     }
 
     /**
-     * Position value.
+     * PositionDb value.
      *
      * @return value
      **/
-    @Schema(description = "Position value.")
+    @Schema(description = "PositionDb value.")
     public Float getValue() {
         return value;
     }

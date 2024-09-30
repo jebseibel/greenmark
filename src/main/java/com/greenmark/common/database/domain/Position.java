@@ -2,7 +2,6 @@ package com.greenmark.common.database.domain;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 @Slf4j
 @Data
 @Builder
-public class PositionDb {
+public class Position {
     private String extid;
     private String symbol;
     private String name;

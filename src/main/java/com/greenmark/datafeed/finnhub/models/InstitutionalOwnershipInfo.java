@@ -231,11 +231,11 @@ public class InstitutionalOwnershipInfo {
     }
 
     /**
-     * Position value.
+     * PositionDb value.
      *
      * @return value
      **/
-    @Schema(description = "Position value.")
+    @Schema(description = "PositionDb value.")
     public Float getValue() {
         return value;
     }

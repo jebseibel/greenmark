@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "stock_watch")
-public class StockWatch implements Serializable {
+public class StockWatchDb implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -3779377594651740105L;

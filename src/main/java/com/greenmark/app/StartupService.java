@@ -31,14 +31,14 @@ public class StartupService {
 //    }
 //
 //    public int loadMinute01() {
-//        List<StockWatchDb> items = databaseService.getAllMinute01();
+//        List<StockWatch> items = databaseService.getAllMinute01();
 //        BucketData data = bucketDataContainer.getBucket01Data();
 //        data.setData(items);
 //        return items.size();
 //    }
 //
 //    public int loadMinute05() {
-//        List<StockWatchDb> items = databaseService.getAllMinute05();
+//        List<StockWatch> items = databaseService.getAllMinute05();
 //        BucketData data = bucketDataContainer.getBucket05Data();
 //        data.setData(items);
 //        return items.size();
@@ -46,7 +46,7 @@ public class StartupService {
 //    }
 //
 //    public int loadMinute15() {
-//        List<StockWatchDb> items = databaseService.getAllMinute15();
+//        List<StockWatch> items = databaseService.getAllMinute15();
 //        BucketData data = bucketDataContainer.getBucket15Data();
 //        data.setData(items);
 //        return items.size();
@@ -54,14 +54,14 @@ public class StartupService {
 //    }
 //
 //    public int loadMinute60() {
-//        List<StockWatchDb> items = databaseService.getAllMinute60();
+//        List<StockWatch> items = databaseService.getAllMinute60();
 //        BucketData data = bucketDataContainer.getBucket60Data();
 //        data.setData(items);
 //        return items.size();
 //    }
 //
 //    public int loadMinuteDD() {
-//        List<StockWatchDb> items = databaseService.getAllDaily();
+//        List<StockWatch> items = databaseService.getAllDaily();
 //        BucketData data = bucketDataContainer.getBucketDailyData();
 //        data.setData(items);
 //        return items.size();

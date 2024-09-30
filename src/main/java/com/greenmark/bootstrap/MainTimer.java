@@ -35,10 +35,10 @@ public class MainTimer implements CommandLineRunner {
 //        currentActiveStocks = stockDbService.findActive();
 //        log.error("Current active stocks ["+currentActiveStocks.size()+"]");
 //
-//        Iterator<StockDb> iterator = currentActiveStocks.iterator();
+//        Iterator<Stock> iterator = currentActiveStocks.iterator();
 //        while (iterator.hasNext()) {
 //            try {
-//                StockDb stockDb = iterator.next();
+//                Stock stockDb = iterator.next();
 //                QuoteDomain domain = datafeedService.getQuote(stockDb.getSymbol());
 //            }
 //            catch (Exception e) {
@@ -48,7 +48,7 @@ public class MainTimer implements CommandLineRunner {
         // initialize or refresh
 
         // FOR EACH MINUTE
-        // update StockDaily
+        // update StockDailyDb
         // update BucketDaily
         // update BucketMinute60
         // update BucketMinute15

@@ -174,11 +174,11 @@ public class CongressionalTransaction {
     }
 
     /**
-     * Position.
+     * PositionDb.
      *
      * @return position
      **/
-    @Schema(description = "Position.")
+    @Schema(description = "PositionDb.")
     public String getPosition() {
         return position;
     }

@@ -1,6 +1,6 @@
 package com.greenmark.common.indicators;
 
-import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.StockWatch;
 import lombok.NonNull;
 
 import java.math.BigDecimal;
@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 public interface TAIndicator {
     String getName();
 
-    boolean isGreater(@NonNull StockWatchDb bucketData, @NonNull BigDecimal value);
+    boolean isGreater(@NonNull StockWatch bucketData, @NonNull BigDecimal value);
 
-    boolean isLess(@NonNull StockWatchDb bucketData, @NonNull BigDecimal value);
+    boolean isLess(@NonNull StockWatch bucketData, @NonNull BigDecimal value);
 
-    boolean isEqual(@NonNull StockWatchDb bucketData, @NonNull BigDecimal value);
+    boolean isEqual(@NonNull StockWatch bucketData, @NonNull BigDecimal value);
 }

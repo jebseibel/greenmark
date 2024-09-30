@@ -1,8 +1,8 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.AccountDb;
+import com.greenmark.common.database.domain.Account;
 import com.greenmark.common.enums.ActiveEnum;
-import com.greenmark.database.db.entity.Account;
+import com.greenmark.database.db.entity.AccountDb;
 import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
 import com.greenmark.database.exceptions.*;
@@ -22,7 +22,7 @@ public class AccountDbService extends BaseDbService {
     private final AccountMapper mapper;
 
     public AccountDbService(AccountRepository repository, AccountMapper mapper) {
-        super("Account");
+        super("AccountDb");
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -36,18 +36,18 @@ public class AccountDbService extends BaseDbService {
      * @return
      * @throws DataIntegrityViolationException
      */
-    public AccountDb create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
+    public Account create(@NonNull String extid, @NonNull String name, @NonNull String description) throws DatabaseCreateFailureException, DatabaseAccessException {
 
         try {
-            Account record = new Account();
+            AccountDb record = new AccountDb();
             record.setExtid(extid);
             record.setName(name);
             record.setDescription(description);
             record.setCreatedAt(LocalDateTime.now());
             record.setActive(ActiveEnum.ACTIVE.value);
-            Account saved = repository.save(record);
+            AccountDb saved = repository.save(record);
             log.debug(getCreatedMessage(extid));
-            return mapper.toDb(saved);
+            return mapper.toEntity(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException":
@@ -64,25 +64,25 @@ public class AccountDbService extends BaseDbService {
     }
 
     /**
-     * Update the Account name and description
+     * Update the AccountDb name and description
      *
      * @param extid       - the extid to use
      * @param name        - value for name
      * @param description - value for description
      * @return
      */
-    public AccountDb update(@NonNull String extid, String name, String description)
+    public Account update(@NonNull String extid, String name, String description)
             throws DatabaseRetrievalFailureException, DatabaseUpdateFailureException, DatabaseAccessException {
 
-        Account record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+        AccountDb record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
         try {
 
             record.setName(name);
             record.setDescription(description);
             record.setModifiedAt(LocalDateTime.now());
-            Account saved = repository.save(record);
+            AccountDb saved = repository.save(record);
             log.info(getUpdatedMessage(extid));
-            return mapper.toDb(saved);
+            return mapper.toEntity(saved);
         } catch (Exception e) {
             switch (e.getClass().getSimpleName()) {
                 case "DataIntegrityViolationException", "ConstraintViolationException":
@@ -105,7 +105,7 @@ public class AccountDbService extends BaseDbService {
      */
     public boolean delete(@NonNull String extid) throws DatabaseDeleteFailureException, DatabaseRetrievalFailureException {
         // error if the record isn't there
-        Account record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+        AccountDb record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
 
         //update record to show it is deleted
         record.setDeletedAt(LocalDateTime.now());
@@ -118,22 +118,22 @@ public class AccountDbService extends BaseDbService {
     }
 
     /**
-     * Find Account
+     * Find AccountDb
      *
      * @param extid - to find
      * @return boolean
      */
-    public AccountDb findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
-        Account record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
+    public Account findByExtid(@NonNull String extid) throws DatabaseRetrievalFailureException {
+        AccountDb record = repository.findByExtid(extid).orElseThrow(() -> new DatabaseRetrievalFailureException(getFoundFailureMessage(extid)));
         log.info(getFoundMessage(extid));
-        return mapper.toDb(record);
+        return mapper.toEntity(record);
     }
 
     /**
      * @return
      */
-    public List<AccountDb> findAll() {
-        List<Account> records = repository.findAll();
+    public List<Account> findAll() {
+        List<AccountDb> records = repository.findAll();
         return mapper.toList(records);
     }
 }

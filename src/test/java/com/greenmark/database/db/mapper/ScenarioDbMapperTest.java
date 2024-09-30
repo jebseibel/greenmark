@@ -1,8 +1,8 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.ScenarioDb;
+import com.greenmark.common.database.domain.Scenario;
 import com.greenmark.database.DomainBuilderDatabase;
-import com.greenmark.database.db.entity.Scenario;
+import com.greenmark.database.db.entity.ScenarioDb;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,15 +13,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class ScenarioMapperTest {
+class ScenarioDbMapperTest {
 
     @Autowired
     ScenarioMapper mapper;
 
     @Test
     void testToDb() {
-        Scenario item = DomainBuilderDatabase.getScenario();
-        ScenarioDb itemDb = mapper.toDb(item);
+        ScenarioDb item = DomainBuilderDatabase.getScenario();
+        Scenario itemDb = mapper.toEntity(item);
 
         //test
         assertEquals(item.getExtid(), itemDb.getExtid());
@@ -35,10 +35,10 @@ class ScenarioMapperTest {
 
     @Test
     void testToList() {
-        Scenario item1 = DomainBuilderDatabase.getScenario();
-        Scenario item2 = DomainBuilderDatabase.getScenario();
-        List<Scenario> items = Arrays.asList(item1, item2);
-        List<ScenarioDb> itemDbs = mapper.toList(items);
+        ScenarioDb item1 = DomainBuilderDatabase.getScenario();
+        ScenarioDb item2 = DomainBuilderDatabase.getScenario();
+        List<ScenarioDb> items = Arrays.asList(item1, item2);
+        List<Scenario> itemDbs = mapper.toList(items);
 
         //test
         assertEquals(items.size(), itemDbs.size());

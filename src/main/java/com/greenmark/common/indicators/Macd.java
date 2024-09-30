@@ -1,6 +1,6 @@
 package com.greenmark.common.indicators;
 
-import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.StockWatch;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -17,17 +17,17 @@ public class Macd implements TAIndicator {
 
     }
 
-    public boolean isGreater(@NonNull StockWatchDb bucketData, @NonNull BigDecimal value) {
+    public boolean isGreater(@NonNull StockWatch bucketData, @NonNull BigDecimal value) {
         System.out.println(bucketData.toStringTA());
         System.out.println(value);
         return value.compareTo(bucketData.getMacd()) > 0;
     }
 
-    public boolean isLess(@NonNull StockWatchDb bucketData, @NonNull BigDecimal value) {
+    public boolean isLess(@NonNull StockWatch bucketData, @NonNull BigDecimal value) {
         return value.compareTo(bucketData.getMacd()) < 0;
     }
 
-    public boolean isEqual(@NonNull StockWatchDb bucketData, @NonNull BigDecimal value) {
+    public boolean isEqual(@NonNull StockWatch bucketData, @NonNull BigDecimal value) {
         return value.compareTo(bucketData.getMacd()) == 0;
     }
 }

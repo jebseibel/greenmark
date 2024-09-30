@@ -1,8 +1,8 @@
 package com.greenmark.database;
 
-import com.greenmark.common.database.domain.AccountDb;
+import com.greenmark.common.database.domain.Account;
 import com.greenmark.common.database.domain.MarketData;
-import com.greenmark.common.database.domain.PositionDb;
+import com.greenmark.common.database.domain.Position;
 import com.greenmark.common.enums.ActiveEnum;
 import com.greenmark.common.enums.TimeframeType;
 import com.greenmark.database.db.entity.*;
@@ -21,25 +21,25 @@ public class DomainBuilderDatabase {
     public static String DESCRIPTION = "Desc_";
 
     // ///////////////////////////////////////////////////////////////////
-    public static AccountDb getAccountDb(Account item) {
-        return new AccountMapper().toDb(item);
+    public static Account getAccountDb(AccountDb item) {
+        return new AccountMapper().toEntity(item);
     }
 
-    public static Account getAccount() {
+    public static AccountDb getAccount() {
         return getAccount(null, null, null);
     }
 
-    public static Account getAccount(String name) {
+    public static AccountDb getAccount(String name) {
         return getAccount(name, null, null);
     }
 
-    public static Account getAccount(
+    public static AccountDb getAccount(
             String thisName,
             String thisDescription,
             String thisExtId
     ) {
         String random = getRandom();
-        Account item = new Account();
+        AccountDb item = new AccountDb();
         item.setExtid(thisExtId != null ? thisExtId : UUID.randomUUID().toString());
         item.setName(thisName != null ? thisName : getNameRandom(random));
         item.setDescription(thisDescription != null ? thisDescription : getDescriptionRandom(random));
@@ -51,20 +51,20 @@ public class DomainBuilderDatabase {
     }
 
     // //////////////////////////////////////////////////////////////////
-    public static PositionDb getPositionDb() {
-        Position item = getPosition(null, null);
-        return new PositionMapper().toDb(item);
+    public static Position getPositionDb() {
+        PositionDb item = getPosition(null, null);
+        return new PositionMapper().toEntity(item);
     }
 
-    public static Position getPosition() {
+    public static PositionDb getPosition() {
         return getPosition(null, null);
     }
 
-    public static Position getPosition(String name) {
+    public static PositionDb getPosition(String name) {
         return getPosition(name, null);
     }
 
-    public static Position getPosition(
+    public static PositionDb getPosition(
             String thisName,
             String thisSymbol
     ) {
@@ -73,7 +73,7 @@ public class DomainBuilderDatabase {
         int shares = 10;
         //create
         BigDecimal total = price.multiply(new BigDecimal(shares));
-        Position item = new Position();
+        PositionDb item = new PositionDb();
         item.setExtid(UUID.randomUUID().toString());
         item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
         item.setName(thisName != null ? thisName : getNameRandom(random));
@@ -88,38 +88,38 @@ public class DomainBuilderDatabase {
     }
 
 
-    public static StockWatch getStockWatchMinute01() {
+    public static StockWatchDb getStockWatchMinute01() {
         String symbol = getSymbolRandom();
         return getStockWatch(symbol, TimeframeType.MINUTE01);
     }
 
-    public static StockWatch getStockWatchMinute05() {
+    public static StockWatchDb getStockWatchMinute05() {
         String symbol = getSymbolRandom();
         return getStockWatch(symbol, TimeframeType.MINUTE05);
     }
 
-    public static StockWatch getStockWatchMinute15() {
+    public static StockWatchDb getStockWatchMinute15() {
         String symbol = getSymbolRandom();
         return getStockWatch(symbol, TimeframeType.MINUTE15);
     }
 
-    public static StockWatch getStockWatchMinute60() {
+    public static StockWatchDb getStockWatchMinute60() {
         String symbol = getSymbolRandom();
         return getStockWatch(symbol, TimeframeType.MINUTE60);
     }
 
-    public static StockWatch getStockWatchDaily() {
+    public static StockWatchDb getStockWatchDaily() {
         String symbol = getSymbolRandom();
         return getStockWatch(symbol, TimeframeType.DAILY);
     }
 
     // //////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////
-    public static StockWatch getStockWatch(
+    public static StockWatchDb getStockWatch(
             String thisSymbol,
             TimeframeType timeframeType
     ) {
-        StockWatch item = new StockWatch();
+        StockWatchDb item = new StockWatchDb();
         item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
         item.setTimeframe(timeframeType.value);
         item.setCurrent(randomBigDecimal());
@@ -140,19 +140,19 @@ public class DomainBuilderDatabase {
 
 
     // //////////////////////////////////////////////////////////////////
-    public static Scenario getScenario() {
+    public static ScenarioDb getScenario() {
         return getScenario(null, null);
     }
 
-    public static Scenario getScenario(String name) {
+    public static ScenarioDb getScenario(String name) {
         return getScenario(name, null);
     }
 
-    public static Scenario getScenario(
+    public static ScenarioDb getScenario(
             String thisName,
             String thisDescription
     ) {
-        Scenario item = new Scenario();
+        ScenarioDb item = new ScenarioDb();
         item.setExtid(UUID.randomUUID().toString());
         item.setName(thisName != null ? thisName : getNameRandom());
         item.setDescription(thisDescription != null ? thisDescription : getDescriptionRandom());
@@ -164,19 +164,19 @@ public class DomainBuilderDatabase {
     }
 
     // //////////////////////////////////////////////////////////////////
-    public static Stock getStock() {
+    public static StockDb getStock() {
         return getStock(null, null);
     }
 
-    public static Stock getStock(String name) {
+    public static StockDb getStock(String name) {
         return getStock(name, null);
     }
 
-    public static Stock getStock(
+    public static StockDb getStock(
             String thisName,
             String thisSymbol
     ) {
-        Stock item = new Stock();
+        StockDb item = new StockDb();
         item.setExtid(UUID.randomUUID().toString());
         item.setName(thisName != null ? thisName : getNameRandom());
         item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
@@ -189,14 +189,14 @@ public class DomainBuilderDatabase {
     }
 
     // //////////////////////////////////////////////////////////////////
-    public static StockDaily getStockDaily() {
+    public static StockDailyDb getStockDaily() {
         return getStockDaily(null);
     }
 
-    public static StockDaily getStockDaily(
+    public static StockDailyDb getStockDaily(
             String thisSymbol
     ) {
-        StockDaily item = new StockDaily();
+        StockDailyDb item = new StockDailyDb();
         item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
         item.setCurrent(randomBigDecimal());
         item.setOpen(randomBigDecimal());
@@ -215,15 +215,15 @@ public class DomainBuilderDatabase {
         return item;
     }
 
-    public static StockWatch getStockWatch() {
+    public static StockWatchDb getStockWatch() {
         String symbol = getSymbolRandom();
         return getStockWatch(symbol);
     }
 
-    public static StockWatch getStockWatch(
+    public static StockWatchDb getStockWatch(
             String thisSymbol
     ) {
-        StockWatch item = new StockWatch();
+        StockWatchDb item = new StockWatchDb();
         item.setSymbol(thisSymbol != null ? thisSymbol : getSymbolRandom());
         item.setCurrent(randomBigDecimal());
         item.setOpen(randomBigDecimal());

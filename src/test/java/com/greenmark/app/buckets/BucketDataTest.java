@@ -1,6 +1,6 @@
 package com.greenmark.app.buckets;
 
-import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.StockWatch;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +21,12 @@ class BucketDataTest {
         bucketData.setDemote(BigDecimal.ONE);
         bucketData.setPromote(BigDecimal.TWO);
 
-        StockWatchDb stockWatchDb1 = new StockWatchDb();
-        stockWatchDb1.setSymbol("test1");
-        StockWatchDb stockWatchDb2 = new StockWatchDb();
-        stockWatchDb2.setSymbol("test2");
-//        bucketData.addItem(stockWatchDb1);
-//        bucketData.addItem(stockWatchDb2);
+        StockWatch stockWatch1 = new StockWatch();
+        stockWatch1.setSymbol("test1");
+        StockWatch stockWatch2 = new StockWatch();
+        stockWatch2.setSymbol("test2");
+//        bucketData.addItem(stockWatch1);
+//        bucketData.addItem(stockWatch2);
     }
 
     @Test

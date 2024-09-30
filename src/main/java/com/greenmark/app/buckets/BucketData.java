@@ -2,7 +2,7 @@ package com.greenmark.app.buckets;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.greenmark.common.database.domain.StockWatchDb;
+import com.greenmark.common.database.domain.StockWatch;
 import com.greenmark.common.enums.TimeframeType;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @Component
 @Data
-@JsonPropertyOrder({ "name", "order", "timeframe", "demote", "promote", "stockWatchDbList" })
+@JsonPropertyOrder({ "name", "order", "timeframe", "demote", "promote", "stockWatchList" })
 public class BucketData {
 
     @JsonProperty("name")
@@ -34,7 +34,7 @@ public class BucketData {
     BigDecimal demote;
 
     @JsonProperty("stocklist")
-    List<StockWatchDb> stockWatchDbList = new ArrayList<>();
+    List<StockWatch> stockWatchList = new ArrayList<>();
 
     public BucketData() {
     }
@@ -44,13 +44,13 @@ public class BucketData {
      *
      * @param item
      */
-    public void addItem(StockWatchDb item) {
-        if (!stockWatchDbList.contains(item))
-            stockWatchDbList.add(item);
+    public void addItem(StockWatch item) {
+        if (!stockWatchList.contains(item))
+            stockWatchList.add(item);
     }
 
-    public void removeItem(StockWatchDb item) {
-        stockWatchDbList.remove(item);
+    public void removeItem(StockWatch item) {
+        stockWatchList.remove(item);
     }
 
     public String toStringLong() {
@@ -66,7 +66,7 @@ public class BucketData {
         sb.append("\nStocks:\n");
         //list
         sb.append("----------------\n");
-        stockWatchDbList.forEach(s -> { sb.append(s.toString()).append("\n"); });
+        stockWatchList.forEach(s -> { sb.append(s.toString()).append("\n"); });
 
         return sb.toString();
     }

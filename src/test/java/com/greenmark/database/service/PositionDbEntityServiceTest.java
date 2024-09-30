@@ -1,8 +1,8 @@
 package com.greenmark.database.service;
 
-import com.greenmark.common.database.domain.AccountDb;
+import com.greenmark.common.database.domain.Account;
 import com.greenmark.database.DomainBuilderDatabase;
-import com.greenmark.database.db.entity.Account;
+import com.greenmark.database.db.entity.AccountDb;
 import com.greenmark.database.db.mapper.AccountMapper;
 import com.greenmark.database.db.repository.AccountRepository;
 import com.greenmark.database.exceptions.DatabaseAccessException;
@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class PositionDbServiceTest {
+class PositionDbEntityServiceTest {
 
     @InjectMocks
     AccountDbService service;
@@ -39,8 +39,8 @@ class PositionDbServiceTest {
     @Nested
     class CreateTests {
 
-        Account item = DomainBuilderDatabase.getAccount();
-        AccountDb itemDb = DomainBuilderDatabase.getAccountDb(item);
+        AccountDb item = DomainBuilderDatabase.getAccount();
+        Account itemDb = DomainBuilderDatabase.getAccountDb(item);
         String extid = item.getExtid();
         String name = item.getName();
         String description = item.getDescription();
@@ -48,10 +48,10 @@ class PositionDbServiceTest {
         @Test
         void created() throws Exception {
             // mocks
-            when(accountRepository.save(any(Account.class))).thenReturn(item);
-            when(mapper.toDb(item)).thenReturn(itemDb);
+            when(accountRepository.save(any(AccountDb.class))).thenReturn(item);
+            when(mapper.toEntity(item)).thenReturn(itemDb);
 
-            AccountDb result = service.create(extid, name, description);
+            Account result = service.create(extid, name, description);
 
             // validate
             assertNotNull(result);
@@ -64,9 +64,9 @@ class PositionDbServiceTest {
     @Nested
     class UpdateTests {
 
-        Account item = DomainBuilderDatabase.getAccount();
-        AccountDb itemDb = DomainBuilderDatabase.getAccountDb(item);
-        Optional<Account> itemOptional = Optional.of(item);
+        AccountDb item = DomainBuilderDatabase.getAccount();
+        Account itemDb = DomainBuilderDatabase.getAccountDb(item);
+        Optional<AccountDb> itemOptional = Optional.of(item);
 
 
         @Test
@@ -77,11 +77,11 @@ class PositionDbServiceTest {
 
             // mocks
             when(accountRepository.findByExtid(extid)).thenReturn(itemOptional);
-            when(accountRepository.save(any(Account.class))).thenReturn(item);
-            when(mapper.toDb(item)).thenReturn(itemDb);
+            when(accountRepository.save(any(AccountDb.class))).thenReturn(item);
+            when(mapper.toEntity(item)).thenReturn(itemDb);
 
             // execute
-            AccountDb result = service.update(extid, newName, newDescription);
+            Account result = service.update(extid, newName, newDescription);
 
             // validate
             assertNotNull(result);
@@ -104,9 +104,9 @@ class PositionDbServiceTest {
     @Nested
     class FindMockTests {
 
-        Account item = DomainBuilderDatabase.getAccount();
-        AccountDb itemDb = DomainBuilderDatabase.getAccountDb(item);
-        Optional<Account> itemOptional = Optional.of(item);
+        AccountDb item = DomainBuilderDatabase.getAccount();
+        Account itemDb = DomainBuilderDatabase.getAccountDb(item);
+        Optional<AccountDb> itemOptional = Optional.of(item);
         String extid = item.getExtid();
 
         @Test
@@ -114,10 +114,10 @@ class PositionDbServiceTest {
         void findByExtid() throws DatabaseRetrievalFailureException {
             // mocks
             when(accountRepository.findByExtid(extid)).thenReturn(itemOptional);
-            when(mapper.toDb(item)).thenReturn(itemDb);
+            when(mapper.toEntity(item)).thenReturn(itemDb);
 
             // execute
-            AccountDb result = service.findByExtid(extid);
+            Account result = service.findByExtid(extid);
 
             // validate
             //verify(accountRepository).findByExtid(extid);
@@ -144,8 +144,8 @@ class PositionDbServiceTest {
 
         @Test
         void deleted() throws DatabaseRetrievalFailureException, DatabaseDeleteFailureException {
-            Account item = DomainBuilderDatabase.getAccount();
-            AccountDb itemDb = DomainBuilderDatabase.getAccountDb(item);
+            AccountDb item = DomainBuilderDatabase.getAccount();
+            Account itemDb = DomainBuilderDatabase.getAccountDb(item);
             String extid = item.getExtid();
 
             //mock

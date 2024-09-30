@@ -3,12 +3,15 @@ package com.greenmark.database.db.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "scenario")
-public class Scenario {
+@Table(name = "stock")
+public class StockDb implements Serializable {
+    private static final long serialVersionUID = -3779377594651740105L;
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +20,14 @@ public class Scenario {
     @Column(name = "extid", length = 36, nullable = false, unique = true)
     private String extid;
 
-    @Column(name = "name", length = 64, nullable = false, unique = true)
+    @Column(name = "symbol", length = 8, nullable = false, unique = true)
+    private String symbol;
+
+    @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    @Column(name = "description", length = 128, nullable = false)
-    private String description;
+    @Column(name = "ready", columnDefinition = "integer default 1")
+    private Integer ready;
 
     /**
      * BASE FIELDS
@@ -35,6 +41,6 @@ public class Scenario {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(name = "active")
+    @Column(name = "active", columnDefinition = "integer default 1")
     private Integer active;
 }

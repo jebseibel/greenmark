@@ -1,7 +1,7 @@
 package com.greenmark.database.db.repository;
 
 import com.greenmark.database.DomainBuilderDatabase;
-import com.greenmark.database.db.entity.StockWatch;
+import com.greenmark.database.db.entity.StockWatchDb;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class StockWatchRepositoryTest {
+class StockDbWatchRepositoryTest {
 
     @Autowired
     private StockWatchRepository repository;
@@ -24,9 +24,9 @@ class StockWatchRepositoryTest {
 
         @Test
         void create() {
-            StockWatch item = DomainBuilderDatabase.getStockWatchDaily();
+            StockWatchDb item = DomainBuilderDatabase.getStockWatchDaily();
             assertNull(item.getId());
-            StockWatch result = repository.save(item);
+            StockWatchDb result = repository.save(item);
 
             //test
             assertNotNull(result);
@@ -37,8 +37,8 @@ class StockWatchRepositoryTest {
         @Test
         void createSymbolNotUnique() {
             String symbol = DomainBuilderDatabase.getSymbolRandom();
-            StockWatch item1 = DomainBuilderDatabase.getStockWatchDaily();
-            StockWatch item2 = DomainBuilderDatabase.getStockWatchDaily();
+            StockWatchDb item1 = DomainBuilderDatabase.getStockWatchDaily();
+            StockWatchDb item2 = DomainBuilderDatabase.getStockWatchDaily();
 
             item1.setSymbol(symbol);
             item2.setSymbol(symbol);
@@ -48,14 +48,14 @@ class StockWatchRepositoryTest {
 
         @Test
         void update() {
-            StockWatch item = DomainBuilderDatabase.getStockWatchDaily();
+            StockWatchDb item = DomainBuilderDatabase.getStockWatchDaily();
             assertNull(item.getId());
             assertNull(item.getModifiedAt());
-            StockWatch record = repository.save(item);
+            StockWatchDb record = repository.save(item);
 
             //now update
             record.setModifiedAt(LocalDateTime.now());
-            StockWatch resultUpdate = repository.save(record);
+            StockWatchDb resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -64,14 +64,14 @@ class StockWatchRepositoryTest {
 
         @Test
         void delete() {
-            StockWatch item = DomainBuilderDatabase.getStockWatchDaily();
+            StockWatchDb item = DomainBuilderDatabase.getStockWatchDaily();
             assertNull(item.getId());
             assertNull(item.getDeletedAt());
-            StockWatch record = repository.save(item);
+            StockWatchDb record = repository.save(item);
 
             //now update
             record.setDeletedAt(LocalDateTime.now());
-            StockWatch resultUpdate = repository.save(record);
+            StockWatchDb resultUpdate = repository.save(record);
 
             //test
             assertNotNull(resultUpdate);
@@ -85,11 +85,11 @@ class StockWatchRepositoryTest {
         @Test
         void findBySymbol() {
             String symbol = DomainBuilderDatabase.getSymbolRandom();
-            StockWatch record = DomainBuilderDatabase.getStockWatchDaily();
+            StockWatchDb record = DomainBuilderDatabase.getStockWatchDaily();
             System.out.println(symbol);
             repository.save(record);
 
-            Optional<StockWatch> result = repository.findBySymbol(symbol);
+            Optional<StockWatchDb> result = repository.findBySymbol(symbol);
 
             //test
             assertNotNull(result);

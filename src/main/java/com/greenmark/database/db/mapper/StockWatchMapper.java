@@ -1,7 +1,7 @@
 package com.greenmark.database.db.mapper;
 
-import com.greenmark.common.database.domain.StockWatchDb;
-import com.greenmark.database.db.entity.StockWatch;
+import com.greenmark.common.database.domain.StockWatch;
+import com.greenmark.database.db.entity.StockWatchDb;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -12,15 +12,15 @@ import java.util.List;
 @NoArgsConstructor
 public class StockWatchMapper {
 
-    public StockWatchDb toDb(StockWatch item) {
-        return new ModelMapper().map(item, StockWatchDb.class);
+    public StockWatch toEntity(StockWatchDb item) {
+        return new ModelMapper().map(item, StockWatch.class);
     }
 
-    public StockWatch toEntity(StockWatchDb itemDb) {
-        return new ModelMapper().map(itemDb, StockWatch.class);
-    }
+//    public StockWatchDb toEntity(StockWatch itemDb) {
+//        return new ModelMapper().map(itemDb, StockWatchDb.class);
+//    }
 
-    public List<StockWatchDb> toList(List<StockWatch> items) {
-        return items.stream().map(this::toDb).toList();
+    public List<StockWatch> toList(List<StockWatchDb> items) {
+        return items.stream().map(this::toEntity).toList();
     }
 }
