@@ -1,11 +1,9 @@
 package com.greenmark;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
-@Slf4j
 @SpringBootApplication
 @EnableCaching
 public class GreenmarkApplication {
@@ -19,6 +17,6 @@ public class GreenmarkApplication {
 //                .addAcceptorConfiguration("invm", "vm://0"));
 //        server.start();
         SpringApplication.run(GreenmarkApplication.class, args);
-        log.info("APPLICATION READY");
+//        log.info("APPLICATION READY");
     }
 }

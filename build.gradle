@@ -28,6 +28,8 @@ dependencies {
     //liquibase
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
 
+    //dynamoDb
+    implementation("com.amazonaws:aws-java-sdk-dynamodb:1.12.530")
     //other
     implementation("org.json:json:$jsonVersion")
     implementation("com.google.code.gson:gson:${gsonVersion}")
@@ -51,6 +53,12 @@ dependencies {
 //    implementation("org.apache.commons:commons-dbcp2:$commonsDbcp2Version")
 //    implementation("org.apache.commons:commons-digester3:$commonsDigester3Version")
 //    implementation("org.apache.commons:commons-pool2:$commonsPool2Version")
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.greenmark.GreenmarkApplication'
+    }
 }
 
 test {

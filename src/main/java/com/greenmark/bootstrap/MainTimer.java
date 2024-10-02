@@ -20,18 +20,18 @@ public class MainTimer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.error("START MAIN TIMER");
+//        log.error("START MAIN TIMER");
 
 //        startupService.loadAll();
 //        bucketAllData = startupService.getBucketAllData();
 //        System.out.println(bucketAllData);
 
 
-        log.error("CLOSE MAIN TIMER");
+//        log.error("CLOSE MAIN TIMER");
     }
 
     public void initialize() throws DatabaseRetrievalFailureException {
-        log.error("START INITIALIZE");
+//        log.error("START INITIALIZE");
 //        currentActiveStocks = stockDbService.findActive();
 //        log.error("Current active stocks ["+currentActiveStocks.size()+"]");
 //
@@ -54,7 +54,7 @@ public class MainTimer implements CommandLineRunner {
         // update BucketMinute15
         // update BucketMinute05
         // update BucketMinute01
-        log.error("CLOSE INITIALIZE");
+//        log.error("CLOSE INITIALIZE");
     }
 
 
