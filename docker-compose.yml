@@ -1,6 +1,6 @@
 services:
-  mysqlapp:
-    container_name: mysqldb
+  greenmark-db:
+    container_name: greenmark-db
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -9,14 +9,12 @@ services:
       MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
-#    volumes:
-#      - pgdata:/var/lib/mysql/data
     networks:
       springboot-mysql-net:
   liquibase:
     image: liquibase/liquibase:latest
     depends_on:
-      - mysqlapp
+      - greenmark-db
     environment:
       LIQUIBASE_URL: jdbc:mysql://mysql:3306/mydb
       LIQUIBASE_USERNAME: root
@@ -25,18 +23,18 @@ services:
     volumes:
       - ./db/changelog:/db/changelog
     command: update
-  my-web-app:
-    container_name: greenmark
+  greenmark-app:
+    container_name: greenmark-app
     build: .
     ports:
         - "8080:8080"
     environment:
-      - spring.datasource.url=jdbc:mysql://mysqldb:3306/mydb
+      - spring.datasource.url=jdbc:mysql://greenmark-db:3306/mydb
       - spring.datasource.username=jeb
       - spring.datasource.password=password
       - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
     depends_on:
-      - mysqlapp
+      - greenmark-db
     networks:
       springboot-mysql-net:
 
