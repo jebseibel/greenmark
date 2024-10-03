@@ -27,10 +27,7 @@ dependencies {
 
     //liquibase
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
-//    implementation 'org.liquibase.ext:liquibase-commercial-dynamodb:1.1.1'
 
-    //dynamoDb
-    implementation("com.amazonaws:aws-java-sdk-dynamodb:1.12.530")
     //other
     implementation("org.json:json:$jsonVersion")
     implementation("com.google.code.gson:gson:${gsonVersion}")
