@@ -39,7 +39,7 @@ spring:
     show-sql: false
   mail:
     host: smtp.gmail.com
-    password: t2Z7qIUHhx!PJuN&
+    password: <password>
     port: 587
     properties:
       mail:
@@ -47,5 +47,5 @@ spring:
           auth: true
           starttls:
             enable: 'true'
-    username: jeb.seibel@gmail.com
+    username: <email>
 thread-pool: 12
